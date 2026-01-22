@@ -60,7 +60,7 @@ const GDSlide10Solutions = ({
   return (
     <GDSlideContainer
       id="gd-slide-10"
-      title="5 Solutions. 1 Connected System. Compound Value."
+      title="5 Solutions. 1 Connected Platform. Compound Value."
       subtitle="From weak signal → winning launch → sustained growth"
       slideNumber={10}
       isPlaying={isPlaying}
@@ -115,7 +115,7 @@ const GDSlide10Solutions = ({
           <div className="p-4 rounded-xl bg-primary/5 border border-primary/30">
             <h4 className="text-sm font-semibold text-primary mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary" />
-              If Bought as Connected System
+              If Bought as Connected Platform
             </h4>
             <ul className="space-y-2">
               {comparisonData.map((item, i) => (
