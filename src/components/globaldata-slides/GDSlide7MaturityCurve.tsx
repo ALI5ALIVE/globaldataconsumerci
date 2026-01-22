@@ -183,11 +183,11 @@ const stagesData: MaturityStage[] = [
 
 // Timing markers for narration-synced stage changes
 const stageTimings = [
-  { stage: 1, startPercent: 5 },
-  { stage: 2, startPercent: 20 },
+  { stage: 1, startPercent: 10 },
+  { stage: 2, startPercent: 22 },
   { stage: 3, startPercent: 35 },
-  { stage: 4, startPercent: 52 },
-  { stage: 5, startPercent: 70 },
+  { stage: 4, startPercent: 50 },
+  { stage: 5, startPercent: 68 },
 ];
 
 const GDSlide7MaturityCurve = ({
@@ -410,10 +410,10 @@ const GDSlide7MaturityCurve = ({
                     {/* X-axis labels - 2x font */}
                     {(() => {
                       const shortLabels: Record<number, string> = {
-                        1: "Fragmented",
-                        2: "Managed",
+                        1: "Firefighting",
+                        2: "Structured",
                         3: "Connected",
-                        4: "Optimized",
+                        4: "Embedded",
                         5: "Predictive",
                       };
                       return (

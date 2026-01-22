@@ -203,11 +203,11 @@ const layerOrder = ["FRAGMENTED", "MANAGED", "CONNECTED", "OPERATIONAL", "PREDIC
 
 // Timing markers for narration-synced stage changes
 const stageTimings = [
-  { stage: "FRAGMENTED", startPercent: 8 },
-  { stage: "MANAGED", startPercent: 22 },
-  { stage: "CONNECTED", startPercent: 35 },
-  { stage: "OPERATIONAL", startPercent: 52 },
-  { stage: "PREDICTIVE", startPercent: 70 },
+  { stage: "FRAGMENTED", startPercent: 12 },
+  { stage: "MANAGED", startPercent: 28 },
+  { stage: "CONNECTED", startPercent: 42 },
+  { stage: "OPERATIONAL", startPercent: 56 },
+  { stage: "PREDICTIVE", startPercent: 72 },
 ];
 
 const GDSlide6ValuePyramid = ({

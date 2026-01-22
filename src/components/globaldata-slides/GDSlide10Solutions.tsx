@@ -6,11 +6,11 @@ import { SlideNarrationProps } from "@/types/slideProps";
 
 // Map narration progress to active step
 const stepTimings = [
-  { index: 0, startPercent: 15 },  // Strategic
-  { index: 1, startPercent: 30 },  // Market
-  { index: 2, startPercent: 45 },  // Competitive
-  { index: 3, startPercent: 55 },  // Innovation
-  { index: 4, startPercent: 70 },  // Sales
+  { index: 0, startPercent: 18 },  // Strategic
+  { index: 1, startPercent: 28 },  // Market
+  { index: 2, startPercent: 40 },  // Competitive
+  { index: 3, startPercent: 50 },  // Innovation
+  { index: 4, startPercent: 62 },  // Sales
 ];
 
 const comparisonData = [
