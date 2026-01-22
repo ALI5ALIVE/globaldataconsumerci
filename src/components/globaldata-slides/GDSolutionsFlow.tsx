@@ -19,6 +19,7 @@ const solutions = [
     color: "from-blue-500 to-blue-600",
     borderColor: "border-blue-500/50",
     bgColor: "bg-blue-500/10",
+    dotColor: "#3b82f6",
   },
   {
     id: "market",
@@ -31,6 +32,7 @@ const solutions = [
     color: "from-sky-400 to-sky-500",
     borderColor: "border-sky-400/50",
     bgColor: "bg-sky-400/10",
+    dotColor: "#38bdf8",
   },
   {
     id: "competitive",
@@ -43,6 +45,7 @@ const solutions = [
     color: "from-cyan-400 to-cyan-500",
     borderColor: "border-cyan-400/50",
     bgColor: "bg-cyan-400/10",
+    dotColor: "#22d3ee",
   },
   {
     id: "innovation",
@@ -55,6 +58,7 @@ const solutions = [
     color: "from-teal-400 to-teal-500",
     borderColor: "border-teal-400/50",
     bgColor: "bg-teal-400/10",
+    dotColor: "#2dd4bf",
   },
   {
     id: "sales",
@@ -67,7 +71,16 @@ const solutions = [
     color: "from-green-400 to-green-500",
     borderColor: "border-green-400/50",
     bgColor: "bg-green-400/10",
+    dotColor: "#4ade80",
   },
+];
+
+// Animated dots configuration
+const flowingDots = [
+  { id: 1, delay: 0 },
+  { id: 2, delay: 1.5 },
+  { id: 3, delay: 3 },
+  { id: 4, delay: 4.5 },
 ];
 
 const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDSolutionsFlowProps) => {
@@ -75,12 +88,103 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
     <div className="w-full">
       {/* Solutions Flow */}
       <div className="relative">
-        {/* Unified Data Layer - Background Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-lg border border-primary/30 flex items-center justify-center z-0">
-          <span className="text-xs sm:text-sm font-medium text-primary">
+        {/* Unified Data Layer - Background Bar with animated dots */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-lg border border-primary/30 flex items-center justify-center z-0 overflow-hidden">
+          <span className="text-xs sm:text-sm font-medium text-primary relative z-10">
             Unified Taxonomy & Data Layer
           </span>
+          
+          {/* Animated flowing dots in the data layer */}
+          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="dotGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="25%" stopColor="#38bdf8" />
+                <stop offset="50%" stopColor="#22d3ee" />
+                <stop offset="75%" stopColor="#2dd4bf" />
+                <stop offset="100%" stopColor="#4ade80" />
+              </linearGradient>
+              <filter id="dotGlow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            {/* Flowing dots along the data layer */}
+            {flowingDots.map((dot) => (
+              <circle
+                key={dot.id}
+                r="4"
+                fill="url(#dotGradient)"
+                filter="url(#dotGlow)"
+                opacity="0.8"
+              >
+                <animate
+                  attributeName="cx"
+                  values="0%;100%"
+                  dur="6s"
+                  begin={`${dot.delay}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="cy"
+                  values="50%;50%"
+                  dur="6s"
+                  begin={`${dot.delay}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            ))}
+          </svg>
         </div>
+
+        {/* Connection lines SVG overlay */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-5" style={{ top: 0 }}>
+          <defs>
+            <filter id="connectionGlow">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          {/* Animated dots flowing between cards */}
+          {[0, 1, 2, 3].map((connectionIndex) => (
+            <g key={connectionIndex}>
+              {/* Dot traveling from card to card via data layer */}
+              <circle
+                r="3"
+                fill={solutions[connectionIndex].dotColor}
+                filter="url(#connectionGlow)"
+                opacity="0.9"
+              >
+                {/* Animate down to data layer */}
+                <animate
+                  attributeName="cy"
+                  values="40%;85%;85%;40%"
+                  keyTimes="0;0.25;0.75;1"
+                  dur="4s"
+                  begin={`${connectionIndex * 0.8}s`}
+                  repeatCount="indefinite"
+                />
+                {/* Animate across to next card */}
+                <animate
+                  attributeName="cx"
+                  values={`${10 + connectionIndex * 20}%;${10 + connectionIndex * 20}%;${10 + (connectionIndex + 1) * 20}%;${10 + (connectionIndex + 1) * 20}%`}
+                  keyTimes="0;0.25;0.75;1"
+                  dur="4s"
+                  begin={`${connectionIndex * 0.8}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
+          ))}
+        </svg>
 
         {/* Solutions Grid */}
         <div className="grid grid-cols-5 gap-2 sm:gap-4 pb-16 relative z-10">
