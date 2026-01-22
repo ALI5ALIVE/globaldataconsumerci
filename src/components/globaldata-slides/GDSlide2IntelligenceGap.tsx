@@ -79,9 +79,7 @@ const GDSlide2IntelligenceGap = ({
                     <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
                       <cause.icon className="w-4 h-4 text-destructive" />
                     </div>
-                    {i < rootCauses.length - 1 && (
-                      <ArrowRight className="w-4 h-4 text-muted-foreground/30 hidden sm:block" />
-                    )}
+                  <ArrowRight className="w-4 h-4 text-muted-foreground/30 hidden sm:block" />
                   </div>
                   <div className="flex-1">
                     <h4 className="text-sm font-semibold text-foreground">{cause.title}</h4>
