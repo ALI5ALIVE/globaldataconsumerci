@@ -5,21 +5,21 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const painPoints = [
   { 
     icon: TrendingDown, 
-    title: "Market Velocity", 
+    title: "Can You See It Coming?", 
     desc: "Consumer behaviour shifts faster than insight cycles can track",
     stat: "3x",
     statLabel: "faster shifts"
   },
   { 
     icon: Clock, 
-    title: "Shrinking Windows", 
+    title: "Can You Move Fast Enough?", 
     desc: "Innovation and GTM windows are shorter and less forgiving",
     stat: "40%",
     statLabel: "narrower"
   },
   { 
     icon: Users, 
-    title: "Asymmetric Competition", 
+    title: "Can You Compete Lean?", 
     desc: "Competitors scale faster with fewer assets",
     stat: "2x",
     statLabel: "faster rivals"
@@ -38,8 +38,8 @@ const GDSlide1GrowthReality = ({
   return (
     <GDSlideContainer
       id="gd-slide-1"
-      title="Markets Reward Speed and Conviction"
-      subtitle="The growth reality every consumer brand faces"
+      title="The Market Has Changed. Has Your Intelligence?"
+      subtitle="Speed and conviction win. Most organisations have neither."
       slideNumber={1}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -106,7 +106,7 @@ const GDSlide1GrowthReality = ({
         {/* Bottom callout */}
         <div className="bg-card border border-border/50 rounded-lg p-4 text-center">
           <p className="text-sm text-foreground">
-            <span className="font-semibold text-primary">Category leaders</span> don't just have better data — they have <span className="font-semibold text-primary">connected intelligence</span> that enables faster, unified action.
+            <span className="font-semibold text-primary">Category performers</span> don't just have better data — they have <span className="font-semibold text-primary">connected intelligence</span> that enables faster, unified action.
           </p>
         </div>
       </div>

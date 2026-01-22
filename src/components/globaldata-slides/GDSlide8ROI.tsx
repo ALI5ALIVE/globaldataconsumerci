@@ -47,8 +47,8 @@ const GDSlide8ROI = ({
   return (
     <GDSlideContainer
       id="gd-slide-8"
-      title="ROI Shows Up in Three Places"
-      subtitle="Measurable returns that compound as maturity increases"
+      title="The Returns Start Immediately"
+      subtitle="Speed. Outcomes. Cost. All measurable within 6 months."
       slideNumber={8}
       isPlaying={isPlaying}
       isLoading={isLoading}

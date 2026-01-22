@@ -60,8 +60,8 @@ const GDSlide10Solutions = ({
   return (
     <GDSlideContainer
       id="gd-slide-10"
-      title="5 Solutions. 1 Connected Platform. Compound Value."
-      subtitle="From weak signal → winning launch → sustained growth"
+      title="One Platform. Five Solutions. Compounding Returns."
+      subtitle="See how it works for a global FMCG brand"
       slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}

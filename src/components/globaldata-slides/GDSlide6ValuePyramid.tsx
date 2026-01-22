@@ -10,7 +10,7 @@ const layersData: GDLayerData[] = [
   {
     id: "PREDICTIVE",
     level: 1,
-    headline: "Predictive & Adaptive Category Leadership",
+    headline: "Predictive: Category Performance Unlocked",
     sublabel: "Highest Maturity / AI-Accelerated",
     whatItLooksLike: [
       "AI-driven market predictions integrated into strategic planning cycles",
@@ -20,13 +20,13 @@ const layersData: GDLayerData[] = [
       "Ava anticipates market shifts before competitors can react",
     ],
     result: [
-      "Data-led category leadership, outpacing competition",
+      "Data-led category performance, outpacing competition",
       "Faster, smarter bets in innovation, pricing and investment",
       "Business outcomes continuously optimized by intelligence feedback loops",
-      "Sustained category leadership through predictive advantage",
+      "Sustained category performance through predictive advantage",
     ],
     whyItMatters:
-      "Moves the enterprise from reactive to proactive category strategy. Leaders who reach this stage set market direction—they don't follow. Organization shapes the market instead of responding to it.",
+      "Moves the enterprise from reactive to proactive category strategy. Organisations who reach this stage set market direction—they don't follow. Organization shapes the market instead of responding to it.",
     colorClass: "bg-gradient-to-b from-pyramid-transformational to-pyramid-transformational/80",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
@@ -47,7 +47,7 @@ const layersData: GDLayerData[] = [
   {
     id: "OPERATIONAL",
     level: 2,
-    headline: "Operational Intelligence",
+    headline: "Embedded: Intelligence in the Workflow",
     sublabel: "Advanced / Insight in Workflow",
     whatItLooksLike: [
       "Advanced analytics integrated into daily workflows across multiple markets",
@@ -83,7 +83,7 @@ const layersData: GDLayerData[] = [
   {
     id: "CONNECTED",
     level: 3,
-    headline: "Connected & Governed Intelligence",
+    headline: "Connected: One Truth Emerges",
     sublabel: "Optimizing / Platform Foundation",
     whatItLooksLike: [
       "Unified taxonomy, governance, and KPIs across all data types and markets",
@@ -119,7 +119,7 @@ const layersData: GDLayerData[] = [
   {
     id: "MANAGED",
     level: 4,
-    headline: "Managed but Siloed Intelligence",
+    headline: "Structured Silos: Better Data, Same Debates",
     sublabel: "Developing / Strong tools, limited connection",
     whatItLooksLike: [
       "Multiple data sources and visualization tools in use",
@@ -154,7 +154,7 @@ const layersData: GDLayerData[] = [
   {
     id: "FRAGMENTED",
     level: 5,
-    headline: "Fragmented & Reactive Intelligence",
+    headline: "Firefighting: Insight Exists, Trust Doesn't",
     sublabel: "Starting Point",
     whatItLooksLike: [
       "Insight requests handled ad hoc; minimal self-service",
@@ -300,8 +300,8 @@ const GDSlide6ValuePyramid = ({
   return (
     <GDSlideContainer
       id="slide-6"
-      title="Intelligence Maturity Ladder"
-      subtitle="From fragmented point solutions to connected intelligence that drives category leadership"
+      title="The Intelligence Capability Stack"
+      subtitle="A framework for assessing where you are today"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

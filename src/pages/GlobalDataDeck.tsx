@@ -15,13 +15,13 @@ import GDSlide10Solutions from "@/components/globaldata-slides/GDSlide10Solution
 
 const slides = [
   { id: "gd-slide-0", label: "Title" },
-  { id: "gd-slide-1", label: "Growth Reality" },
+  { id: "gd-slide-1", label: "Market Reality" },
   { id: "gd-slide-2", label: "Intelligence Gap" },
-  { id: "gd-slide-3", label: "Before & After" },
+  { id: "gd-slide-3", label: "Transformation" },
   { id: "gd-slide-4", label: "The Proposition" },
   { id: "gd-slide-5", label: "Value Chain" },
-  { id: "gd-slide-6", label: "Value Pyramid" },
-  { id: "gd-slide-7", label: "Maturity Roadmap" },
+  { id: "gd-slide-6", label: "Capability Stack" },
+  { id: "gd-slide-7", label: "Your Roadmap" },
   { id: "gd-slide-8", label: "ROI" },
   { id: "gd-slide-9", label: "Why GlobalData" },
   { id: "gd-slide-10", label: "Connected Solutions" },

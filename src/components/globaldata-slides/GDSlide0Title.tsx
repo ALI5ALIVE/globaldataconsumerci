@@ -4,15 +4,15 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
-  { num: 1, label: "Growth Reality", summary: "Why markets reward speed and conviction" },
-  { num: 2, label: "Intelligence Gap", summary: "Where growth and leadership are lost" },
-  { num: 3, label: "Before & After", summary: "The transformation visualized" },
-  { num: 4, label: "The Proposition", summary: "Connected Intelligence defined" },
-  { num: 5, label: "Value Chain", summary: "Intelligence that operates, not just reports" },
-  { num: 6, label: "Value Pyramid", summary: "How value compounds with maturity" },
-  { num: 7, label: "Maturity Roadmap", summary: "From today to predictive leadership" },
-  { num: 8, label: "ROI", summary: "Speed, outcomes, and cost reduction" },
-  { num: 9, label: "Why GlobalData", summary: "Built for connected intelligence at scale" },
+  { num: 1, label: "Market Reality", summary: "Has your intelligence kept pace?" },
+  { num: 2, label: "Intelligence Gap", summary: "The silent tax on every decision" },
+  { num: 3, label: "Before & After", summary: "One platform, one truth" },
+  { num: 4, label: "The Proposition", summary: "The operating system for performance" },
+  { num: 5, label: "Value Chain", summary: "Intelligence in the workflow" },
+  { num: 6, label: "Capability Stack", summary: "Where are you today?" },
+  { num: 7, label: "Your Roadmap", summary: "How value accelerates as you climb" },
+  { num: 8, label: "ROI", summary: "Returns that start immediately" },
+  { num: 9, label: "Why GlobalData", summary: "Only GlobalData can deliver this" },
 ];
 
 interface GDSlide0TitleProps extends SlideNarrationProps {
@@ -71,21 +71,21 @@ const GDSlide0Title = ({
         {/* Headline */}
         <div className="space-y-4 sm:space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-            <span className="text-foreground">Designing</span>
+            <span className="text-foreground">The Intelligence Gap</span>
             <br />
             <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
-              Category Leadership
+              Is Costing You
             </span>
             <br />
             <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
-              with Connected Intelligence
+              Category Performance
             </span>
           </h1>
           
           <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            How organisations turn constant change into 
+            And how the world's best consumer brands 
             <br className="hidden sm:block" />
-            <span className="text-primary font-medium">faster, more confident growth decisions</span>.
+            <span className="text-primary font-medium">are closing it</span>.
           </p>
         </div>
 
@@ -94,7 +94,7 @@ const GDSlide0Title = ({
           <div className="bg-card/50 backdrop-blur-sm border border-primary/30 rounded-lg p-4">
             <p className="text-xs text-primary uppercase tracking-wider font-semibold mb-2">Executive Takeaway</p>
             <p className="text-sm text-foreground leading-relaxed">
-              Category leadership is no longer defined by scale or data volume — it's defined by how quickly and confidently you act on change.
+              Category performers don't have better data. They have connected intelligence — and it changes everything.
             </p>
           </div>
         </div>

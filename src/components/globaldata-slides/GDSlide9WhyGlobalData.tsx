@@ -4,24 +4,24 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 
 const differentiators = [
   { 
-    icon: Database, 
-    title: "Unmatched Proprietary Data", 
-    desc: "Market + Consumer intelligence no competitor can replicate",
-    proof: "40+ years of consumer behavior data",
+    icon: Layers, 
+    title: "Unified Taxonomy", 
+    desc: "Single classification system across all intelligence domains — the unlock",
+    proof: "One truth, not five conflicting ones",
     color: "from-primary to-sky-400"
   },
   { 
-    icon: Users, 
-    title: "Human + AI at Scale", 
-    desc: "Analyst expertise amplified by Ava, enterprise-grade AI analyst",
-    proof: "1,000+ analysts globally",
+    icon: Database, 
+    title: "Proprietary Data", 
+    desc: "Market + Consumer intelligence no competitor can replicate — the fuel",
+    proof: "40+ years of consumer behavior data",
     color: "from-sky-400 to-cyan-400"
   },
   { 
-    icon: Layers, 
-    title: "Unified Taxonomy", 
-    desc: "Single classification system across all intelligence domains",
-    proof: "One truth, not five conflicting ones",
+    icon: Users, 
+    title: "Human + AI", 
+    desc: "Analyst expertise amplified by Ava, enterprise-grade AI analyst — the engine",
+    proof: "1,000+ analysts globally",
     color: "from-cyan-400 to-teal-400"
   },
 ];
@@ -29,7 +29,7 @@ const differentiators = [
 const closingTruths = [
   { text: "Insight alone does not create advantage", icon: Database },
   { text: "Speed without confidence creates risk", icon: ArrowRight },
-  { text: "Connected Intelligence creates leadership", icon: Sparkles },
+  { text: "Connected Intelligence creates performance", icon: Sparkles },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -44,8 +44,8 @@ const GDSlide9WhyGlobalData = ({
   return (
     <GDSlideContainer
       id="gd-slide-9"
-      title="Built for Connected Intelligence at Scale"
-      subtitle="Why GlobalData is uniquely positioned to close the Intelligence Gap"
+      title="Only GlobalData Can Deliver This"
+      subtitle="Proprietary data. Unified taxonomy. AI that amplifies expertise."
       slideNumber={9}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -103,9 +103,9 @@ const GDSlide9WhyGlobalData = ({
         <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center">
           {/* Leadership Imperative */}
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-5">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Leadership Imperative</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Performance Imperative</p>
             <p className="text-base text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a <span className="font-bold text-primary">connected system</span> will define the next generation of <span className="font-bold text-primary">category leaders</span>.
+              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a <span className="font-bold text-primary">connected system</span> will define the next generation of <span className="font-bold text-primary">category performers</span>.
             </p>
           </div>
 
