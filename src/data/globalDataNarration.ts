@@ -68,6 +68,12 @@ export const globalDataNarrations: SlideNarration[] = [
     script: "GlobalData is uniquely built for Connected Intelligence at scale. Three defensible differentiators. First: unmatched proprietary market and consumer data that no competitor can replicate. Second: human analyst expertise at scale, amplified by Ava — our enterprise-grade AI research analyst. Third: a unified taxonomy across all intelligence domains, enabling true connection. Here's the leadership imperative: organizations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category leaders. The future belongs to organizations that turn change into decisions — earlier, together, and with conviction.",
     voiceId: DEFAULT_VOICE_ID,
   },
+  {
+    slideId: 10,
+    title: "Connected Solutions in Action",
+    script: "Let's see Connected Intelligence in action across the consumer lifecycle. A global FMCG brand wanted to win growth in the high-protein on-the-go segment without another failed launch. Strategic Intelligence defined the question: Where can we launch with confidence in the next 12 months? Market Intelligence identified a fast-growing, under-served pocket: savory, high-protein snacks for urban European commuters. Competitive Intelligence mapped competitor positioning and identified gaps. Innovation Intelligence recommended a savory protein crisp with clean-label positioning and optimal price point. Sales Intelligence generated retail-specific sell-in stories and contextual enablement. The result? Every function operated from the same shared truth. Value didn't reset each cycle — it compounded. This is the difference between buying point solutions and operating a connected system.",
+    voiceId: DEFAULT_VOICE_ID,
+  },
 ];
 
 export const getGlobalDataNarration = (slideId: number): SlideNarration | undefined => {
