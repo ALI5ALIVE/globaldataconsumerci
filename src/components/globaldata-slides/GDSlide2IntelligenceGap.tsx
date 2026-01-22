@@ -5,19 +5,19 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const rootCauses = [
   { 
     icon: Layers, 
-    title: "Signals Fragment", 
+    title: "First: Signals Fragment", 
     desc: "Across tools, teams, and vendors",
     detail: "No single source of truth"
   },
   { 
     icon: MessageSquareWarning, 
-    title: "Leaders Debate", 
+    title: "Then: Leaders Debate", 
     desc: "Data instead of committing to direction",
     detail: "Analysis paralysis"
   },
   { 
     icon: Clock, 
-    title: "Decisions Arrive Late", 
+    title: "Finally: Decisions Arrive Late", 
     desc: "Too late to matter",
     detail: "Missed windows"
   },
@@ -41,8 +41,8 @@ const GDSlide2IntelligenceGap = ({
   return (
     <GDSlideContainer
       id="gd-slide-2"
-      title="Where Growth and Leadership Are Lost"
-      subtitle="The Intelligence Gap is the delay between real-world change and enterprise action"
+      title="The Intelligence Gap: Where Performance Falls Behind"
+      subtitle="The silent tax on every decision you make"
       slideNumber={2}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -117,7 +117,7 @@ const GDSlide2IntelligenceGap = ({
         <div className="bg-card border-2 border-destructive/30 rounded-xl p-5 text-center">
           <p className="text-sm font-semibold text-destructive uppercase tracking-wider mb-2">Bottom Line</p>
           <p className="text-lg font-medium text-foreground">
-            This gap is where <span className="text-destructive">growth stalls</span>, <span className="text-destructive">relevance erodes</span>, and <span className="text-destructive">leadership is lost</span>.
+            This gap is where <span className="text-destructive">growth stalls</span>, <span className="text-destructive">relevance erodes</span>, and <span className="text-destructive">performance is lost</span>.
           </p>
         </div>
       </div>

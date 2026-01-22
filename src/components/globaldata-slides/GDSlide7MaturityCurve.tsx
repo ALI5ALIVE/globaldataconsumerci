@@ -10,7 +10,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "FRAGMENTED",
     stage: 1,
-    headline: "Fragmented & Reactive",
+    headline: "Firefighting",
     sublabel: "Manual / Reactive",
     whatItLooksLike: [
       "Insights scattered across disconnected tools",
@@ -23,7 +23,7 @@ const stagesData: MaturityStage[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and leadership is lost — this is where most organizations start",
+      "Fragmentation is where growth stalls, relevance erodes, and performance is lost — this is where most organizations start",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
       from: "Debating data across systems",
@@ -44,7 +44,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "MANAGED",
     stage: 2,
-    headline: "Managed (Siloed) Intelligence",
+    headline: "Structured Silos",
     sublabel: "Silo Optimisation",
     whatItLooksLike: [
       "Strong systems in specific domains",
@@ -77,7 +77,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "CONNECTED",
     stage: 3,
-    headline: "Connected Intelligence",
+    headline: "Connected",
     sublabel: "Unified Platform",
     whatItLooksLike: [
       "Market, Consumer, Commercial intelligence unified into one governed system",
@@ -104,14 +104,14 @@ const stagesData: MaturityStage[] = [
     },
     valueProof: {
       metrics: ["Decision prep ↓ 30%", "Handoffs ↓ 50%", "Visibility ↑"],
-      roiStatement: "Single source of truth reduces coordination overhead by 40%",
+      roiStatement: "Reconciliation time drops 60%",
     },
-    curveAnnotations: ["Market→Consumer→Commercial", "Evidence by default", "Alignment improves"],
+    curveAnnotations: ["Reconciliation time drops 60%", "Evidence by default", "Alignment improves"],
   },
   {
     id: "OPTIMIZED",
     stage: 4,
-    headline: "Optimized Operations",
+    headline: "Embedded",
     sublabel: "Intelligent Ops",
     whatItLooksLike: [
       "Intelligence embedded directly into decision workflows",
@@ -139,14 +139,14 @@ const stagesData: MaturityStage[] = [
     },
     valueProof: {
       metrics: ["Latency ↓ 50%", "Time-to-market ↓ 40%", "KPI lift ↑"],
-      roiStatement: "50% reduction in decision latency, measurable market lift",
+      roiStatement: "Decisions in days, not weeks",
     },
-    curveAnnotations: ["Embedded workflows", "Prioritised interventions", "Faster decisions"],
+    curveAnnotations: ["Decisions in days, not weeks", "Prioritised interventions", "Faster decisions"],
   },
   {
     id: "PREDICTIVE",
     stage: 5,
-    headline: "Predictive & Proactive Leadership",
+    headline: "Predictive",
     sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
       "AI anticipates market shifts before they surface",
@@ -156,7 +156,7 @@ const stagesData: MaturityStage[] = [
       "Intelligence compounds across the value chain",
     ],
     result: [
-      "Category leadership through speed and foresight",
+      "Category performance through speed and foresight",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
     ],
@@ -175,9 +175,9 @@ const stagesData: MaturityStage[] = [
     },
     valueProof: {
       metrics: ["Decision speed ↑ 70%", "Launch success 2x", "TCO ↓ 30%"],
-      roiStatement: "70% faster decisions, 2x higher launch success rates",
+      roiStatement: "See disruption before it hits",
     },
-    curveAnnotations: ["AI-led orchestration", "Human-in-loop control", "Continuous proof"],
+    curveAnnotations: ["See disruption before it hits", "Human-in-loop control", "Continuous proof"],
   },
 ];
 
@@ -267,8 +267,8 @@ const GDSlide7MaturityCurve = ({
   return (
     <GDSlideContainer
       id="slide-7"
-      title="The Intelligence Maturity Roadmap"
-      subtitle="The measurable journey from fragmented insight to predictive leadership"
+      title="Your Roadmap to Category Performance"
+      subtitle="How value accelerates as you climb"
       slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}

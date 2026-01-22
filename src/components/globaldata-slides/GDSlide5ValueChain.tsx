@@ -47,8 +47,8 @@ const GDSlide5ValueChain = ({
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="Intelligence That Operates, Not Just Reports"
-      subtitle="Connected Intelligence works across the full value chain"
+      title="Intelligence in the Workflow, Not the Inbox"
+      subtitle="Every function. Every decision. One truth."
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}

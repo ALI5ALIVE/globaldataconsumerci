@@ -34,8 +34,8 @@ const GDSlide3BeforeAfter = ({
   return (
     <GDSlideContainer
       id="gd-slide-3"
-      title="From Fragmented Insight to Connected Decisions"
-      subtitle="The transformation that closes the Intelligence Gap"
+      title="The Transformation: One Platform, One Truth"
+      subtitle="What changes when intelligence works together"
       slideNumber={3}
       isPlaying={isPlaying}
       isLoading={isLoading}

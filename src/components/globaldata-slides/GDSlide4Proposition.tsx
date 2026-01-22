@@ -27,8 +27,8 @@ const GDSlide4Proposition = ({
   return (
     <GDSlideContainer
       id="gd-slide-4"
-      title="Connected Intelligence for Consumer Brands"
-      subtitle="Closing the Intelligence Gap"
+      title="Introducing Connected Intelligence"
+      subtitle="The operating system for category performance"
       slideNumber={4}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -42,7 +42,7 @@ const GDSlide4Proposition = ({
         {/* Central Value Proposition */}
         <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-6">
           <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed text-center">
-            A <span className="text-primary font-bold">unified solution</span> that connects market, consumer, competitor, innovation, and commercial intelligence into <span className="text-primary font-bold">one trusted system</span> — so organisations move faster, align better, and act with confidence.
+            <span className="text-primary font-bold">Five intelligence domains</span>. One governing taxonomy. <span className="text-primary font-bold">Decisions that compound</span> — not conflict.
           </p>
         </div>
 
