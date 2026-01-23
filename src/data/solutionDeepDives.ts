@@ -111,7 +111,7 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     ],
     example: {
       brand: "A European personal care leader",
-      challenge: "Saw 'microbiome skincare' trending on social, but couldn't tell if it was influencer hype or real shopper demand",
+      challenge: "Saw 'microbiome skincare' trending on social, but couldn't tell if it was influencer hype or real consumer demand",
       action: "Market Intelligence validated the trend by correlating social signal strength, search volume, and early POS data from specialty retailers",
       result: "Launched microbiome cleanser 8 months ahead of nearest competitor. Now #1 in the segment with 22% share.",
     },
@@ -125,7 +125,7 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     useCases: [
       { role: "CMO", useCase: "Validate emerging trends before committing marketing spend" },
       { role: "CSO", useCase: "Forecast category and channel growth for planning" },
-      { role: "Category Lead", useCase: "Identify underserved shopper segments" },
+      { role: "Category Lead", useCase: "Identify underserved consumer segments" },
     ],
   },
   {
@@ -181,17 +181,17 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     color: "from-purple-500 to-purple-600",
     jtbd: {
       when: "When we have 5 product concepts competing for R&D budget",
-      iWantTo: "I want to validate which resonates most with target shoppers",
+      iWantTo: "I want to validate which resonates most with target consumers",
       soThat: "So that I don't waste 12 months and £2M on a concept that flops at launch",
     },
     painToCapability: [
       {
         pain: "Gut-feel NPD decisions lead to 40% launch failures",
-        capability: "Shopper-validated concept screening",
+        capability: "Consumer-validated concept screening",
         outcome: "2x NPD success rate",
       },
       {
-        pain: "R&D develops products shoppers don't actually want",
+        pain: "R&D develops products consumers don't actually want",
         capability: "Trend-to-product translation",
         outcome: "30% faster concept-to-shelf",
       },
@@ -204,7 +204,7 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     example: {
       brand: "A leading European dairy company",
       challenge: "Had 4 protein yogurt concepts—high-protein, gut-health, plant-based, and kids—but budget for only 2 launches",
-      action: "Innovation Intelligence tested all 4 against target shoppers, validated claims, and predicted retail acceptance",
+      action: "Innovation Intelligence tested all 4 against target consumers, validated claims, and predicted retail acceptance",
       result: "Launched high-protein and kids variants. Both hit top-5 in category within 12 weeks. Plant-based deprioritized based on low purchase intent.",
     },
     capabilities: [
@@ -216,8 +216,8 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     ],
     useCases: [
       { role: "CMO", useCase: "Validate brand extensions before launch investment" },
-      { role: "CSO", useCase: "Prioritize innovation pipeline with shopper data" },
-      { role: "Category Lead", useCase: "Test concepts against real shopper preferences" },
+      { role: "CSO", useCase: "Prioritize innovation pipeline with consumer data" },
+      { role: "Category Lead", useCase: "Test concepts against real consumer preferences" },
     ],
   },
   {
@@ -250,7 +250,7 @@ export const solutionDeepDives: SolutionDeepDive[] = [
     example: {
       brand: "A multinational snack company",
       challenge: "Launching a new premium crisp line, but Tesco and Carrefour buyers wanted completely different stories",
-      action: "Sales Intelligence generated retailer-specific sell-in decks—Tesco wanted sustainability + margin; Carrefour wanted shopper acquisition data",
+      action: "Sales Intelligence generated retailer-specific sell-in decks—Tesco wanted sustainability + margin; Carrefour wanted consumer acquisition data",
       result: "Secured 100% target listings. Tesco gave premium placement; Carrefour added to health-focused end-cap.",
     },
     capabilities: [

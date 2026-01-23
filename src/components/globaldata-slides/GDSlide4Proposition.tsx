@@ -4,7 +4,7 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import ConnectedIntelligenceWheel from "./ConnectedIntelligenceWheel";
 
 const replaces = [
-  "See the full shopper journey—from trend emergence to basket drop",
+  "See the full consumer journey—from trend emergence to purchase decision",
   "Know why a product is winning (or losing) across every touchpoint",
   "Align brand, innovation, and commercial around the same consumer truth",
 ];
@@ -27,8 +27,8 @@ const GDSlide4Proposition = ({
   return (
     <GDSlideContainer
       id="gd-slide-4"
-      title="See the Full Shopper Journey. Act First."
-      subtitle="Understand your shopper faster than anyone—and act before they've moved on"
+      title="See the Full Consumer Journey. Act First."
+      subtitle="Understand your consumer faster than anyone—and act before they've moved on"
       slideNumber={4}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -42,7 +42,7 @@ const GDSlide4Proposition = ({
         {/* Central Value Proposition */}
         <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-6">
           <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed text-center">
-            <span className="text-primary font-bold">From trend emergence to basket drop</span>—one connected view of your shopper. <span className="text-primary font-bold">Every team aligned. Every decision faster.</span>
+            <span className="text-primary font-bold">From trend emergence to purchase decision</span>—one connected view of your consumer. <span className="text-primary font-bold">Every team aligned. Every decision faster.</span>
           </p>
         </div>
 
@@ -86,7 +86,7 @@ const GDSlide4Proposition = ({
         {/* Bottom callout */}
         <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center">
           <p className="text-sm text-foreground">
-            This isn't about better data. It's about <span className="font-bold text-primary">understanding your shopper faster than anyone else</span>—and acting on it before they've moved on.
+            This isn't about better data. It's about <span className="font-bold text-primary">understanding your consumer faster than anyone else</span>—and acting on it before they've moved on.
           </p>
         </div>
       </div>

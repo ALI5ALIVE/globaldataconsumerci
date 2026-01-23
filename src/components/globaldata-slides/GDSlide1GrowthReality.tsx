@@ -5,7 +5,7 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const painPoints = [
   { 
     icon: TrendingDown, 
-    title: "Your Shopper Switched", 
+    title: "Your Consumer Switched", 
     desc: "They moved to a competitor—and you found out 12 weeks later",
     stat: "67%",
     statLabel: "Gen Z switch for relevance"
@@ -38,7 +38,7 @@ const GDSlide1GrowthReality = ({
   return (
     <GDSlideContainer
       id="gd-slide-1"
-      title="Your Shoppers Are Changing Faster Than Your Insights"
+      title="Your Consumers Are Changing Faster Than Your Insights"
       subtitle="The brands that see it first, own the shelf."
       slideNumber={1}
       isPlaying={isPlaying}
@@ -79,13 +79,13 @@ const GDSlide1GrowthReality = ({
           <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="w-5 h-5 text-amber-400" />
-              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider">The Shopper Paradox</span>
+              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider">The Consumer Paradox</span>
             </div>
             <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
-              You have <span className="text-amber-400">more shopper data than ever</span>, yet <span className="text-amber-400">less confidence</span> in your next move.
+              You have <span className="text-amber-400">more consumer data than ever</span>, yet <span className="text-amber-400">less confidence</span> in your next move.
             </p>
             <p className="text-sm text-muted-foreground">
-              Your shopper insights say one thing. Your POS data says another. Your competitor just launched anyway.
+              Your consumer insights say one thing. Your POS data says another. Your competitor just launched anyway.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ const GDSlide1GrowthReality = ({
         {/* Bottom callout */}
         <div className="bg-card border border-border/50 rounded-lg p-4 text-center">
           <p className="text-sm text-foreground">
-            <span className="font-semibold text-primary">Category winners</span> don't just see trends first — they see the full <span className="font-semibold text-primary">shopper journey</span> and act before competitors can react.
+            <span className="font-semibold text-primary">Category winners</span> don't just see trends first — they see the full <span className="font-semibold text-primary">consumer journey</span> and act before competitors can react.
           </p>
         </div>
       </div>

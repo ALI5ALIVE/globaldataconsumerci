@@ -17,10 +17,10 @@ const roiPillars = [
     icon: TrendingUp, 
     title: "Fewer Failed SKUs", 
     before: "Gut-feel launches",
-    after: "Shopper-validated",
+    after: "Consumer-validated",
     improvement: "2x",
     label: "higher launch success",
-    desc: "Fewer products that sit on shelf; more products shoppers reach for",
+    desc: "Fewer products that sit on shelf; more products consumers choose",
     color: "from-sky-400 to-cyan-400"
   },
   { 
@@ -30,7 +30,7 @@ const roiPillars = [
     after: "Focused pipeline",
     improvement: "30%",
     label: "less unsold inventory",
-    desc: "Less wasted R&D on concepts that don't resonate with shoppers",
+    desc: "Less wasted R&D on concepts that don't resonate with consumers",
     color: "from-cyan-400 to-teal-400"
   },
 ];

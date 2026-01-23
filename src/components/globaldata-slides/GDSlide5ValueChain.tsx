@@ -6,13 +6,13 @@ const stages = [
   { 
     icon: Target, 
     title: "Strategy & Portfolio", 
-    items: ["Which categories are premiumizing?", "Where should we play in plant-based?", "Which shoppers are switching?"],
+    items: ["Which categories are premiumizing?", "Where should we play in plant-based?", "Which consumers are switching?"],
     color: "from-primary to-sky-400"
   },
   { 
     icon: Lightbulb, 
     title: "Innovation & Product", 
-    items: ["What flavour/format combos are trending?", "What's the unmet need in protein snacks?", "Will shoppers pay more for clean-label?"],
+    items: ["What flavour/format combos are trending?", "What's the unmet need in protein snacks?", "Will consumers pay more for clean-label?"],
     color: "from-sky-400 to-cyan-400"
   },
   { 
@@ -47,7 +47,7 @@ const GDSlide5ValueChain = ({
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="From Shopper Insight to Basket Drop"
+      title="From Consumer Insight to Market Action"
       subtitle="The questions your brand asks—answered across the entire journey"
       slideNumber={5}
       isPlaying={isPlaying}
@@ -117,7 +117,7 @@ const GDSlide5ValueChain = ({
             <div>
               <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why This Matters For Your Brand</p>
               <p className="text-base text-foreground leading-relaxed">
-                R&D, marketing, and commercial all see the <span className="font-bold text-primary">same shopper</span>—so the product you develop, the claims you make, and the story you tell retailers all <span className="font-bold text-primary">reinforce each other</span>.
+                R&D, marketing, and commercial all see the <span className="font-bold text-primary">same consumer</span>—so the product you develop, the claims you make, and the story you tell retailers all <span className="font-bold text-primary">reinforce each other</span>.
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ const GDSlide5ValueChain = ({
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">1</p>
-            <p className="text-xs text-muted-foreground">Shopper truth</p>
+            <p className="text-xs text-muted-foreground">Consumer truth</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">∞</p>
