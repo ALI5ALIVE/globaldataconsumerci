@@ -1,186 +1,163 @@
 
 
-## Improving Slides 6 & 7: Connected Intelligence as the AI Gateway
+## Fix Pyramid Stage Numbering and AI Labels
 
-### The Core Message to Reinforce
+### Issues Identified
 
-Without the **Connected Intelligence layer (Stage 3)**, organizations cannot achieve Optimized (Stage 4) or Predictive (Stage 5) capabilities. In the age of AI, this is critical because:
-- AI requires unified, governed data to function effectively
-- Fragmented data prevents AI from learning across the organization
-- Organizations stuck at Stages 1-2 will be left behind as AI-ready competitors accelerate
+1. **Stage numbering is inverted** - Currently Level 1 is at the apex (Predictive) and Level 5 is at the base (Fragmented). This is confusing; the natural expectation is Stage 1 at the bottom and Stage 5 at the top.
+
+2. **Annotation arrows are unreadable** - The "AI-Enabled" and "AI-Blocked" text annotations next to arrows on the right side of the pyramid are hard to read and clutter the visual.
+
+3. **AI Readiness indicator logic is confusing** - The `GDDetailsPanel.tsx` has inverted logic with comments like "Stages 4-5 in inverted order" which makes maintenance difficult.
 
 ---
 
-### Proposed Changes for Slide 6 (Value Pyramid)
+### Changes Required
 
-#### 1. Add "AI Gateway" Visual Marker at Stage 3
+#### 1. Remove AI Annotation Arrows from Pyramid
 
-Add a prominent visual indicator showing Stage 3 as the critical threshold:
+In `GDPyramid3D.tsx`, remove lines 502-515 (the annotation arrows and "AI-Enabled"/"AI-Blocked" text labels).
 
-```text
-                    ┌─────────────────┐
-                    │   PREDICTIVE    │  ← Only possible WITH connected layer
-                    │   (AI-Driven)   │
-                    ├─────────────────┤
-                    │   OPTIMIZED     │  ← Only possible WITH connected layer
-                    │   (Intelligent) │
-         ═══════════╪═════════════════╪═══════════════
-         AI GATEWAY │   CONNECTED     │  ← THE PLATFORM SHIFT
-         ═══════════╪═════════════════╪═══════════════
-                    │    MANAGED      │  ← AI cannot work here
-                    │    (Siloed)     │
-                    ├─────────────────┤
-                    │   FRAGMENTED    │  ← AI cannot work here
-                    │   (Reactive)    │
-                    └─────────────────┘
+**Keep**: The "AI GATEWAY" dashed line and label box (lines 467-500) - this is readable and important.
+
+**Remove**:
+```tsx
+{/* Annotation arrows and labels */}
+<g transform={`translate(${rightX + 20}, ${markerY})`}>
+  {/* Arrow pointing up */}
+  <line x1="0" y1="-10" x2="0" y2="-60" ... />
+  <text x="10" y="-35" ...>AI-Enabled</text>
+  
+  {/* Arrow pointing down */}
+  <line x1="0" y1="10" x2="0" y2="60" ... />
+  <text x="10" y="40" ...>AI-Blocked</text>
+</g>
 ```
 
-**Implementation**: Add a horizontal "AI GATEWAY" marker line between Stages 3 and 4 in `GDPyramid3D.tsx`
+---
 
-#### 2. Update Stage 3 (Connected) Content
+#### 2. Correct Stage Numbering (Level 1 = Bottom, Level 5 = Apex)
 
-In `GDSlide6ValuePyramid.tsx`, enhance the messaging:
+Update the `layerColors`, `layerBounds`, and `labelPositions` mappings in `GDPyramid3D.tsx` to use correct numbering:
 
-| Field | Current | Proposed |
-|-------|---------|----------|
-| `whyItMatters` | "Eliminates handoffs and creates one version of intelligence truth. This is the platform shift." | "This is the platform shift that unlocks AI. Without connected, governed data, Stages 4 and 5 are unreachable—and competitors with unified intelligence will outpace you." |
-| `result` (add) | - | "Foundation for AI-powered optimization and prediction" |
+| Stage | Position | Name | Current Level | New Level |
+|-------|----------|------|---------------|-----------|
+| FRAGMENTED | Base | Reactive | 5 | 1 |
+| MANAGED | Above base | Siloed | 4 | 2 |
+| CONNECTED | Middle | The Platform Shift | 3 | 3 (unchanged) |
+| OPERATIONAL | Below apex | Optimised | 2 | 4 |
+| PREDICTIVE | Apex | AI-Driven | 1 | 5 |
 
-#### 3. Update Stages 1-2 to Emphasize the Block
-
-Add warning messaging to Stages 1-2 that they block AI capability:
-
-**Stage 5 (Fragmented)**:
-- Add to `whyItMatters`: "AI cannot function on fragmented data—organizations here are locked out of the AI advantage."
-
-**Stage 4 (Managed/Siloed)**:
-- Add to `whyItMatters`: "Silos prevent AI from learning across the organization. Progress stops here without unification."
-
-#### 4. Add "AI Readiness" Indicator to Details Panel
-
-Add a small visual indicator showing AI readiness status for each stage:
-
-| Stage | AI Readiness |
-|-------|--------------|
-| 1-2 | "AI Blocked" (red) |
-| 3 | "AI Enabled" (green) |
-| 4-5 | "AI Optimized" (gold) |
+**Files to update:**
+- `GDPyramid3D.tsx` - Layer colors, bounds, render order
+- `GDSlide6ValuePyramid.tsx` - Layer metadata (levels 1-5)
+- `GDDetailsPanel.tsx` - AI Readiness logic
 
 ---
 
-### Proposed Changes for Slide 7 (Maturity Curve)
+#### 3. Fix AI Readiness Indicator Logic
 
-#### 1. Add "AI Threshold" Visual Marker
+Update `GDDetailsPanel.tsx` with corrected logic:
 
-In the hockey stick curve visualization, add a horizontal threshold line at Stage 3 with annotation:
-
-```text
-Value
-  ↑
-  │                                    ★ Stage 5: Predictive
-  │                              ┌────────────────────────┐
-  │                        ★     │ AI-POWERED TERRITORY   │
-  │               ★ ─────────────┴────────────────────────┘
-  │         ★     │ Stage 3: AI THRESHOLD
-  │    ★──────────┴─────────────────────────────────────────
-  │               │ PRE-AI TERRITORY
-  └───────────────┴─────────────────────────────────────────→ Time
-        Stage 1   Stage 2   Stage 3   Stage 4   Stage 5
+```tsx
+const AIReadinessIndicator = ({ level }: { level: number }) => {
+  if (level <= 2) {
+    // Stages 1-2 (FRAGMENTED/MANAGED) = AI Blocked
+    return (
+      <div className="...bg-red-500/15...">
+        <Lock className="..." />
+        <span>AI Blocked</span>
+      </div>
+    );
+  } else if (level === 3) {
+    // Stage 3 (CONNECTED) = AI Enabled
+    return (
+      <div className="...bg-emerald-500/15...">
+        <Cpu className="..." />
+        <span>AI Enabled</span>
+      </div>
+    );
+  } else {
+    // Stages 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
+    return (
+      <div className="...bg-amber-500/15...">
+        <Sparkles className="..." />
+        <span>AI Optimized</span>
+      </div>
+    );
+  }
+};
 ```
 
-**Implementation**: Add shaded regions and threshold line in the SVG
+---
 
-#### 2. Update Stage Descriptions
+### Technical Implementation
 
-**Stage 3 (Connected)**:
-| Field | Current | Proposed |
-|-------|---------|----------|
-| `whyItMatters` | "Eliminates handoffs and creates one version of intelligence truth" | "The AI threshold—unified data is the prerequisite for intelligent automation. Without it, Stages 4 and 5 remain out of reach." |
-| `curveAnnotations` | Add | "AI THRESHOLD: Where automation becomes possible" |
+#### GDPyramid3D.tsx Changes
 
-**Stage 4 (Optimized)**:
-| Field | Current | Proposed |
-|-------|---------|----------|
-| `whyItMatters` | "Turns intelligence into controlled execution, not just reporting" | "AI-augmented decisions—only possible because connected data enables machine learning across functions." |
+**Step 1: Update layer colors mapping (lines 26-32)**
+```tsx
+// CORRECTED: Level 1 = base (Red), Level 5 = apex (Gold)
+const layerColors = {
+  1: { main: "hsl(0, 70%, 50%)", dark: "hsl(0, 70%, 38%)", glow: "hsl(0, 70%, 50%)" },        // FRAGMENTED - Red (base)
+  2: { main: "hsl(199, 89%, 48%)", dark: "hsl(199, 89%, 36%)", glow: "hsl(199, 89%, 48%)" },  // MANAGED - Blue
+  3: { main: "hsl(195, 100%, 45%)", dark: "hsl(195, 100%, 35%)", glow: "hsl(195, 100%, 45%)" },  // CONNECTED - Sky Blue
+  4: { main: "hsl(280, 65%, 55%)", dark: "hsl(280, 65%, 42%)", glow: "hsl(280, 65%, 55%)" },  // OPERATIONAL - Purple
+  5: { main: "hsl(45, 93%, 58%)", dark: "hsl(45, 93%, 45%)", glow: "hsl(45, 93%, 58%)" },     // PREDICTIVE - Gold (apex)
+};
+```
 
-**Stage 5 (Predictive)**:
-| Field | Current | Proposed |
-|-------|---------|----------|
-| `whyItMatters` | "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat" | "AI anticipates and acts—but only for organizations that first achieved connection. This is where the AI advantage compounds." |
+**Step 2: Update layer bounds (lines 60-66)**
+```tsx
+// CORRECTED: Level 1 at base, Level 5 at apex
+const layerBounds = {
+  5: { top: 40, bottom: 248 },    // PREDICTIVE - Apex
+  4: { top: 248, bottom: 456 },   // OPERATIONAL
+  3: { top: 456, bottom: 664 },   // CONNECTED
+  2: { top: 664, bottom: 872 },   // MANAGED (with 5 silos)
+  1: { top: 872, bottom: 1080 },  // FRAGMENTED - Base
+};
+```
 
-#### 3. Add "Age of AI" Callout Box
+**Step 3: Update render order (line 202)**
+```tsx
+// Render from apex (5) to base (1), excluding silos layer (2)
+{[5, 4, 3, 1].map((level) => {
+```
 
-Add a prominent callout below the curve:
+**Step 4: Update silo layer references from level 4 to level 2**
+All references to `layerBounds[4]` become `layerBounds[2]`
 
-> **In the age of AI, Stage 3 is non-negotiable.**
-> Organizations stuck at Stages 1-2 cannot leverage AI for optimization or prediction. The gap between connected and fragmented organizations is widening exponentially.
+**Step 5: Remove annotation arrows (lines 502-515)**
+Delete the entire `<g transform={...}>` block containing AI-Enabled/AI-Blocked text
 
 ---
 
-### Summary of File Changes
+#### GDSlide6ValuePyramid.tsx Changes
+
+Update the layer metadata array so levels match the new numbering:
+
+| Layer Name | Current `level` | New `level` |
+|------------|-----------------|-------------|
+| FRAGMENTED | 5 | 1 |
+| MANAGED | 4 | 2 |
+| CONNECTED | 3 | 3 |
+| OPERATIONAL | 2 | 4 |
+| PREDICTIVE | 1 | 5 |
+
+---
+
+### Summary
 
 | File | Changes |
 |------|---------|
-| `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` | Update `whyItMatters` for stages 3, 4, 5; add AI readiness messaging |
-| `src/components/globaldata-slides/GDPyramid3D.tsx` | Add "AI GATEWAY" visual marker line between layers 3 and 4 |
-| `src/components/globaldata-slides/GDDetailsPanel.tsx` | Add AI readiness indicator badge |
-| `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx` | Update stage descriptions; add AI threshold visual; add "Age of AI" callout |
+| `GDPyramid3D.tsx` | Remove AI annotation arrows; swap layer numbering (1↔5, 2↔4); update silo references |
+| `GDDetailsPanel.tsx` | Simplify AI Readiness logic (no more "inverted" comments) |
+| `GDSlide6ValuePyramid.tsx` | Update level values in layer metadata array |
 
----
-
-### Technical Implementation Details
-
-#### Pyramid AI Gateway Line (GDPyramid3D.tsx)
-Add between layers 3 and 4:
-```tsx
-{/* AI GATEWAY threshold marker */}
-<line 
-  x1={getLeftX(layerBounds[3].bottom)} 
-  y1={layerBounds[3].bottom} 
-  x2={getRightX(layerBounds[3].bottom)} 
-  y2={layerBounds[3].bottom} 
-  stroke="hsl(45, 93%, 58%)" 
-  strokeWidth="4" 
-  strokeDasharray="16,8"
-/>
-<text x={750} y={layerBounds[3].bottom + 30} textAnchor="middle" fill="hsl(45, 93%, 58%)" fontSize="18" fontWeight="700">
-  AI GATEWAY
-</text>
-```
-
-#### Maturity Curve AI Threshold (GDSlide7MaturityCurve.tsx)
-Add shaded regions and threshold annotation:
-```tsx
-{/* AI Territory shading */}
-<rect x="560" y="60" width={isMobile ? 240 : 560} height="400" fill="hsl(173 80% 40% / 0.08)" rx="8" />
-<text x="780" y="100" fill="hsl(173 80% 50%)" fontSize="16" fontWeight="600">AI-POWERED TERRITORY</text>
-
-{/* Pre-AI Territory shading */}
-<rect x="90" y="460" width="470" height="200" fill="hsl(0 70% 50% / 0.08)" rx="8" />
-<text x="325" y="640" fill="hsl(0 70% 60%)" fontSize="14">PRE-AI TERRITORY</text>
-```
-
-#### Age of AI Callout (GDSlide7MaturityCurve.tsx)
-Add below the curve visualization:
-```tsx
-<div className="bg-primary/10 border border-primary/30 rounded-lg p-3 mt-2">
-  <p className="text-xs font-semibold text-primary">In the age of AI, Stage 3 is non-negotiable.</p>
-  <p className="text-[10px] text-muted-foreground mt-1">
-    Organizations stuck at Stages 1-2 cannot leverage AI for optimization or prediction. 
-    The gap between connected and fragmented organizations is widening exponentially.
-  </p>
-</div>
-```
-
----
-
-### Expected Narrative Impact
-
-After these changes, the presenter can articulate:
-
-1. **"Look at where your organization sits on this pyramid/curve."**
-2. **"Stage 3—Connected Intelligence—is the AI gateway. It's the threshold that separates organizations that can leverage AI from those that cannot."**
-3. **"Without unified, governed data, AI has nothing to learn from. Your innovation team's data doesn't talk to your commercial team's data. Machine learning across functions is impossible."**
-4. **"In the age of AI, this isn't just about efficiency—it's existential. Organizations above the threshold will accelerate. Those below will fall further behind."**
-5. **"The question isn't whether to pursue AI. The question is: do you have the connected foundation to make AI work?"**
+After these changes:
+- Stage 1 (FRAGMENTED) will be at the bottom with "AI Blocked" status
+- Stage 3 (CONNECTED) remains in the middle with "AI Enabled" and the AI GATEWAY marker
+- Stage 5 (PREDICTIVE) will be at the apex with "AI Optimized" status
+- The cluttered annotation arrows will be removed, keeping only the clean "AI GATEWAY" label
 
