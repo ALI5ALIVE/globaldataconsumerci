@@ -1,5 +1,5 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Layers, MessageSquareWarning, Clock, AlertOctagon, ArrowRight } from "lucide-react";
+import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon, ArrowRight } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const rootCauses = [
@@ -19,17 +19,24 @@ const rootCauses = [
   },
   { 
     icon: Clock, 
-    title: "Finally: Speed—The Shelf Window Closes", 
+    title: "Next: Speed—The Shelf Window Closes", 
     desc: "Competitor launched while you validated",
-    detail: "Confidence eroded",
+    detail: "Category share lost",
     badge: "SPEED"
+  },
+  { 
+    icon: ShieldAlert, 
+    title: "Finally: Confidence—Decisions Stall", 
+    desc: "Without unified intelligence, teams hesitate",
+    detail: "Gut feel replaces shopper truth",
+    badge: "CONFIDENCE"
   },
 ];
 
 const impacts = [
-  { value: "12wks", label: "=", desc: "2 missed seasonal windows", dimension: "Speed" },
   { value: "3-5", label: "sources", desc: "to reconcile per NPD decision", dimension: "Breadth" },
   { value: "40%", label: "of NPD", desc: "misses the consumer moment", dimension: "Alignment" },
+  { value: "12wks", label: "=", desc: "2 missed seasonal windows", dimension: "Speed" },
   { value: "68%", label: "of teams", desc: "lack confidence to act fast", dimension: "Confidence" },
 ];
 
