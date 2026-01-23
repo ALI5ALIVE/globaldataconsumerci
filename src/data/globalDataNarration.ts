@@ -194,6 +194,26 @@ The result? Launched in six months versus the typical fourteen. Captured number 
 That's the difference between fragmented point solutions and connected shopper intelligence. That's what we're here to help you build.`,
     voiceId: DEFAULT_VOICE_ID,
   },
+  {
+    slideId: 11,
+    title: "Explore Your Intelligence Needs",
+    script: `Now let's get specific. What you're looking at are deep dives into each of our five core intelligence solutions—with real consumer brand examples and exact pain-to-capability mapping.
+
+Click on any solution tab to explore. Let me walk you through the pattern.
+
+Each solution starts with a Job to Be Done. When you're facing a specific challenge—like setting portfolio priorities or preparing a retailer pitch—what do you actually need? What outcome are you trying to achieve?
+
+Then we map the pains you're feeling today to the specific capabilities that solve them—and the measurable outcomes you can expect.
+
+Take Strategic Intelligence. The pain: portfolio decisions based on outdated category reports. The capability: real-time category growth tracking. The outcome: six-month earlier visibility into category shifts.
+
+And we show you exactly how a real consumer brand used this. A top-five beverage company needed to prioritize between functional hydration and alcohol-free spirits. They used Strategic Intelligence to map demand curves and competitor signals across twelve markets. Result: captured four percent category share in eighteen months.
+
+The same pattern applies across all five solutions. Market Intelligence for trend validation. Competitive Intelligence for anticipating competitor moves. Innovation Intelligence for shopper-validated concept screening. Sales Intelligence for retailer-specific sell-in stories.
+
+Explore each tab. See which solutions map to your most urgent priorities. And when you're ready—let's discuss how to build your roadmap.`,
+    voiceId: DEFAULT_VOICE_ID,
+  },
 ];
 
 export const getGlobalDataNarration = (slideId: number): SlideNarration | undefined => {
