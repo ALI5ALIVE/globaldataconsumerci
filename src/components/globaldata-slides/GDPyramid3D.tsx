@@ -49,20 +49,20 @@ const GDPyramid3D = ({
 }: GDPyramid3DProps) => {
   const isMobile = useIsMobile();
 
-  // Pyramid configuration - Expanded for larger visual
+  // Pyramid configuration - Further expanded for larger visual
   const layerConfig = {
-    apex: { x: 650, y: 20 },
-    baseLeft: { x: 40, y: 1100 },
-    baseRight: { x: 1260, y: 1100 },
+    apex: { x: 700, y: 10 },
+    baseLeft: { x: 20, y: 1120 },
+    baseRight: { x: 1380, y: 1120 },
   };
 
-  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (20 → 1100 = 1080px)
+  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (10 → 1120 = 1110px)
   const layerBounds = {
-    5: { top: 20, bottom: 236 },    // PREDICTIVE - Apex
-    4: { top: 236, bottom: 452 },   // OPERATIONAL
-    3: { top: 452, bottom: 668 },   // CONNECTED
-    2: { top: 668, bottom: 884 },   // MANAGED (with 5 silos)
-    1: { top: 884, bottom: 1100 },  // FRAGMENTED - Base
+    5: { top: 10, bottom: 232 },    // PREDICTIVE - Apex
+    4: { top: 232, bottom: 454 },   // OPERATIONAL
+    3: { top: 454, bottom: 676 },   // CONNECTED
+    2: { top: 676, bottom: 898 },   // MANAGED (with 5 silos)
+    1: { top: 898, bottom: 1120 },  // FRAGMENTED - Base
   };
 
   const getLeftX = (y: number) => {
@@ -112,13 +112,13 @@ const GDPyramid3D = ({
     return layers.find((l) => l.level === level);
   };
 
-  // Label positions - Level 5 at top (y=128), Level 1 at bottom (y=992) - Adjusted for new layer bounds
+  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for new layer bounds and narrower boxes
   const labelPositions = {
-    5: { lineStartX: 880, lineStartY: 128, lineEndX: 1380, lineEndY: 128, labelX: 1390, labelY: 128 },
-    4: { lineStartX: 960, lineStartY: 344, lineEndX: 1380, lineEndY: 344, labelX: 1390, labelY: 344 },
-    3: { lineStartX: 1040, lineStartY: 560, lineEndX: 1380, lineEndY: 560, labelX: 1390, labelY: 560 },
-    2: { lineStartX: 1100, lineStartY: 776, lineEndX: 1380, lineEndY: 776, labelX: 1390, labelY: 776 },
-    1: { lineStartX: 1160, lineStartY: 992, lineEndX: 1380, lineEndY: 992, labelX: 1390, labelY: 992 },
+    5: { lineStartX: 920, lineStartY: 121, lineEndX: 1480, lineEndY: 121, labelX: 1490, labelY: 121 },
+    4: { lineStartX: 1000, lineStartY: 343, lineEndX: 1480, lineEndY: 343, labelX: 1490, labelY: 343 },
+    3: { lineStartX: 1080, lineStartY: 565, lineEndX: 1480, lineEndY: 565, labelX: 1490, labelY: 565 },
+    2: { lineStartX: 1160, lineStartY: 787, lineEndX: 1480, lineEndY: 787, labelX: 1490, labelY: 787 },
+    1: { lineStartX: 1240, lineStartY: 1009, lineEndX: 1480, lineEndY: 1009, labelX: 1490, labelY: 1009 },
   };
 
   const handleModuleClick = (module: string) => {
@@ -127,7 +127,7 @@ const GDPyramid3D = ({
     }
   };
 
-  const viewBox = isMobile ? "0 0 1500 1120" : "0 0 1700 1120";
+  const viewBox = isMobile ? "0 0 1500 1140" : "0 0 1750 1140";
 
   const apexX = layerConfig.apex.x;
   const apexY = layerConfig.apex.y;
@@ -146,8 +146,8 @@ const GDPyramid3D = ({
         preserveAspectRatio="xMidYMid meet"
         style={{ 
           ...(compact ? {} : {
-            minWidth: isMobile ? "520px" : "800px",
-            minHeight: isMobile ? "460px" : "640px",
+            minWidth: isMobile ? "560px" : "880px",
+            minHeight: isMobile ? "500px" : "720px",
           }),
           filter: isMobile ? "drop-shadow(0 20px 40px rgba(0,0,0,0.4))" : "drop-shadow(0 30px 60px rgba(0,0,0,0.5))",
         }}
@@ -235,7 +235,7 @@ const GDPyramid3D = ({
                   <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
                   <g className="cursor-pointer" onClick={() => onLayerClick(level)}>
-                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="203" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="142" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
                     <text x={labelPos.lineEndX + 32} y={labelPos.labelY - 8} fill={isActive ? colors.main : "hsl(210, 40%, 80%)"} fontSize="22" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.06em" className="transition-all duration-300">
                       {layerData?.label}
                     </text>
@@ -437,7 +437,7 @@ const GDPyramid3D = ({
                 <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
                 <g className="cursor-pointer" onClick={() => onLayerClick(2)}>
-                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="203" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="142" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
                   <text x={labelPos.lineEndX + 32} y={labelPos.labelY - 8} fill={isActive ? colors.main : "hsl(210, 40%, 80%)"} fontSize="22" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.06em" className="transition-all duration-300">
                     {layerData?.label}
                   </text>
