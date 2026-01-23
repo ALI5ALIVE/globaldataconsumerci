@@ -23,7 +23,7 @@ const stagesData: MaturityStage[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and performance suffers — this is where most organizations start",
+      "AI cannot function on fragmented data—organizations here are locked out of the AI advantage",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
       from: "Debating data across systems",
@@ -56,7 +56,7 @@ const stagesData: MaturityStage[] = [
       "Conflicting data persists",
     ],
     whyItMatters:
-      "Domains operate well individually, but lack of connection prevents organizational alignment",
+      "Silos prevent AI from learning across the organization. Progress stops here without unification",
     accentColor: "hsl(199 89% 48%)",
     behavioralShift: {
       from: "Debating data with limited visibility",
@@ -90,7 +90,7 @@ const stagesData: MaturityStage[] = [
       "Foundation for optimized operations is in place",
     ],
     whyItMatters:
-      "Eliminates handoffs and creates one version of intelligence truth",
+      "The AI threshold—unified data is the prerequisite for intelligent automation. Without it, Stages 4 and 5 remain out of reach.",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
       from: "Chasing data across tools and vendors",
@@ -106,7 +106,7 @@ const stagesData: MaturityStage[] = [
       metrics: ["Decision prep ↓ 30%", "Handoffs ↓ 50%", "Visibility ↑"],
       roiStatement: "Reconciliation time drops 60%",
     },
-    curveAnnotations: ["Reconciliation time drops 60%", "Evidence by default", "Alignment improves"],
+    curveAnnotations: ["AI THRESHOLD", "Reconciliation ↓60%", "Unified data unlocks AI"],
   },
   {
     id: "OPTIMIZED",
@@ -125,7 +125,7 @@ const stagesData: MaturityStage[] = [
       "Measurable performance improvement across KPIs",
     ],
     whyItMatters:
-      "Turns intelligence into controlled execution, not just reporting",
+      "AI-augmented decisions—only possible because connected data enables machine learning across functions",
     accentColor: "hsl(280 65% 55%)",
     behavioralShift: {
       from: "Reactive fixes and analysis requests",
@@ -161,7 +161,7 @@ const stagesData: MaturityStage[] = [
       "Teams shift from analysis to strategic action",
     ],
     whyItMatters:
-      "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat",
+      "AI anticipates and acts—but only for organizations that first achieved connection. This is where the AI advantage compounds",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
       from: "Reactive analysis and reporting",
@@ -311,7 +311,106 @@ const GDSlide7MaturityCurve = ({
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                {/* AI Territory gradient fill */}
+                <linearGradient id="gdAITerritoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="hsl(45 93% 58%)" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="hsl(173 80% 40%)" stopOpacity="0.05" />
+                </linearGradient>
+
+                {/* Pre-AI Territory gradient fill */}
+                <linearGradient id="gdPreAITerritoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="hsl(199 89% 48%)" stopOpacity="0.08" />
+                  <stop offset="100%" stopColor="hsl(0 70% 50%)" stopOpacity="0.12" />
+                </linearGradient>
               </defs>
+
+              {/* AI-POWERED TERRITORY shading (above Stage 3) */}
+              {!isMobile && (
+                <g className={`transition-opacity duration-700 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
+                  <rect 
+                    x="540" 
+                    y="60" 
+                    width="580" 
+                    height="420" 
+                    rx="12" 
+                    fill="url(#gdAITerritoryGrad)" 
+                  />
+                  <text 
+                    x="830" 
+                    y="90" 
+                    fill="hsl(45 93% 58%)" 
+                    fontSize="16" 
+                    fontWeight="700" 
+                    textAnchor="middle" 
+                    className="font-display uppercase tracking-wider"
+                  >
+                    AI-POWERED TERRITORY
+                  </text>
+                </g>
+              )}
+
+              {/* PRE-AI TERRITORY shading (below Stage 3) */}
+              {!isMobile && (
+                <g className={`transition-opacity duration-700 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
+                  <rect 
+                    x="100" 
+                    y="500" 
+                    width="440" 
+                    height="150" 
+                    rx="12" 
+                    fill="url(#gdPreAITerritoryGrad)" 
+                  />
+                  <text 
+                    x="320" 
+                    y="630" 
+                    fill="hsl(0 70% 60%)" 
+                    fontSize="14" 
+                    fontWeight="600" 
+                    textAnchor="middle" 
+                    className="font-display uppercase tracking-wider"
+                  >
+                    PRE-AI TERRITORY
+                  </text>
+                </g>
+              )}
+
+              {/* AI THRESHOLD line at Stage 3 */}
+              {!isMobile && (
+                <g className={`transition-opacity duration-700 delay-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
+                  <line 
+                    x1="90" 
+                    y1="460" 
+                    x2="1120" 
+                    y2="460" 
+                    stroke="hsl(45 93% 58%)" 
+                    strokeWidth="3" 
+                    strokeDasharray="12,8"
+                    opacity="0.7"
+                  />
+                  <rect 
+                    x="980" 
+                    y="440" 
+                    width="130" 
+                    height="36" 
+                    rx="6" 
+                    fill="hsl(45 93% 58%)" 
+                    fillOpacity="0.2"
+                    stroke="hsl(45 93% 58%)"
+                    strokeWidth="2"
+                  />
+                  <text 
+                    x="1045" 
+                    y="464" 
+                    fill="hsl(45 93% 58%)" 
+                    fontSize="14" 
+                    fontWeight="700" 
+                    textAnchor="middle" 
+                    className="font-display"
+                  >
+                    AI GATEWAY
+                  </text>
+                </g>
+              )}
 
               {/* Y-axis - 2x scaled */}
               <line x1="90" y1="660" x2="90" y2="60" stroke="hsl(222 47% 25%)" strokeWidth="3" />
@@ -488,6 +587,15 @@ const GDSlide7MaturityCurve = ({
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Age of AI Callout */}
+        <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mt-2">
+          <p className="text-sm font-semibold text-primary">In the age of AI, Stage 3 is non-negotiable.</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Organizations stuck at Stages 1-2 cannot leverage AI for optimization or prediction. 
+            The gap between connected and fragmented organizations is widening exponentially.
+          </p>
         </div>
 
         {/* Summary Banner */}

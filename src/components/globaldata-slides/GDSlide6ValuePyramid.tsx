@@ -93,9 +93,10 @@ const layersData: GDLayerData[] = [
       "Speed-to-insight improves; dependency on specialists reduced",
       "Improved governance and confidence, foundation for optimization",
       "Reconciliation time drops 60%",
+      "Foundation for AI-powered optimization and prediction",
     ],
     whyItMatters:
-      "Eliminates handoffs and creates one version of intelligence truth. This is the platform shift.",
+      "This is the platform shift that unlocks AI. Without connected, governed data, Stages 4 and 5 are unreachable—and competitors with unified intelligence will outpace you.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
@@ -130,7 +131,7 @@ const layersData: GDLayerData[] = [
       "No shared view of demand across the organization",
     ],
     whyItMatters:
-      "Domains operate well individually, but lack of connection prevents organizational alignment.",
+      "Silos prevent AI from learning across the organization. Progress stops here without unification.",
     colorClass: "bg-gradient-to-b from-pyramid-foundation to-pyramid-foundation/80",
     accentColor: "hsl(199 89% 48%)",
     behavioralShift: {
@@ -166,7 +167,7 @@ const layersData: GDLayerData[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and performance suffers — this is where most organizations start.",
+      "AI cannot function on fragmented data—organizations here are locked out of the AI advantage. This is where most organizations start.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {

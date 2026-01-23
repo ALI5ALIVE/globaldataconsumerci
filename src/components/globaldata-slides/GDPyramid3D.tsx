@@ -455,17 +455,64 @@ const GDPyramid3D = ({
         <path d={`M${apexX},${apexY} L${rightBaseX},${baseY}`} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.25" />
         <path d={`M${leftBaseX},${baseY} L${rightBaseX},${baseY}`} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.1" />
 
-        {/* Platform Shift marker at Level 3 */}
+        {/* AI GATEWAY threshold marker between Layer 3 and Layer 4 */}
         {!isMobile && (() => {
           const bounds = layerBounds[3];
-          const leftX = getLeftX(bounds.top);
+          const leftX = getLeftX(bounds.bottom);
+          const rightX = getRightX(bounds.bottom);
+          const markerY = bounds.bottom;
           
           return (
             <g>
-              <rect x={leftX - 180} y={bounds.top + 60} width="160" height="40" rx="6" fill="hsl(173, 80%, 40%)" fillOpacity="0.9" />
-              <text x={leftX - 100} y={bounds.top + 86} textAnchor="middle" fill="white" fontSize="14" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.1em">
-                PLATFORM SHIFT
+              {/* Dashed AI Gateway line */}
+              <line 
+                x1={leftX} 
+                y1={markerY} 
+                x2={rightX} 
+                y2={markerY} 
+                stroke="hsl(45, 93%, 58%)" 
+                strokeWidth="4" 
+                strokeDasharray="16,8"
+                opacity="0.9"
+              />
+              
+              {/* AI Gateway label on left side */}
+              <rect 
+                x={leftX - 180} 
+                y={markerY - 20} 
+                width="160" 
+                height="40" 
+                rx="6" 
+                fill="hsl(45, 93%, 58%)" 
+                fillOpacity="0.95" 
+              />
+              <text 
+                x={leftX - 100} 
+                y={markerY + 7} 
+                textAnchor="middle" 
+                fill="hsl(222, 47%, 11%)" 
+                fontSize="15" 
+                fontWeight="700" 
+                fontFamily="'Space Grotesk', sans-serif" 
+                letterSpacing="0.1em"
+              >
+                AI GATEWAY
               </text>
+              
+              {/* Annotation arrows and labels */}
+              <g transform={`translate(${rightX + 20}, ${markerY})`}>
+                {/* Arrow pointing up */}
+                <line x1="0" y1="-10" x2="0" y2="-60" stroke="hsl(45, 93%, 58%)" strokeWidth="2" markerEnd="url(#arrowUp)" />
+                <text x="10" y="-35" fill="hsl(45, 93%, 70%)" fontSize="12" fontWeight="500" fontFamily="'Inter', sans-serif">
+                  AI-Enabled
+                </text>
+                
+                {/* Arrow pointing down */}
+                <line x1="0" y1="10" x2="0" y2="60" stroke="hsl(0, 70%, 50%)" strokeWidth="2" />
+                <text x="10" y="40" fill="hsl(0, 70%, 60%)" fontSize="12" fontWeight="500" fontFamily="'Inter', sans-serif">
+                  AI-Blocked
+                </text>
+              </g>
             </g>
           );
         })()}
