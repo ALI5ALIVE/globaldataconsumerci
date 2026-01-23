@@ -18,8 +18,8 @@ const GDSlide4Proposition = ({
   return (
     <GDSlideContainer
       id="gd-slide-4"
-      title="Connected Intelligence for Consumer Brands"
-      subtitle="Closing the Intelligence Gap"
+      title="The Answer: Connected Intelligence"
+      subtitle="One system that moves faster, aligns better, and acts with confidence"
       slideNumber={4}
       isPlaying={isPlaying}
       isLoading={isLoading}
