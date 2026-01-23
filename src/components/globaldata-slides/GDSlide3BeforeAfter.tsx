@@ -1,6 +1,8 @@
 import GDSlideContainer from "./GDSlideContainer";
 import { Layers, MessageSquareWarning, Clock, Zap, Database, CheckCircle2, ArrowRight, TrendingUp } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
+import GDBeforeSilosIllustration from "./GDBeforeSilosIllustration";
+import GDAfterConnectedIllustration from "./GDAfterConnectedIllustration";
 
 const beforeItems = [
   { icon: Layers, label: "Siloed insights", desc: "Fragmented across tools" },
@@ -53,23 +55,29 @@ const GDSlide3BeforeAfter = ({
             <div className="absolute -top-2.5 left-3 px-2 py-0.5 bg-destructive/20 border border-destructive/30 rounded text-[10px] font-semibold text-destructive uppercase tracking-wider z-10">
               Before: Fragmented Intelligence
             </div>
-            <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full">
-              <div className="grid gap-3">
+            <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full flex flex-col">
+              {/* SVG Illustration */}
+              <div className="h-32 mb-3">
+                <GDBeforeSilosIllustration />
+              </div>
+
+              {/* Icon list (condensed 2-column grid) */}
+              <div className="grid grid-cols-2 gap-2 flex-1">
                 {beforeItems.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 group">
-                    <div className="w-9 h-9 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center shrink-0">
-                      <item.icon className="w-4 h-4 text-destructive" />
+                  <div key={i} className="flex items-center gap-2 group">
+                    <div className="w-7 h-7 rounded-md bg-destructive/10 border border-destructive/20 flex items-center justify-center shrink-0">
+                      <item.icon className="w-3.5 h-3.5 text-destructive" />
                     </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                      <div className="text-xs text-muted-foreground">{item.desc}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-semibold text-foreground truncate">{item.label}</div>
+                      <div className="text-[10px] text-muted-foreground truncate">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Warning indicators */}
-              <div className="mt-4 pt-4 border-t border-destructive/20 grid grid-cols-2 gap-2">
+              <div className="mt-3 pt-3 border-t border-destructive/20 grid grid-cols-2 gap-2">
                 <div className="bg-destructive/10 rounded-lg p-2 text-center">
                   <p className="text-xs font-medium text-destructive">12+ weeks</p>
                   <p className="text-[10px] text-muted-foreground">to decision</p>
@@ -94,23 +102,29 @@ const GDSlide3BeforeAfter = ({
             <div className="absolute -top-2.5 left-3 px-2 py-0.5 bg-primary/20 border border-primary/30 rounded text-[10px] font-semibold text-primary uppercase tracking-wider z-10">
               After: Connected Intelligence
             </div>
-            <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full">
-              <div className="grid gap-3">
+            <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full flex flex-col">
+              {/* SVG Illustration */}
+              <div className="h-32 mb-3">
+                <GDAfterConnectedIllustration />
+              </div>
+
+              {/* Icon list (condensed 2-column grid) */}
+              <div className="grid grid-cols-2 gap-2 flex-1">
                 {afterItems.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 group">
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                      <item.icon className="w-4 h-4 text-primary" />
+                  <div key={i} className="flex items-center gap-2 group">
+                    <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                      <item.icon className="w-3.5 h-3.5 text-primary" />
                     </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-semibold text-foreground">{item.label}</div>
-                      <div className="text-xs text-muted-foreground">{item.desc}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs font-semibold text-foreground truncate">{item.label}</div>
+                      <div className="text-[10px] text-muted-foreground truncate">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Success indicators */}
-              <div className="mt-4 pt-4 border-t border-primary/20 grid grid-cols-2 gap-2">
+              <div className="mt-3 pt-3 border-t border-primary/20 grid grid-cols-2 gap-2">
                 <div className="bg-primary/10 rounded-lg p-2 text-center">
                   <p className="text-xs font-medium text-primary">Days</p>
                   <p className="text-[10px] text-muted-foreground">to decision</p>
