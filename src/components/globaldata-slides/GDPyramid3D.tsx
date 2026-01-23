@@ -112,13 +112,12 @@ const GDPyramid3D = ({
     return layers.find((l) => l.level === level);
   };
 
-  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for larger pyramid
-  const labelPositions = {
-    5: { lineStartX: 1080, lineStartY: 140, lineEndX: 1750, lineEndY: 140, labelX: 1760, labelY: 140 },
-    4: { lineStartX: 1180, lineStartY: 409, lineEndX: 1750, lineEndY: 409, labelX: 1760, labelY: 409 },
-    3: { lineStartX: 1280, lineStartY: 678, lineEndX: 1750, lineEndY: 678, labelX: 1760, labelY: 678 },
-    2: { lineStartX: 1380, lineStartY: 947, lineEndX: 1750, lineEndY: 947, labelX: 1760, labelY: 947 },
-    1: { lineStartX: 1480, lineStartY: 1216, lineEndX: 1750, lineEndY: 1216, labelX: 1760, labelY: 1216 },
+  // Helper to get connector line from active layer to edge
+  const getActiveLayerConnector = (level: number) => {
+    const bounds = layerBounds[level as keyof typeof layerBounds];
+    const centerY = (bounds.top + bounds.bottom) / 2;
+    const rightX = getRightX(centerY);
+    return { startX: rightX + 10, y: centerY, endX: 1680 };
   };
 
   const handleModuleClick = (module: string) => {
@@ -127,7 +126,7 @@ const GDPyramid3D = ({
     }
   };
 
-  const viewBox = isMobile ? "0 0 1650 1370" : "0 0 2000 1370";
+  const viewBox = isMobile ? "0 0 1650 1370" : "0 0 1700 1370";
 
   const apexX = layerConfig.apex.x;
   const apexY = layerConfig.apex.y;
@@ -204,11 +203,6 @@ const GDPyramid3D = ({
           const colors = layerColors[level as keyof typeof layerColors];
           const isActive = activeLayer === level;
           const bounds = layerBounds[level as keyof typeof layerBounds];
-          const labelPos = labelPositions[level as keyof typeof labelPositions];
-          const layerData = getLayerData(level);
-
-          const centerY = (bounds.top + bounds.bottom) / 2;
-          const rightEdgeX = getRightX(centerY);
 
           return (
             <g key={level}>
@@ -227,28 +221,6 @@ const GDPyramid3D = ({
               )}
 
               <polygon points={points} fill="transparent" className="cursor-pointer hover:fill-white/10 transition-all duration-200" onClick={() => onLayerClick(level)} />
-
-              {/* Layer labels on right side */}
-              {!isMobile && (
-                <>
-                  <line x1={rightEdgeX + 10} y1={labelPos.labelY} x2={labelPos.lineEndX} y2={labelPos.labelY} stroke={isActive ? colors.main : "hsl(222, 30%, 30%)"} strokeWidth={isActive ? "3" : "2"} strokeDasharray={isActive ? "none" : "8 8"} className="transition-all duration-300" />
-                  <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
-
-                  <g className="cursor-pointer" onClick={() => onLayerClick(level)}>
-                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                    <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120">
-                      <div style={{ width: '100%', height: '100%', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '18px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
-                          {layerData?.label}
-                        </span>
-                        <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '15px', marginTop: '6px', lineHeight: 1.3, fontFamily: "'Inter', sans-serif" }}>
-                          {layerData?.sublabel}
-                        </span>
-                      </div>
-                    </foreignObject>
-                  </g>
-                </>
-              )}
             </g>
           );
         })}
@@ -426,38 +398,42 @@ const GDPyramid3D = ({
           {/* Top edge highlight for silos */}
           <line x1={getLeftX(foundationBounds.top)} y1={foundationBounds.top} x2={getRightX(foundationBounds.top)} y2={foundationBounds.top} stroke="white" strokeWidth="2" strokeOpacity={activeLayer === 2 ? "0.4" : "0.2"} />
 
-          {/* Silos label (right side) */}
-          {!isMobile && (() => {
-            const labelPos = labelPositions[2];
-            const centerY = (foundationBounds.top + foundationBounds.bottom) / 2;
-            const rightEdgeX = getRightX(centerY);
-            const layerData = getLayerData(2);
-            const isActive = activeLayer === 2;
-            const colors = layerColors[2];
-
-            return (
-              <g>
-                <line x1={rightEdgeX + 10} y1={labelPos.labelY} x2={labelPos.lineEndX} y2={labelPos.labelY} stroke={isActive ? colors.main : "hsl(222, 30%, 30%)"} strokeWidth={isActive ? "3" : "2"} strokeDasharray={isActive ? "none" : "8 8"} className="transition-all duration-300" />
-                <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
-
-                <g className="cursor-pointer" onClick={() => onLayerClick(2)}>
-                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                  <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120">
-                    <div style={{ width: '100%', height: '100%', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '18px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
-                        {layerData?.label}
-                      </span>
-                      <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '15px', marginTop: '6px', lineHeight: 1.3, fontFamily: "'Inter', sans-serif" }}>
-                        {layerData?.sublabel}
-                      </span>
-                    </div>
-                  </foreignObject>
-                </g>
-              </g>
-            );
-          })()}
+          {/* Top edge highlight for silos */}
+          <line x1={getLeftX(foundationBounds.top)} y1={foundationBounds.top} x2={getRightX(foundationBounds.top)} y2={foundationBounds.top} stroke="white" strokeWidth="2" strokeOpacity={activeLayer === 2 ? "0.4" : "0.2"} />
         </g>
+
+        {/* Single connector line from active layer to edge (indicates connection to details panel) */}
+        {!isMobile && (() => {
+          const connector = getActiveLayerConnector(activeLayer);
+          const colors = layerColors[activeLayer as keyof typeof layerColors];
+          
+          return (
+            <g className="transition-all duration-500">
+              <line 
+                x1={connector.startX} 
+                y1={connector.y} 
+                x2={connector.endX} 
+                y2={connector.y} 
+                stroke={colors.main} 
+                strokeWidth="3" 
+                className="transition-all duration-500"
+              />
+              <circle 
+                cx={connector.startX} 
+                cy={connector.y} 
+                r="8" 
+                fill={colors.main} 
+                className="transition-all duration-500"
+              />
+              {/* Arrow head at edge */}
+              <polygon 
+                points={`${connector.endX},${connector.y} ${connector.endX - 12},${connector.y - 8} ${connector.endX - 12},${connector.y + 8}`}
+                fill={colors.main}
+                className="transition-all duration-500"
+              />
+            </g>
+          );
+        })()}
 
         {/* Outer pyramid edge highlights */}
         <path d={`M${apexX},${apexY} L${leftBaseX},${baseY}`} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.15" />
