@@ -10,7 +10,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "FRAGMENTED",
     stage: 1,
-    headline: "Firefighting",
+    headline: "Fragmented & Reactive",
     sublabel: "Manual / Reactive",
     whatItLooksLike: [
       "Insights scattered across disconnected tools",
@@ -23,7 +23,7 @@ const stagesData: MaturityStage[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and performance is lost — this is where most organizations start",
+      "Fragmentation is where growth stalls, relevance erodes, and leadership is lost — this is where most organizations start",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
       from: "Debating data across systems",
@@ -44,7 +44,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "MANAGED",
     stage: 2,
-    headline: "Structured Silos",
+    headline: "Managed (Siloed)",
     sublabel: "Silo Optimisation",
     whatItLooksLike: [
       "Strong systems in specific domains",
@@ -77,8 +77,8 @@ const stagesData: MaturityStage[] = [
   {
     id: "CONNECTED",
     stage: 3,
-    headline: "Connected",
-    sublabel: "Unified Platform",
+    headline: "Connected Intelligence",
+    sublabel: "Platform Shift",
     whatItLooksLike: [
       "Market, Consumer, Commercial intelligence unified into one governed system",
       "Shared taxonomy and traceability established",
@@ -111,7 +111,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "OPTIMIZED",
     stage: 4,
-    headline: "Embedded",
+    headline: "Optimized Operations",
     sublabel: "Intelligent Ops",
     whatItLooksLike: [
       "Intelligence embedded directly into decision workflows",
@@ -146,7 +146,7 @@ const stagesData: MaturityStage[] = [
   {
     id: "PREDICTIVE",
     stage: 5,
-    headline: "Predictive",
+    headline: "Predictive & Proactive",
     sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
       "AI anticipates market shifts before they surface",
@@ -156,7 +156,7 @@ const stagesData: MaturityStage[] = [
       "Intelligence compounds across the value chain",
     ],
     result: [
-      "Category performance through speed and foresight",
+      "Category leadership through speed and foresight",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
     ],
@@ -267,8 +267,8 @@ const GDSlide7MaturityCurve = ({
   return (
     <GDSlideContainer
       id="slide-7"
-      title="Your Roadmap to Category Performance"
-      subtitle="How value accelerates as you climb"
+      title="The Intelligence Maturity Roadmap"
+      subtitle="The measurable journey from fragmented insight to predictive leadership"
       slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -410,10 +410,10 @@ const GDSlide7MaturityCurve = ({
                     {/* X-axis labels - 2x font */}
                     {(() => {
                       const shortLabels: Record<number, string> = {
-                        1: "Firefighting",
-                        2: "Structured",
+                        1: "Fragmented",
+                        2: "Managed",
                         3: "Connected",
-                        4: "Embedded",
+                        4: "Optimized",
                         5: "Predictive",
                       };
                       return (

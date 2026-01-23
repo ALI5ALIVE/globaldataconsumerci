@@ -11,163 +11,159 @@ export const globalDataNarrations: SlideNarration[] = [
   {
     slideId: 0,
     title: "Your Consumers Are Changing",
-    script: `Let me ask you something. When did your consumer last switch to a competitor—and when did you find out?
+    script: `Let me ask you something. When did your organisation last miss a market window—and when did you find out?
 
-For most consumer brands, there's a gap. Not a small one. A gap measured in weeks, sometimes months, between seeing a trend and having a product on shelf.
+For most consumer brands, there's a gap. Not a small one. A gap measured in weeks, sometimes months, between seeing a change and taking action.
 
-That gap has a name. We call it the intelligence gap—and it's measured in four dimensions: speed, breadth, alignment, and confidence. The brands winning shelf space, share of stomach, and consumer loyalty right now? They've already closed it.
+That gap has a name. We call it the Intelligence Gap—and it's where growth stalls, relevance erodes, and leadership is lost. The brands winning shelf space and market share right now? They've already closed it.
 
-Over the next few minutes, I'm going to show you exactly how—and why it matters more for your brand right now than ever before.`,
+Over the next few minutes, I'm going to show you exactly how—and why it matters more for your organisation right now than ever before.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 1,
-    title: "Your Consumers Are Changing Faster",
-    script: `Here's what's actually happening in your category right now.
+    title: "Markets Reward Speed and Conviction",
+    script: `Here's the growth reality every consumer brand faces.
 
-Your consumer switched to a competitor—and you found out twelve weeks later. Sixty-seven percent of Gen Z consumers say they'll switch brands if a competitor is more relevant to their values. And the average trend window? Eighteen months before it peaks. That's the runway you have to own it.
+Market velocity. Consumer behaviour shifts three times faster than insight cycles can track. Shrinking windows. Innovation and go-to-market windows are forty percent narrower than five years ago. Asymmetric competition. Competitors scale twice as fast with fewer assets.
 
-Meanwhile, your competitor's limited-edition SKU just captured three percent share while you were still validating the concept.
+Here's the paradox: organisations have more insight than ever, yet less confidence. Data abundance hasn't created clarity. It's created noise, debate, and delayed decisions.
 
-The paradox is striking: you have more consumer data than ever—POS, panels, social listening—yet less confidence in your next move. Your consumer insights say one thing. Your sales data says another. And your competitor just launched anyway.
+The real problem? Insight exists, but it doesn't move the organisation together. The problem isn't data scarcity. It's data fragmentation and misalignment.
 
-The brands winning right now don't just see trends first. They see the full consumer journey and act before competitors can react.`,
+Category leaders don't just have better data—they have connected intelligence that enables faster, unified action.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 2,
-    title: "The Intelligence Gap",
-    script: `So where exactly does your brand fall behind? The intelligence gap shows up in four ways.
+    title: "Where Growth and Leadership Are Lost",
+    script: `So where exactly does growth get lost? The Intelligence Gap is the delay between real-world change and enterprise action.
 
-First, there's a breadth problem. Consumer signals fragment. Consumer insights in one system. POS in another. Social listening somewhere else. You can't see the full consumer journey.
+Why does it exist? Three reasons.
 
-Then there's an alignment problem. Teams debate sources. Your innovation team and commercial team have different views of the same consumer. No shared truth to act on.
+First, signals fragment. Across tools, teams, and vendors. No single source of truth.
 
-Next, there's a confidence problem. Without unified intelligence, you can't commit with conviction. Sixty-eight percent of teams say they lack the confidence to act fast.
+Then, leaders debate. Data instead of committing to direction. Analysis paralysis sets in.
 
-And finally, there's the speed problem. The shelf window closes. Your competitor launched while you were still validating.
+Finally, decisions arrive late. Too late to matter. Missed windows.
 
-Twelve weeks of decision latency. Three to five sources to reconcile. Forty percent of new product launches miss the consumer moment.
+The quantified impact? Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows.
 
-A global snack brand spent nine months validating a 'protein plus gut health' concept. By launch, three competitors had already captured the position. The insight was right. The intelligence wasn't connected. That's the intelligence gap.`,
+This gap is where growth stalls, relevance erodes, and leadership is lost.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 3,
-    title: "One Consumer Truth",
-    script: `But here's what happens when you close the intelligence gap.
+    title: "From Fragmented Insight to Connected Decisions",
+    script: `But here's what happens when you close the Intelligence Gap.
 
-Look at the left side of your screen—this is where most brands are today. Consumer signals scattered across POS, panels, and social. Conflicting views of the same consumer. Weeks spent validating while competitors launch.
+Look at the left side—this is where most organisations are today. Siloed insights fragmented across tools. Different taxonomies with no common language. Manual reconciliation. Slow, debated decisions. Twelve-plus weeks to decision, three to five sources to reconcile.
 
-Now look at the right side. One consumer truth. Unified across every touchpoint. Trend to concept in days, not weeks. Validated before you commit. First to shelf.
+Now look at the right side. A unified system on one connected platform. Shared truth through a single taxonomy. Embedded workflows with automated orchestration. Confident, fast action with aligned decisions. Days to decision, one source of truth.
 
-The transformation isn't marginal—it's the difference between owning the category moment and watching your competitor take it.
-
-Twelve weeks becomes three days to validate a flavour concept—before your competitor locks in the shelf space. Gut-feel launches become consumer-tested launches with double the success rate. And innovation waste? Thirty percent less unsold inventory because you tested with real consumers first.`,
+The transformation: Decision cycles seventy percent faster. Launch approach shifts from reactive to proactive with two times higher success. Tool landscape moves from sprawl to unified with thirty percent lower total cost of ownership.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 4,
-    title: "See the Full Consumer Journey",
-    script: `This is what it looks like when you see the full consumer journey—and act first.
+    title: "Connected Intelligence for Consumer Brands",
+    script: `This is Connected Intelligence for Consumer Brands. It closes the Intelligence Gap.
 
-It's not another consumer panel you can't connect to your other data. Not another dashboard that conflicts with what you already have. Not another point solution that creates more reconciliation work.
+A unified solution that connects market, consumer, competitor, innovation, and commercial intelligence into one trusted system—so organisations move faster, align better, and act with confidence.
 
-This is about seeing your consumer from trend emergence to purchase decision. Knowing why a product is winning—or losing—across every touchpoint. Aligning brand, innovation, and commercial teams around the same consumer truth.
+What it replaces: tool sprawl across vendors, manual reconciliation, conflicting answers.
 
-What you're looking at is the end of fragmented consumer views. The end of weeks spent reconciling data before you can even start the strategy conversation.
+What it is NOT: another dataset, another dashboard, another point solution.
 
-This isn't about better data. It's about understanding your consumer faster than anyone else—and acting on it before they've moved on to the next thing.`,
+This is intelligence designed to drive decisions end-to-end—not another layer of data.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 5,
-    title: "From Consumer Insight to Market Action",
-    script: `Now let me show you the questions your brand actually asks—and how this answers them across the entire journey.
+    title: "Intelligence That Operates, Not Just Reports",
+    script: `Connected Intelligence works across the full value chain. Let me show you.
 
-Look at this flow. Five stages. The real questions consumer brands face every day.
+Strategy and Portfolio: Where to play, category prioritisation, investment focus.
 
-In Strategy and Portfolio: Which categories are premiumizing? Where should we play in plant-based? Which consumers are switching and why?
+Innovation and Product: Trend discovery, whitespace identification, concept screening.
 
-In Innovation and Product: What flavour and format combinations are trending with our target demo? What's the unmet need in protein snacks? Will consumers actually pay more for clean-label?
+Brand, Pricing and Claims: Positioning, pricing strategy, claims validation.
 
-In Brand, Pricing and Claims: Can we credibly claim both 'high protein' and 'clean label' at this price point? How do we position against competitors who got there first?
+Go-to-Market and Sales: Channel strategy, launch planning, enablement.
 
-In Go-to-Market and Sales: Which retailer indexes highest for this SKU? What's the right launch story for Tesco versus Carrefour? What sell-in materials actually convert?
+In-Market Performance: Post-launch monitoring, competitive response, portfolio optimisation.
 
-And In-Market Performance: Why did this SKU underperform in Tesco but overperform in Carrefour? How do we respond to a competitor promo? Which SKUs should we delist?
-
-See that connecting line? That's what changes everything. R&D, marketing, and commercial all see the same consumer—so the product you develop, the claims you make, and the story you tell retailers all reinforce each other.`,
+What changes? Every function operates from the same shared truth, so decisions reinforce each other across the entire value chain. Five value chain stages. One source of truth. Infinite compounding value.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
-    title: "Where Is Your Brand Today?",
-    script: `Now let's get honest about where your brand actually is. What you're looking at is a framework for assessing your consumer intelligence maturity.
+    title: "Intelligence Maturity Ladder",
+    script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—from fragmented point solutions to connected intelligence that drives category leadership.
 
-We start at the base. Stage five: Firefighting. This is where most consumer brands are. Your brand manager is using a deck from last quarter about last quarter's consumer. POS says one thing, consumer panel says another, social listening says a third. You found out about the trend after your competitor launched.
+At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. High vendor spend, low self-service, missed windows.
 
-Move up to stage four: Structured Silos. Strong tools within each function—market, innovation, consumer, competitive. But they don't connect. Your innovation team and commercial team have different views of the same consumer. Better data, but the same debates.
+Stage four: Managed but Siloed. Strong systems in specific domains, but fragmented by function. Reporting is regular but backward-looking. Structured intelligence, but limited cross-functional value.
 
-Stage three is where connection begins. Connected. One consumer truth starts to emerge—shared by R&D, marketing, and retail execution. Reconciliation time drops sixty percent. Teams stop debating data and start acting on consumers.
+Stage three: Connected and Governed. Unified taxonomy and governance. Self-service access with proper governance. This is the platform shift—reconciliation time drops sixty percent.
 
-Stage two: Embedded. Consumer intelligence isn't a report you request—it's in the workflow. Trend to concept in days, not weeks. NPD decisions validated against consistent consumer truth.
+Stage two: Operational Intelligence. Analytics embedded in daily workflows. AI augmentation with automated trend detection. Decisions in days, not weeks.
 
-And at the apex—stage one: Agentic. This is the vision. AI that detects signals and orchestrates recommendations while humans approve the strategic moves. Detect, Human, Execute—in continuous loops. You're not reacting to trends anymore. You're seeing what consumers want next before they search for it.
+And at the apex: Predictive and Adaptive. AI anticipates market shifts before competitors react. Category leadership through speed and foresight.
 
-Most brands are at stage five or four. The question is: how fast can you climb?`,
+Most organisations are at stage four or five. The question is: how fast can you climb?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 7,
-    title: "From Trend-Spotting to First-Mover",
-    script: `So what does the journey actually look like over time? This is your roadmap from trend-spotting to first-mover.
+    title: "The Intelligence Maturity Roadmap",
+    script: `This is your roadmap—the measurable journey from fragmented insight to predictive leadership.
 
-Watch the curve. At stage one—Firefighting—you're at the bottom. Your consumer data doesn't connect. You're finding out about trends after competitors have already launched. High effort, missed shelf windows.
+At stage one—Fragmented—you're at the bottom. Insights scattered, no shared taxonomy, decisions debated for weeks. High decision latency and missed windows.
 
-By stage two—Structured Silos—you've got structure. See the curve starting to rise? But you're still reconciling across sources. The debates about "which data is right" continue.
+By stage two—Managed—you've got structure within silos. But intelligence is still disconnected. The debates continue.
 
-Stage three—Connected—is where the breakthrough happens. Notice the curve accelerating? One consumer truth emerges. R&D and retail see the same consumer. This is the platform shift.
+Stage three—Connected—is the platform shift. Market, consumer, commercial intelligence unified. Shared taxonomy established. Reconciliation time drops sixty percent. This is where the breakthrough happens.
 
-Stage four—Embedded—is transformational. Look at that hockey stick starting to form. Consumer intelligence is in the workflow. Twelve weeks becomes three days to validate a concept.
+Stage four—Optimized—is transformational. Intelligence embedded in workflows. Continuous improvement. Decisions in days, not weeks.
 
-And stage five—Agentic—that's the exponential curve shooting upward. AI detects what consumers want next. Humans approve the strategic moves. You're on shelf before competitors even see the opportunity.
+And stage five—Predictive. AI anticipates shifts before they surface. Decisions made before competitors can react. Category leadership through speed and foresight.
 
-Here's what I want you to understand: most brands don't need more consumer data. They need a clear path from seeing trends to owning them. This curve is that path. And the sooner you start climbing, the more category moments you own.`,
+The sooner you start climbing, the faster value accumulates.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 8,
-    title: "Fewer Failed SKUs. Faster Wins.",
-    script: `Let's talk about what this means for your brand in real terms. Because the value isn't theoretical—it's measurable. And it starts immediately.
+    title: "ROI Shows Up in Three Places",
+    script: `ROI shows up in three places—measurable returns that compound as maturity increases.
 
-Look at these three pillars.
+First, speed to decision. Decision cycles shrink from weeks to days. Seventy percent faster.
 
-First, speed to shelf. Months to validate becomes days to act. Seventy percent faster from trend to launch. Think about what that means: responding to a competitive launch in days, not months. Validating a flavour concept before your competitor locks in the shelf space.
+Second, better growth outcomes. Higher-quality bets, fewer failed launches. Two times higher launch success.
 
-Second, fewer failed SKUs. Gut-feel launches become consumer-validated launches. Double the success rate. Fewer products that sit on shelf. More products that consumers actually choose.
+Third, lower cost of intelligence. Less duplication, fewer tools, less manual reconciliation. Thirty percent lower total cost of ownership.
 
-Third, leaner innovation. Wasted R&D becomes a focused pipeline. Thirty percent less unsold inventory. Less capital misallocated on concepts that don't resonate with consumers.
-
-And here's what compounds: every stage up the maturity curve means faster time-to-shelf, fewer failed launches, and more shelf space won. The sooner you start, the more category moments you own. This isn't a five-year transformation story. This is measurable value in six months.`,
+Here's the key message: ROI compounds as organisations move up the maturity curve. The sooner you start, the faster value accumulates.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
-    title: "Trusted by Leading Consumer Brands",
-    script: `Now, why GlobalData? Why are we the partner for your brand?
+    title: "Built for Connected Intelligence at Scale",
+    script: `Why GlobalData? Why are we uniquely positioned to close the Intelligence Gap?
 
-Look at these three differentiators.
+Three differentiators.
 
-First—and this is what makes everything else possible—the unified taxonomy. The same consumer language used by eight of the top ten global FMCG companies. One truth across your entire value chain. No more reconciling data sources. No more debates about whose numbers are right.
+First—unmatched proprietary data. Forty-plus years of consumer behaviour data across two hundred-plus markets. Data no competitor can replicate.
 
-Second—the proprietary data. Forty years of consumer, category, and competitive intelligence across two hundred plus markets. Data no competitor can replicate. This isn't aggregated third-party data. This is what the world's leading consumer brands already rely on.
+Second—human plus AI at scale. One thousand-plus analysts globally, amplified by Ava, our enterprise AI analyst. Insights your team would take months to find—delivered in hours.
 
-Third—Ava plus a thousand analysts. AI that's analyzed ten million plus consumer data points, amplified by human expertise. Insights your team would take months to find—delivered in hours.
+Third—unified taxonomy. Single classification system across all intelligence domains. One truth, not five conflicting ones.
 
-Here's the imperative for consumer brand leaders: the brands that see consumers as one connected journey—from trend to shelf to basket—will own the next generation of category moments. The ones that don't? They'll keep finding out about trends after competitors have already launched.
+The leadership imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category leaders.
 
-The brands that win will be the ones who see consumer change first, act together, and own the shelf before competitors react.`,
+Three truths: Insight alone does not create advantage. Speed without confidence creates risk. Connected Intelligence creates leadership.
+
+The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
