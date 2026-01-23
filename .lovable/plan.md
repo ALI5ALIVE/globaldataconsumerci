@@ -1,72 +1,234 @@
 
-Goal: make each “Why It Exists” card line up perfectly with its corresponding “Quantified Impact” card (same height per row), not just “roughly similar”.
 
-Why it’s still misaligned
-- Right now we render two independent vertical stacks:
-  - Left: `rootCauses.map(...)` (4 cards)
-  - Right: `impacts.map(...)` (4 cards)
-- Even with the same `min-h-[84px]`, any card that wraps to an extra line becomes taller, and because the stacks are independent, the “row heights” don’t match across columns.
-- `min-h` only sets a floor, not a shared row height between left and right.
+## Pivot from "Shopper" to "Consumer" Intelligence Terminology
 
-Implementation approach (robust fix)
-- Render the content as 4 paired rows (one dimension per row), where each row contains:
-  - Left cell: the root cause card
-  - Right cell: the impact card
-- Use a grid row container with `items-stretch` so both cards in the same row stretch to the same height automatically.
-- Add `h-full` to both cards so they fill the row height.
-- Keep current “Why It Exists” and “Quantified Impact” headings, but structure the content beneath them so the row pairing is explicit.
+### Summary
+Update the GlobalData slide deck to shift terminology from "shopper insights" to "consumer insights" level, making the narrative sharper and more focused on:
+1. **The Intelligence Gap** - the core problem consumer brands face
+2. **Connected Intelligence** - the unified solution GlobalData provides
+3. **Tangible Brand Outcomes** - what the brand actually gets
+4. **Clear Solution Descriptions** - how each module delivers value
 
-Exact changes (single file)
-File: `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
+---
 
-1) Create a paired data structure
-- Replace the two separate arrays rendering with a single mapping that pairs by index:
-  - `const pairs = rootCauses.map((cause, i) => ({ cause, impact: impacts[i] }))`
-- (Optional safety) If `impacts[i]` is undefined, skip rendering that row.
+### Terminology Mapping
 
-2) Replace the current two independent stacks with a paired grid
-Current structure:
-- Left column: `rootCauses.map(...)`
-- Right column: `impacts.map(...)`
+| Current (Shopper-centric) | New (Consumer-centric) |
+|---------------------------|------------------------|
+| "shopper" | "consumer" |
+| "shopper journey" | "consumer journey" |
+| "shopper truth" | "consumer truth" |
+| "shopper signals" | "consumer signals" |
+| "shopper insights" | "consumer insights" |
+| "basket drop" | "purchase decision" or "market action" |
+| "shopper intelligence" | "consumer intelligence" |
 
-New structure (conceptual):
-- A 2-column header row (Why / Impact)
-- Then a set of 4 rows:
-  - Each row is a 2-column grid on `lg+` so cards are side-by-side
-  - On small screens it can become a single column (cause then impact) per dimension, which also preserves pairing
+---
 
-Recommended Tailwind layout:
-- Outer: keep `flex-1` region but swap the inner `lg:grid-cols-2` block to something like:
-  - Header row: `grid grid-cols-1 lg:grid-cols-2 gap-6`
-  - Rows wrapper: `space-y-3` (or `grid gap-3`)
-  - Each row: `grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch`
-- Card classes:
-  - Add `h-full` to both card containers
-  - Keep `p-4` consistent
-  - Keep `min-h-[84px]` as a baseline for smaller screens, but the key is `items-stretch` + `h-full`
+### Files to Update
 
-3) Make both cards use compatible vertical alignment
-- Root cause card currently uses `items-start`; impact card uses `items-center`.
-- Once both stretch to the same height, mismatched vertical alignment can still “feel” off even if heights match.
-- Update impact card from `items-center` to `items-start` (or vice versa) so the content blocks sit at the same top baseline.
-  - Recommended: use `items-start` on both, since the root cause card is multi-line and reads better top-aligned.
+#### Slide Components (10 files)
 
-4) Verify in the slide deck route
-- Confirm on the actual slide deck route (not `/`), because the screenshot tool showed a 404 on `/#/`.
-- Check alignment at typical presentation widths (1280–1600px), and ensure no row shifts when text wraps.
+| File | Key Changes |
+|------|-------------|
+| `GDSlide0Title.tsx` | Headline: "Your Shoppers" → "Your Consumers"; agenda summaries; executive takeaway |
+| `GDSlide1GrowthReality.tsx` | Pain points: "Your Shopper Switched" → "Your Consumer Switched"; "Shopper Paradox" → "Consumer Paradox" |
+| `GDSlide2IntelligenceGap.tsx` | Definition: "shopper signals" → "consumer signals"; detail: "shopper truth" → "consumer truth" |
+| `GDSlide3BeforeAfter.tsx` | Labels: "Shopper signals scattered" → "Consumer signals scattered"; metrics |
+| `GDSlide4Proposition.tsx` | Title, subtitle, replaces list, bottom callout |
+| `GDSlide5ValueChain.tsx` | Title: "From Shopper Insight to Basket Drop" → "From Consumer Insight to Market Action"; questions; callout |
+| `GDSlide6ValuePyramid.tsx` | Stage headlines and descriptions containing "shopper" |
+| `GDSlide8ROI.tsx` | Pillar descriptions: "Shopper-validated" → "Consumer-validated" |
+| `GDSlide9WhyGlobalData.tsx` | Differentiators, closing truths, final takeaway |
+| `GDSlide10Solutions.tsx` | No shopper references found |
 
-Acceptance criteria
-- On desktop (`lg+`):
-  - Each dimension displays as a left card + right card on the same row
-  - The two cards in each row have identical height (pixel-perfect)
-  - The set of four rows is evenly stacked with consistent spacing
-- On mobile:
-  - Each dimension stays grouped (cause directly followed by its impact)
+#### Data Files (2 files)
 
-Risks / edge cases
-- If copy changes cause an extreme wrap (e.g., 5+ lines), that row will grow taller; with the paired-row grid, both sides will still match height, which is the desired behavior.
-- If the team prefers the mobile layout to remain “all causes then all impacts”, we can keep the old mobile behavior, but it requires more complex responsive ordering; the paired approach is the cleanest for guaranteed alignment.
+| File | Key Changes |
+|------|-------------|
+| `src/data/globalDataNarration.ts` | All 9+ narration scripts need terminology updates |
+| `src/data/solutionDeepDives.ts` | JTBD statements, pain points, examples, use cases |
 
-Scope of work
-- Only `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` changes.
-- No backend changes, no dependency changes.
+---
+
+### Slide-by-Slide Changes
+
+#### Slide 0 - Title
+```typescript
+// Headline
+"Your Shoppers Are Changing" → "Your Consumers Are Changing"
+
+// Agenda items
+"Your shoppers are changing faster" → "Your consumers are changing faster"
+"One shopper truth, faster wins" → "One consumer truth, faster wins"
+"See the full shopper journey" → "See the full consumer journey"
+
+// Executive takeaway
+"they see the shopper's journey as one connected story" 
+→ "they see the consumer's journey as one connected story"
+```
+
+#### Slide 1 - Growth Reality
+```typescript
+// Pain points
+{ title: "Your Shopper Switched" → "Your Consumer Switched" }
+
+// Paradox box
+"The Shopper Paradox" → "The Consumer Paradox"
+"more shopper data" → "more consumer data"
+"Your shopper insights" → "Your consumer insights"
+
+// Bottom callout
+"full shopper journey" → "full consumer journey"
+```
+
+#### Slide 2 - Intelligence Gap
+```typescript
+// Definition
+"shopper signals you collect" → "consumer signals you collect"
+
+// Root causes
+"Incomplete shopper picture" → "Incomplete consumer picture"
+"Gut feel replaces shopper truth" → "Gut feel replaces consumer truth"
+```
+
+#### Slide 3 - Before/After
+```typescript
+// Before items
+"Shopper signals scattered" → "Consumer signals scattered"
+"Conflicting shopper views" → "Conflicting consumer views"
+
+// After items
+"One shopper truth" → "One consumer truth"
+"Test with real shoppers first" → "Test with real consumers first"
+
+// Metrics
+"Shopper-tested" → "Consumer-tested"
+```
+
+#### Slide 4 - Proposition
+```typescript
+// Title & subtitle
+"See the Full Shopper Journey. Act First." 
+→ "See the Full Consumer Journey. Act First."
+
+"Understand your shopper faster" → "Understand your consumer faster"
+
+// Replaces list
+"See the full shopper journey—from trend emergence to basket drop"
+→ "See the full consumer journey—from trend emergence to purchase decision"
+
+// Central value prop
+"one connected view of your shopper"
+→ "one connected view of your consumer"
+
+// Bottom callout
+"understanding your shopper faster than anyone else"
+→ "understanding your consumer faster than anyone else"
+```
+
+#### Slide 5 - Value Chain
+```typescript
+// Title
+"From Shopper Insight to Basket Drop"
+→ "From Consumer Insight to Market Action"
+
+// Stage questions
+"Which shoppers are switching?" → "Which consumers are switching?"
+"Will shoppers pay more for clean-label?" → "Will consumers pay more for clean-label?"
+
+// Callout
+"same shopper" → "same consumer"
+
+// Stats
+"1 Shopper truth" → "1 Consumer truth"
+```
+
+#### Slide 6 - Value Pyramid (Maturity Curve)
+```typescript
+// Multiple stage descriptions
+"shopper intelligence maturity" → "consumer intelligence maturity"
+"One Shopper Truth Emerges" → "One Consumer Truth Emerges"
+"shared shopper truth" → "shared consumer truth"
+"shopper insights" → "consumer insights"
+"Your Shopper Data Doesn't Connect" → "Your Consumer Data Doesn't Connect"
+// (15+ instances in layersData)
+```
+
+#### Slide 8 - ROI
+```typescript
+// Pillar descriptions
+"Shopper-validated" → "Consumer-validated"
+"more products shoppers reach for" → "more products consumers choose"
+"don't resonate with shoppers" → "don't resonate with consumers"
+```
+
+#### Slide 9 - Why GlobalData
+```typescript
+// Differentiators
+"The same shopper language" → "The same consumer language"
+"One shopper truth across your entire value chain" → "One consumer truth across your entire value chain"
+"40 years of shopper, category, and competitive intelligence" → "40 years of consumer, category, and competitive intelligence"
+
+// Closing truths
+"Shopper insight alone" → "Consumer insight alone"
+"Connected shopper intelligence" → "Connected consumer intelligence"
+
+// Final takeaway
+"see shoppers as one connected journey" → "see consumers as one connected journey"
+"see shopper change first" → "see consumer change first"
+```
+
+#### Data: solutionDeepDives.ts
+```typescript
+// Innovation Intelligence
+"target shoppers" → "target consumers"
+"Shopper-validated concept screening" → "Consumer-validated concept screening"
+"real shoppers" → "real consumers"
+"shopper preferences" → "consumer preferences"
+"shopper data" → "consumer data"
+
+// Market Intelligence
+"real shopper demand" → "real consumer demand"
+"underserved shopper segments" → "underserved consumer segments"
+
+// Sales Intelligence
+"shopper acquisition data" → "consumer acquisition data"
+```
+
+#### Data: globalDataNarration.ts
+All narration scripts (slides 0-9+) need the same terminology updates to maintain consistency between what users see and what they hear.
+
+---
+
+### Sharpening the Narrative
+
+Beyond the terminology swap, the following messaging refinements will make the value proposition crisper:
+
+| Element | Sharpened Focus |
+|---------|-----------------|
+| **Intelligence Gap** | Emphasize the 4 dimensions (Breadth, Alignment, Speed, Confidence) as the core problem |
+| **Connected Intelligence** | Position as the single unified solution that closes all 4 gaps |
+| **Brand Outcomes** | Lead with what brands get: faster decisions, higher hit rates, fewer failed launches, category leadership |
+| **Solutions** | Each module maps to a specific gap and delivers a measurable outcome |
+
+---
+
+### Implementation Order
+
+1. **Slide components** (GDSlide0 → GDSlide9) - Update all visible copy
+2. **Data files** - Update narration scripts and solution deep dives
+3. **Verify consistency** - Ensure spoken narration matches visual content
+
+---
+
+### Technical Details
+
+**Total files to modify**: 12 files
+- 10 slide components in `src/components/globaldata-slides/`
+- 2 data files in `src/data/`
+
+**No structural changes** - This is purely a copy/terminology update. All existing functionality, animations, and layouts remain unchanged.
+
+**Estimated changes**: ~100+ string replacements across all files
+
