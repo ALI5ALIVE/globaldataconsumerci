@@ -51,7 +51,7 @@ const GDSlide3BeforeAfter = ({
           {/* Before Column */}
           <div className="relative">
             <div className="absolute -top-2.5 left-3 px-2 py-0.5 bg-destructive/20 border border-destructive/30 rounded text-[10px] font-semibold text-destructive uppercase tracking-wider z-10">
-              Before: Fragmented Intelligence
+              Before: The Intelligence Gap
             </div>
             <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full">
               <div className="grid gap-3">

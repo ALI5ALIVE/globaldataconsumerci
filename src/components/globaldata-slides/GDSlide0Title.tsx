@@ -5,7 +5,7 @@ import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
   { num: 1, label: "Market Reality", summary: "Your shoppers are changing faster" },
-  { num: 2, label: "Intelligence Gap", summary: "From trend to shelf—too slow" },
+  { num: 2, label: "Intelligence Gap", summary: "Speed, breadth, alignment, confidence" },
   { num: 3, label: "Before & After", summary: "One shopper truth, faster wins" },
   { num: 4, label: "The Proposition", summary: "See the full shopper journey" },
   { num: 5, label: "Value Chain", summary: "From insight to basket drop" },
