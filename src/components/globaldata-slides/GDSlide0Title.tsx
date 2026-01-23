@@ -94,7 +94,7 @@ const GDSlide0Title = ({
           <div className="bg-card/50 backdrop-blur-sm border border-primary/30 rounded-lg p-4">
             <p className="text-xs text-primary uppercase tracking-wider font-semibold mb-2">For CMOs, CSOs & Category Leaders</p>
             <p className="text-sm text-foreground leading-relaxed">
-              The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the consumer's journey as one connected story.
+              The brands winning today don't have more data—they have connected intelligence that lets them move faster, align better, and act with confidence.
             </p>
           </div>
         </div>
