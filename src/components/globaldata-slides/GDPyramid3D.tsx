@@ -49,20 +49,20 @@ const GDPyramid3D = ({
 }: GDPyramid3DProps) => {
   const isMobile = useIsMobile();
 
-  // Pyramid configuration - Further expanded for larger visual
+  // Pyramid configuration - Further expanded for larger visual (~30% bigger)
   const layerConfig = {
-    apex: { x: 700, y: 10 },
-    baseLeft: { x: 20, y: 1120 },
-    baseRight: { x: 1380, y: 1120 },
+    apex: { x: 750, y: 5 },
+    baseLeft: { x: 10, y: 1200 },
+    baseRight: { x: 1490, y: 1200 },
   };
 
-  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (10 → 1120 = 1110px)
+  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (5 → 1200 = 1195px)
   const layerBounds = {
-    5: { top: 10, bottom: 232 },    // PREDICTIVE - Apex
-    4: { top: 232, bottom: 454 },   // OPERATIONAL
-    3: { top: 454, bottom: 676 },   // CONNECTED
-    2: { top: 676, bottom: 898 },   // MANAGED (with 5 silos)
-    1: { top: 898, bottom: 1120 },  // FRAGMENTED - Base
+    5: { top: 5, bottom: 244 },     // PREDICTIVE - Apex
+    4: { top: 244, bottom: 483 },   // OPERATIONAL
+    3: { top: 483, bottom: 722 },   // CONNECTED
+    2: { top: 722, bottom: 961 },   // MANAGED (with 5 silos)
+    1: { top: 961, bottom: 1200 },  // FRAGMENTED - Base
   };
 
   const getLeftX = (y: number) => {
@@ -112,13 +112,13 @@ const GDPyramid3D = ({
     return layers.find((l) => l.level === level);
   };
 
-  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for new layer bounds and narrower boxes
+  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for new layer bounds and larger pyramid
   const labelPositions = {
-    5: { lineStartX: 920, lineStartY: 121, lineEndX: 1480, lineEndY: 121, labelX: 1490, labelY: 121 },
-    4: { lineStartX: 1000, lineStartY: 343, lineEndX: 1480, lineEndY: 343, labelX: 1490, labelY: 343 },
-    3: { lineStartX: 1080, lineStartY: 565, lineEndX: 1480, lineEndY: 565, labelX: 1490, labelY: 565 },
-    2: { lineStartX: 1160, lineStartY: 787, lineEndX: 1480, lineEndY: 787, labelX: 1490, labelY: 787 },
-    1: { lineStartX: 1240, lineStartY: 1009, lineEndX: 1480, lineEndY: 1009, labelX: 1490, labelY: 1009 },
+    5: { lineStartX: 980, lineStartY: 125, lineEndX: 1600, lineEndY: 125, labelX: 1610, labelY: 125 },
+    4: { lineStartX: 1060, lineStartY: 364, lineEndX: 1600, lineEndY: 364, labelX: 1610, labelY: 364 },
+    3: { lineStartX: 1140, lineStartY: 603, lineEndX: 1600, lineEndY: 603, labelX: 1610, labelY: 603 },
+    2: { lineStartX: 1220, lineStartY: 842, lineEndX: 1600, lineEndY: 842, labelX: 1610, labelY: 842 },
+    1: { lineStartX: 1300, lineStartY: 1081, lineEndX: 1600, lineEndY: 1081, labelX: 1610, labelY: 1081 },
   };
 
   const handleModuleClick = (module: string) => {
@@ -127,7 +127,7 @@ const GDPyramid3D = ({
     }
   };
 
-  const viewBox = isMobile ? "0 0 1500 1140" : "0 0 1750 1140";
+  const viewBox = isMobile ? "0 0 1500 1220" : "0 0 1850 1220";
 
   const apexX = layerConfig.apex.x;
   const apexY = layerConfig.apex.y;
@@ -146,8 +146,8 @@ const GDPyramid3D = ({
         preserveAspectRatio="xMidYMid meet"
         style={{ 
           ...(compact ? {} : {
-            minWidth: isMobile ? "560px" : "880px",
-            minHeight: isMobile ? "500px" : "720px",
+            minWidth: isMobile ? "600px" : "960px",
+            minHeight: isMobile ? "540px" : "800px",
           }),
           filter: isMobile ? "drop-shadow(0 20px 40px rgba(0,0,0,0.4))" : "drop-shadow(0 30px 60px rgba(0,0,0,0.5))",
         }}
@@ -235,13 +235,17 @@ const GDPyramid3D = ({
                   <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
                   <g className="cursor-pointer" onClick={() => onLayerClick(level)}>
-                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="142" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                    <text x={labelPos.lineEndX + 32} y={labelPos.labelY - 8} fill={isActive ? colors.main : "hsl(210, 40%, 80%)"} fontSize="22" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.06em" className="transition-all duration-300">
-                      {layerData?.label}
-                    </text>
-                    <text x={labelPos.lineEndX + 32} y={labelPos.labelY + 28} fill={isActive ? "hsl(210, 40%, 90%)" : "hsl(215, 20%, 55%)"} fontSize="20" fontWeight="400" fontFamily="'Inter', sans-serif" className="transition-all duration-300">
-                      {layerData?.sublabel}
-                    </text>
+                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                    <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104">
+                      <div style={{ width: '100%', height: '100%', padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '14px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
+                          {layerData?.label}
+                        </span>
+                        <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '12px', marginTop: '4px', lineHeight: 1.2, fontFamily: "'Inter', sans-serif" }}>
+                          {layerData?.sublabel}
+                        </span>
+                      </div>
+                    </foreignObject>
                   </g>
                 </>
               )}
@@ -437,13 +441,17 @@ const GDPyramid3D = ({
                 <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
                 <g className="cursor-pointer" onClick={() => onLayerClick(2)}>
-                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="142" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                  <text x={labelPos.lineEndX + 32} y={labelPos.labelY - 8} fill={isActive ? colors.main : "hsl(210, 40%, 80%)"} fontSize="22" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.06em" className="transition-all duration-300">
-                    {layerData?.label}
-                  </text>
-                  <text x={labelPos.lineEndX + 32} y={labelPos.labelY + 28} fill={isActive ? "hsl(210, 40%, 90%)" : "hsl(215, 20%, 55%)"} fontSize="20" fontWeight="400" fontFamily="'Inter', sans-serif" className="transition-all duration-300">
-                    {layerData?.sublabel}
-                  </text>
+                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                  <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104">
+                    <div style={{ width: '100%', height: '100%', padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '14px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
+                        {layerData?.label}
+                      </span>
+                      <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '12px', marginTop: '4px', lineHeight: 1.2, fontFamily: "'Inter', sans-serif" }}>
+                        {layerData?.sublabel}
+                      </span>
+                    </div>
+                  </foreignObject>
                 </g>
               </g>
             );
