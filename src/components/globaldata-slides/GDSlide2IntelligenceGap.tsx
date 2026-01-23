@@ -75,16 +75,22 @@ const GDSlide2IntelligenceGap = ({
           </p>
         </div>
 
-        {/* Root Causes Flow */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-6 items-start">
-          {/* Left: Root Causes */}
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Why It Exists</p>
-            <div className="space-y-3">
-              {rootCauses.map((cause, i) => (
+        {/* Root Causes Flow - Paired Rows */}
+        <div className="flex-1 flex flex-col gap-3">
+          {/* Header Row */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Why It Exists</p>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider hidden lg:block">Quantified Impact</p>
+          </div>
+          
+          {/* Paired Content Rows */}
+          {rootCauses.map((cause, i) => {
+            const impact = impacts[i];
+            return (
+              <div key={i} className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-6 items-stretch">
+                {/* Left: Root Cause Card */}
                 <div 
-                  key={i}
-                  className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 min-h-[84px] group hover:border-destructive/30 transition-all"
+                  className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 min-h-[84px] h-full group hover:border-destructive/30 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
@@ -101,31 +107,28 @@ const GDSlide2IntelligenceGap = ({
                     <p className="text-xs text-destructive mt-1">{cause.detail}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Quantified Impact */}
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quantified Impact</p>
-            <div className="space-y-3">
-              {impacts.map((impact, i) => (
-                <div 
-                  key={i}
-                  className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-4 min-h-[84px] flex items-center gap-3"
-                >
-                  <div className="text-right min-w-[60px]">
-                    <span className="text-2xl font-bold text-destructive">{impact.value}</span>
-                    <span className="text-xs text-destructive ml-1">{impact.label}</span>
-                  </div>
-                  <div className="flex-1 border-l border-destructive/20 pl-3">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{impact.dimension}</p>
-                    <p className="text-xs text-foreground">{impact.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                
+                {/* Right: Impact Card */}
+                {impact && (
+                  <>
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider lg:hidden mt-2">Quantified Impact</p>
+                    <div 
+                      className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-4 min-h-[84px] h-full flex items-start gap-3"
+                    >
+                      <div className="text-right min-w-[60px]">
+                        <span className="text-2xl font-bold text-destructive">{impact.value}</span>
+                        <span className="text-xs text-destructive ml-1">{impact.label}</span>
+                      </div>
+                      <div className="flex-1 border-l border-destructive/20 pl-3">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{impact.dimension}</p>
+                        <p className="text-xs text-foreground">{impact.desc}</p>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Bottom Line */}
