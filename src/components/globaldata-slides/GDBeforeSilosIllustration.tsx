@@ -234,20 +234,6 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
         </g>
       ))}
 
-      {/* Caption */}
-      <text
-        x="230"
-        y="148"
-        textAnchor="middle"
-        fill="hsl(0, 50%, 60%)"
-        fontSize="8"
-        fontWeight="500"
-        fontFamily="'Space Grotesk', sans-serif"
-        letterSpacing="0.1em"
-        className="uppercase"
-      >
-        Different Taxonomies • Manual Reconciliation
-      </text>
     </svg>
   );
 };
