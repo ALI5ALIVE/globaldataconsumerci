@@ -15,7 +15,7 @@ export const globalDataNarrations: SlideNarration[] = [
 
 For most consumer brands, there's a gap. Not a small one. A gap measured in weeks, sometimes months, between seeing a trend and having a product on shelf.
 
-That gap has a name. We call it the speed gap. And the brands winning shelf space, share of stomach, and consumer loyalty right now? They've already closed it.
+That gap has a name. We call it the intelligence gap—and it's measured in four dimensions: speed, breadth, alignment, and confidence. The brands winning shelf space, share of stomach, and consumer loyalty right now? They've already closed it.
 
 Over the next few minutes, I'm going to show you exactly how—and why it matters more for your brand right now than ever before.`,
     voiceId: DEFAULT_VOICE_ID,
@@ -36,24 +36,26 @@ The brands winning right now don't just see trends first. They see the full shop
   },
   {
     slideId: 2,
-    title: "The Speed Gap",
-    script: `So where exactly does your brand fall behind? There's a pattern we see with consumer companies again and again.
+    title: "The Intelligence Gap",
+    script: `So where exactly does your brand fall behind? The intelligence gap shows up in four ways.
 
-First, shopper signals fragment. Consumer insights live in one system. POS data in another. Social listening somewhere else. Every NPD decision starts with "which data source should we trust?"
+First, there's a breadth problem. Shopper signals fragment. Consumer insights in one system. POS in another. Social listening somewhere else. You can't see the full shopper journey.
 
-Then, instead of acting, teams debate sources. Your innovation team and commercial team have different views of the same shopper.
+Then there's an alignment problem. Teams debate sources. Your innovation team and commercial team have different views of the same shopper. No shared truth to act on.
 
-And finally—inevitably—the shelf window closes. Your competitor launched while you were still validating.
+Next, there's a confidence problem. Without unified intelligence, you can't commit with conviction. Sixty-eight percent of teams say they lack the confidence to act fast.
 
-Look at these numbers. Twelve weeks of decision latency equals two missed seasonal windows. Three to five sources to reconcile per NPD decision. Forty percent of new product launches miss the consumer moment they were designed for.
+And finally, there's the speed problem. The shelf window closes. Your competitor launched while you were still validating.
 
-A global snack brand spent nine months validating a 'protein plus gut health' concept. By launch, three competitors had already captured the position. The insight was right. The timing was wrong. That's the speed gap.`,
+Twelve weeks of decision latency. Three to five sources to reconcile. Forty percent of new product launches miss the consumer moment.
+
+A global snack brand spent nine months validating a 'protein plus gut health' concept. By launch, three competitors had already captured the position. The insight was right. The intelligence wasn't connected. That's the intelligence gap.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 3,
     title: "One Shopper Truth",
-    script: `But here's what happens when you close that speed gap.
+    script: `But here's what happens when you close the intelligence gap.
 
 Look at the left side of your screen—this is where most brands are today. Shopper signals scattered across POS, panels, and social. Conflicting views of the same consumer. Weeks spent validating while competitors launch.
 
