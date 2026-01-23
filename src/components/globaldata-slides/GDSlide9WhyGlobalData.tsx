@@ -32,7 +32,7 @@ const closingTruths = [
   { text: "Connected Intelligence creates leadership", icon: CheckCircle2 },
 ];
 
-const GDSlide8WhyGlobalData = ({
+const GDSlide9WhyGlobalData = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -43,10 +43,10 @@ const GDSlide8WhyGlobalData = ({
 }: SlideNarrationProps) => {
   return (
     <GDSlideContainer
-      id="gd-slide-8"
+      id="gd-slide-9"
       title="Built for Connected Intelligence at Scale"
       subtitle="Why GlobalData is uniquely positioned to close the Intelligence Gap"
-      slideNumber={8}
+      slideNumber={9}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -138,4 +138,4 @@ const GDSlide8WhyGlobalData = ({
   );
 };
 
-export default GDSlide8WhyGlobalData;
+export default GDSlide9WhyGlobalData;

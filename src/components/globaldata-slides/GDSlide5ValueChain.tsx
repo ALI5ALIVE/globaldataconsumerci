@@ -35,7 +35,7 @@ const stages = [
   },
 ];
 
-const GDSlide4ValueChain = ({
+const GDSlide5ValueChain = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -46,10 +46,10 @@ const GDSlide4ValueChain = ({
 }: SlideNarrationProps) => {
   return (
     <GDSlideContainer
-      id="gd-slide-4"
+      id="gd-slide-5"
       title="Intelligence That Operates, Not Just Reports"
       subtitle="Connected Intelligence works across the full value chain"
-      slideNumber={4}
+      slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -136,4 +136,4 @@ const GDSlide4ValueChain = ({
   );
 };
 
-export default GDSlide4ValueChain;
+export default GDSlide5ValueChain;

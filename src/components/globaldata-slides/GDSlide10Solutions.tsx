@@ -20,7 +20,7 @@ const comparisonData = [
   { separate: "Value resets each cycle", connected: "Value compounds every cycle" },
 ];
 
-const GDSlide9Solutions = ({
+const GDSlide10Solutions = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -59,10 +59,10 @@ const GDSlide9Solutions = ({
 
   return (
     <GDSlideContainer
-      id="gd-slide-9"
+      id="gd-slide-10"
       title="From Weak Signal to Winning Launch"
       subtitle="How a global snack brand captured #2 share in 8 weeks"
-      slideNumber={9}
+      slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -150,4 +150,4 @@ const GDSlide9Solutions = ({
   );
 };
 
-export default GDSlide9Solutions;
+export default GDSlide10Solutions;

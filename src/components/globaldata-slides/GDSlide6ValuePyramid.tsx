@@ -206,7 +206,7 @@ const stageTimings = [
   { stage: "PREDICTIVE", startPercent: 72 },
 ];
 
-const GDSlide5ValuePyramid = ({
+const GDSlide6ValuePyramid = ({
   isPlaying: narrationPlaying = false,
   isLoading: narrationLoading = false,
   progress: narrationProgress = 0,
@@ -295,10 +295,10 @@ const GDSlide5ValuePyramid = ({
 
   return (
     <GDSlideContainer
-      id="gd-slide-5"
+      id="slide-6"
       title="Intelligence Maturity Ladder"
       subtitle="From fragmented point solutions to connected intelligence that drives category leadership"
-      slideNumber={5}
+      slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}
       progress={narrationProgress}
@@ -399,4 +399,4 @@ const GDSlide5ValuePyramid = ({
   );
 };
 
-export default GDSlide5ValuePyramid;
+export default GDSlide6ValuePyramid;

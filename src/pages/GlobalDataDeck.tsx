@@ -4,27 +4,29 @@ import { useGlobalDataNarration } from "@/hooks/useGlobalDataNarration";
 import GDSlide0Title from "@/components/globaldata-slides/GDSlide0Title";
 import GDSlide1GrowthReality from "@/components/globaldata-slides/GDSlide1GrowthReality";
 import GDSlide2IntelligenceGap from "@/components/globaldata-slides/GDSlide2IntelligenceGap";
-import GDSlide3Transformation from "@/components/globaldata-slides/GDSlide3Transformation";
-import GDSlide4ValueChain from "@/components/globaldata-slides/GDSlide4ValueChain";
-import GDSlide5ValuePyramid from "@/components/globaldata-slides/GDSlide5ValuePyramid";
-import GDSlide6MaturityCurve from "@/components/globaldata-slides/GDSlide6MaturityCurve";
-import GDSlide7ROI from "@/components/globaldata-slides/GDSlide7ROI";
-import GDSlide8WhyGlobalData from "@/components/globaldata-slides/GDSlide8WhyGlobalData";
-import GDSlide9Solutions from "@/components/globaldata-slides/GDSlide9Solutions";
-import GDSlide10SolutionDeepDives from "@/components/globaldata-slides/GDSlide10SolutionDeepDives";
+import GDSlide3BeforeAfter from "@/components/globaldata-slides/GDSlide3BeforeAfter";
+import GDSlide4Proposition from "@/components/globaldata-slides/GDSlide4Proposition";
+import GDSlide5ValueChain from "@/components/globaldata-slides/GDSlide5ValueChain";
+import GDSlide6ValuePyramid from "@/components/globaldata-slides/GDSlide6ValuePyramid";
+import GDSlide7MaturityCurve from "@/components/globaldata-slides/GDSlide7MaturityCurve";
+import GDSlide8ROI from "@/components/globaldata-slides/GDSlide8ROI";
+import GDSlide9WhyGlobalData from "@/components/globaldata-slides/GDSlide9WhyGlobalData";
+import GDSlide10Solutions from "@/components/globaldata-slides/GDSlide10Solutions";
+import GDSlide11SolutionDeepDives from "@/components/globaldata-slides/GDSlide11SolutionDeepDives";
 
 const slides = [
   { id: "gd-slide-0", label: "Title" },
   { id: "gd-slide-1", label: "Market Reality" },
   { id: "gd-slide-2", label: "Intelligence Gap" },
-  { id: "gd-slide-3", label: "Connected Intelligence" },
-  { id: "gd-slide-4", label: "Value Chain" },
-  { id: "gd-slide-5", label: "Capability Stack" },
-  { id: "gd-slide-6", label: "Your Roadmap" },
-  { id: "gd-slide-7", label: "ROI" },
-  { id: "gd-slide-8", label: "Why GlobalData" },
-  { id: "gd-slide-9", label: "Connected Solutions" },
-  { id: "gd-slide-10", label: "Solution Deep Dives" },
+  { id: "gd-slide-3", label: "Transformation" },
+  { id: "gd-slide-4", label: "The Proposition" },
+  { id: "gd-slide-5", label: "Value Chain" },
+  { id: "gd-slide-6", label: "Capability Stack" },
+  { id: "gd-slide-7", label: "Your Roadmap" },
+  { id: "gd-slide-8", label: "ROI" },
+  { id: "gd-slide-9", label: "Why GlobalData" },
+  { id: "gd-slide-10", label: "Connected Solutions" },
+  { id: "gd-slide-11", label: "Solution Deep Dives" },
 ];
 
 const GlobalDataDeck = () => {
@@ -191,14 +193,15 @@ const GlobalDataDeck = () => {
         <GDSlide0Title onNavigateToSlide={scrollToSlide} {...getNarrationProps(0)} />
         <GDSlide1GrowthReality {...getNarrationProps(1)} />
         <GDSlide2IntelligenceGap {...getNarrationProps(2)} />
-        <GDSlide3Transformation {...getNarrationProps(3)} />
-        <GDSlide4ValueChain {...getNarrationProps(4)} />
-        <GDSlide5ValuePyramid {...getNarrationProps(5)} />
-        <GDSlide6MaturityCurve {...getNarrationProps(6)} />
-        <GDSlide7ROI {...getNarrationProps(7)} />
-        <GDSlide8WhyGlobalData {...getNarrationProps(8)} />
-        <GDSlide9Solutions {...getNarrationProps(9)} />
-        <GDSlide10SolutionDeepDives {...getNarrationProps(10)} />
+        <GDSlide3BeforeAfter {...getNarrationProps(3)} />
+        <GDSlide4Proposition {...getNarrationProps(4)} />
+        <GDSlide5ValueChain {...getNarrationProps(5)} />
+        <GDSlide6ValuePyramid {...getNarrationProps(6)} />
+        <GDSlide7MaturityCurve {...getNarrationProps(7)} />
+        <GDSlide8ROI {...getNarrationProps(8)} />
+        <GDSlide9WhyGlobalData {...getNarrationProps(9)} />
+        <GDSlide10Solutions {...getNarrationProps(10)} />
+        <GDSlide11SolutionDeepDives {...getNarrationProps(11)} />
       </div>
     </div>
   );
