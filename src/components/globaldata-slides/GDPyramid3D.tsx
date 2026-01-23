@@ -235,13 +235,13 @@ const GDPyramid3D = ({
                   <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
                   <g className="cursor-pointer" onClick={() => onLayerClick(level)}>
-                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                    <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104">
-                      <div style={{ width: '100%', height: '100%', padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '14px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
+                    <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                    <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120">
+                      <div style={{ width: '100%', height: '100%', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '18px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
                           {layerData?.label}
                         </span>
-                        <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '12px', marginTop: '4px', lineHeight: 1.2, fontFamily: "'Inter', sans-serif" }}>
+                        <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '15px', marginTop: '6px', lineHeight: 1.3, fontFamily: "'Inter', sans-serif" }}>
                           {layerData?.sublabel}
                         </span>
                       </div>
@@ -442,12 +442,13 @@ const GDPyramid3D = ({
 
                 <g className="cursor-pointer" onClick={() => onLayerClick(2)}>
                   <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
-                  <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="100" height="104">
-                    <div style={{ width: '100%', height: '100%', padding: '8px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '14px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
+                  <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
+                  <foreignObject x={labelPos.lineEndX + 16} y={labelPos.labelY - 60} width="130" height="120">
+                    <div style={{ width: '100%', height: '100%', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <span style={{ color: isActive ? colors.main : 'hsl(210, 40%, 80%)', fontSize: '18px', fontWeight: 700, lineHeight: 1.2, wordBreak: 'break-word', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.06em' }}>
                         {layerData?.label}
                       </span>
-                      <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '12px', marginTop: '4px', lineHeight: 1.2, fontFamily: "'Inter', sans-serif" }}>
+                      <span style={{ color: isActive ? 'hsl(210, 40%, 90%)' : 'hsl(215, 20%, 55%)', fontSize: '15px', marginTop: '6px', lineHeight: 1.3, fontFamily: "'Inter', sans-serif" }}>
                         {layerData?.sublabel}
                       </span>
                     </div>
