@@ -1,104 +1,69 @@
 
 
-## Fix Slide 3: Remove Animation and Increase Container Size
+## Remove Caption Text from Before/After Illustrations
 
 ### Summary
 
-Two fixes needed:
-1. **Remove animation** from the "After" illustration by eliminating the `useEffect` interval and using static values
-2. **Increase container height** to prevent images from overlapping the text below
+Remove the caption text elements from both SVG illustrations:
+- **Before**: "Different Taxonomies • Manual Reconciliation" 
+- **After**: "Connected Intelligence • Unified Taxonomy"
 
 ---
 
 ### Changes Required
 
-#### File 1: `src/components/globaldata-slides/GDAfterConnectedIllustration.tsx`
+#### File 1: `src/components/globaldata-slides/GDBeforeSilosIllustration.tsx`
 
-**Remove animation effect (lines 19-26):**
+**Remove caption (lines 237-250):**
 
-Delete the `flowOffset` state and `useEffect`:
+Delete this entire text element:
 ```tsx
-// REMOVE these lines:
-const [flowOffset, setFlowOffset] = useState(0);
-
-useEffect(() => {
-  const interval = setInterval(() => {
-    setFlowOffset((prev) => (prev + 1) % 20);
-  }, 80);
-  return () => clearInterval(interval);
-}, []);
-```
-
-**Update unified arc (line 103):**
-```tsx
-// Before
-strokeDasharray={`${flowOffset} 5`}
-
-// After - use static solid line
-strokeDasharray="none"
-```
-
-**Update hub outer ring (line 139):**
-```tsx
-// Before
-strokeDasharray={`${10 + flowOffset} 5`}
-
-// After - use static dashed pattern
-strokeDasharray="10 5"
-```
-
-**Remove unused import:**
-```tsx
-// Before
-import { useState, useEffect } from "react";
-
-// After
-import { useState } from "react";
+{/* Caption */}
+<text
+  x="230"
+  y="148"
+  textAnchor="middle"
+  fill="hsl(0, 50%, 60%)"
+  fontSize="8"
+  fontWeight="500"
+  fontFamily="'Space Grotesk', sans-serif"
+  letterSpacing="0.1em"
+  className="uppercase"
+>
+  Different Taxonomies • Manual Reconciliation
+</text>
 ```
 
 ---
 
-#### File 2: `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
+#### File 2: `src/components/globaldata-slides/GDAfterConnectedIllustration.tsx`
 
-**Increase illustration container heights:**
+**Remove caption (lines 264-277):**
 
-Currently both containers use `h-32` (128px). The SVG viewBoxes are 150-155px tall, plus labels extend ~12px below nodes. Need to increase to `h-36` (144px) to give proper space.
-
-**Line 60 - Before illustration:**
+Delete this entire text element:
 ```tsx
-// Before
-<div className="h-32 mb-3">
-
-// After
-<div className="h-36 mb-3">
+{/* Caption */}
+<text
+  x="230"
+  y="145"
+  textAnchor="middle"
+  fill="hsl(217, 100%, 60%)"
+  fontSize="8"
+  fontWeight="500"
+  fontFamily="'Space Grotesk', sans-serif"
+  letterSpacing="0.1em"
+  className="uppercase"
+>
+  Connected Intelligence • Unified Taxonomy
+</text>
 ```
-
-**Line 107 - After illustration:**
-```tsx
-// Before
-<div className="h-32 mb-3">
-
-// After
-<div className="h-36 mb-3">
-```
-
----
-
-### Visual Result
-
-| Change | Before | After |
-|--------|--------|-------|
-| Arc animation | Flowing dash pattern | Static solid line |
-| Hub ring animation | Rotating dash pattern | Static dashed ring |
-| Container height | 128px (h-32) | 144px (h-36) |
-| Text overlap | Images clip into text | Proper spacing |
 
 ---
 
 ### Files Summary
 
-| File | Lines Changed | Description |
-|------|---------------|-------------|
-| `GDAfterConnectedIllustration.tsx` | 4 edits | Remove useEffect, remove flowOffset state, static strokeDasharray |
-| `GDSlide3BeforeAfter.tsx` | 2 edits | Change h-32 to h-36 on lines 60 and 107 |
+| File | Lines to Remove | Description |
+|------|-----------------|-------------|
+| `GDBeforeSilosIllustration.tsx` | 237-250 | Remove "Different Taxonomies • Manual Reconciliation" caption |
+| `GDAfterConnectedIllustration.tsx` | 264-277 | Remove "Connected Intelligence • Unified Taxonomy" caption |
 
