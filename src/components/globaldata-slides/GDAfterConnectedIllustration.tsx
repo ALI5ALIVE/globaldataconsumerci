@@ -15,14 +15,14 @@ const modules = [
 const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrationProps) => {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
 
-  const loopRadius = 28;
-  const loopSpacing = 44;
-  const startX = 58;
-  const cy = 50;
+  const loopRadius = 22;
+  const loopSpacing = 52;
+  const startX = 46;
+  const cy = 45;
 
   return (
     <svg
-      viewBox="0 0 300 110"
+      viewBox="0 0 300 100"
       className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -79,8 +79,8 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
             key={`intersection-${i}`}
             cx={x}
             cy={cy}
-            rx={8}
-            ry={loopRadius * 0.6}
+            rx={6}
+            ry={loopRadius * 0.5}
             fill="url(#afterIntersectionGradient)"
           />
         );
@@ -114,14 +114,14 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
 
             {/* Label below circle */}
             <text
-              x={cx}
-              y={cy + loopRadius + 14}
+              x={cx + 1}
+              y={cy + loopRadius + 12}
               textAnchor="middle"
               fill={isHovered ? "hsl(195, 100%, 70%)" : "hsl(217, 100%, 65%)"}
-              fontSize="8"
+              fontSize="7"
               fontWeight="600"
               fontFamily="'Space Grotesk', sans-serif"
-              letterSpacing="0.02em"
+              letterSpacing="0.01em"
               className="pointer-events-none select-none"
             >
               {module.label}
