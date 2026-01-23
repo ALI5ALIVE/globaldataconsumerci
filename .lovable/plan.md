@@ -1,56 +1,122 @@
 
 
-## Update Executive Takeaway Box
+## Add 4th Confidence Dimension to Intelligence Gap Slide
 
-### Current Copy (line 97)
-```
-The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the consumer's journey as one connected story.
-```
+### Current State
+The slide currently has **3 root causes** (Why It Exists) and **3 quantified impacts**, displayed in two columns with uneven box counts.
 
-### Issue
-This copy uses the old "consumer journey as one connected story" framing, which is softer and consumer-behavior-focused. The new narrative is sharper and enterprise-action-focused.
+### Required Changes
 
----
+1. **Add 4th Root Cause: Confidence**
+   - Title: "Decisions Lack Conviction"
+   - Description: "Teams hedge instead of committing"
+   - Detail: "Diluted action"
+   - Badge: "CONFIDENCE"
+   - Icon: `ShieldAlert` (from lucide-react)
 
-### Recommended New Copy Options
+2. **Add 4th Quantified Impact**
+   - Value: "68%"
+   - Label: "teams"
+   - Description: "lack confidence to act decisively"
+   - Dimension: "Confidence"
 
-**Option A (Recommended)** - Mirrors the new value prop:
-```
-The brands winning today don't have more data—they have connected intelligence that lets them move faster, align better, and act with confidence.
-```
-
-**Option B** - Emphasizes the Intelligence Gap:
-```
-Category leaders don't just have better data—they've closed the Intelligence Gap and turned intelligence into unified action.
-```
-
-**Option C** - Focuses on speed and conviction:
-```
-The brands winning today don't debate data longer—they've connected their intelligence and move with speed and conviction.
-```
+3. **Align Layout: 4 Boxes Each Side**
+   - Reduce padding from `p-4` to `p-3` on each card to fit 4 items comfortably
+   - Remove the arrow icons between root cause cards to save vertical space
+   - Ensure both columns have identical box heights using `items-stretch` and `h-full`
 
 ---
 
-### Implementation
+### Implementation Details
 
-**File:** `src/components/globaldata-slides/GDSlide0Title.tsx`
+**File:** `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
 
-**Lines 96-98:** Replace the executive takeaway paragraph:
-
+#### 1. Add ShieldAlert import (line 2)
 ```tsx
-<p className="text-sm text-foreground leading-relaxed">
-  The brands winning today don't have more data—they have connected intelligence that lets them move faster, align better, and act with confidence.
-</p>
+import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon } from "lucide-react";
+```
+
+#### 2. Add 4th root cause (lines 5-27)
+```tsx
+const rootCauses = [
+  { 
+    icon: Layers, 
+    title: "Signals Fragment", 
+    desc: "Across tools, teams, and vendors",
+    detail: "No single source of truth",
+    badge: "BREADTH"
+  },
+  { 
+    icon: MessageSquareWarning, 
+    title: "Leaders Debate", 
+    desc: "Data instead of committing to direction",
+    detail: "Analysis paralysis",
+    badge: "ALIGNMENT"
+  },
+  { 
+    icon: Clock, 
+    title: "Decisions Arrive Late", 
+    desc: "Too late to matter",
+    detail: "Missed windows",
+    badge: "SPEED"
+  },
+  { 
+    icon: ShieldAlert, 
+    title: "Decisions Lack Conviction", 
+    desc: "Teams hedge instead of committing",
+    detail: "Diluted action",
+    badge: "CONFIDENCE"
+  },
+];
+```
+
+#### 3. Add 4th impact (lines 29-33)
+```tsx
+const impacts = [
+  { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
+  { value: "3-5", label: "sources", desc: "conflicting data per decision", dimension: "Breadth" },
+  { value: "40%", label: "launches", desc: "miss optimal windows", dimension: "Alignment" },
+  { value: "68%", label: "teams", desc: "lack confidence to act decisively", dimension: "Confidence" },
+];
+```
+
+#### 4. Update layout for 4 items each (lines 73-118)
+
+**Root Causes column:**
+- Change card padding from `p-4` to `p-3`
+- Remove the `ArrowRight` icon between cards
+- Reduce `space-y-3` to `space-y-2`
+
+**Quantified Impact column:**
+- Change card padding from `p-4` to `p-3`
+- Reduce `space-y-3` to `space-y-2`
+- Reduce value font size from `text-2xl` to `text-xl`
+
+---
+
+### Narration Update
+
+The narration in `globalDataNarration.ts` for Slide 2 should also be updated to include the 4th dimension. Add after "Decisions arrive late":
+
+```
+Finally, decisions lack conviction. Teams hedge instead of committing. Action gets diluted.
+```
+
+And update the quantified impact section:
+
+```
+Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows. And sixty-eight percent of teams lack the confidence to act decisively.
 ```
 
 ---
 
-### Why Option A Works Best
+### Visual Result
+| Why It Exists (4 boxes) | Quantified Impact (4 boxes) |
+|-------------------------|------------------------------|
+| Signals Fragment (BREADTH) | 12+ weeks (Speed) |
+| Leaders Debate (ALIGNMENT) | 3-5 sources (Breadth) |
+| Decisions Arrive Late (SPEED) | 40% launches (Alignment) |
+| Decisions Lack Conviction (CONFIDENCE) | 68% teams (Confidence) |
 
-1. **"Connected intelligence"** - directly introduces the core concept from Slide 4
-2. **"Move faster, align better, act with confidence"** - echoes the exact value prop language
-3. **"Don't have more data"** - keeps the provocative contrast that challenges the data-abundance assumption
-4. **Drops "shelf space, share of stomach"** - removes softer consumer-brand terminology in favor of sharper enterprise language
-
-This sets up the entire narrative arc: the title slide hints at the answer (connected intelligence) before the problem (Intelligence Gap) is even defined.
+Both columns will have 4 equally-sized boxes with consistent dimensions.
 
