@@ -58,7 +58,7 @@ const GDSlide8ROI = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
         {/* ROI Pillars Grid */}
         <div className="grid md:grid-cols-3 gap-5 flex-1">
           {roiPillars.map((pillar, i) => {

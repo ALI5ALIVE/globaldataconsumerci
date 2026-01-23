@@ -166,7 +166,7 @@ const GDSlide5ValueChain = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Solution Combo Pills */}
         <div className="flex flex-wrap justify-center gap-3">
           {solutionCombos.map((combo, i) => (
