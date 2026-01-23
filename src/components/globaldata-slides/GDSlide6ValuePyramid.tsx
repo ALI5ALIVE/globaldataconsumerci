@@ -51,7 +51,7 @@ const layersData: GDLayerData[] = [
     sublabel: "Advanced / Insight in Workflow",
     whatItLooksLike: [
       "Advanced analytics integrated into daily workflows across multiple markets",
-      "Consumer, shopper, category, and commercial insights connected in unified models",
+      "Consumer, category, and commercial insights connected in unified models",
       "AI augmentation: automated trend detection, decision recommendations",
       "Category insights embedded into key commercial and innovation decisions",
     ],
@@ -83,28 +83,28 @@ const layersData: GDLayerData[] = [
   {
     id: "CONNECTED",
     level: 3,
-    headline: "Connected: One Shopper Truth Emerges",
+    headline: "Connected: One Consumer Truth Emerges",
     sublabel: "Optimizing / Platform Foundation",
     whatItLooksLike: [
-      "One version of who your shopper is—shared by R&D, marketing, and retail execution",
+      "One version of who your consumer is—shared by R&D, marketing, and retail execution",
       "Unified taxonomy across POS, panel, social, and competitive data",
-      "Self-service access to shopper insights with proper governance",
+      "Self-service access to consumer insights with proper governance",
       "Consumer, market, innovation, and competitive intelligence on one platform",
     ],
     result: [
       "Brand managers and category teams speak the same language",
-      "NPD decisions validated against consistent shopper truth",
+      "NPD decisions validated against consistent consumer truth",
       "Time from insight to action drops dramatically",
-      "Foundation for AI-augmented shopper intelligence is in place",
+      "Foundation for AI-augmented consumer intelligence is in place",
     ],
     whyItMatters:
-      "This is where brands stop debating data and start acting on shoppers. One version of shopper truth—from R&D to retail execution—changes everything.",
+      "This is where brands stop debating data and start acting on consumers. One version of consumer truth—from R&D to retail execution—changes everything.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
-      from: "Debating whose shopper data is right",
-      to: "Acting on one shared shopper truth",
-      culturalMarker: "R&D and retail see the same shopper",
+      from: "Debating whose consumer data is right",
+      to: "Acting on one shared consumer truth",
+      culturalMarker: "R&D and retail see the same consumer",
     },
     timeAllocation: {
       reconciliation: 20,
@@ -113,7 +113,7 @@ const layersData: GDLayerData[] = [
     },
     valueProof: {
       metrics: ["70% self-service", "Data prep -50%", "Reconciliation ↓60%", "Audit-ready"],
-      roiStatement: "One shopper truth means 60% less time reconciling—more time winning.",
+      roiStatement: "One consumer truth means 60% less time reconciling—more time winning.",
     },
   },
   {
@@ -154,14 +154,14 @@ const layersData: GDLayerData[] = [
   {
     id: "FRAGMENTED",
     level: 5,
-    headline: "Firefighting: Your Shopper Data Doesn't Connect",
+    headline: "Firefighting: Your Consumer Data Doesn't Connect",
     sublabel: "Starting Point",
     whatItLooksLike: [
-      "Your brand manager is using a deck from last quarter about last quarter's shopper",
+      "Your brand manager is using a deck from last quarter about last quarter's consumer",
       "POS says one thing, consumer panel says another, social listening says a third",
       "You found out about the trend after your competitor launched",
       "Every NPD decision starts with 'which data source should we trust?'",
-      "Innovation team and commercial team have different views of the same shopper",
+      "Innovation team and commercial team have different views of the same consumer",
     ],
     result: [
       "High dependency on external vendors who each have different taxonomies",
@@ -174,9 +174,9 @@ const layersData: GDLayerData[] = [
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
-      from: "Reconciling conflicting shopper data across providers",
+      from: "Reconciling conflicting consumer data across providers",
       to: "This is where most consumer brands start",
-      culturalMarker: "Shopper insight exists, but trust and alignment don't",
+      culturalMarker: "Consumer insight exists, but trust and alignment don't",
     },
     timeAllocation: {
       reconciliation: 60,
@@ -301,7 +301,7 @@ const GDSlide6ValuePyramid = ({
     <GDSlideContainer
       id="slide-6"
       title="Where Is Your Brand Today?"
-      subtitle="A framework for assessing your shopper intelligence maturity"
+      subtitle="A framework for assessing your consumer intelligence maturity"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

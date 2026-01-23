@@ -4,11 +4,11 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
-  { num: 1, label: "Market Reality", summary: "Your shoppers are changing faster" },
+  { num: 1, label: "Market Reality", summary: "Your consumers are changing faster" },
   { num: 2, label: "Intelligence Gap", summary: "Speed, breadth, alignment, confidence" },
-  { num: 3, label: "Before & After", summary: "One shopper truth, faster wins" },
-  { num: 4, label: "The Proposition", summary: "See the full shopper journey" },
-  { num: 5, label: "Value Chain", summary: "From insight to basket drop" },
+  { num: 3, label: "Before & After", summary: "One consumer truth, faster wins" },
+  { num: 4, label: "The Proposition", summary: "See the full consumer journey" },
+  { num: 5, label: "Value Chain", summary: "From insight to market action" },
   { num: 6, label: "Capability Stack", summary: "Where is your brand today?" },
   { num: 7, label: "Your Roadmap", summary: "From trend-spotting to first-mover" },
   { num: 8, label: "ROI", summary: "Fewer failed SKUs, faster wins" },
@@ -71,7 +71,7 @@ const GDSlide0Title = ({
         {/* Headline */}
         <div className="space-y-4 sm:space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-            <span className="text-foreground">Your Shoppers Are Changing</span>
+            <span className="text-foreground">Your Consumers Are Changing</span>
             <br />
             <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
               Faster Than
@@ -94,7 +94,7 @@ const GDSlide0Title = ({
           <div className="bg-card/50 backdrop-blur-sm border border-primary/30 rounded-lg p-4">
             <p className="text-xs text-primary uppercase tracking-wider font-semibold mb-2">For CMOs, CSOs & Category Leaders</p>
             <p className="text-sm text-foreground leading-relaxed">
-              The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the shopper's journey as one connected story.
+              The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the consumer's journey as one connected story.
             </p>
           </div>
         </div>

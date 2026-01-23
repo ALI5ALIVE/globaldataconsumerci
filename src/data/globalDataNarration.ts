@@ -10,8 +10,8 @@ const DEFAULT_VOICE_ID = "JBFqnCBsd6RMkjVDRZzb"; // George - professional Britis
 export const globalDataNarrations: SlideNarration[] = [
   {
     slideId: 0,
-    title: "Your Shoppers Are Changing",
-    script: `Let me ask you something. When did your shopper last switch to a competitor—and when did you find out?
+    title: "Your Consumers Are Changing",
+    script: `Let me ask you something. When did your consumer last switch to a competitor—and when did you find out?
 
 For most consumer brands, there's a gap. Not a small one. A gap measured in weeks, sometimes months, between seeing a trend and having a product on shelf.
 
@@ -22,16 +22,16 @@ Over the next few minutes, I'm going to show you exactly how—and why it matter
   },
   {
     slideId: 1,
-    title: "Your Shoppers Are Changing Faster",
+    title: "Your Consumers Are Changing Faster",
     script: `Here's what's actually happening in your category right now.
 
-Your shopper switched to a competitor—and you found out twelve weeks later. Sixty-seven percent of Gen Z shoppers say they'll switch brands if a competitor is more relevant to their values. And the average trend window? Eighteen months before it peaks. That's the runway you have to own it.
+Your consumer switched to a competitor—and you found out twelve weeks later. Sixty-seven percent of Gen Z consumers say they'll switch brands if a competitor is more relevant to their values. And the average trend window? Eighteen months before it peaks. That's the runway you have to own it.
 
 Meanwhile, your competitor's limited-edition SKU just captured three percent share while you were still validating the concept.
 
-The paradox is striking: you have more shopper data than ever—POS, panels, social listening—yet less confidence in your next move. Your shopper insights say one thing. Your sales data says another. And your competitor just launched anyway.
+The paradox is striking: you have more consumer data than ever—POS, panels, social listening—yet less confidence in your next move. Your consumer insights say one thing. Your sales data says another. And your competitor just launched anyway.
 
-The brands winning right now don't just see trends first. They see the full shopper journey and act before competitors can react.`,
+The brands winning right now don't just see trends first. They see the full consumer journey and act before competitors can react.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -39,9 +39,9 @@ The brands winning right now don't just see trends first. They see the full shop
     title: "The Intelligence Gap",
     script: `So where exactly does your brand fall behind? The intelligence gap shows up in four ways.
 
-First, there's a breadth problem. Shopper signals fragment. Consumer insights in one system. POS in another. Social listening somewhere else. You can't see the full shopper journey.
+First, there's a breadth problem. Consumer signals fragment. Consumer insights in one system. POS in another. Social listening somewhere else. You can't see the full consumer journey.
 
-Then there's an alignment problem. Teams debate sources. Your innovation team and commercial team have different views of the same shopper. No shared truth to act on.
+Then there's an alignment problem. Teams debate sources. Your innovation team and commercial team have different views of the same consumer. No shared truth to act on.
 
 Next, there's a confidence problem. Without unified intelligence, you can't commit with conviction. Sixty-eight percent of teams say they lack the confidence to act fast.
 
@@ -54,42 +54,42 @@ A global snack brand spent nine months validating a 'protein plus gut health' co
   },
   {
     slideId: 3,
-    title: "One Shopper Truth",
+    title: "One Consumer Truth",
     script: `But here's what happens when you close the intelligence gap.
 
-Look at the left side of your screen—this is where most brands are today. Shopper signals scattered across POS, panels, and social. Conflicting views of the same consumer. Weeks spent validating while competitors launch.
+Look at the left side of your screen—this is where most brands are today. Consumer signals scattered across POS, panels, and social. Conflicting views of the same consumer. Weeks spent validating while competitors launch.
 
-Now look at the right side. One shopper truth. Unified across every touchpoint. Trend to concept in days, not weeks. Validated before you commit. First to shelf.
+Now look at the right side. One consumer truth. Unified across every touchpoint. Trend to concept in days, not weeks. Validated before you commit. First to shelf.
 
 The transformation isn't marginal—it's the difference between owning the category moment and watching your competitor take it.
 
-Twelve weeks becomes three days to validate a flavour concept—before your competitor locks in the shelf space. Gut-feel launches become shopper-tested launches with double the success rate. And innovation waste? Thirty percent less unsold inventory because you tested with real shoppers first.`,
+Twelve weeks becomes three days to validate a flavour concept—before your competitor locks in the shelf space. Gut-feel launches become consumer-tested launches with double the success rate. And innovation waste? Thirty percent less unsold inventory because you tested with real consumers first.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 4,
-    title: "See the Full Shopper Journey",
-    script: `This is what it looks like when you see the full shopper journey—and act first.
+    title: "See the Full Consumer Journey",
+    script: `This is what it looks like when you see the full consumer journey—and act first.
 
 It's not another consumer panel you can't connect to your other data. Not another dashboard that conflicts with what you already have. Not another point solution that creates more reconciliation work.
 
-This is about seeing your shopper from trend emergence to basket drop. Knowing why a product is winning—or losing—across every touchpoint. Aligning brand, innovation, and commercial teams around the same consumer truth.
+This is about seeing your consumer from trend emergence to purchase decision. Knowing why a product is winning—or losing—across every touchpoint. Aligning brand, innovation, and commercial teams around the same consumer truth.
 
-What you're looking at is the end of fragmented shopper views. The end of weeks spent reconciling data before you can even start the strategy conversation.
+What you're looking at is the end of fragmented consumer views. The end of weeks spent reconciling data before you can even start the strategy conversation.
 
-This isn't about better data. It's about understanding your shopper faster than anyone else—and acting on it before they've moved on to the next thing.`,
+This isn't about better data. It's about understanding your consumer faster than anyone else—and acting on it before they've moved on to the next thing.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 5,
-    title: "From Shopper Insight to Basket Drop",
+    title: "From Consumer Insight to Market Action",
     script: `Now let me show you the questions your brand actually asks—and how this answers them across the entire journey.
 
 Look at this flow. Five stages. The real questions consumer brands face every day.
 
-In Strategy and Portfolio: Which categories are premiumizing? Where should we play in plant-based? Which shoppers are switching and why?
+In Strategy and Portfolio: Which categories are premiumizing? Where should we play in plant-based? Which consumers are switching and why?
 
-In Innovation and Product: What flavour and format combinations are trending with our target demo? What's the unmet need in protein snacks? Will shoppers actually pay more for clean-label?
+In Innovation and Product: What flavour and format combinations are trending with our target demo? What's the unmet need in protein snacks? Will consumers actually pay more for clean-label?
 
 In Brand, Pricing and Claims: Can we credibly claim both 'high protein' and 'clean label' at this price point? How do we position against competitors who got there first?
 
@@ -97,23 +97,23 @@ In Go-to-Market and Sales: Which retailer indexes highest for this SKU? What's t
 
 And In-Market Performance: Why did this SKU underperform in Tesco but overperform in Carrefour? How do we respond to a competitor promo? Which SKUs should we delist?
 
-See that connecting line? That's what changes everything. R&D, marketing, and commercial all see the same shopper—so the product you develop, the claims you make, and the story you tell retailers all reinforce each other.`,
+See that connecting line? That's what changes everything. R&D, marketing, and commercial all see the same consumer—so the product you develop, the claims you make, and the story you tell retailers all reinforce each other.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
     title: "Where Is Your Brand Today?",
-    script: `Now let's get honest about where your brand actually is. What you're looking at is a framework for assessing your shopper intelligence maturity.
+    script: `Now let's get honest about where your brand actually is. What you're looking at is a framework for assessing your consumer intelligence maturity.
 
-We start at the base. Stage five: Firefighting. This is where most consumer brands are. Your brand manager is using a deck from last quarter about last quarter's shopper. POS says one thing, consumer panel says another, social listening says a third. You found out about the trend after your competitor launched.
+We start at the base. Stage five: Firefighting. This is where most consumer brands are. Your brand manager is using a deck from last quarter about last quarter's consumer. POS says one thing, consumer panel says another, social listening says a third. You found out about the trend after your competitor launched.
 
-Move up to stage four: Structured Silos. Strong tools within each function—market, innovation, consumer, competitive. But they don't connect. Your innovation team and commercial team have different views of the same shopper. Better data, but the same debates.
+Move up to stage four: Structured Silos. Strong tools within each function—market, innovation, consumer, competitive. But they don't connect. Your innovation team and commercial team have different views of the same consumer. Better data, but the same debates.
 
-Stage three is where connection begins. Connected. One shopper truth starts to emerge—shared by R&D, marketing, and retail execution. Reconciliation time drops sixty percent. Teams stop debating data and start acting on shoppers.
+Stage three is where connection begins. Connected. One consumer truth starts to emerge—shared by R&D, marketing, and retail execution. Reconciliation time drops sixty percent. Teams stop debating data and start acting on consumers.
 
-Stage two: Embedded. Shopper intelligence isn't a report you request—it's in the workflow. Trend to concept in days, not weeks. NPD decisions validated against consistent shopper truth.
+Stage two: Embedded. Consumer intelligence isn't a report you request—it's in the workflow. Trend to concept in days, not weeks. NPD decisions validated against consistent consumer truth.
 
-And at the apex—stage one: Agentic. This is the vision. AI that detects signals and orchestrates recommendations while humans approve the strategic moves. Detect, Human, Execute—in continuous loops. You're not reacting to trends anymore. You're seeing what shoppers want next before they search for it.
+And at the apex—stage one: Agentic. This is the vision. AI that detects signals and orchestrates recommendations while humans approve the strategic moves. Detect, Human, Execute—in continuous loops. You're not reacting to trends anymore. You're seeing what consumers want next before they search for it.
 
 Most brands are at stage five or four. The question is: how fast can you climb?`,
     voiceId: DEFAULT_VOICE_ID,
@@ -123,17 +123,17 @@ Most brands are at stage five or four. The question is: how fast can you climb?`
     title: "From Trend-Spotting to First-Mover",
     script: `So what does the journey actually look like over time? This is your roadmap from trend-spotting to first-mover.
 
-Watch the curve. At stage one—Firefighting—you're at the bottom. Your shopper data doesn't connect. You're finding out about trends after competitors have already launched. High effort, missed shelf windows.
+Watch the curve. At stage one—Firefighting—you're at the bottom. Your consumer data doesn't connect. You're finding out about trends after competitors have already launched. High effort, missed shelf windows.
 
 By stage two—Structured Silos—you've got structure. See the curve starting to rise? But you're still reconciling across sources. The debates about "which data is right" continue.
 
-Stage three—Connected—is where the breakthrough happens. Notice the curve accelerating? One shopper truth emerges. R&D and retail see the same consumer. This is the platform shift.
+Stage three—Connected—is where the breakthrough happens. Notice the curve accelerating? One consumer truth emerges. R&D and retail see the same consumer. This is the platform shift.
 
-Stage four—Embedded—is transformational. Look at that hockey stick starting to form. Shopper intelligence is in the workflow. Twelve weeks becomes three days to validate a concept.
+Stage four—Embedded—is transformational. Look at that hockey stick starting to form. Consumer intelligence is in the workflow. Twelve weeks becomes three days to validate a concept.
 
-And stage five—Agentic—that's the exponential curve shooting upward. AI detects what shoppers want next. Humans approve the strategic moves. You're on shelf before competitors even see the opportunity.
+And stage five—Agentic—that's the exponential curve shooting upward. AI detects what consumers want next. Humans approve the strategic moves. You're on shelf before competitors even see the opportunity.
 
-Here's what I want you to understand: most brands don't need more shopper data. They need a clear path from seeing trends to owning them. This curve is that path. And the sooner you start climbing, the more category moments you own.`,
+Here's what I want you to understand: most brands don't need more consumer data. They need a clear path from seeing trends to owning them. This curve is that path. And the sooner you start climbing, the more category moments you own.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -145,9 +145,9 @@ Look at these three pillars.
 
 First, speed to shelf. Months to validate becomes days to act. Seventy percent faster from trend to launch. Think about what that means: responding to a competitive launch in days, not months. Validating a flavour concept before your competitor locks in the shelf space.
 
-Second, fewer failed SKUs. Gut-feel launches become shopper-validated launches. Double the success rate. Fewer products that sit on shelf. More products that shoppers actually reach for.
+Second, fewer failed SKUs. Gut-feel launches become consumer-validated launches. Double the success rate. Fewer products that sit on shelf. More products that consumers actually choose.
 
-Third, leaner innovation. Wasted R&D becomes a focused pipeline. Thirty percent less unsold inventory. Less capital misallocated on concepts that don't resonate with shoppers.
+Third, leaner innovation. Wasted R&D becomes a focused pipeline. Thirty percent less unsold inventory. Less capital misallocated on concepts that don't resonate with consumers.
 
 And here's what compounds: every stage up the maturity curve means faster time-to-shelf, fewer failed launches, and more shelf space won. The sooner you start, the more category moments you own. This isn't a five-year transformation story. This is measurable value in six months.`,
     voiceId: DEFAULT_VOICE_ID,
@@ -159,15 +159,15 @@ And here's what compounds: every stage up the maturity curve means faster time-t
 
 Look at these three differentiators.
 
-First—and this is what makes everything else possible—the unified taxonomy. The same shopper language used by eight of the top ten global FMCG companies. One truth across your entire value chain. No more reconciling data sources. No more debates about whose numbers are right.
+First—and this is what makes everything else possible—the unified taxonomy. The same consumer language used by eight of the top ten global FMCG companies. One truth across your entire value chain. No more reconciling data sources. No more debates about whose numbers are right.
 
-Second—the proprietary data. Forty years of shopper, category, and competitive intelligence across two hundred plus markets. Data no competitor can replicate. This isn't aggregated third-party data. This is what the world's leading consumer brands already rely on.
+Second—the proprietary data. Forty years of consumer, category, and competitive intelligence across two hundred plus markets. Data no competitor can replicate. This isn't aggregated third-party data. This is what the world's leading consumer brands already rely on.
 
 Third—Ava plus a thousand analysts. AI that's analyzed ten million plus consumer data points, amplified by human expertise. Insights your team would take months to find—delivered in hours.
 
-Here's the imperative for consumer brand leaders: the brands that see shoppers as one connected journey—from trend to shelf to basket—will own the next generation of category moments. The ones that don't? They'll keep finding out about trends after competitors have already launched.
+Here's the imperative for consumer brand leaders: the brands that see consumers as one connected journey—from trend to shelf to basket—will own the next generation of category moments. The ones that don't? They'll keep finding out about trends after competitors have already launched.
 
-The brands that win will be the ones who see shopper change first, act together, and own the shelf before competitors react.`,
+The brands that win will be the ones who see consumer change first, act together, and own the shelf before competitors react.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -177,7 +177,7 @@ The brands that win will be the ones who see shopper change first, act together,
 
 Imagine you're a global FMCG brand. You've spotted an opportunity in high-protein on-the-go snacking. The segment is growing fourteen percent year over year, but three competitors already have two or more SKUs each. You need to move fast—and get it right.
 
-Here's your target shopper: urban European commuters, twenty-five to forty, health-conscious but time-poor.
+Here's your target consumer: urban European commuters, twenty-five to forty, health-conscious but time-poor.
 
 Watch how the intelligence connects.
 
@@ -187,13 +187,13 @@ Market Intelligence identifies the opportunity. Savory, high-protein snacks for 
 
 Competitive Intelligence maps where competitors are positioned—and where the gaps are. Three competitors, but none with clean-label positioning at an accessible price point.
 
-Innovation Intelligence recommends the product. A savory protein crisp with clean-label credentials. Validated with real shoppers before you commit a single R&D dollar.
+Innovation Intelligence recommends the product. A savory protein crisp with clean-label credentials. Validated with real consumers before you commit a single R&D dollar.
 
-Sales Intelligence generates the enablement. Retailer-specific stories for Tesco versus Carrefour. Sell-in materials that show exactly why this SKU wins with their shoppers.
+Sales Intelligence generates the enablement. Retailer-specific stories for Tesco versus Carrefour. Sell-in materials that show exactly why this SKU wins with their consumers.
 
 The result? Launched in six months versus the typical fourteen. Captured number two position in the segment within eight weeks.
 
-That's the difference between fragmented point solutions and connected shopper intelligence. That's what we're here to help you build.`,
+That's the difference between fragmented point solutions and connected consumer intelligence. That's what we're here to help you build.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -211,7 +211,7 @@ Take Strategic Intelligence. The pain: portfolio decisions based on outdated cat
 
 And we show you exactly how a real consumer brand used this. A top-five beverage company needed to prioritize between functional hydration and alcohol-free spirits. They used Strategic Intelligence to map demand curves and competitor signals across twelve markets. Result: captured four percent category share in eighteen months.
 
-The same pattern applies across all five solutions. Market Intelligence for trend validation. Competitive Intelligence for anticipating competitor moves. Innovation Intelligence for shopper-validated concept screening. Sales Intelligence for retailer-specific sell-in stories.
+The same pattern applies across all five solutions. Market Intelligence for trend validation. Competitive Intelligence for anticipating competitor moves. Innovation Intelligence for consumer-validated concept screening. Sales Intelligence for retailer-specific sell-in stories.
 
 Explore each tab. See which solutions map to your most urgent priorities. And when you're ready—let's discuss how to build your roadmap.`,
     voiceId: DEFAULT_VOICE_ID,
