@@ -1,6 +1,16 @@
 import React from "react";
 
-const ConnectedIntelligenceWheel = () => {
+interface ConnectedIntelligenceWheelProps {
+  activeSegment?: string | null;
+  onSegmentHover?: (segmentName: string | null) => void;
+  onSegmentClick?: (segmentName: string) => void;
+}
+
+const ConnectedIntelligenceWheel = ({
+  activeSegment,
+  onSegmentHover,
+  onSegmentClick,
+}: ConnectedIntelligenceWheelProps) => {
   const centerX = 200;
   const centerY = 200;
 
@@ -103,14 +113,19 @@ const ConnectedIntelligenceWheel = () => {
                 d={describeSegment(centerX, centerY, 140, 190, segment.startAngle, segment.endAngle)}
                 fill={segment.color}
                 stroke="white"
-                strokeWidth="1"
+                strokeWidth={activeSegment === segment.name ? 3 : 1}
+                opacity={activeSegment && activeSegment !== segment.name ? 0.5 : 1}
+                className="cursor-pointer transition-all duration-200"
+                onMouseEnter={() => onSegmentHover?.(segment.name)}
+                onMouseLeave={() => onSegmentHover?.(null)}
+                onClick={() => onSegmentClick?.(segment.name)}
               />
               <text
                 x={labelPos.x}
                 y={labelPos.y}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="fill-white font-semibold"
+                className="fill-white font-semibold pointer-events-none"
                 fontSize="8"
                 transform={`rotate(${textAngle}, ${labelPos.x}, ${labelPos.y})`}
               >
