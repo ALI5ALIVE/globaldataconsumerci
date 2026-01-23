@@ -221,6 +221,7 @@ const GDSlide6ValuePyramid = ({
   const [isAutoCycling, setIsAutoCycling] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const activeLayer = layersData.find((l) => l.id === activeLayerId) || layersData[4];
   const currentIndex = layerOrder.indexOf(activeLayerId);
@@ -274,12 +275,18 @@ const GDSlide6ValuePyramid = ({
 
   const handleLayerClick = useCallback((level: number) => {
     const layer = layersData.find((l) => l.level === level);
-    if (layer) {
-      setActiveLayerId(layer.id);
+    if (layer && layer.id !== activeLayerId) {
+      setIsTransitioning(true);
       setHighlightedModule(null);
       setIsAutoCycling(false);
+      
+      // After fade-out, switch content and fade-in
+      setTimeout(() => {
+        setActiveLayerId(layer.id);
+        setIsTransitioning(false);
+      }, 200);
     }
-  }, []);
+  }, [activeLayerId]);
 
   const handleModuleClick = useCallback((module: string) => {
     const managedLayer = layersData.find(l => l.id === "MANAGED");
@@ -330,7 +337,11 @@ const GDSlide6ValuePyramid = ({
 
         {/* RIGHT: Details Panel */}
         <div className="h-full overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
-          <div className={`flex-1 transition-all duration-500 ${isNarrationControlled ? 'animate-fade-in' : ''}`}>
+          <div className={`flex-1 transition-all duration-200 ${
+            isTransitioning 
+              ? 'opacity-0 translate-x-4' 
+              : 'opacity-100 translate-x-0'
+          }`}>
             <GDDetailsPanel layer={activeLayer} highlightedModule={highlightedModule} />
           </div>
           
