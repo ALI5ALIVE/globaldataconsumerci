@@ -31,13 +31,13 @@ const layerColors = {
   5: { main: "hsl(0, 70%, 50%)", dark: "hsl(0, 70%, 38%)", glow: "hsl(0, 70%, 50%)" },        // FRAGMENTED - Red
 };
 
-// 5 silos for Level 4 (MANAGED) - matches Slide 10 flow
+// 5 silos for Level 4 (MANAGED)
 const foundationSections = [
-  { id: "strategic", label: "Strategic", sublabel: "Intelligence", icon: Target },
-  { id: "market", label: "Market", sublabel: "Intelligence", icon: BarChart3 },
-  { id: "competitive", label: "Competitive", sublabel: "Intelligence", icon: Users },
-  { id: "innovation", label: "Innovation", sublabel: "Intelligence", icon: Lightbulb },
-  { id: "sales", label: "Sales", sublabel: "Intelligence", icon: DollarSign },
+  { id: "market", label: "Market", sublabel: "Silo", icon: BarChart3 },
+  { id: "innovation", label: "Innovation", sublabel: "Silo", icon: Lightbulb },
+  { id: "consumer", label: "Consumer", sublabel: "Silo", icon: Users },
+  { id: "competitive", label: "Competitive", sublabel: "Silo", icon: Target },
+  { id: "commercial", label: "Commercial", sublabel: "Silo", icon: DollarSign },
 ];
 
 const GDPyramid3D = ({
@@ -383,17 +383,17 @@ const GDPyramid3D = ({
                 />
                 <polygon points={points} fill="transparent" className="cursor-pointer hover:fill-white/10 transition-all duration-200" onClick={() => { onLayerClick(4); handleModuleClick(section.id); }} />
 
-                {/* Silo icon - positioned higher for larger text */}
-                <foreignObject x={sectionCenterX - 24} y={foundationCenterY - 70} width="48" height="48" className="pointer-events-none">
+                {/* Silo icon - doubled size */}
+                <foreignObject x={sectionCenterX - 24} y={foundationCenterY - 55} width="48" height="48" className="pointer-events-none">
                   <div className="w-full h-full flex items-center justify-center">
                     <IconComponent className="w-10 h-10 text-white/90" strokeWidth={2} />
                   </div>
                 </foreignObject>
 
-                <text x={sectionCenterX} y={foundationCenterY + 5} textAnchor="middle" fill="hsl(210, 40%, 98%)" fontSize="24" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.05em" className="uppercase pointer-events-none select-none">
+                <text x={sectionCenterX} y={foundationCenterY + 4} textAnchor="middle" fill="hsl(210, 40%, 98%)" fontSize="16" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.05em" className="uppercase pointer-events-none select-none">
                   {section.label}
                 </text>
-                <text x={sectionCenterX} y={foundationCenterY + 32} textAnchor="middle" fill="hsl(210, 40%, 80%)" fontSize="16" fontWeight="400" fontFamily="'Inter', sans-serif" className="pointer-events-none select-none">
+                <text x={sectionCenterX} y={foundationCenterY + 26} textAnchor="middle" fill="hsl(210, 40%, 80%)" fontSize="12" fontWeight="400" fontFamily="'Inter', sans-serif" className="pointer-events-none select-none">
                   {section.sublabel}
                 </text>
               </g>
