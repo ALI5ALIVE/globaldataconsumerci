@@ -1,135 +1,78 @@
 
 
-## Add Confidence Dimension & Align Impacts to Root Causes
+## Align "Why It Exists" and "Quantified Impact" Box Proportions
 
 ### Summary
-Update Slide 2 (The Intelligence Gap) to include Confidence as a fourth root cause on the left, and restructure the layout so each impact is directly paired with its corresponding dimension.
+Make both columns' individual cards the same height so they align horizontally, creating a visually balanced mirrored layout.
 
 ---
 
-### Current State
+### Current Issue
 
-| Left Side (Root Causes) | Right Side (Impacts) |
-|------------------------|---------------------|
-| Breadth | Speed, Breadth |
-| Alignment | Alignment, Confidence |
-| Speed | (2x2 grid) |
+The two columns already have equal widths (50/50 via `lg:grid-cols-2`), but the individual cards don't match in height:
 
-**Problem**: Confidence only appears on the right (impacts), not on the left (root causes).
+| Why It Exists (Root Causes) | Quantified Impact |
+|-----------------------------|-------------------|
+| `p-4` padding | `p-3` padding |
+| More text content | Less text content |
+| ~100px height per card | ~70px height per card |
 
 ---
 
-### Proposed Changes
+### Proposed Fix
 
-#### 1. Add Confidence Root Cause
+Adjust the impact cards to match the height of the root cause cards by:
 
-Add a fourth root cause card for Confidence with appropriate icon and messaging:
+1. **Standardize padding**: Change impact cards from `p-3` to `p-4` to match root causes
+2. **Add minimum height**: Use `min-h-[84px]` (or similar) on both card types to ensure they align
+3. **Center content vertically**: Add `items-center` to ensure content is vertically centered in both card types
 
-```typescript
-{ 
-  icon: ShieldAlert, // or similar icon like ShieldQuestion
-  title: "Throughout: Confidence—Decisions Stall", 
-  desc: "Without unified intelligence, teams hesitate",
-  detail: "Gut feel replaces shopper truth",
-  badge: "CONFIDENCE"
-}
+---
+
+### Technical Changes
+
+**File**: `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
+
+**Line 87** - Root cause cards (add explicit min-height):
+```tsx
+className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 min-h-[84px] group hover:border-destructive/30 transition-all"
 ```
 
-#### 2. Restructure Layout to Pair Dimensions
-
-Instead of separating root causes (left) and impacts (right), combine them into four unified dimension cards:
-
-**New Layout Option A - Four Paired Cards (2x2 Grid)**:
-Each card shows:
-- Dimension badge (BREADTH, ALIGNMENT, SPEED, CONFIDENCE)
-- Root cause description
-- Quantified impact
-
-**New Layout Option B - Keep Split but Add Confidence**:
-- Left: 4 root causes (Breadth, Alignment, Speed, Confidence)
-- Right: 4 impacts aligned in same order
-
----
-
-### Recommended Approach: Option B (Minimal Visual Change)
-
-Keep the existing two-column layout but:
-1. Add Confidence as 4th root cause on left
-2. Reorder impacts to match the left column order: Breadth → Alignment → Speed → Confidence
-
-#### Updated Root Causes Array
-
-```typescript
-const rootCauses = [
-  { 
-    icon: Layers, 
-    title: "First: Breadth—Signals Fragment", 
-    desc: "Consumer insights in one system, POS in another",
-    detail: "Incomplete shopper picture",
-    badge: "BREADTH"
-  },
-  { 
-    icon: MessageSquareWarning, 
-    title: "Then: Alignment—Teams Debate Sources", 
-    desc: "Which data do we trust for this launch?",
-    detail: "No shared truth to act on",
-    badge: "ALIGNMENT"
-  },
-  { 
-    icon: Clock, 
-    title: "Next: Speed—The Shelf Window Closes", 
-    desc: "Competitor launched while you validated",
-    detail: "Category share lost",
-    badge: "SPEED"
-  },
-  { 
-    icon: ShieldAlert, 
-    title: "Finally: Confidence—Decisions Stall", 
-    desc: "Without unified intelligence, teams hesitate",
-    detail: "Gut feel replaces shopper truth",
-    badge: "CONFIDENCE"
-  },
-];
-```
-
-#### Updated Impacts Array (Reordered)
-
-```typescript
-const impacts = [
-  { value: "3-5", label: "sources", desc: "to reconcile per NPD decision", dimension: "Breadth" },
-  { value: "40%", label: "of NPD", desc: "misses the consumer moment", dimension: "Alignment" },
-  { value: "12wks", label: "=", desc: "2 missed seasonal windows", dimension: "Speed" },
-  { value: "68%", label: "of teams", desc: "lack confidence to act fast", dimension: "Confidence" },
-];
+**Line 115** - Impact cards (increase padding and add min-height):
+```tsx
+className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-4 min-h-[84px] flex items-center gap-3"
 ```
 
 ---
 
-### Visual Alignment
+### Visual Result
 
-The left and right columns will now mirror each other:
+After the change, both columns will have cards of equal height, creating a clean horizontal alignment:
 
-| Left (Why It Exists) | Right (Quantified Impact) |
-|---------------------|--------------------------|
-| BREADTH: Signals Fragment | 3-5 sources to reconcile |
-| ALIGNMENT: Teams Debate | 40% of NPD misses moment |
-| SPEED: Window Closes | 12wks = 2 missed windows |
-| CONFIDENCE: Decisions Stall | 68% lack confidence |
+```
++---------------------------+  +---------------------------+
+| BREADTH                   |  | 3-5 sources               |
+| First: Breadth—Signals... |  | to reconcile per NPD...   |
++---------------------------+  +---------------------------+
++---------------------------+  +---------------------------+
+| ALIGNMENT                 |  | 40% of NPD                |
+| Then: Alignment—Teams...  |  | misses the consumer...    |
++---------------------------+  +---------------------------+
++---------------------------+  +---------------------------+
+| SPEED                     |  | 12wks                     |
+| Next: Speed—The Shelf...  |  | 2 missed seasonal...      |
++---------------------------+  +---------------------------+
++---------------------------+  +---------------------------+
+| CONFIDENCE                |  | 68% of teams              |
+| Finally: Confidence—...   |  | lack confidence to...     |
++---------------------------+  +---------------------------+
+```
 
 ---
 
-### File Changes
+### Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | Add ShieldAlert import, add 4th root cause, reorder impacts array |
-
----
-
-### Technical Details
-
-1. **Import Update**: Add `ShieldAlert` from lucide-react
-2. **Root Causes**: Add 4th item for Confidence dimension
-3. **Impacts**: Reorder to match left column sequence (Breadth, Alignment, Speed, Confidence)
-4. **Layout**: Keep existing grid but impacts will now show in stacked order (grid-cols-1) to align visually with the 4 root causes, or maintain 2x2 with matching positions
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | Update line 87 and line 115 to add consistent `min-h-[84px]` and `p-4` padding |
 
