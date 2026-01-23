@@ -267,8 +267,8 @@ const GDSlide7MaturityCurve = ({
   return (
     <GDSlideContainer
       id="slide-7"
-      title="The Intelligence Maturity Roadmap"
-      subtitle="The measurable journey from fragmented insight to predictive performance"
+      title="Your Roadmap to Predictive Performance"
+      subtitle="The proven path from reactive to first-mover"
       slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}

@@ -155,8 +155,8 @@ const GDSlide5ValueChain = ({
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="Solutions That Combine for Greater Advantage"
-      subtitle="Connected intelligence across every workflow stage"
+      title="Intelligence That Compounds Across the Value Chain"
+      subtitle="From trend to shelf—every stage reinforced by connected solutions"
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}

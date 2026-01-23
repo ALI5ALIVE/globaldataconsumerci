@@ -4,14 +4,14 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
-  { num: 1, label: "Market Reality", summary: "Your consumers are changing faster" },
-  { num: 2, label: "Intelligence Gap", summary: "Speed, breadth, alignment, confidence" },
-  { num: 3, label: "Before & After", summary: "One consumer truth, faster wins" },
-  { num: 4, label: "The Proposition", summary: "See the full consumer journey" },
-  { num: 5, label: "Value Chain", summary: "From insight to market action" },
-  { num: 6, label: "Capability Stack", summary: "Where is your brand today?" },
-  { num: 7, label: "Your Roadmap", summary: "From trend-spotting to first-mover" },
-  { num: 8, label: "ROI", summary: "Fewer failed SKUs, faster wins" },
+  { num: 1, label: "Market Pressure", summary: "Speed rewarded, hesitation punished" },
+  { num: 2, label: "Intelligence Gap", summary: "Where growth and performance are lost" },
+  { num: 3, label: "Transformation", summary: "From fragmented to connected" },
+  { num: 4, label: "The Answer", summary: "One system, faster, aligned, confident" },
+  { num: 5, label: "Value Chain", summary: "Trend to shelf—compounding intelligence" },
+  { num: 6, label: "Your Position", summary: "Five stages—Stage 3 changes everything" },
+  { num: 7, label: "Your Roadmap", summary: "Reactive to first-mover" },
+  { num: 8, label: "The Return", summary: "Speed, success, savings" },
   { num: 9, label: "Why GlobalData", summary: "Trusted by 8 of top 10 FMCG" },
 ];
 

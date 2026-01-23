@@ -296,8 +296,8 @@ const GDSlide6ValuePyramid = ({
   return (
     <GDSlideContainer
       id="slide-6"
-      title="Intelligence Maturity Ladder"
-      subtitle="From fragmented point solutions to connected intelligence that drives category performance"
+      title="Where Is Your Organisation Today?"
+      subtitle="Five stages of intelligence maturity—and why Stage 3 changes everything"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

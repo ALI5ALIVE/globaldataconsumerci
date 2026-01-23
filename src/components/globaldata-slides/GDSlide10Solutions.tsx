@@ -60,8 +60,8 @@ const GDSlide10Solutions = ({
   return (
     <GDSlideContainer
       id="gd-slide-10"
-      title="From Weak Signal to Winning Launch"
-      subtitle="How a global snack brand captured #2 share in 8 weeks"
+      title="Connected Intelligence in Action"
+      subtitle="From weak signal to winning launch in 6 months"
       slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}

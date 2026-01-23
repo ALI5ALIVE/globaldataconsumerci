@@ -38,8 +38,8 @@ const GDSlide1GrowthReality = ({
   return (
     <GDSlideContainer
       id="gd-slide-1"
-      title="Markets Reward Speed and Conviction"
-      subtitle="The growth reality every consumer brand faces"
+      title="The Market Rewards Speed and Punishes Hesitation"
+      subtitle="Why the Intelligence Gap is widening for consumer brands"
       slideNumber={1}
       isPlaying={isPlaying}
       isLoading={isLoading}
