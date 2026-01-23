@@ -1,71 +1,153 @@
 
-Goal
-- Fix the right-side “copy boxes” on the pyramid so their vertical order matches the intended maturity order:
-  - Stage 1 (Fragmented) at the bottom
-  - Stage 5 (Predictive) at the top
-- Ensure the AI readiness labels (AI Blocked / AI Enabled / AI Optimized) align with the same numbering (they already do in logic, but we’ll validate after the visual fix).
 
-What I found in the code (root cause)
-- In `src/components/globaldata-slides/GDPyramid3D.tsx`, the pyramid geometry has already been corrected:
-  - `layerBounds`: Level 1 is base (bottom), Level 5 is apex (top)
-  - Rendering order: `[5, 4, 3, 1]` (with Level 2 silos rendered separately)
-- But the right-side label box placement is still inverted:
-  - `labelPositions` currently maps **level 1 to the top (y=140)** and **level 5 to the bottom (y=976)**.
-  - That causes the copy boxes to appear reversed even though the pyramid itself is correct.
+## Reduce Copy Box Width by 30% and Make Pyramid Bigger
 
-Also found (secondary issue)
-- The “Silos label (right side)” block (Level 2 / Managed) incorrectly uses `const colors = layerColors[4];` which will color the Stage 2 label like Stage 4. This adds to the “wrong mapping” feeling.
+### Current State Analysis
 
-Implementation changes (small, targeted)
-1) Fix the copy-box order by correcting `labelPositions` in `GDPyramid3D.tsx`
-- Replace the current mapping:
+**Current Pyramid Dimensions:**
+- Apex: `x: 750, y: 40`
+- Base Left: `x: 80, y: 1080`
+- Base Right: `x: 1420, y: 1080`
+- Pyramid width at base: 1340px (1420 - 80)
+- Pyramid height: 1040px (1080 - 40)
 
-  - `1 -> y 140`
-  - `2 -> y 350`
-  - `3 -> y 560`
-  - `4 -> y 768`
-  - `5 -> y 976`
+**Current Copy Box Dimensions:**
+- Width: 290px (hardcoded in `rect` elements)
+- Position: starts at `labelPos.lineEndX + 16` = 1496px
 
-- With the corrected mapping that matches “5 at top → 1 at bottom”:
+**Current ViewBox:**
+- Desktop: `0 0 1800 1100`
+- Mobile: `0 0 1500 1100`
 
-  - `5 -> y 140`
-  - `4 -> y 350`
-  - `3 -> y 560`
-  - `2 -> y 768`
-  - `1 -> y 976`
+---
 
-- Note: Keep the same X values (lineEndX, labelX etc.) so layout stays consistent; only re-key the Y positions to the correct levels.
+### Proposed Changes
 
-2) Fix Stage 2 (Managed / silos) label color reference in `GDPyramid3D.tsx`
-- In the “Silos label (right side)” section, change:
-  - `const colors = layerColors[4];`
-  to:
-  - `const colors = layerColors[2];`
+#### 1. Reduce Copy Box Width by 30%
 
-3) Validate AI readiness labels are correct (no logic change expected)
-- `src/components/globaldata-slides/GDDetailsPanel.tsx` currently maps:
-  - levels 1–2 => AI Blocked
-  - level 3 => AI Enabled
-  - levels 4–5 => AI Optimized
-- After fixing the copy box ordering, visually confirm:
-  - Bottom stage (1 / Fragmented) shows AI Blocked
-  - Middle stage (3 / Connected) shows AI Enabled
-  - Top stages (4–5) show AI Optimized
-- If anything still looks mismatched, the next likely culprit would be a mismatch between `layer.level` values passed into `GDPyramid3D` vs the intended stage, but `GDSlide6ValuePyramid.tsx` already has the correct `level` mapping (Fragmented=1 … Predictive=5), so this should resolve it.
+Current width: **290px** → New width: **203px** (290 × 0.7)
 
-Files to edit
-- `src/components/globaldata-slides/GDPyramid3D.tsx`
-  - Fix `labelPositions` mapping (primary fix)
-  - Fix silo label `colors` reference (secondary fix)
-- No edits expected, but will verify behavior visually:
-  - `src/components/globaldata-slides/GDDetailsPanel.tsx`
-  - `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+**Files affected:**
+- `GDPyramid3D.tsx` lines 238, 440
 
-Acceptance criteria (what you should see after)
-- Right-side copy boxes (top to bottom) read: Predictive (5), Operational (4), Connected (3), Managed (2), Fragmented (1).
-- Pyramid itself remains: Fragmented at base, Predictive at apex.
-- AI readiness labels align with the corrected stage numbers:
-  - Stages 1–2: AI Blocked
-  - Stage 3: AI Enabled
-  - Stages 4–5: AI Optimized
-- Stage 2 (Managed) label styling uses Stage 2’s color (not Stage 4’s).
+Change:
+```tsx
+// From:
+width="290"
+
+// To:
+width="203"
+```
+
+#### 2. Make Pyramid Taller and Wider
+
+Expand the pyramid by ~15-20% to fill more of the visual space and make icons more legible.
+
+**Current apex/base configuration (lines 53-57):**
+```tsx
+const layerConfig = {
+  apex: { x: 750, y: 40 },
+  baseLeft: { x: 80, y: 1080 },
+  baseRight: { x: 1420, y: 1080 },
+};
+```
+
+**Proposed new configuration:**
+```tsx
+const layerConfig = {
+  apex: { x: 650, y: 20 },        // Move apex slightly left and higher
+  baseLeft: { x: 40, y: 1100 },   // Extend base further left and down
+  baseRight: { x: 1260, y: 1100 }, // Keep right edge similar for label space
+};
+```
+
+This gives:
+- **New width at base:** 1220px (slightly narrower on right to leave room for labels)
+- **New height:** 1080px (20 → 1100)
+
+But wait - we also need to increase the viewBox height to accommodate the taller pyramid and adjust layer bounds.
+
+**Updated layerBounds (lines 60-66):**
+Scale proportionally to maintain 5 equal-ish layers over the new height range (20 → 1100 = 1080px total)
+
+Each layer height: ~216px (1080 / 5)
+
+```tsx
+const layerBounds = {
+  5: { top: 20, bottom: 236 },    // PREDICTIVE - Apex
+  4: { top: 236, bottom: 452 },   // OPERATIONAL
+  3: { top: 452, bottom: 668 },   // CONNECTED
+  2: { top: 668, bottom: 884 },   // MANAGED (with 5 silos)
+  1: { top: 884, bottom: 1100 },  // FRAGMENTED - Base
+};
+```
+
+#### 3. Update ViewBox
+
+Increase viewBox height to fit the taller pyramid:
+```tsx
+// From:
+const viewBox = isMobile ? "0 0 1500 1100" : "0 0 1800 1100";
+
+// To:
+const viewBox = isMobile ? "0 0 1500 1120" : "0 0 1700 1120";
+```
+
+Also reduce desktop width slightly since the narrower copy boxes free up horizontal space.
+
+#### 4. Adjust Label Positions
+
+Move label connector lines and boxes to align with the new layer bounds:
+
+```tsx
+const labelPositions = {
+  5: { lineStartX: 880, lineStartY: 128, lineEndX: 1380, lineEndY: 128, labelX: 1390, labelY: 128 },
+  4: { lineStartX: 960, lineStartY: 344, lineEndX: 1380, lineEndY: 344, labelX: 1390, labelY: 344 },
+  3: { lineStartX: 1040, lineStartY: 560, lineEndX: 1380, lineEndY: 560, labelX: 1390, labelY: 560 },
+  2: { lineStartX: 1100, lineStartY: 776, lineEndX: 1380, lineEndY: 776, labelX: 1390, labelY: 776 },
+  1: { lineStartX: 1160, lineStartY: 992, lineEndX: 1380, lineEndY: 992, labelX: 1390, labelY: 992 },
+};
+```
+
+Key adjustments:
+- Moved `lineEndX` from 1480 to 1380 (100px left)
+- Recalculated `lineStartY` / `labelY` to center within new layer bounds
+
+#### 5. Update Min Dimensions
+
+Increase minimum dimensions for better icon visibility:
+
+```tsx
+// From:
+minWidth: isMobile ? "480px" : "720px",
+minHeight: isMobile ? "420px" : "570px",
+
+// To:
+minWidth: isMobile ? "520px" : "800px",
+minHeight: isMobile ? "460px" : "640px",
+```
+
+---
+
+### Summary of File Changes
+
+| File | Lines | Change |
+|------|-------|--------|
+| `GDPyramid3D.tsx` | 53-57 | Update `layerConfig` for larger pyramid |
+| `GDPyramid3D.tsx` | 60-66 | Update `layerBounds` for new proportions |
+| `GDPyramid3D.tsx` | 116-122 | Update `labelPositions` for new layer heights |
+| `GDPyramid3D.tsx` | 130 | Update `viewBox` dimensions |
+| `GDPyramid3D.tsx` | 148-151 | Update `minWidth`/`minHeight` |
+| `GDPyramid3D.tsx` | 238 | Reduce copy box width to 203px |
+| `GDPyramid3D.tsx` | 440 | Reduce silos copy box width to 203px |
+
+---
+
+### Expected Visual Result
+
+After these changes:
+- **Pyramid is ~15% taller and wider** - more visual prominence
+- **Icons inside layers are more legible** - larger layer areas mean larger embedded illustrations
+- **Copy boxes are 30% narrower** - from 290px to 203px, less visual clutter
+- **Better balance** - pyramid dominates the left ~75% of the space, labels fit cleanly on the right
+
