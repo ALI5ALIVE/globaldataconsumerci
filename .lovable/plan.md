@@ -1,104 +1,96 @@
 
 
-## Reduce Copy Box Width by 30% and Make Pyramid Bigger
+## Further Reduce Copy Box Width by 30% and Enlarge Pyramid
 
-### Current State Analysis
+### Current State (After Previous Changes)
 
-**Current Pyramid Dimensions:**
-- Apex: `x: 750, y: 40`
-- Base Left: `x: 80, y: 1080`
-- Base Right: `x: 1420, y: 1080`
-- Pyramid width at base: 1340px (1420 - 80)
-- Pyramid height: 1040px (1080 - 40)
-
-**Current Copy Box Dimensions:**
-- Width: 290px (hardcoded in `rect` elements)
-- Position: starts at `labelPos.lineEndX + 16` = 1496px
-
-**Current ViewBox:**
-- Desktop: `0 0 1800 1100`
-- Mobile: `0 0 1500 1100`
+| Element | Current Value |
+|---------|---------------|
+| Copy box width | 203px |
+| Apex position | `{ x: 650, y: 20 }` |
+| Base left | `{ x: 40, y: 1100 }` |
+| Base right | `{ x: 1260, y: 1100 }` |
+| ViewBox (desktop) | `0 0 1700 1120` |
+| Min dimensions | 800px × 640px |
 
 ---
 
 ### Proposed Changes
 
-#### 1. Reduce Copy Box Width by 30%
+#### 1. Reduce Copy Box Width by Another 30%
 
-Current width: **290px** → New width: **203px** (290 × 0.7)
+Current: **203px** → New: **142px** (203 × 0.7)
 
-**Files affected:**
-- `GDPyramid3D.tsx` lines 238, 440
+**Lines affected:**
+- Line 238: `width="203"` → `width="142"`
+- Line 440: `width="203"` → `width="142"`
 
-Change:
-```tsx
-// From:
-width="290"
+---
 
-// To:
-width="203"
-```
+#### 2. Expand Pyramid Dimensions (~20% Larger)
 
-#### 2. Make Pyramid Taller and Wider
+With narrower copy boxes, the pyramid can expand further to the right.
 
-Expand the pyramid by ~15-20% to fill more of the visual space and make icons more legible.
-
-**Current apex/base configuration (lines 53-57):**
+**Current `layerConfig` (lines 53-57):**
 ```tsx
 const layerConfig = {
-  apex: { x: 750, y: 40 },
-  baseLeft: { x: 80, y: 1080 },
-  baseRight: { x: 1420, y: 1080 },
+  apex: { x: 650, y: 20 },
+  baseLeft: { x: 40, y: 1100 },
+  baseRight: { x: 1260, y: 1100 },
 };
 ```
 
-**Proposed new configuration:**
+**New `layerConfig`:**
 ```tsx
 const layerConfig = {
-  apex: { x: 650, y: 20 },        // Move apex slightly left and higher
-  baseLeft: { x: 40, y: 1100 },   // Extend base further left and down
-  baseRight: { x: 1260, y: 1100 }, // Keep right edge similar for label space
+  apex: { x: 700, y: 10 },        // Move apex right and higher
+  baseLeft: { x: 20, y: 1120 },   // Extend base further left and down
+  baseRight: { x: 1380, y: 1120 }, // Extend right edge (gained space from narrower labels)
 };
 ```
 
 This gives:
-- **New width at base:** 1220px (slightly narrower on right to leave room for labels)
-- **New height:** 1080px (20 → 1100)
+- **New width at base:** 1360px (vs 1220px = +11%)
+- **New height:** 1110px (10 → 1120)
+- Overall ~15-20% larger visual
 
-But wait - we also need to increase the viewBox height to accommodate the taller pyramid and adjust layer bounds.
+---
 
-**Updated layerBounds (lines 60-66):**
-Scale proportionally to maintain 5 equal-ish layers over the new height range (20 → 1100 = 1080px total)
+#### 3. Update Layer Bounds
 
-Each layer height: ~216px (1080 / 5)
+Scale proportionally for 5 layers over new height range (10 → 1120 = 1110px total)
 
+Each layer height: ~222px (1110 / 5)
+
+**Current `layerBounds` (lines 60-66):**
 ```tsx
 const layerBounds = {
-  5: { top: 20, bottom: 236 },    // PREDICTIVE - Apex
-  4: { top: 236, bottom: 452 },   // OPERATIONAL
-  3: { top: 452, bottom: 668 },   // CONNECTED
-  2: { top: 668, bottom: 884 },   // MANAGED (with 5 silos)
-  1: { top: 884, bottom: 1100 },  // FRAGMENTED - Base
+  5: { top: 20, bottom: 236 },
+  4: { top: 236, bottom: 452 },
+  3: { top: 452, bottom: 668 },
+  2: { top: 668, bottom: 884 },
+  1: { top: 884, bottom: 1100 },
 };
 ```
 
-#### 3. Update ViewBox
-
-Increase viewBox height to fit the taller pyramid:
+**New `layerBounds`:**
 ```tsx
-// From:
-const viewBox = isMobile ? "0 0 1500 1100" : "0 0 1800 1100";
-
-// To:
-const viewBox = isMobile ? "0 0 1500 1120" : "0 0 1700 1120";
+const layerBounds = {
+  5: { top: 10, bottom: 232 },    // PREDICTIVE - Apex
+  4: { top: 232, bottom: 454 },   // OPERATIONAL
+  3: { top: 454, bottom: 676 },   // CONNECTED
+  2: { top: 676, bottom: 898 },   // MANAGED (with 5 silos)
+  1: { top: 898, bottom: 1120 },  // FRAGMENTED - Base
+};
 ```
 
-Also reduce desktop width slightly since the narrower copy boxes free up horizontal space.
+---
 
-#### 4. Adjust Label Positions
+#### 4. Update Label Positions
 
-Move label connector lines and boxes to align with the new layer bounds:
+Recalculate to match new layer bounds and narrower boxes:
 
+**Current `labelPositions` (lines 116-122):**
 ```tsx
 const labelPositions = {
   5: { lineStartX: 880, lineStartY: 128, lineEndX: 1380, lineEndY: 128, labelX: 1390, labelY: 128 },
@@ -109,45 +101,76 @@ const labelPositions = {
 };
 ```
 
-Key adjustments:
-- Moved `lineEndX` from 1480 to 1380 (100px left)
-- Recalculated `lineStartY` / `labelY` to center within new layer bounds
-
-#### 5. Update Min Dimensions
-
-Increase minimum dimensions for better icon visibility:
-
+**New `labelPositions`:**
 ```tsx
-// From:
-minWidth: isMobile ? "480px" : "720px",
-minHeight: isMobile ? "420px" : "570px",
+const labelPositions = {
+  5: { lineStartX: 920, lineStartY: 121, lineEndX: 1480, lineEndY: 121, labelX: 1490, labelY: 121 },
+  4: { lineStartX: 1000, lineStartY: 343, lineEndX: 1480, lineEndY: 343, labelX: 1490, labelY: 343 },
+  3: { lineStartX: 1080, lineStartY: 565, lineEndX: 1480, lineEndY: 565, labelX: 1490, labelY: 565 },
+  2: { lineStartX: 1160, lineStartY: 787, lineEndX: 1480, lineEndY: 787, labelX: 1490, labelY: 787 },
+  1: { lineStartX: 1240, lineStartY: 1009, lineEndX: 1480, lineEndY: 1009, labelX: 1490, labelY: 1009 },
+};
+```
 
-// To:
-minWidth: isMobile ? "520px" : "800px",
-minHeight: isMobile ? "460px" : "640px",
+Key adjustments:
+- Moved `lineEndX` from 1380 to 1480 (labels start further right, matching wider pyramid)
+- Recalculated Y positions to center within new layer bounds
+
+---
+
+#### 5. Update ViewBox
+
+Increase to accommodate the larger pyramid:
+
+**Current (line 130):**
+```tsx
+const viewBox = isMobile ? "0 0 1500 1120" : "0 0 1700 1120";
+```
+
+**New:**
+```tsx
+const viewBox = isMobile ? "0 0 1500 1140" : "0 0 1750 1140";
 ```
 
 ---
 
-### Summary of File Changes
+#### 6. Update Min Dimensions
 
-| File | Lines | Change |
-|------|-------|--------|
-| `GDPyramid3D.tsx` | 53-57 | Update `layerConfig` for larger pyramid |
-| `GDPyramid3D.tsx` | 60-66 | Update `layerBounds` for new proportions |
-| `GDPyramid3D.tsx` | 116-122 | Update `labelPositions` for new layer heights |
-| `GDPyramid3D.tsx` | 130 | Update `viewBox` dimensions |
-| `GDPyramid3D.tsx` | 148-151 | Update `minWidth`/`minHeight` |
-| `GDPyramid3D.tsx` | 238 | Reduce copy box width to 203px |
-| `GDPyramid3D.tsx` | 440 | Reduce silos copy box width to 203px |
+Increase for better icon visibility at larger pyramid size:
+
+**Current (lines 149-150):**
+```tsx
+minWidth: isMobile ? "520px" : "800px",
+minHeight: isMobile ? "460px" : "640px",
+```
+
+**New:**
+```tsx
+minWidth: isMobile ? "560px" : "880px",
+minHeight: isMobile ? "500px" : "720px",
+```
+
+---
+
+### Summary of Changes
+
+| Location | Current | New |
+|----------|---------|-----|
+| Copy box width | 203px | 142px |
+| Apex | (650, 20) | (700, 10) |
+| Base left | (40, 1100) | (20, 1120) |
+| Base right | (1260, 1100) | (1380, 1120) |
+| ViewBox height | 1120 | 1140 |
+| ViewBox width (desktop) | 1700 | 1750 |
+| Min dimensions (desktop) | 800×640 | 880×720 |
 
 ---
 
 ### Expected Visual Result
 
 After these changes:
-- **Pyramid is ~15% taller and wider** - more visual prominence
-- **Icons inside layers are more legible** - larger layer areas mean larger embedded illustrations
-- **Copy boxes are 30% narrower** - from 290px to 203px, less visual clutter
-- **Better balance** - pyramid dominates the left ~75% of the space, labels fit cleanly on the right
+- **Pyramid is ~20% larger** - more visual prominence and legible icons
+- **Copy boxes are 30% narrower** - from 203px to 142px
+- **Better proportions** - pyramid dominates ~80% of visual space
+- **Icons more readable** - larger layer areas accommodate illustrations better
 
