@@ -29,7 +29,7 @@ const differentiators = [
 const closingTruths = [
   { text: "Insight alone does not create advantage", icon: Database },
   { text: "Speed without confidence creates risk", icon: Sparkles },
-  { text: "Connected Intelligence creates leadership", icon: CheckCircle2 },
+  { text: "Connected Intelligence drives category performance", icon: CheckCircle2 },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -103,9 +103,9 @@ const GDSlide9WhyGlobalData = ({
         <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center">
           {/* Leadership Imperative */}
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-5">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Leadership Imperative</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Performance Imperative</p>
             <p className="text-base text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of category leaders</span>.
+              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of category performers</span>.
             </p>
           </div>
 
