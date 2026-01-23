@@ -49,20 +49,20 @@ const GDPyramid3D = ({
 }: GDPyramid3DProps) => {
   const isMobile = useIsMobile();
 
-  // Pyramid configuration - Further expanded for larger visual (~30% bigger)
+  // Pyramid configuration - 30% bigger for better visibility
   const layerConfig = {
-    apex: { x: 820, y: 5 },
-    baseLeft: { x: 5, y: 1350 },
-    baseRight: { x: 1635, y: 1350 },
+    apex: { x: 1066, y: 5 },
+    baseLeft: { x: 5, y: 1755 },
+    baseRight: { x: 2127, y: 1755 },
   };
 
-  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (5 → 1350 = 1345px)
+  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled by 1.3x
   const layerBounds = {
-    5: { top: 5, bottom: 274 },     // PREDICTIVE - Apex
-    4: { top: 274, bottom: 543 },   // OPERATIONAL
-    3: { top: 543, bottom: 812 },   // CONNECTED
-    2: { top: 812, bottom: 1081 },  // MANAGED (with 5 silos)
-    1: { top: 1081, bottom: 1350 }, // FRAGMENTED - Base
+    5: { top: 5, bottom: 355 },      // PREDICTIVE - Apex
+    4: { top: 355, bottom: 705 },    // OPERATIONAL
+    3: { top: 705, bottom: 1055 },   // CONNECTED
+    2: { top: 1055, bottom: 1405 },  // MANAGED (with 5 silos)
+    1: { top: 1405, bottom: 1755 },  // FRAGMENTED - Base
   };
 
   const getLeftX = (y: number) => {
@@ -117,7 +117,7 @@ const GDPyramid3D = ({
     const bounds = layerBounds[level as keyof typeof layerBounds];
     const centerY = (bounds.top + bounds.bottom) / 2;
     const rightX = getRightX(centerY);
-    return { startX: rightX + 10, y: centerY, endX: 1680 };
+    return { startX: rightX + 10, y: centerY, endX: 2185 };
   };
 
   const handleModuleClick = (module: string) => {
@@ -126,7 +126,7 @@ const GDPyramid3D = ({
     }
   };
 
-  const viewBox = isMobile ? "0 0 1650 1370" : "0 0 1700 1370";
+  const viewBox = isMobile ? "0 0 2145 1780" : "0 0 2210 1780";
 
   const apexX = layerConfig.apex.x;
   const apexY = layerConfig.apex.y;
@@ -145,8 +145,8 @@ const GDPyramid3D = ({
         preserveAspectRatio="xMidYMid meet"
         style={{ 
           ...(compact ? {} : {
-            minWidth: isMobile ? "660px" : "1040px",
-            minHeight: isMobile ? "600px" : "900px",
+            minWidth: isMobile ? "858px" : "1352px",
+            minHeight: isMobile ? "780px" : "1170px",
           }),
           filter: isMobile ? "drop-shadow(0 20px 40px rgba(0,0,0,0.4))" : "drop-shadow(0 30px 60px rgba(0,0,0,0.5))",
         }}
@@ -190,9 +190,9 @@ const GDPyramid3D = ({
 
         {/* Y-axis arrow - Intelligence Maturity */}
         <g className="performance-arrow">
-          <line x1={40} y1={900} x2={40} y2={80} stroke="hsl(var(--muted-foreground))" strokeWidth="3" strokeOpacity="0.6" />
-          <polygon points="40,56 28,84 52,84" fill="hsl(var(--muted-foreground))" fillOpacity="0.6" />
-          <text x={-500} y={20} transform="rotate(-90)" textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="20" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.08em" className="uppercase">
+          <line x1={52} y1={1170} x2={52} y2={104} stroke="hsl(var(--muted-foreground))" strokeWidth="3" strokeOpacity="0.6" />
+          <polygon points="52,73 37,109 67,109" fill="hsl(var(--muted-foreground))" fillOpacity="0.6" />
+          <text x={-650} y={26} transform="rotate(-90)" textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="20" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.08em" className="uppercase">
             Intelligence Maturity
           </text>
         </g>
@@ -308,8 +308,8 @@ const GDPyramid3D = ({
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
           const rightX = getRightX(centerY);
-          const width = (rightX - leftX) * 1.8;
-          const height = layerHeight * 1.9;
+          const width = (rightX - leftX) * 2.4;
+          const height = layerHeight * 2.5;
           const offsetX = (rightX - leftX - width) / 2;
           const offsetY = (layerHeight - height) / 2;
           
