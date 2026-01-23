@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface GDAfterConnectedIllustrationProps {
   onNodeClick?: (node: string) => void;
@@ -16,14 +16,6 @@ const centralHub = { id: "ava", label: "Ava AI", x: 230, y: 35 };
 
 const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrationProps) => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [flowOffset, setFlowOffset] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFlowOffset((prev) => (prev + 1) % 20);
-    }, 80);
-    return () => clearInterval(interval);
-  }, []);
 
   const nodeRadius = 24;
   const hubRadius = 32;
@@ -100,7 +92,7 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
         stroke="hsl(195, 100%, 45%)"
         strokeWidth="2"
         strokeOpacity="0.5"
-        strokeDasharray={`${flowOffset} 5`}
+        strokeDasharray="none"
       />
 
       {/* Horizontal connection between solution nodes */}
@@ -136,7 +128,7 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
           stroke="hsl(195, 100%, 45%)"
           strokeWidth="1.5"
           strokeOpacity={hoveredNode === "ava" ? 0.8 : 0.4}
-          strokeDasharray={`${10 + flowOffset} 5`}
+          strokeDasharray="10 5"
         />
         
         {/* Hub circle */}

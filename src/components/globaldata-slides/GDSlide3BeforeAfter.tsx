@@ -57,7 +57,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-32 mb-3">
+              <div className="h-36 mb-3">
                 <GDBeforeSilosIllustration />
               </div>
 
@@ -104,7 +104,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-32 mb-3">
+              <div className="h-36 mb-3">
                 <GDAfterConnectedIllustration />
               </div>
 
