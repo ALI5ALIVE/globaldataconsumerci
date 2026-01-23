@@ -1,131 +1,68 @@
 
 
-## Fix GDQuintupleLoop Overflow - Contain Within Blue Layer
+## Remove Small Labels and Connect Pyramid Layers Directly to Details Panel
 
-### Problem
-The recent scaling changes increased the `GDQuintupleLoop` container multipliers to `2.2` (width) and `2.4` (height), causing the component to overflow outside the blue "CONNECTED" layer (layer 3) of the pyramid.
+### Current Issue
+The pyramid has small label boxes on the right side with 18px/15px fonts that are too small to read. Users should instead see lines connecting each layer directly to the main copy box (GDDetailsPanel) which has the full description in readable text.
 
-### Current Values (Causing Overflow)
+### Proposed Changes
 
-**In `GDPyramid3D.tsx` (lines 314-315):**
-```tsx
-const width = (rightX - leftX) * 2.2;
-const height = layerHeight * 2.4;
+#### 1. Remove Small Label Boxes from GDPyramid3D.tsx
+
+Remove these elements that currently render for each layer:
+- The horizontal connector lines (`lineStartX` to `lineEndX`)
+- The small label rectangles (100px wide boxes)
+- The foreignObject text elements with label/sublabel
+
+**Elements to remove:**
+- `labelPositions` constant and its usage
+- The `<line>` elements connecting layers to labels
+- The `<rect>` background boxes for labels
+- The `<foreignObject>` containing label text
+
+#### 2. Add Connection Line to Details Panel
+
+Add a single animated connector line from the active layer to the edge of the SVG, indicating it connects to the details panel beside it:
+
+```text
+Active layer center -> Right edge of viewBox
 ```
 
-Layer 3 bounds:
-- Top: 543, Bottom: 812
-- Layer height: 269px
-- With 2.4x multiplier, height becomes ~645px (overflows by ~376px!)
+This line will:
+- Originate from the center-right of the currently active layer
+- Extend horizontally to the right edge of the SVG
+- Use the active layer's color for visual connection
+- Animate when the active layer changes
 
-### Solution
+#### 3. Update ViewBox
 
-#### 1. Reduce Container Multipliers in GDPyramid3D.tsx
+Since we're removing the label area on the right, we can reduce the viewBox width:
 
-Reduce multipliers back to values that keep the component within bounds:
+**Current:** `0 0 2000 1370`  
+**New:** `0 0 1700 1370`
 
-**Lines 314-315:**
-```tsx
-// Current (overflow)
-const width = (rightX - leftX) * 2.2;
-const height = layerHeight * 2.4;
+This gives the pyramid more prominence and removes empty space where labels used to be.
 
-// Fixed (contained)
-const width = (rightX - leftX) * 0.95;
-const height = layerHeight * 0.9;
-```
+### Technical Implementation
 
-Using `0.95` and `0.9` keeps the component comfortably within the layer with small margins.
+**File: `src/components/globaldata-slides/GDPyramid3D.tsx`**
 
-#### 2. Adjust GDQuintupleLoop Internal Dimensions
+1. Delete `labelPositions` constant (around lines 116-122)
+2. Remove the label rendering section that includes:
+   - `<line>` connector elements
+   - `<rect>` label background boxes  
+   - `<foreignObject>` with label text
+3. Add single connector line from active layer to right edge
+4. Update viewBox from `0 0 2000 1370` to `0 0 1700 1370`
 
-Scale down the internal SVG to fit properly within the constrained container:
+### Visual Result
 
-**In `GDQuintupleLoop.tsx` (lines 19-22):**
-```tsx
-// Current (too large)
-const loopRadius = 85;
-const loopSpacing = 130;
-const startX = 140;
-const cy = 130;
+| Before | After |
+|--------|-------|
+| 5 small label boxes with tiny text | No label boxes |
+| Lines to each label | Single line from active layer to edge |
+| Wide viewBox (2000px) | Narrower viewBox (1700px) |
+| Labels compete with details panel | Details panel is the sole information source |
 
-// Fixed (proportional)
-const loopRadius = 50;
-const loopSpacing = 80;
-const startX = 90;
-const cy = 85;
-```
-
-**Line 26 - ViewBox:**
-```tsx
-// Current
-<svg viewBox="0 0 800 320" className="w-full h-full">
-
-// Fixed
-<svg viewBox="0 0 500 200" className="w-full h-full">
-```
-
-**Line 58 - Central glow:**
-```tsx
-// Current
-<circle cx="400" cy={cy} r="260" fill="url(#gdCenterGlow)" />
-
-// Fixed
-<circle cx="250" cy={cy} r="160" fill="url(#gdCenterGlow)" />
-```
-
-**Lines 66-67 - Intersection ellipses:**
-```tsx
-// Current
-rx="30"
-ry="52"
-
-// Fixed
-rx="18"
-ry="32"
-```
-
-**Line 100 - Module label font size:**
-```tsx
-// Current
-fontSize="18"
-
-// Fixed
-fontSize="13"
-```
-
-**Lines 113-117 - Unified Taxonomy label:**
-```tsx
-// Current
-x="400"
-y="280"
-fontSize="22"
-
-// Fixed
-x="250"
-y="175"
-fontSize="15"
-```
-
-### Summary of Changes
-
-| File | Element | Current | New |
-|------|---------|---------|-----|
-| GDPyramid3D.tsx | width multiplier | 2.2 | 0.95 |
-| GDPyramid3D.tsx | height multiplier | 2.4 | 0.9 |
-| GDQuintupleLoop.tsx | loopRadius | 85 | 50 |
-| GDQuintupleLoop.tsx | loopSpacing | 80 | 80 |
-| GDQuintupleLoop.tsx | viewBox | 0 0 800 320 | 0 0 500 200 |
-| GDQuintupleLoop.tsx | center glow r | 260 | 160 |
-| GDQuintupleLoop.tsx | module font | 18px | 13px |
-| GDQuintupleLoop.tsx | taxonomy font | 22px | 15px |
-
-### Files to Modify
-- `src/components/globaldata-slides/GDPyramid3D.tsx` (lines 314-315)
-- `src/components/globaldata-slides/GDQuintupleLoop.tsx` (multiple lines)
-
-### Expected Result
-- The quintuple loop visualization stays fully contained within the blue "CONNECTED" layer
-- Proportional scaling maintains visual clarity
-- No overflow into adjacent pyramid layers
+The GDDetailsPanel already shows all the information (headline, description, behavior shift, time allocation, ROI) in a readable format, so removing the redundant small labels simplifies the visual and improves readability.
 
