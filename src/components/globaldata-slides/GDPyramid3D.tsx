@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/hooks/use-mobile";
-import { BarChart3, Lightbulb, Users, Target, DollarSign } from "lucide-react";
+import { BarChart3, ShoppingCart, Users, TrendingUp, FileSpreadsheet } from "lucide-react";
 import GDTransformationalIllustration from "./GDTransformationalIllustration";
 import GDMetricsGauges from "./GDMetricsGauges";
 import GDQuintupleLoop from "./GDQuintupleLoop";
@@ -33,11 +33,11 @@ const layerColors = {
 
 // 5 silos for Level 4 (MANAGED)
 const foundationSections = [
-  { id: "market", label: "Market", sublabel: "Silo", icon: BarChart3 },
-  { id: "innovation", label: "Innovation", sublabel: "Silo", icon: Lightbulb },
-  { id: "consumer", label: "Consumer", sublabel: "Silo", icon: Users },
-  { id: "competitive", label: "Competitive", sublabel: "Silo", icon: Target },
-  { id: "commercial", label: "Commercial", sublabel: "Silo", icon: DollarSign },
+  { id: "nielseniq", label: "NielsenIQ", sublabel: "Point of Sale", icon: BarChart3, color: "hsl(210, 100%, 45%)" },
+  { id: "circana", label: "Circana", sublabel: "Retail Analytics", icon: ShoppingCart, color: "hsl(280, 70%, 50%)" },
+  { id: "kantar", label: "Kantar", sublabel: "Panel Data", icon: Users, color: "hsl(350, 85%, 55%)" },
+  { id: "euromonitor", label: "Euromonitor", sublabel: "Market Research", icon: TrendingUp, color: "hsl(165, 70%, 40%)" },
+  { id: "mintel", label: "Mintel", sublabel: "GNPD / Trends", icon: FileSpreadsheet, color: "hsl(35, 95%, 50%)" },
 ];
 
 const GDPyramid3D = ({
@@ -165,10 +165,10 @@ const GDPyramid3D = ({
           })}
 
           {/* Silo section gradients (for Level 4) */}
-          {[0, 1, 2, 3, 4].map((index) => (
+          {foundationSections.map((section, index) => (
             <linearGradient key={`silo-${index}`} id={`gd-silo-section-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={`hsl(199, 89%, ${50 - index * 2}%)`} />
-              <stop offset="100%" stopColor={`hsl(199, 89%, ${38 - index * 2}%)`} />
+              <stop offset="0%" stopColor={section.color} />
+              <stop offset="100%" stopColor={section.color.replace(/(\d+)%\)$/, (_, p) => `${Math.max(0, parseInt(p) - 15)}%)`)} />
             </linearGradient>
           ))}
           
