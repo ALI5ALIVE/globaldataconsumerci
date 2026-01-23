@@ -1,38 +1,89 @@
+import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
-import { Target, Lightbulb, Tag, Truck, BarChart3 } from "lucide-react";
+import { Target, TrendingUp, Swords, Lightbulb, BarChart3, ChevronRight } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
+import type { LucideIcon } from "lucide-react";
 
-const stages = [
+// Solution icon and color mapping
+const solutionConfig: Record<string, { icon: LucideIcon; color: string }> = {
+  "Strategic": { icon: Target, color: "hsl(217 100% 50%)" },
+  "Market": { icon: TrendingUp, color: "hsl(195 100% 45%)" },
+  "Competitive": { icon: Swords, color: "hsl(180 70% 45%)" },
+  "Innovation": { icon: Lightbulb, color: "hsl(165 70% 45%)" },
+  "Sales": { icon: BarChart3, color: "hsl(145 70% 45%)" },
+};
+
+// Workflow stages with solution mapping (based on PDF)
+const workflowStages = [
+  {
+    id: "trend-strategy",
+    label: "Trend & Strategy",
+    questions: ["Which markets and categories?", "Macro trends?", "Size of the prize?"],
+    solutions: ["Strategic", "Market"],
+    combination: { name: "Where to Play", description: "Identify growth spaces before competitors" },
+  },
+  {
+    id: "whitespace",
+    label: "White Space",
+    questions: ["What white space exists?", "What approaches are working?"],
+    solutions: ["Market", "Innovation", "Competitive"],
+    combination: { name: "Opportunity Discovery", description: "Validate trends with competitive context" },
+  },
+  {
+    id: "concept-screening",
+    label: "Concept Screening",
+    questions: ["Which products resonate?", "Initial reactions?", "How to differentiate?"],
+    solutions: ["Innovation", "Competitive"],
+    combination: { name: "How to Win", description: "Test concepts against competitive landscape" },
+  },
+  {
+    id: "market-entry",
+    label: "Market Entry",
+    questions: ["Which channels to launch?", "What is the TAM?", "Optimal pricing?"],
+    solutions: ["Sales", "Market", "Competitive"],
+    combination: { name: "How to Execute", description: "Launch with channel and pricing precision" },
+  },
+  {
+    id: "post-launch",
+    label: "Post-Launch",
+    questions: ["How to measure engagement?", "When to refresh?", "Monitor competitors?"],
+    solutions: ["Sales", "Competitive", "Market"],
+    combination: { name: "Continuous Intelligence", description: "Performance + competitive response" },
+  },
+];
+
+// Solution combination examples
+const solutionCombos = [
   { 
-    icon: Target, 
-    title: "Strategy & Portfolio", 
-    items: ["Where to play", "Category prioritisation", "Investment focus"],
-    color: "from-primary to-sky-400"
+    label: "Where to Play", 
+    solutions: ["Strategic", "Market"], 
+    description: "Identify markets and categories with the highest growth potential",
+    color: "hsl(217 100% 50%)",
+    stageIndices: [0, 1],
   },
   { 
-    icon: Lightbulb, 
-    title: "Innovation & Product", 
-    items: ["Trend discovery", "Whitespace identification", "Concept screening"],
-    color: "from-sky-400 to-cyan-400"
+    label: "How to Win", 
+    solutions: ["Innovation", "Competitive"], 
+    description: "Develop differentiated products that outperform competitors",
+    color: "hsl(195 100% 45%)",
+    stageIndices: [1, 2],
   },
   { 
-    icon: Tag, 
-    title: "Brand, Pricing & Claims", 
-    items: ["Positioning", "Pricing strategy", "Claims validation"],
-    color: "from-cyan-400 to-teal-400"
+    label: "How to Execute", 
+    solutions: ["Sales", "Market"], 
+    description: "Launch and scale with precision across channels",
+    color: "hsl(145 70% 45%)",
+    stageIndices: [3, 4],
   },
-  { 
-    icon: Truck, 
-    title: "Go-to-Market & Sales", 
-    items: ["Channel strategy", "Launch planning", "Enablement"],
-    color: "from-teal-400 to-green-400"
-  },
-  { 
-    icon: BarChart3, 
-    title: "In-Market Performance", 
-    items: ["Post-launch monitoring", "Competitive response", "Portfolio optimisation"],
-    color: "from-green-400 to-lime-400"
-  },
+];
+
+// Narration sync timings
+const stepTimings = [
+  { index: 0, startPercent: 15 },
+  { index: 1, startPercent: 30 },
+  { index: 2, startPercent: 45 },
+  { index: 3, startPercent: 60 },
+  { index: 4, startPercent: 75 },
 ];
 
 const GDSlide5ValueChain = ({
@@ -44,11 +95,58 @@ const GDSlide5ValueChain = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
+  const [activeStage, setActiveStage] = useState<number | null>(null);
+  const [activeCombo, setActiveCombo] = useState<number | null>(null);
+  const [isNarrationControlled, setIsNarrationControlled] = useState(false);
+
+  // Sync active stage with narration progress
+  useEffect(() => {
+    if (isPlaying && progress > 0) {
+      setIsNarrationControlled(true);
+      setActiveCombo(null);
+      
+      let currentStep: number | null = null;
+      for (let i = stepTimings.length - 1; i >= 0; i--) {
+        if (progress >= stepTimings[i].startPercent) {
+          currentStep = stepTimings[i].index;
+          break;
+        }
+      }
+      setActiveStage(currentStep);
+    } else if (!isPlaying && isNarrationControlled) {
+      setIsNarrationControlled(false);
+    }
+  }, [isPlaying, progress, isNarrationControlled]);
+
+  const handleStageHover = (index: number | null) => {
+    if (!isNarrationControlled) {
+      setActiveStage(index);
+      if (index !== null) setActiveCombo(null);
+    }
+  };
+
+  const handleComboHover = (index: number | null) => {
+    if (!isNarrationControlled) {
+      setActiveCombo(index);
+      if (index !== null) setActiveStage(null);
+    }
+  };
+
+  const isStageHighlighted = (stageIndex: number) => {
+    if (activeCombo !== null) {
+      return solutionCombos[activeCombo].stageIndices.includes(stageIndex);
+    }
+    return activeStage === stageIndex;
+  };
+
+  const activeData = activeStage !== null ? workflowStages[activeStage] : null;
+  const activeComboData = activeCombo !== null ? solutionCombos[activeCombo] : null;
+
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="Intelligence That Operates, Not Just Reports"
-      subtitle="Connected Intelligence works across the full value chain"
+      title="Solutions That Combine for Greater Advantage"
+      subtitle="Connected intelligence across every workflow stage"
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -58,73 +156,182 @@ const GDSlide5ValueChain = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-5 h-full">
-        {/* Value Chain Flow */}
-        <div className="flex-1">
-          <div className="grid grid-cols-5 gap-2">
-            {stages.map((stage, i) => {
-              const Icon = stage.icon;
-              return (
-                <div key={i} className="flex flex-col items-center">
-                  {/* Stage Card */}
-                  <div className="w-full bg-card/50 border border-border/50 rounded-xl p-3 hover:border-primary/30 transition-all group">
-                    <div className={`w-10 h-10 mx-auto rounded-lg bg-gradient-to-br ${stage.color} flex items-center justify-center mb-2`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <h4 className="text-xs font-semibold text-foreground text-center mb-2 min-h-[32px] leading-tight">
-                      {stage.title}
-                    </h4>
-                    <ul className="space-y-1">
-                      {stage.items.map((item, j) => (
-                        <li key={j} className="text-[10px] text-muted-foreground text-center leading-tight">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <div className="flex flex-col gap-4 h-full">
+        {/* Solution Combo Pills */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {solutionCombos.map((combo, i) => (
+            <div
+              key={combo.label}
+              className={`px-4 py-2 rounded-full border cursor-pointer transition-all duration-200 ${
+                activeCombo === i 
+                  ? "border-primary bg-primary/10 shadow-md" 
+                  : "border-border/50 bg-card/30 hover:border-primary/50"
+              }`}
+              onMouseEnter={() => handleComboHover(i)}
+              onMouseLeave={() => handleComboHover(null)}
+              onClick={() => handleComboHover(activeCombo === i ? null : i)}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-foreground">{combo.label}</span>
+                <span className="text-xs text-muted-foreground">
+                  {combo.solutions.map((sol, j) => {
+                    const Icon = solutionConfig[sol].icon;
+                    return (
+                      <Icon 
+                        key={sol} 
+                        className="inline-block w-3.5 h-3.5 ml-1" 
+                        style={{ color: solutionConfig[sol].color }}
+                      />
+                    );
+                  })}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Connecting Line Visual */}
-        <div className="relative py-4">
-          <div className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-primary via-sky-500 to-lime-400 rounded-full" />
-          <div className="relative flex justify-between px-8">
-            {stages.map((_, i) => (
-              <div 
-                key={i} 
-                className="w-4 h-4 rounded-full bg-primary border-2 border-background shadow-lg shadow-primary/30"
-              />
+        {/* Workflow Cards */}
+        <div className="flex-1 flex items-center">
+          <div className="w-full grid grid-cols-5 gap-2">
+            {workflowStages.map((stage, i) => (
+              <div key={stage.id} className="flex items-center">
+                <div
+                  className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${
+                    isStageHighlighted(i)
+                      ? "border-primary bg-primary/10 shadow-lg scale-[1.02]"
+                      : "border-border/50 bg-card/30 hover:border-primary/30"
+                  }`}
+                  onMouseEnter={() => handleStageHover(i)}
+                  onMouseLeave={() => handleStageHover(null)}
+                  onClick={() => handleStageHover(activeStage === i ? null : i)}
+                >
+                  {/* Stage Label */}
+                  <h4 className="text-xs font-semibold text-foreground text-center mb-2 leading-tight min-h-[28px]">
+                    {stage.label}
+                  </h4>
+                  
+                  {/* Solution Icons */}
+                  <div className="flex justify-center gap-1 mb-2">
+                    {stage.solutions.map((sol) => {
+                      const Icon = solutionConfig[sol].icon;
+                      return (
+                        <div 
+                          key={sol}
+                          className="w-6 h-6 rounded-md flex items-center justify-center"
+                          style={{ backgroundColor: solutionConfig[sol].color + "20" }}
+                        >
+                          <Icon className="w-3.5 h-3.5" style={{ color: solutionConfig[sol].color }} />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Combination Tag */}
+                  <div className="text-center">
+                    <span className="text-[10px] text-muted-foreground leading-tight">
+                      {stage.combination.name}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Arrow connector */}
+                {i < workflowStages.length - 1 && (
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/50 shrink-0 mx-1" />
+                )}
+              </div>
             ))}
           </div>
         </div>
 
-        {/* What Changes Callout */}
-        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-5">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
-              <Target className="w-6 h-6 text-primary" />
+        {/* Detail Panel */}
+        <div className="min-h-[120px]">
+          {activeData ? (
+            <div 
+              className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex gap-1 shrink-0">
+                  {activeData.solutions.map((sol) => {
+                    const Icon = solutionConfig[sol].icon;
+                    return (
+                      <div 
+                        key={sol}
+                        className="w-10 h-10 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: solutionConfig[sol].color + "20", border: `1px solid ${solutionConfig[sol].color}40` }}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: solutionConfig[sol].color }} />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-bold text-foreground">{activeData.label}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-primary/20 text-[10px] font-medium text-primary">
+                      {activeData.combination.name}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    {activeData.questions.map((q, j) => (
+                      <p key={j} className="text-xs text-muted-foreground flex items-start gap-1">
+                        <span className="text-primary">•</span> {q}
+                      </p>
+                    ))}
+                  </div>
+                  <p className="text-xs text-primary mt-2 font-medium">
+                    → {activeData.combination.description}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">What Changes</p>
-              <p className="text-base text-foreground leading-relaxed">
-                Every function operates from the <span className="font-bold text-primary">same shared truth</span>, so decisions <span className="font-bold text-primary">reinforce each other</span> across the entire value chain.
+          ) : activeComboData ? (
+            <div 
+              className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex gap-1 shrink-0">
+                  {activeComboData.solutions.map((sol) => {
+                    const Icon = solutionConfig[sol].icon;
+                    return (
+                      <div 
+                        key={sol}
+                        className="w-10 h-10 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: solutionConfig[sol].color + "20", border: `1px solid ${solutionConfig[sol].color}40` }}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: solutionConfig[sol].color }} />
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-foreground mb-1">{activeComboData.label}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {activeComboData.description}
+                  </p>
+                  <p className="text-xs text-primary mt-2">
+                    Combines: {activeComboData.solutions.join(" + ")} Intelligence
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-4">
+              <p className="text-sm text-muted-foreground text-center">
+                Hover over a workflow stage or combination to explore how solutions work together
               </p>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Bottom Stats */}
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">5</p>
-            <p className="text-xs text-muted-foreground">Value chain stages</p>
+            <p className="text-xs text-muted-foreground">Workflow stages</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
-            <p className="text-2xl font-bold text-primary">1</p>
-            <p className="text-xs text-muted-foreground">Source of truth</p>
+            <p className="text-2xl font-bold text-primary">3</p>
+            <p className="text-xs text-muted-foreground">Strategic combinations</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">∞</p>
