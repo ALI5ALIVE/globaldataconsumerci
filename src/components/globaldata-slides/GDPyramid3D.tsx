@@ -320,8 +320,8 @@ const GDPyramid3D = ({
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
           const rightX = getRightX(centerY);
-          const width = (rightX - leftX) * 9.6;
-          const height = layerHeight * 10.0;
+          const width = (rightX - leftX) * 0.95;
+          const height = layerHeight * 0.9;
           const offsetX = (rightX - leftX - width) / 2;
           const offsetY = (layerHeight - height) / 2;
           
