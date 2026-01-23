@@ -15,15 +15,15 @@ const modules = [
 const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
 
-  // Overlapping infinity model dimensions - larger circles to fill the pyramid area
-  const loopRadius = 85;
-  const loopSpacing = 130;
-  const startX = 140;
-  const cy = 130;
+  // Overlapping infinity model dimensions - sized to fit within pyramid layer
+  const loopRadius = 50;
+  const loopSpacing = 80;
+  const startX = 90;
+  const cy = 85;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 800 320" className="w-full h-full">
+      <svg viewBox="0 0 500 200" className="w-full h-full">
         <defs>
           <filter id="gdLoopGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="5" result="blur" />
@@ -55,7 +55,7 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
         </defs>
 
         {/* Central radial glow - "One Truth" */}
-        <circle cx="400" cy={cy} r="260" fill="url(#gdCenterGlow)" />
+        <circle cx="250" cy={cy} r="160" fill="url(#gdCenterGlow)" />
 
         {/* Intersection highlight ellipses between overlapping circles */}
         {[0, 1, 2, 3].map((i) => (
@@ -63,8 +63,8 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
             key={`intersection-${i}`}
             cx={startX + loopSpacing * i + loopSpacing / 2}
             cy={cy}
-            rx="30"
-            ry="52"
+            rx="18"
+            ry="32"
             fill="url(#gdIntersectionGlow)"
             opacity="0.6"
           />
@@ -97,7 +97,7 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
                 y={cy + loopRadius + 24}
                 textAnchor="middle"
                 fill={isHovered ? "hsl(45, 93%, 65%)" : "white"}
-                fontSize="18"
+                fontSize="13"
                 fontWeight="600"
                 fontFamily="'Inter', sans-serif"
                 className="pointer-events-none select-none transition-colors duration-200"
@@ -110,11 +110,11 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
 
         {/* "Unified Taxonomy" label at bottom */}
         <text
-          x="400"
-          y="280"
+          x="250"
+          y="175"
           textAnchor="middle"
           fill="white"
-          fontSize="22"
+          fontSize="15"
           fontWeight="600"
           fontFamily="'Space Grotesk', sans-serif"
           letterSpacing="0.05em"
