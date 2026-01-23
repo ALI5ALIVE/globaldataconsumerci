@@ -1,36 +1,36 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Target, Lightbulb, Tag, Truck, BarChart3, ArrowRight } from "lucide-react";
+import { Target, Lightbulb, Tag, Truck, BarChart3 } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const stages = [
   { 
     icon: Target, 
     title: "Strategy & Portfolio", 
-    items: ["Which categories are premiumizing?", "Where should we play in plant-based?", "Which consumers are switching?"],
+    items: ["Where to play", "Category prioritisation", "Investment focus"],
     color: "from-primary to-sky-400"
   },
   { 
     icon: Lightbulb, 
     title: "Innovation & Product", 
-    items: ["What flavour/format combos are trending?", "What's the unmet need in protein snacks?", "Will consumers pay more for clean-label?"],
+    items: ["Trend discovery", "Whitespace identification", "Concept screening"],
     color: "from-sky-400 to-cyan-400"
   },
   { 
     icon: Tag, 
     title: "Brand, Pricing & Claims", 
-    items: ["Can we claim 'high protein' + 'clean label'?", "What's the optimal price point?", "How do we position vs. competitors?"],
+    items: ["Positioning", "Pricing strategy", "Claims validation"],
     color: "from-cyan-400 to-teal-400"
   },
   { 
     icon: Truck, 
     title: "Go-to-Market & Sales", 
-    items: ["Which retailer indexes highest for this SKU?", "What's the right launch story for Tesco vs. Carrefour?", "What sell-in materials convert?"],
+    items: ["Channel strategy", "Launch planning", "Enablement"],
     color: "from-teal-400 to-green-400"
   },
   { 
     icon: BarChart3, 
     title: "In-Market Performance", 
-    items: ["Why did this SKU underperform in Tesco?", "How do we respond to competitor promo?", "Which SKUs should we delist?"],
+    items: ["Post-launch monitoring", "Competitive response", "Portfolio optimisation"],
     color: "from-green-400 to-lime-400"
   },
 ];
@@ -47,8 +47,8 @@ const GDSlide5ValueChain = ({
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="From Consumer Insight to Market Action"
-      subtitle="The questions your brand asks—answered across the entire journey"
+      title="Intelligence That Operates, Not Just Reports"
+      subtitle="Connected Intelligence works across the full value chain"
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -82,13 +82,6 @@ const GDSlide5ValueChain = ({
                       ))}
                     </ul>
                   </div>
-
-                  {/* Arrow between stages */}
-                  {i < stages.length - 1 && (
-                    <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
-                      <ArrowRight className="w-4 h-4 text-primary/50" />
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -115,9 +108,9 @@ const GDSlide5ValueChain = ({
               <Target className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why This Matters For Your Brand</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">What Changes</p>
               <p className="text-base text-foreground leading-relaxed">
-                R&D, marketing, and commercial all see the <span className="font-bold text-primary">same consumer</span>—so the product you develop, the claims you make, and the story you tell retailers all <span className="font-bold text-primary">reinforce each other</span>.
+                Every function operates from the <span className="font-bold text-primary">same shared truth</span>, so decisions <span className="font-bold text-primary">reinforce each other</span> across the entire value chain.
               </p>
             </div>
           </div>
@@ -127,15 +120,15 @@ const GDSlide5ValueChain = ({
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">5</p>
-            <p className="text-xs text-muted-foreground">Brand functions aligned</p>
+            <p className="text-xs text-muted-foreground">Value chain stages</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">1</p>
-            <p className="text-xs text-muted-foreground">Consumer truth</p>
+            <p className="text-xs text-muted-foreground">Source of truth</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">∞</p>
-            <p className="text-xs text-muted-foreground">Decisions that compound</p>
+            <p className="text-xs text-muted-foreground">Compounding value</p>
           </div>
         </div>
       </div>

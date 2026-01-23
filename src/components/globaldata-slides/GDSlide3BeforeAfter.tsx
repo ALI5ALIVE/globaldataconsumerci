@@ -1,25 +1,25 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Layers, MessageSquareWarning, Clock, Zap, Database, CheckCircle2, ArrowRight, AlertTriangle, TrendingUp } from "lucide-react";
+import { Layers, MessageSquareWarning, Clock, Zap, Database, CheckCircle2, ArrowRight, TrendingUp } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const beforeItems = [
-  { icon: Layers, label: "Consumer signals scattered", desc: "POS, panels, social in silos" },
-  { icon: MessageSquareWarning, label: "Conflicting consumer views", desc: "Which insight is right?" },
-  { icon: Clock, label: "Manual trend validation", desc: "Weeks to align on the opportunity" },
-  { icon: AlertTriangle, label: "Competitor launched first", desc: "They saw the same trend—faster" },
+  { icon: Layers, label: "Siloed insights", desc: "Fragmented across tools" },
+  { icon: MessageSquareWarning, label: "Different taxonomies", desc: "No common language" },
+  { icon: Clock, label: "Manual reconciliation", desc: "Time-consuming alignment" },
+  { icon: Zap, label: "Slow, debated decisions", desc: "Analysis paralysis" },
 ];
 
 const afterItems = [
-  { icon: Database, label: "One consumer truth", desc: "Unified across touchpoints" },
-  { icon: CheckCircle2, label: "Trend to concept in days", desc: "Not weeks or months" },
-  { icon: Zap, label: "Validated before commit", desc: "Test with real consumers first" },
-  { icon: TrendingUp, label: "First to shelf", desc: "Own the category moment" },
+  { icon: Database, label: "Unified system", desc: "One connected platform" },
+  { icon: CheckCircle2, label: "Shared truth", desc: "Single taxonomy" },
+  { icon: Zap, label: "Embedded workflows", desc: "Automated orchestration" },
+  { icon: TrendingUp, label: "Confident, fast action", desc: "Aligned decisions" },
 ];
 
 const metrics = [
-  { before: "12 weeks", after: "3 days", label: "Validate a flavour concept", improvement: "Before competitor locks shelf" },
-  { before: "Gut feel", after: "Consumer-tested", label: "Launch confidence", improvement: "2x success rate" },
-  { before: "Failed SKUs", after: "Lean pipeline", label: "Innovation waste", improvement: "30% less unsold inventory" },
+  { before: "Weeks", after: "Days", label: "Decision cycles", improvement: "70% faster" },
+  { before: "Reactive", after: "Proactive", label: "Launch approach", improvement: "2x success" },
+  { before: "Sprawl", after: "Unified", label: "Tool landscape", improvement: "30% lower TCO" },
 ];
 
 const GDSlide3BeforeAfter = ({
@@ -34,8 +34,8 @@ const GDSlide3BeforeAfter = ({
   return (
     <GDSlideContainer
       id="gd-slide-3"
-      title="One Consumer Truth. Faster Wins."
-      subtitle="What changes when you see the full journey—and act on it first"
+      title="From Fragmented Insight to Connected Decisions"
+      subtitle="The transformation that closes the Intelligence Gap"
       slideNumber={3}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -51,7 +51,7 @@ const GDSlide3BeforeAfter = ({
           {/* Before Column */}
           <div className="relative">
             <div className="absolute -top-2.5 left-3 px-2 py-0.5 bg-destructive/20 border border-destructive/30 rounded text-[10px] font-semibold text-destructive uppercase tracking-wider z-10">
-              Before: The Intelligence Gap
+              Before: Fragmented Intelligence
             </div>
             <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full">
               <div className="grid gap-3">

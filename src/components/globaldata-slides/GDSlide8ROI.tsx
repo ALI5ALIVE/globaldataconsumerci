@@ -5,32 +5,32 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const roiPillars = [
   { 
     icon: Clock, 
-    title: "Speed to Shelf", 
-    before: "Months to validate",
-    after: "Days to act",
+    title: "Speed to Decision", 
+    before: "Weeks",
+    after: "Days",
     improvement: "70%",
-    label: "faster from trend to launch",
-    desc: "Respond to a competitive launch in days, not months",
+    label: "faster decision cycles",
+    desc: "Decision cycles shrink from weeks to days",
     color: "from-primary to-sky-400"
   },
   { 
     icon: TrendingUp, 
-    title: "Fewer Failed SKUs", 
-    before: "Gut-feel launches",
-    after: "Consumer-validated",
+    title: "Better Growth Outcomes", 
+    before: "Reactive bets",
+    after: "Proactive bets",
     improvement: "2x",
     label: "higher launch success",
-    desc: "Fewer products that sit on shelf; more products consumers choose",
+    desc: "Higher-quality bets, fewer failed launches",
     color: "from-sky-400 to-cyan-400"
   },
   { 
     icon: DollarSign, 
-    title: "Leaner Innovation", 
-    before: "Wasted R&D",
-    after: "Focused pipeline",
+    title: "Lower Cost of Intelligence", 
+    before: "Tool sprawl",
+    after: "Unified platform",
     improvement: "30%",
-    label: "less unsold inventory",
-    desc: "Less wasted R&D on concepts that don't resonate with consumers",
+    label: "lower TCO",
+    desc: "Less duplication, fewer tools, less manual reconciliation",
     color: "from-cyan-400 to-teal-400"
   },
 ];
@@ -47,8 +47,8 @@ const GDSlide8ROI = ({
   return (
     <GDSlideContainer
       id="gd-slide-8"
-      title="Fewer Failed SKUs. Faster Wins."
-      subtitle="Time-to-shelf. Launch success. Innovation efficiency. Measurable in 6 months."
+      title="ROI Shows Up in Three Places"
+      subtitle="Measurable returns that compound as maturity increases"
       slideNumber={8}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -107,9 +107,9 @@ const GDSlide8ROI = ({
               <Zap className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">For Consumer Brands</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Key Message</p>
               <p className="text-base text-foreground leading-relaxed">
-                <span className="font-bold text-primary">Every stage up</span> means faster time-to-shelf, fewer failed launches, and more shelf space won. The sooner you start, the more category moments you own.
+                <span className="font-bold text-primary">ROI compounds</span> as organisations move up the maturity curve. The sooner you start, the faster value accumulates.
               </p>
             </div>
           </div>

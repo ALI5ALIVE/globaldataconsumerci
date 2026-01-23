@@ -10,29 +10,28 @@ const layersData: GDLayerData[] = [
   {
     id: "PREDICTIVE",
     level: 1,
-    headline: "Agentic: Human-Guided Autonomous Orchestration",
-    sublabel: "The Vision / AI + Human Intelligence",
+    headline: "Predictive & Adaptive Category Leadership",
+    sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
-      "Agentic AI detects signals and orchestrates recommendations—humans approve strategic moves",
-      "Continuous Detect → Human → Execute loops across NPD, Trade, Brand, and RGM",
-      "AI handles the complexity; humans own the judgment calls",
-      "Strategic checkpoints ensure accountability while AI executes at machine speed",
-      "Ava surfaces the decision, not just the data—you choose when to act",
+      "AI-driven market predictions integrated into strategic planning cycles",
+      "Real-time intelligence embedded across all functions",
+      "Self-learning systems that auto-detect emerging trends, risks, and opportunities",
+      "Category intelligence as a core board-level capability",
+      "Ava anticipates market shifts before competitors can react",
     ],
     result: [
-      "Autonomous execution with human accountability at every strategic checkpoint",
-      "Only achievable through unified taxonomy: disconnected data cannot fuel agentic AI",
-      "AI speed + human judgment = decisions that are both fast and wise",
-      "The ultimate competitive moat: intelligence that acts—with your approval—faster than competitors can think",
+      "Data-led category leadership, outpacing competition",
+      "First-mover advantage becomes systematic",
+      "Teams shift from analysis to strategic action",
     ],
     whyItMatters:
-      "This is the vision every consumer business should aspire to—but it requires unified taxonomy AND intentional human oversight. Agentic intelligence detects and executes; humans provide judgment and accountability. Organizations who reach this stage don't just lead the market—they orchestrate it responsibly.",
+      "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat.",
     colorClass: "bg-gradient-to-b from-pyramid-transformational to-pyramid-transformational/80",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
-      from: "Humans do the work, AI provides insights",
-      to: "AI does the work, humans provide the wisdom",
-      culturalMarker: "We orchestrate the category—AI executes, we decide",
+      from: "Reactive analysis and reporting",
+      to: "Proactive intelligence and strategic action",
+      culturalMarker: "We see what's coming before it arrives",
     },
     timeAllocation: {
       reconciliation: 5,
@@ -40,15 +39,15 @@ const layersData: GDLayerData[] = [
       strategic: 75,
     },
     valueProof: {
-      metrics: ["Category share +3-5pts", "Human-guided AI", "ROI 15:1+", "Responsible orchestration"],
-      roiStatement: "The ultimate prize: AI that acts at machine speed, guided by human judgment—only possible with unified data.",
+      metrics: ["Category share +3-5pts", "35% faster response", "ROI 15:1+", "First-mover systematic"],
+      roiStatement: "See disruption before it hits—and act first.",
     },
   },
   {
     id: "OPERATIONAL",
     level: 2,
-    headline: "Embedded: Intelligence in the Workflow",
-    sublabel: "Advanced / Insight in Workflow",
+    headline: "Operational Intelligence",
+    sublabel: "Intelligent Ops",
     whatItLooksLike: [
       "Advanced analytics integrated into daily workflows across multiple markets",
       "Consumer, category, and commercial insights connected in unified models",
@@ -57,18 +56,17 @@ const layersData: GDLayerData[] = [
     ],
     result: [
       "Predictive-led decisions at local and regional levels",
-      "Measurably improved ROMI and trade investment outcomes",
-      "Faster innovation success rates and category growth",
-      "Higher NPD hit rates through connected intelligence",
+      "Reduced decision latency, faster time-to-market",
+      "Measurable performance improvement across KPIs",
     ],
     whyItMatters:
-      "Operationalized intelligence becomes a competitive moat. Decisions are faster, more confident, and consistently connected to live market data.",
+      "Turns intelligence into controlled execution, not just reporting. Decisions in days, not weeks.",
     colorClass: "bg-gradient-to-b from-pyramid-commercial to-pyramid-commercial/80",
     accentColor: "hsl(280 65% 55%)",
     behavioralShift: {
       from: "Manual insight synthesis and presentation",
       to: "Ava-augmented decisions with embedded intelligence",
-      culturalMarker: "Intelligence flows into every decision",
+      culturalMarker: "Insights drive real change, not just reports",
     },
     timeAllocation: {
       reconciliation: 10,
@@ -83,28 +81,27 @@ const layersData: GDLayerData[] = [
   {
     id: "CONNECTED",
     level: 3,
-    headline: "Connected: One Consumer Truth Emerges",
-    sublabel: "Optimizing / Platform Foundation",
+    headline: "Connected & Governed Intelligence",
+    sublabel: "Unified Platform",
     whatItLooksLike: [
-      "One version of who your consumer is—shared by R&D, marketing, and retail execution",
-      "Unified taxonomy across POS, panel, social, and competitive data",
-      "Self-service access to consumer insights with proper governance",
-      "Consumer, market, innovation, and competitive intelligence on one platform",
+      "Unified taxonomy, governance, and KPIs across all data types and markets",
+      "Democratized, self-service access to insights",
+      "Consistent brand safety, compliance, and usage policies globally",
+      "Market, Consumer, Commercial intelligence unified into one governed system",
     ],
     result: [
-      "Brand managers and category teams speak the same language",
-      "NPD decisions validated against consistent consumer truth",
-      "Time from insight to action drops dramatically",
-      "Foundation for AI-augmented consumer intelligence is in place",
+      "Speed-to-insight improves; dependency on specialists reduced",
+      "Improved governance and confidence, foundation for optimization",
+      "Reconciliation time drops 60%",
     ],
     whyItMatters:
-      "This is where brands stop debating data and start acting on consumers. One version of consumer truth—from R&D to retail execution—changes everything.",
+      "Eliminates handoffs and creates one version of intelligence truth. This is the platform shift.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
-      from: "Debating whose consumer data is right",
-      to: "Acting on one shared consumer truth",
-      culturalMarker: "R&D and retail see the same consumer",
+      from: "Debating whose data is right",
+      to: "Acting on one shared truth",
+      culturalMarker: "We can see what's happening across the market",
     },
     timeAllocation: {
       reconciliation: 20,
@@ -113,14 +110,14 @@ const layersData: GDLayerData[] = [
     },
     valueProof: {
       metrics: ["70% self-service", "Data prep -50%", "Reconciliation ↓60%", "Audit-ready"],
-      roiStatement: "One consumer truth means 60% less time reconciling—more time winning.",
+      roiStatement: "One truth means 60% less time reconciling—more time winning.",
     },
   },
   {
     id: "MANAGED",
     level: 4,
-    headline: "Structured Silos: Better Data, Same Debates",
-    sublabel: "Developing / Strong tools, limited connection",
+    headline: "Managed but Siloed Intelligence",
+    sublabel: "Silo Optimisation",
     whatItLooksLike: [
       "Multiple data sources and visualization tools in use",
       "Data ownership exists but is fragmented by function or region",
@@ -133,13 +130,13 @@ const layersData: GDLayerData[] = [
       "No shared view of demand across the organization",
     ],
     whyItMatters:
-      "Organizations at Stage 4 often believe they're more advanced than they are. They have tools—but not yet a connected intelligence capability.",
+      "Domains operate well individually, but lack of connection prevents organizational alignment.",
     colorClass: "bg-gradient-to-b from-pyramid-foundation to-pyramid-foundation/80",
     accentColor: "hsl(199 89% 48%)",
     behavioralShift: {
       from: "Insight overload with limited synthesis",
       to: "Structured processes within each silo",
-      culturalMarker: "We're data-rich, but not insight-aligned",
+      culturalMarker: "We're informed, but not aligned",
     },
     timeAllocation: {
       reconciliation: 40,
@@ -148,35 +145,34 @@ const layersData: GDLayerData[] = [
     },
     valueProof: {
       metrics: ["Reporting cycle -30%", "Dept intelligence ↑", "Cross-func limited", "Silo ROI only"],
-      roiStatement: "Strong silo intelligence, but limited cross-functional value.",
+      roiStatement: "Structured intelligence, but limited cross-functional value.",
     },
   },
   {
     id: "FRAGMENTED",
     level: 5,
-    headline: "Firefighting: Your Consumer Data Doesn't Connect",
+    headline: "Fragmented & Reactive Intelligence",
     sublabel: "Starting Point",
     whatItLooksLike: [
-      "Your brand manager is using a deck from last quarter about last quarter's consumer",
-      "POS says one thing, consumer panel says another, social listening says a third",
-      "You found out about the trend after your competitor launched",
-      "Every NPD decision starts with 'which data source should we trust?'",
+      "Insight requests handled ad hoc; minimal self-service",
+      "Multiple, disconnected tools and data sources",
+      "Decisions often made with incomplete or outdated data",
+      "Every decision starts with 'which data source should we trust?'",
       "Innovation team and commercial team have different views of the same consumer",
     ],
     result: [
       "High dependency on external vendors who each have different taxonomies",
-      "Weeks spent aligning data before you can even start the strategy conversation",
-      "Competitors move faster because they're not stuck reconciling",
-      "Failed launches because the insight was right but the timing was wrong",
+      "High decision latency and missed windows",
+      "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Most brands are here. The cost isn't obvious—it's the launches that came too late, the shelf space you didn't win, the trends you saw but couldn't act on fast enough.",
+      "Fragmentation is where growth stalls, relevance erodes, and leadership is lost — this is where most organizations start.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
-      from: "Reconciling conflicting consumer data across providers",
-      to: "This is where most consumer brands start",
-      culturalMarker: "Consumer insight exists, but trust and alignment don't",
+      from: "Reconciling conflicting data across providers",
+      to: "Reactive decisions just to keep up",
+      culturalMarker: "We have data, but no confidence",
     },
     timeAllocation: {
       reconciliation: 60,
@@ -184,8 +180,8 @@ const layersData: GDLayerData[] = [
       strategic: 10,
     },
     valueProof: {
-      metrics: ["High vendor spend", "Low self-service", "Reconciliation ↑", "Missed shelf windows ↑"],
-      roiStatement: "Hidden costs: reconciliation, late validation, shelf space you didn't win.",
+      metrics: ["High vendor spend", "Low self-service", "Missed windows ↑", "Decision latency 12+ wks"],
+      roiStatement: "Hidden costs: reconciliation, late validation, opportunities lost.",
     },
   },
 ];
@@ -300,8 +296,8 @@ const GDSlide6ValuePyramid = ({
   return (
     <GDSlideContainer
       id="slide-6"
-      title="Where Is Your Brand Today?"
-      subtitle="A framework for assessing your consumer intelligence maturity"
+      title="Intelligence Maturity Ladder"
+      subtitle="From fragmented point solutions to connected intelligence that drives category leadership"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

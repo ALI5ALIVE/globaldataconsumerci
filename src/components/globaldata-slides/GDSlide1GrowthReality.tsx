@@ -5,22 +5,22 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const painPoints = [
   { 
     icon: TrendingDown, 
-    title: "Your Consumer Switched", 
-    desc: "They moved to a competitor—and you found out 12 weeks later",
-    stat: "67%",
-    statLabel: "Gen Z switch for relevance"
+    title: "Market Velocity", 
+    desc: "Consumer behaviour shifts faster than insight cycles can track",
+    stat: "3x",
+    statLabel: "faster shifts"
   },
   { 
     icon: Clock, 
-    title: "The Trend Moved On", 
-    desc: "By the time your NPD hit shelves, the moment had passed",
-    stat: "18mo",
-    statLabel: "avg trend window"
+    title: "Shrinking Windows", 
+    desc: "Innovation and GTM windows are shorter and less forgiving",
+    stat: "40%",
+    statLabel: "narrower windows"
   },
   { 
     icon: Users, 
-    title: "Competitor Captured It", 
-    desc: "Their limited-edition SKU captured 3% share while you validated",
+    title: "Asymmetric Competition", 
+    desc: "Competitors scale faster with fewer assets",
     stat: "2x",
     statLabel: "faster rivals"
   },
@@ -38,8 +38,8 @@ const GDSlide1GrowthReality = ({
   return (
     <GDSlideContainer
       id="gd-slide-1"
-      title="Your Consumers Are Changing Faster Than Your Insights"
-      subtitle="The brands that see it first, own the shelf."
+      title="Markets Reward Speed and Conviction"
+      subtitle="The growth reality every consumer brand faces"
       slideNumber={1}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -79,26 +79,26 @@ const GDSlide1GrowthReality = ({
           <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="w-5 h-5 text-amber-400" />
-              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider">The Consumer Paradox</span>
+              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider">The Paradox</span>
             </div>
             <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
-              You have <span className="text-amber-400">more consumer data than ever</span>, yet <span className="text-amber-400">less confidence</span> in your next move.
+              Organisations have <span className="text-amber-400">more insight than ever</span>, yet <span className="text-amber-400">less confidence</span>.
             </p>
             <p className="text-sm text-muted-foreground">
-              Your consumer insights say one thing. Your POS data says another. Your competitor just launched anyway.
+              Data abundance hasn't created clarity. It's created noise, debate, and delayed decisions.
             </p>
           </div>
 
           <div className="bg-gradient-to-br from-destructive/10 to-red-500/5 border border-destructive/30 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <Zap className="w-5 h-5 text-destructive" />
-              <span className="text-sm font-semibold text-destructive uppercase tracking-wider">The Real Cost</span>
+              <span className="text-sm font-semibold text-destructive uppercase tracking-wider">The Real Problem</span>
             </div>
             <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
-              Every week of delay is <span className="text-destructive">shelf space you don't own</span>.
+              Insight exists, but it doesn't <span className="text-destructive">move the organisation together</span>.
             </p>
             <p className="text-sm text-muted-foreground">
-              The problem isn't data scarcity. It's the gap between seeing a trend and having a product in the basket.
+              The problem isn't data scarcity. It's data fragmentation and misalignment.
             </p>
           </div>
         </div>
@@ -106,7 +106,7 @@ const GDSlide1GrowthReality = ({
         {/* Bottom callout */}
         <div className="bg-card border border-border/50 rounded-lg p-4 text-center">
           <p className="text-sm text-foreground">
-            <span className="font-semibold text-primary">Category winners</span> don't just see trends first — they see the full <span className="font-semibold text-primary">consumer journey</span> and act before competitors can react.
+            <span className="font-semibold text-primary">Category leaders</span> don't just have better data — they have <span className="font-semibold text-primary">connected intelligence</span> that enables faster, unified action.
           </p>
         </div>
       </div>
