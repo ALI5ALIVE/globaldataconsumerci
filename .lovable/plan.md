@@ -1,181 +1,167 @@
 
+## Fix Slide 4 - Connected Intelligence Wheel and Panel Layout
 
-## Slide Deck Layout Optimization Plan
+### Problem Analysis
 
-### Problem Summary
+Slide 4 contains the Connected Intelligence Wheel and Solution Value Panel that are being cut off at the bottom. After reviewing the component files, the issues are:
 
-After reviewing all slide components and the shared container, I've identified several issues that cause content overflow and cut-off elements across the GlobalData slide deck:
-
-**Core Issues Identified:**
-
-1. **Slide 10 (Solutions)**: Uses `space-y-6 sm:space-y-8` which doesn't constrain height - content overflows
-2. **Slide 7 (Maturity Curve)**: Grid layout doesn't have `flex-1` to fill available space properly
-3. **Slides 1, 2, 3**: Use `flex-1` on inner grids which can cause overflow when combined with `gap-6` 
-4. **Variable spacing**: Different slides use inconsistent gap values (gap-4, gap-5, gap-6) causing uneven layouts
-5. **Missing overflow constraints**: Some child elements lack `overflow-hidden` protection
+1. **SolutionValuePanel** uses `min-h-[280px]` which prevents it from shrinking to fit the available space
+2. **Excessive padding**: The top value proposition box uses `p-6` and bottom callout uses `p-4`
+3. **Large gaps**: The grid container uses `gap-6` between the wheel and panel
+4. **Extra padding around wheel**: Uses `py-4` which wastes vertical space
 
 ---
 
-### Technical Implementation
+### Technical Solution
 
-#### 1. Fix GDSlide10Solutions (Most Critical)
+#### 1. Reduce SolutionValuePanel Minimum Height
 
-**File:** `src/components/globaldata-slides/GDSlide10Solutions.tsx`
+**File:** `src/components/globaldata-slides/SolutionValuePanel.tsx`
 
-**Current Issue (line 74):**
+**Line 26** - Reduce empty state min-height:
 ```tsx
-<div className="space-y-6 sm:space-y-8">
-```
-Uses `space-y` which doesn't constrain to parent height.
+// Current
+<div className="h-full min-h-[280px] flex items-center ...">
 
-**Fix:**
-```tsx
-<div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+// New
+<div className="h-full min-h-[200px] flex items-center ...">
 ```
 
-Also reduce spacing in children:
-- Line 97: Change grid gap from `gap-4` to `gap-3`
-- Line 132: Stats grid reduce gap to `gap-3`
-- GDSolutionsFlow component may need height constraints
-
----
-
-#### 2. Fix GDSlide7MaturityCurve Grid
-
-**File:** `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
-
-**Current Issue (line 282):**
+**Line 48** - Reduce active state min-height:
 ```tsx
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-```
-Grid doesn't fill parent height, causing SVG to not scale properly.
+// Current
+className="h-full min-h-[280px] bg-card/50 border ...">
 
-**Fix:**
-```tsx
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch flex-1">
-```
-
-Also update the wrapper (line 281) to use `flex-1` instead of just `h-full`:
-```tsx
-<div className="flex flex-col gap-3 flex-1 max-h-full overflow-hidden">
+// New
+className="h-full min-h-[200px] bg-card/50 border ...">
 ```
 
 ---
 
-#### 3. Standardize Slide 1-4 Layouts
-
-**File:** `src/components/globaldata-slides/GDSlide1GrowthReality.tsx`
-
-**Current (line 52):**
-```tsx
-<div className="flex flex-col gap-6 h-full">
-```
-
-**Fix:**
-```tsx
-<div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
-```
-
----
-
-**File:** `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
-
-**Current (line 66):**
-```tsx
-<div className="flex flex-col gap-6 h-full">
-```
-
-**Fix:**
-```tsx
-<div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
-```
-
----
-
-**File:** `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
-
-**Current (line 50):**
-```tsx
-<div className="flex flex-col gap-4 h-full">
-```
-
-**Fix:**
-```tsx
-<div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
-```
-
-Also add height constraint to illustrations (lines 60, 107):
-```tsx
-<div className="h-32 mb-2">
-```
-
----
+#### 2. Reduce Padding in GDSlide4Proposition
 
 **File:** `src/components/globaldata-slides/GDSlide4Proposition.tsx`
 
-**Current (line 32):**
+**Line 32** - Reduce main content gap:
 ```tsx
-<div className="flex flex-col gap-5 h-full">
-```
-
-**Fix:**
-```tsx
+// Current
 <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+
+// New
+<div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
+```
+
+**Line 34** - Reduce value proposition box padding:
+```tsx
+// Current
+<div className="bg-gradient-to-r ... rounded-xl p-6">
+
+// New
+<div className="bg-gradient-to-r ... rounded-xl p-4">
+```
+
+**Line 35** - Reduce text size slightly:
+```tsx
+// Current
+<p className="text-lg md:text-xl font-medium ...">
+
+// New
+<p className="text-base md:text-lg font-medium ...">
+```
+
+**Line 41** - Reduce grid gap and remove extra padding:
+```tsx
+// Current
+<div className="flex-1 grid lg:grid-cols-2 gap-6 items-center">
+
+// New
+<div className="flex-1 grid lg:grid-cols-2 gap-4 items-center min-h-0">
+```
+
+**Line 43** - Remove vertical padding around wheel:
+```tsx
+// Current
+<div className="flex items-center justify-center py-4">
+
+// New
+<div className="flex items-center justify-center h-full">
+```
+
+**Line 57** - Reduce bottom callout padding:
+```tsx
+// Current
+<div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center">
+
+// New
+<div className="bg-primary/10 border border-primary/30 rounded-lg p-3 text-center">
 ```
 
 ---
 
-#### 4. Fix GDSolutionsFlow Component Height
+#### 3. Compact SolutionValuePanel Content
 
-**File:** `src/components/globaldata-slides/GDSolutionsFlow.tsx`
+**File:** `src/components/globaldata-slides/SolutionValuePanel.tsx`
 
-Add height constraints to ensure it fits within available space:
-- Reduce card min-height from 140px to 120px
-- Add `max-h-full overflow-hidden` to main container
+Reduce internal spacing:
 
----
-
-#### 5. Adjust GDSlide0Title Vertical Spacing
-
-**File:** `src/components/globaldata-slides/GDSlide0Title.tsx`
-
-**Current (line 65):**
+**Line 52** - Reduce header margin:
 ```tsx
-<div className="relative z-10 max-w-5xl w-full text-center space-y-8 sm:space-y-12">
+// Current
+<div className="flex items-center gap-3 mb-3">
+
+// New
+<div className="flex items-center gap-2 mb-2">
 ```
 
-**Fix:**
+**Line 63** - Reduce JTBD section margin:
 ```tsx
-<div className="relative z-10 max-w-5xl w-full text-center space-y-6 sm:space-y-8">
+// Current
+<div className="mb-3 p-3 bg-card/60 ...">
+
+// New
+<div className="mb-2 p-2 bg-card/60 ...">
 ```
 
-Also reduce agenda grid spacing (line 103):
+**Line 75** - Reduce Pain to Outcome section margin:
 ```tsx
-<div className="pt-2 sm:pt-4">
+// Current
+<div className="mb-3 p-3 bg-card/60 ...">
+
+// New
+<div className="mb-2 p-2 bg-card/60 ...">
+```
+
+**Line 104** - Reduce Real Example section margin:
+```tsx
+// Current
+<div className="mb-3 p-3 bg-primary/10 ...">
+
+// New
+<div className="mb-2 p-2 bg-primary/10 ...">
 ```
 
 ---
 
 ### Summary of Changes
 
-| File | Line(s) | Change |
-|------|---------|--------|
-| `GDSlide0Title.tsx` | 65, 103 | Reduce spacing |
-| `GDSlide1GrowthReality.tsx` | 52 | Add overflow-hidden, reduce gap |
-| `GDSlide2IntelligenceGap.tsx` | 66 | Add overflow-hidden, reduce gap |
-| `GDSlide3BeforeAfter.tsx` | 50, 60, 107 | Reduce gaps, constrain illustration height |
-| `GDSlide4Proposition.tsx` | 32 | Reduce gap, add overflow-hidden |
-| `GDSlide7MaturityCurve.tsx` | 281-282 | Use flex-1, items-stretch |
-| `GDSlide10Solutions.tsx` | 74, 97, 132 | Convert to flex layout, reduce gaps |
-| `GDSolutionsFlow.tsx` | Main container | Add max-h-full, reduce card heights |
+| File | Lines | Change |
+|------|-------|--------|
+| `GDSlide4Proposition.tsx` | 32 | `gap-4` to `gap-3` |
+| `GDSlide4Proposition.tsx` | 34 | `p-6` to `p-4` |
+| `GDSlide4Proposition.tsx` | 35 | `text-lg md:text-xl` to `text-base md:text-lg` |
+| `GDSlide4Proposition.tsx` | 41 | `gap-6` to `gap-4`, add `min-h-0` |
+| `GDSlide4Proposition.tsx` | 43 | `py-4` to `h-full` |
+| `GDSlide4Proposition.tsx` | 57 | `p-4` to `p-3` |
+| `SolutionValuePanel.tsx` | 26, 48 | `min-h-[280px]` to `min-h-[200px]` |
+| `SolutionValuePanel.tsx` | 52, 63, 75, 104 | Reduce margins and padding |
 
 ---
 
-### Design Principles Applied
+### Expected Outcome
 
-1. **Consistent gap sizing**: Standardize to `gap-3` or `gap-4` across all slides
-2. **Height inheritance**: Use `h-full max-h-full` to ensure containers respect parent bounds
-3. **Overflow protection**: Add `overflow-hidden` to prevent content spillover
-4. **Flex-based layouts**: Use `flex-1` for content areas that should fill remaining space
-5. **Reduced illustration heights**: Scale down SVG containers from h-36 to h-32 where needed
-
+These changes will:
+- Reduce total vertical space consumption by approximately 100-120px
+- Keep the Connected Intelligence Wheel fully visible without cropping
+- Ensure the Solution Value Panel content fits without scrolling
+- Maintain the bottom callout visibility
+- Preserve the visual hierarchy and professional appearance
