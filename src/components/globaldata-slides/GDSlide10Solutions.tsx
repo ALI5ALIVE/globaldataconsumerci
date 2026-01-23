@@ -71,7 +71,7 @@ const GDSlide10Solutions = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
         {/* Case Study Context */}
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <span className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary font-medium">
@@ -94,7 +94,7 @@ const GDSlide10Solutions = ({
         />
 
         {/* Comparison Table */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Separate */}
           <div className="p-4 rounded-xl bg-card/30 border border-border/30">
             <h4 className="text-sm font-semibold text-muted-foreground mb-3 flex items-center gap-2">
@@ -129,7 +129,7 @@ const GDSlide10Solutions = ({
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-3">
           <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
             <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">6mo</div>
             <div className="text-xs text-muted-foreground">Launched (vs 14mo typical)</div>

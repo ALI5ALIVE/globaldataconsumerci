@@ -49,7 +49,7 @@ const GDSlide1GrowthReality = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
         {/* Pain Points Grid */}
         <div className="grid md:grid-cols-3 gap-4">
           {painPoints.map((point, i) => (
