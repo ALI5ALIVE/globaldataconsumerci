@@ -13,7 +13,7 @@ const roleIcons: Record<string, React.ReactNode> = {
   "Category Lead": <BarChart3 className="w-4 h-4" />,
 };
 
-const GDSlide11SolutionDeepDives = ({
+const GDSlide10SolutionDeepDives = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -28,10 +28,10 @@ const GDSlide11SolutionDeepDives = ({
 
   return (
     <GDSlideContainer
-      id="gd-slide-11"
+      id="gd-slide-10"
       title="Explore Your Intelligence Needs"
       subtitle="Click any solution to see how it solves real consumer brand challenges"
-      slideNumber={11}
+      slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -206,4 +206,4 @@ const GDSlide11SolutionDeepDives = ({
   );
 };
 
-export default GDSlide11SolutionDeepDives;
+export default GDSlide10SolutionDeepDives;

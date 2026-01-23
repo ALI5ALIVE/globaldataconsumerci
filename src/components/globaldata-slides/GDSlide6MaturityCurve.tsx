@@ -190,7 +190,7 @@ const stageTimings = [
   { stage: 5, startPercent: 68 },
 ];
 
-const GDSlide7MaturityCurve = ({
+const GDSlide6MaturityCurve = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -266,10 +266,10 @@ const GDSlide7MaturityCurve = ({
 
   return (
     <GDSlideContainer
-      id="slide-7"
+      id="gd-slide-6"
       title="The Intelligence Maturity Roadmap"
       subtitle="The measurable journey from fragmented insight to predictive leadership"
-      slideNumber={7}
+      slideNumber={6}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -497,4 +497,4 @@ const GDSlide7MaturityCurve = ({
   );
 };
 
-export default GDSlide7MaturityCurve;
+export default GDSlide6MaturityCurve;

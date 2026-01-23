@@ -56,20 +56,12 @@ This gap is where growth stalls, relevance erodes, and leadership is lost.`,
   },
   {
     slideId: 3,
-    title: "From Fragmented Insight to Connected Decisions",
-    script: `But here's what happens when you close the Intelligence Gap.
-
-Look at the left side—this is where most organisations are today. Siloed insights fragmented across tools. Different taxonomies with no common language. Manual reconciliation. Slow, debated decisions. Twelve-plus weeks to decision, three to five sources to reconcile.
-
-Now look at the right side. A unified system on one connected platform. Shared truth through a single taxonomy. Embedded workflows with automated orchestration. Confident, fast action with aligned decisions. Days to decision, one source of truth.
-
-The transformation: Decision cycles seventy percent faster. Launch approach shifts from reactive to proactive with two times higher success. Tool landscape moves from sprawl to unified with thirty percent lower total cost of ownership.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 4,
     title: "Connected Intelligence for Consumer Brands",
-    script: `This is Connected Intelligence for Consumer Brands. It closes the Intelligence Gap.
+    script: `This is Connected Intelligence for Consumer Brands—the transformation that closes the Intelligence Gap.
+
+Look at where most organisations are today. Siloed insights fragmented across tools. Different taxonomies with no common language. Manual reconciliation. Slow, debated decisions. Twelve-plus weeks to decision, three to five sources to reconcile.
+
+Now look at what's possible. A unified system on one connected platform. Shared truth through a single taxonomy. Embedded workflows with automated orchestration. Confident, fast action with aligned decisions. Days to decision, one source of truth.
 
 A unified solution that connects market, consumer, competitor, innovation, and commercial intelligence into one trusted system—so organisations move faster, align better, and act with confidence.
 
@@ -77,11 +69,13 @@ What it replaces: tool sprawl across vendors, manual reconciliation, conflicting
 
 What it is NOT: another dataset, another dashboard, another point solution.
 
+The transformation: Decision cycles seventy percent faster. Launch approach shifts from reactive to proactive with two times higher success. Tool landscape moves from sprawl to unified with thirty percent lower total cost of ownership.
+
 This is intelligence designed to drive decisions end-to-end—not another layer of data.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 5,
+    slideId: 4,
     title: "Intelligence That Operates, Not Just Reports",
     script: `Connected Intelligence works across the full value chain. Let me show you.
 
@@ -99,7 +93,7 @@ What changes? Every function operates from the same shared truth, so decisions r
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 6,
+    slideId: 5,
     title: "Intelligence Maturity Ladder",
     script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—from fragmented point solutions to connected intelligence that drives category leadership.
 
@@ -117,7 +111,7 @@ Most organisations are at stage four or five. The question is: how fast can you 
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 7,
+    slideId: 6,
     title: "The Intelligence Maturity Roadmap",
     script: `This is your roadmap—the measurable journey from fragmented insight to predictive leadership.
 
@@ -135,7 +129,7 @@ The sooner you start climbing, the faster value accumulates.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 8,
+    slideId: 7,
     title: "ROI Shows Up in Three Places",
     script: `ROI shows up in three places—measurable returns that compound as maturity increases.
 
@@ -149,7 +143,7 @@ Here's the key message: ROI compounds as organisations move up the maturity curv
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 9,
+    slideId: 8,
     title: "Built for Connected Intelligence at Scale",
     script: `Why GlobalData? Why are we uniquely positioned to close the Intelligence Gap?
 
@@ -169,7 +163,7 @@ The future belongs to organisations that turn change into decisions—earlier, t
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 10,
+    slideId: 9,
     title: "From Weak Signal to Winning Launch",
     script: `Let me show you exactly how this works for a real consumer brand challenge.
 
@@ -195,7 +189,7 @@ That's the difference between fragmented point solutions and connected consumer 
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 11,
+    slideId: 10,
     title: "Explore Your Intelligence Needs",
     script: `Now let's get specific. What you're looking at are deep dives into each of our five core intelligence solutions—with real consumer brand examples and exact pain-to-capability mapping.
 
