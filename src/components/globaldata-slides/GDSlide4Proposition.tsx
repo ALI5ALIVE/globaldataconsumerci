@@ -13,7 +13,7 @@ const GDSlide4Proposition = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  const [activeSegment, setActiveSegment] = useState<string | null>(null);
+  const [activeSegment, setActiveSegment] = useState<string | null>("Market Intelligence");
 
   return (
     <GDSlideContainer
