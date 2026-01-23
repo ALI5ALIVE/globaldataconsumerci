@@ -15,28 +15,28 @@ const modules = [
 const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
 
-  // Overlapping infinity model dimensions
-  const loopRadius = 42;
-  const loopSpacing = 68;  // Reduced spacing for overlap
-  const startX = 125;
-  const cy = 85;
+  // Overlapping infinity model dimensions - larger circles to fill the blue area
+  const loopRadius = 55;
+  const loopSpacing = 88;  // Increased spacing for larger circles with overlap
+  const startX = 124;
+  const cy = 100;
 
   // SVG path that weaves through all 5 circles in an infinity-style pattern
   const weavePath = `
     M ${startX} ${cy}
-    C ${startX} ${cy - 38}, ${startX + loopSpacing * 0.5} ${cy - 38}, ${startX + loopSpacing} ${cy}
-    C ${startX + loopSpacing * 1.5} ${cy + 38}, ${startX + loopSpacing * 2} ${cy + 38}, ${startX + loopSpacing * 2} ${cy}
-    C ${startX + loopSpacing * 2} ${cy - 38}, ${startX + loopSpacing * 2.5} ${cy - 38}, ${startX + loopSpacing * 3} ${cy}
-    C ${startX + loopSpacing * 3.5} ${cy + 38}, ${startX + loopSpacing * 4} ${cy + 38}, ${startX + loopSpacing * 4} ${cy}
-    C ${startX + loopSpacing * 4} ${cy - 38}, ${startX + loopSpacing * 3.5} ${cy - 38}, ${startX + loopSpacing * 3} ${cy}
-    C ${startX + loopSpacing * 2.5} ${cy + 38}, ${startX + loopSpacing * 2} ${cy + 38}, ${startX + loopSpacing * 2} ${cy}
-    C ${startX + loopSpacing * 2} ${cy - 38}, ${startX + loopSpacing * 1.5} ${cy - 38}, ${startX + loopSpacing} ${cy}
-    C ${startX + loopSpacing * 0.5} ${cy + 38}, ${startX} ${cy + 38}, ${startX} ${cy}
+    C ${startX} ${cy - 48}, ${startX + loopSpacing * 0.5} ${cy - 48}, ${startX + loopSpacing} ${cy}
+    C ${startX + loopSpacing * 1.5} ${cy + 48}, ${startX + loopSpacing * 2} ${cy + 48}, ${startX + loopSpacing * 2} ${cy}
+    C ${startX + loopSpacing * 2} ${cy - 48}, ${startX + loopSpacing * 2.5} ${cy - 48}, ${startX + loopSpacing * 3} ${cy}
+    C ${startX + loopSpacing * 3.5} ${cy + 48}, ${startX + loopSpacing * 4} ${cy + 48}, ${startX + loopSpacing * 4} ${cy}
+    C ${startX + loopSpacing * 4} ${cy - 48}, ${startX + loopSpacing * 3.5} ${cy - 48}, ${startX + loopSpacing * 3} ${cy}
+    C ${startX + loopSpacing * 2.5} ${cy + 48}, ${startX + loopSpacing * 2} ${cy + 48}, ${startX + loopSpacing * 2} ${cy}
+    C ${startX + loopSpacing * 2} ${cy - 48}, ${startX + loopSpacing * 1.5} ${cy - 48}, ${startX + loopSpacing} ${cy}
+    C ${startX + loopSpacing * 0.5} ${cy + 48}, ${startX} ${cy + 48}, ${startX} ${cy}
   `;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 520 200" className="w-full max-w-[520px]">
+      <svg viewBox="0 0 600 240" className="w-full max-w-[600px]">
         <defs>
           <filter id="gdLoopGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="5" result="blur" />
@@ -77,7 +77,7 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
         </defs>
 
         {/* Central radial glow - "One Truth" */}
-        <circle cx="260" cy={cy} r="150" fill="url(#gdCenterGlow)" />
+        <circle cx="300" cy={cy} r="180" fill="url(#gdCenterGlow)" />
 
         {/* Intersection highlight ellipses between overlapping circles */}
         {[0, 1, 2, 3].map((i) => (
@@ -85,8 +85,8 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
             key={`intersection-${i}`}
             cx={startX + loopSpacing * i + loopSpacing / 2}
             cy={cy}
-            rx="18"
-            ry="30"
+            rx="22"
+            ry="38"
             fill="url(#gdIntersectionGlow)"
             opacity="0.6"
           />
@@ -116,10 +116,10 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
               {/* Module label - full text, white for contrast */}
               <text
                 x={cx}
-                y={cy + loopRadius + 20}
+                y={cy + loopRadius + 24}
                 textAnchor="middle"
                 fill={isHovered ? "hsl(45, 93%, 65%)" : "white"}
-                fontSize="12"
+                fontSize="14"
                 fontWeight="600"
                 fontFamily="'Inter', sans-serif"
                 className="pointer-events-none select-none transition-colors duration-200"
@@ -131,14 +131,14 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
         })}
 
         {/* Animated dots flowing through all circles in infinity pattern */}
-        <circle r="6" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
+        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
           <animateMotion
             dur="8s"
             repeatCount="indefinite"
             path={weavePath}
           />
         </circle>
-        <circle r="6" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
+        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
           <animateMotion
             dur="8s"
             repeatCount="indefinite"
@@ -146,7 +146,7 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
             path={weavePath}
           />
         </circle>
-        <circle r="6" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
+        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
           <animateMotion
             dur="8s"
             repeatCount="indefinite"
@@ -157,11 +157,11 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
 
         {/* "Unified Taxonomy" label at bottom */}
         <text
-          x="260"
-          y="185"
+          x="300"
+          y="228"
           textAnchor="middle"
           fill="white"
-          fontSize="16"
+          fontSize="18"
           fontWeight="600"
           fontFamily="'Space Grotesk', sans-serif"
           letterSpacing="0.05em"
