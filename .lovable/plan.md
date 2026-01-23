@@ -1,163 +1,71 @@
 
+Goal
+- Fix the right-side “copy boxes” on the pyramid so their vertical order matches the intended maturity order:
+  - Stage 1 (Fragmented) at the bottom
+  - Stage 5 (Predictive) at the top
+- Ensure the AI readiness labels (AI Blocked / AI Enabled / AI Optimized) align with the same numbering (they already do in logic, but we’ll validate after the visual fix).
 
-## Fix Pyramid Stage Numbering and AI Labels
+What I found in the code (root cause)
+- In `src/components/globaldata-slides/GDPyramid3D.tsx`, the pyramid geometry has already been corrected:
+  - `layerBounds`: Level 1 is base (bottom), Level 5 is apex (top)
+  - Rendering order: `[5, 4, 3, 1]` (with Level 2 silos rendered separately)
+- But the right-side label box placement is still inverted:
+  - `labelPositions` currently maps **level 1 to the top (y=140)** and **level 5 to the bottom (y=976)**.
+  - That causes the copy boxes to appear reversed even though the pyramid itself is correct.
 
-### Issues Identified
+Also found (secondary issue)
+- The “Silos label (right side)” block (Level 2 / Managed) incorrectly uses `const colors = layerColors[4];` which will color the Stage 2 label like Stage 4. This adds to the “wrong mapping” feeling.
 
-1. **Stage numbering is inverted** - Currently Level 1 is at the apex (Predictive) and Level 5 is at the base (Fragmented). This is confusing; the natural expectation is Stage 1 at the bottom and Stage 5 at the top.
+Implementation changes (small, targeted)
+1) Fix the copy-box order by correcting `labelPositions` in `GDPyramid3D.tsx`
+- Replace the current mapping:
 
-2. **Annotation arrows are unreadable** - The "AI-Enabled" and "AI-Blocked" text annotations next to arrows on the right side of the pyramid are hard to read and clutter the visual.
+  - `1 -> y 140`
+  - `2 -> y 350`
+  - `3 -> y 560`
+  - `4 -> y 768`
+  - `5 -> y 976`
 
-3. **AI Readiness indicator logic is confusing** - The `GDDetailsPanel.tsx` has inverted logic with comments like "Stages 4-5 in inverted order" which makes maintenance difficult.
+- With the corrected mapping that matches “5 at top → 1 at bottom”:
 
----
+  - `5 -> y 140`
+  - `4 -> y 350`
+  - `3 -> y 560`
+  - `2 -> y 768`
+  - `1 -> y 976`
 
-### Changes Required
+- Note: Keep the same X values (lineEndX, labelX etc.) so layout stays consistent; only re-key the Y positions to the correct levels.
 
-#### 1. Remove AI Annotation Arrows from Pyramid
+2) Fix Stage 2 (Managed / silos) label color reference in `GDPyramid3D.tsx`
+- In the “Silos label (right side)” section, change:
+  - `const colors = layerColors[4];`
+  to:
+  - `const colors = layerColors[2];`
 
-In `GDPyramid3D.tsx`, remove lines 502-515 (the annotation arrows and "AI-Enabled"/"AI-Blocked" text labels).
+3) Validate AI readiness labels are correct (no logic change expected)
+- `src/components/globaldata-slides/GDDetailsPanel.tsx` currently maps:
+  - levels 1–2 => AI Blocked
+  - level 3 => AI Enabled
+  - levels 4–5 => AI Optimized
+- After fixing the copy box ordering, visually confirm:
+  - Bottom stage (1 / Fragmented) shows AI Blocked
+  - Middle stage (3 / Connected) shows AI Enabled
+  - Top stages (4–5) show AI Optimized
+- If anything still looks mismatched, the next likely culprit would be a mismatch between `layer.level` values passed into `GDPyramid3D` vs the intended stage, but `GDSlide6ValuePyramid.tsx` already has the correct `level` mapping (Fragmented=1 … Predictive=5), so this should resolve it.
 
-**Keep**: The "AI GATEWAY" dashed line and label box (lines 467-500) - this is readable and important.
+Files to edit
+- `src/components/globaldata-slides/GDPyramid3D.tsx`
+  - Fix `labelPositions` mapping (primary fix)
+  - Fix silo label `colors` reference (secondary fix)
+- No edits expected, but will verify behavior visually:
+  - `src/components/globaldata-slides/GDDetailsPanel.tsx`
+  - `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
 
-**Remove**:
-```tsx
-{/* Annotation arrows and labels */}
-<g transform={`translate(${rightX + 20}, ${markerY})`}>
-  {/* Arrow pointing up */}
-  <line x1="0" y1="-10" x2="0" y2="-60" ... />
-  <text x="10" y="-35" ...>AI-Enabled</text>
-  
-  {/* Arrow pointing down */}
-  <line x1="0" y1="10" x2="0" y2="60" ... />
-  <text x="10" y="40" ...>AI-Blocked</text>
-</g>
-```
-
----
-
-#### 2. Correct Stage Numbering (Level 1 = Bottom, Level 5 = Apex)
-
-Update the `layerColors`, `layerBounds`, and `labelPositions` mappings in `GDPyramid3D.tsx` to use correct numbering:
-
-| Stage | Position | Name | Current Level | New Level |
-|-------|----------|------|---------------|-----------|
-| FRAGMENTED | Base | Reactive | 5 | 1 |
-| MANAGED | Above base | Siloed | 4 | 2 |
-| CONNECTED | Middle | The Platform Shift | 3 | 3 (unchanged) |
-| OPERATIONAL | Below apex | Optimised | 2 | 4 |
-| PREDICTIVE | Apex | AI-Driven | 1 | 5 |
-
-**Files to update:**
-- `GDPyramid3D.tsx` - Layer colors, bounds, render order
-- `GDSlide6ValuePyramid.tsx` - Layer metadata (levels 1-5)
-- `GDDetailsPanel.tsx` - AI Readiness logic
-
----
-
-#### 3. Fix AI Readiness Indicator Logic
-
-Update `GDDetailsPanel.tsx` with corrected logic:
-
-```tsx
-const AIReadinessIndicator = ({ level }: { level: number }) => {
-  if (level <= 2) {
-    // Stages 1-2 (FRAGMENTED/MANAGED) = AI Blocked
-    return (
-      <div className="...bg-red-500/15...">
-        <Lock className="..." />
-        <span>AI Blocked</span>
-      </div>
-    );
-  } else if (level === 3) {
-    // Stage 3 (CONNECTED) = AI Enabled
-    return (
-      <div className="...bg-emerald-500/15...">
-        <Cpu className="..." />
-        <span>AI Enabled</span>
-      </div>
-    );
-  } else {
-    // Stages 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
-    return (
-      <div className="...bg-amber-500/15...">
-        <Sparkles className="..." />
-        <span>AI Optimized</span>
-      </div>
-    );
-  }
-};
-```
-
----
-
-### Technical Implementation
-
-#### GDPyramid3D.tsx Changes
-
-**Step 1: Update layer colors mapping (lines 26-32)**
-```tsx
-// CORRECTED: Level 1 = base (Red), Level 5 = apex (Gold)
-const layerColors = {
-  1: { main: "hsl(0, 70%, 50%)", dark: "hsl(0, 70%, 38%)", glow: "hsl(0, 70%, 50%)" },        // FRAGMENTED - Red (base)
-  2: { main: "hsl(199, 89%, 48%)", dark: "hsl(199, 89%, 36%)", glow: "hsl(199, 89%, 48%)" },  // MANAGED - Blue
-  3: { main: "hsl(195, 100%, 45%)", dark: "hsl(195, 100%, 35%)", glow: "hsl(195, 100%, 45%)" },  // CONNECTED - Sky Blue
-  4: { main: "hsl(280, 65%, 55%)", dark: "hsl(280, 65%, 42%)", glow: "hsl(280, 65%, 55%)" },  // OPERATIONAL - Purple
-  5: { main: "hsl(45, 93%, 58%)", dark: "hsl(45, 93%, 45%)", glow: "hsl(45, 93%, 58%)" },     // PREDICTIVE - Gold (apex)
-};
-```
-
-**Step 2: Update layer bounds (lines 60-66)**
-```tsx
-// CORRECTED: Level 1 at base, Level 5 at apex
-const layerBounds = {
-  5: { top: 40, bottom: 248 },    // PREDICTIVE - Apex
-  4: { top: 248, bottom: 456 },   // OPERATIONAL
-  3: { top: 456, bottom: 664 },   // CONNECTED
-  2: { top: 664, bottom: 872 },   // MANAGED (with 5 silos)
-  1: { top: 872, bottom: 1080 },  // FRAGMENTED - Base
-};
-```
-
-**Step 3: Update render order (line 202)**
-```tsx
-// Render from apex (5) to base (1), excluding silos layer (2)
-{[5, 4, 3, 1].map((level) => {
-```
-
-**Step 4: Update silo layer references from level 4 to level 2**
-All references to `layerBounds[4]` become `layerBounds[2]`
-
-**Step 5: Remove annotation arrows (lines 502-515)**
-Delete the entire `<g transform={...}>` block containing AI-Enabled/AI-Blocked text
-
----
-
-#### GDSlide6ValuePyramid.tsx Changes
-
-Update the layer metadata array so levels match the new numbering:
-
-| Layer Name | Current `level` | New `level` |
-|------------|-----------------|-------------|
-| FRAGMENTED | 5 | 1 |
-| MANAGED | 4 | 2 |
-| CONNECTED | 3 | 3 |
-| OPERATIONAL | 2 | 4 |
-| PREDICTIVE | 1 | 5 |
-
----
-
-### Summary
-
-| File | Changes |
-|------|---------|
-| `GDPyramid3D.tsx` | Remove AI annotation arrows; swap layer numbering (1↔5, 2↔4); update silo references |
-| `GDDetailsPanel.tsx` | Simplify AI Readiness logic (no more "inverted" comments) |
-| `GDSlide6ValuePyramid.tsx` | Update level values in layer metadata array |
-
-After these changes:
-- Stage 1 (FRAGMENTED) will be at the bottom with "AI Blocked" status
-- Stage 3 (CONNECTED) remains in the middle with "AI Enabled" and the AI GATEWAY marker
-- Stage 5 (PREDICTIVE) will be at the apex with "AI Optimized" status
-- The cluttered annotation arrows will be removed, keeping only the clean "AI GATEWAY" label
-
+Acceptance criteria (what you should see after)
+- Right-side copy boxes (top to bottom) read: Predictive (5), Operational (4), Connected (3), Managed (2), Fragmented (1).
+- Pyramid itself remains: Fragmented at base, Predictive at apex.
+- AI readiness labels align with the corrected stage numbers:
+  - Stages 1–2: AI Blocked
+  - Stage 3: AI Enabled
+  - Stages 4–5: AI Optimized
+- Stage 2 (Managed) label styling uses Stage 2’s color (not Stage 4’s).
