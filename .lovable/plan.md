@@ -1,90 +1,67 @@
 
 
-## Make Each Pyramid Level Clickable with Animated Copy Box Transition
+## Resize Slide 7: Reduce Copy Box, Increase Maturity Curve
 
-The pyramid already has click functionality - clicking any level updates the details panel. This plan adds a smooth transition animation to make the layer switching visually clear.
+### Current Layout
 
----
-
-### Current Behavior
-
-- Each pyramid layer is clickable and updates the active layer state
-- The details panel (copy box) updates immediately with no visible transition
-- Users may not notice the content change
+The slide uses a **50/50 grid layout** on large screens:
+- `grid-cols-1 lg:grid-cols-2` - Equal width columns
+- LEFT: Maturity curve SVG (50%)
+- RIGHT: Details panel / copy box (50%)
 
 ---
 
-### Proposed Changes
+### Proposed Change
 
-Add a fade-slide animation when transitioning between layers so users clearly see the copy box content change.
+Change to a **2:1 ratio** layout where:
+- LEFT: Maturity curve takes **2/3** of the width (66%)
+- RIGHT: Copy box takes **1/3** of the width (33%)
 
 ---
 
 ### Technical Implementation
 
-**File:** `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+**File:** `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
 
-**1. Add animation state tracking:**
-
+**Line 282 - Grid Container:**
 ```tsx
-const [isTransitioning, setIsTransitioning] = useState(false);
-const [pendingLayerId, setPendingLayerId] = useState<string | null>(null);
+// Current
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+
+// New - 2:1 ratio
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
 ```
 
-**2. Update handleLayerClick to trigger transition:**
-
+**Line 284 - Maturity Curve Container (span 2 columns):**
 ```tsx
-const handleLayerClick = useCallback((level: number) => {
-  const layer = layersData.find((l) => l.level === level);
-  if (layer && layer.id !== activeLayerId) {
-    setIsTransitioning(true);
-    setPendingLayerId(layer.id);
-    setHighlightedModule(null);
-    setIsAutoCycling(false);
-    
-    // After fade-out, switch content and fade-in
-    setTimeout(() => {
-      setActiveLayerId(layer.id);
-      setIsTransitioning(false);
-      setPendingLayerId(null);
-    }, 200);
-  }
-}, [activeLayerId]);
+// Current
+<div className="bg-card/30 rounded-xl border border-border/30 p-4 md:p-6 flex items-center justify-center">
+
+// New - span 2 of 3 columns
+<div className="bg-card/30 rounded-xl border border-border/30 p-4 md:p-6 flex items-center justify-center lg:col-span-2">
 ```
 
-**3. Apply transition class to details panel container:**
-
+**Line 287 - Increase SVG max height:**
 ```tsx
-<div className={`flex-1 transition-all duration-200 ${
-  isTransitioning 
-    ? 'opacity-0 translate-x-4' 
-    : 'opacity-100 translate-x-0'
-}`}>
-  <GDDetailsPanel layer={activeLayer} highlightedModule={highlightedModule} />
-</div>
+// Current
+className="w-full h-auto max-h-[400px]"
+
+// New - taller to use the extra space
+className="w-full h-auto max-h-[500px]"
 ```
 
 ---
 
-### Animation Effect
+### Visual Comparison
 
-| Phase | Duration | Visual |
-|-------|----------|--------|
-| Click layer | 0ms | Trigger transition |
-| Fade out | 0-200ms | Opacity 0, slide right 4px |
-| Content swap | 200ms | Update activeLayerId |
-| Fade in | 200-400ms | Opacity 100, slide back |
+| Element | Current | New |
+|---------|---------|-----|
+| Maturity Curve | 50% width, 400px max height | 66% width, 500px max height |
+| Copy Box | 50% width | 33% width |
+| Layout | `lg:grid-cols-2` | `lg:grid-cols-3` with curve spanning 2 |
 
 ---
 
-### Summary
-
-| Change | File | Purpose |
-|--------|------|---------|
-| Add transition states | GDSlide6ValuePyramid.tsx | Track animation phase |
-| Update click handler | GDSlide6ValuePyramid.tsx | Trigger fade transition |
-| Add animation classes | GDSlide6ValuePyramid.tsx | Smooth fade-slide effect |
-
-### File to Modify
-- `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+### Files to Modify
+- `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx` (lines 282, 284, 287)
 
