@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
-import { BarChart3, ShoppingCart, TrendingUp, MessageCircle, FileSpreadsheet } from "lucide-react";
+import { BarChart3, ShoppingCart, TrendingUp, MessageCircle, FileSpreadsheet, Table2, PieChart, LayoutDashboard } from "lucide-react";
 
 interface GDFragmentationIllustrationProps {
   onNodeClick?: (node: string) => void;
 }
 
-// Enlarged x positions for Stage 5
+// 8 nodes with staggered y-positions for organic fragmentation look
 const nodes = [
-  { id: "nielsen", label: "Nielsen", icon: BarChart3, color: "hsl(199, 89%, 48%)", x: 65 },
-  { id: "iri", label: "IRI", icon: ShoppingCart, color: "hsl(330, 80%, 55%)", x: 185 },
-  { id: "mintel", label: "Mintel", icon: TrendingUp, color: "hsl(145, 70%, 45%)", x: 305 },
-  { id: "social", label: "Social", icon: MessageCircle, color: "hsl(280, 65%, 55%)", x: 425 },
-  { id: "internal", label: "Internal", icon: FileSpreadsheet, color: "hsl(30, 90%, 55%)", x: 545 },
+  { id: "nielsen", label: "Nielsen", icon: BarChart3, color: "hsl(199, 89%, 48%)", x: 50, y: 75 },
+  { id: "spreadsheets", label: "Spreadsheets", icon: Table2, color: "hsl(140, 70%, 45%)", x: 130, y: 95 },
+  { id: "iri", label: "IRI", icon: ShoppingCart, color: "hsl(330, 80%, 55%)", x: 210, y: 65 },
+  { id: "bi", label: "BI Tools", icon: PieChart, color: "hsl(45, 90%, 50%)", x: 290, y: 100 },
+  { id: "mintel", label: "Mintel", icon: TrendingUp, color: "hsl(145, 70%, 45%)", x: 370, y: 70 },
+  { id: "dashboards", label: "Dashboards", icon: LayoutDashboard, color: "hsl(200, 80%, 50%)", x: 450, y: 90 },
+  { id: "social", label: "Social", icon: MessageCircle, color: "hsl(280, 65%, 55%)", x: 530, y: 60 },
+  { id: "internal", label: "Internal", icon: FileSpreadsheet, color: "hsl(30, 90%, 55%)", x: 610, y: 85 },
 ];
 
 const brokenConnections = [
@@ -19,6 +22,9 @@ const brokenConnections = [
   { from: 1, to: 2 },
   { from: 2, to: 3 },
   { from: 3, to: 4 },
+  { from: 4, to: 5 },
+  { from: 5, to: 6 },
+  { from: 6, to: 7 },
 ];
 
 const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustrationProps) => {
@@ -33,13 +39,12 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
     return () => clearInterval(interval);
   }, []);
 
-  // Enlarged dimensions for Stage 5
-  const cy = 85;
-  const nodeRadius = 40;
+  // Smaller radius for 8 nodes
+  const nodeRadius = 28;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 610 190" className="w-full max-w-[610px]">
+      <svg viewBox="0 0 660 180" className="w-full max-w-[660px]">
         <defs>
           <filter id="gdFragmentGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="blur" />
@@ -83,38 +88,39 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
           const fromNode = nodes[conn.from];
           const toNode = nodes[conn.to];
           const midX = (fromNode.x + toNode.x) / 2;
+          const midY = (fromNode.y + toNode.y) / 2;
 
           return (
             <g key={`conn-${index}`}>
               {/* Left segment */}
               <line
                 x1={fromNode.x + nodeRadius}
-                y1={cy}
-                x2={midX - 16}
-                y2={cy}
+                y1={fromNode.y}
+                x2={midX - 10}
+                y2={midY}
                 stroke="hsl(0, 70%, 45%)"
-                strokeWidth="4"
-                strokeDasharray="10 5"
+                strokeWidth="3"
+                strokeDasharray="8 4"
                 strokeOpacity="0.6"
               />
               {/* Right segment */}
               <line
-                x1={midX + 16}
-                y1={cy}
+                x1={midX + 10}
+                y1={midY}
                 x2={toNode.x - nodeRadius}
-                y2={cy}
+                y2={toNode.y}
                 stroke="hsl(0, 70%, 45%)"
-                strokeWidth="4"
-                strokeDasharray="10 5"
+                strokeWidth="3"
+                strokeDasharray="8 4"
                 strokeOpacity="0.6"
               />
               {/* × break mark */}
               <text
                 x={midX}
-                y={cy + 10}
+                y={midY + 6}
                 textAnchor="middle"
                 fill="hsl(0, 70%, 55%)"
-                fontSize="28"
+                fontSize="20"
                 fontWeight="bold"
               >
                 ×
@@ -123,27 +129,27 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
           );
         })}
 
-        {/* Warning indicators with ≠ symbol */}
-        {[125, 365].map((x, index) => {
+        {/* Warning indicators with ≠ symbol - positioned above some nodes */}
+        {[{ x: 170, y: 30 }, { x: 330, y: 25 }, { x: 490, y: 28 }].map((pos, index) => {
           const pulseOpacity = 0.4 + 0.3 * Math.sin((warningPulse + index * 50) * 0.1);
           
           return (
             <g key={`warning-${index}`} style={{ filter: "url(#gdWarningPulse)" }}>
               <circle
-                cx={x}
-                cy={cy - 50}
-                r="20"
+                cx={pos.x}
+                cy={pos.y}
+                r="14"
                 fill="hsl(30, 90%, 55%)"
                 fillOpacity={pulseOpacity}
                 stroke="hsl(30, 90%, 55%)"
-                strokeWidth="3"
+                strokeWidth="2"
               />
               <text
-                x={x}
-                y={cy - 40}
+                x={pos.x}
+                y={pos.y + 5}
                 textAnchor="middle"
                 fill="white"
-                fontSize="22"
+                fontSize="16"
                 fontWeight="bold"
               >
                 ≠
@@ -167,33 +173,33 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
               style={{ 
                 filter: isHovered ? "url(#gdNodeHoverGlow)" : "url(#gdFragmentGlow)",
                 transform: isHovered ? `scale(1.1)` : "scale(1)",
-                transformOrigin: `${node.x}px ${cy}px`,
+                transformOrigin: `${node.x}px ${node.y}px`,
                 transition: "transform 0.2s ease",
               }}
             >
               <circle
                 cx={node.x}
-                cy={cy}
+                cy={node.y}
                 r={nodeRadius}
                 fill={`url(#gdNode-${node.id})`}
                 stroke={node.color}
-                strokeWidth="5"
+                strokeWidth="3"
               />
               
               {/* Icon */}
-              <foreignObject x={node.x - 20} y={cy - 20} width="40" height="40">
+              <foreignObject x={node.x - 14} y={node.y - 14} width="28" height="28">
                 <div className="w-full h-full flex items-center justify-center">
-                  <IconComponent className="w-8 h-8 text-white" strokeWidth={2.5} />
+                  <IconComponent className="w-6 h-6 text-white" strokeWidth={2.5} />
                 </div>
               </foreignObject>
               
               {/* Label */}
               <text
                 x={node.x}
-                y={cy + nodeRadius + 24}
+                y={node.y + nodeRadius + 16}
                 textAnchor="middle"
                 fill={isHovered ? node.color : "hsl(0, 40%, 70%)"}
-                fontSize="16"
+                fontSize="11"
                 fontWeight="500"
                 fontFamily="'Inter', sans-serif"
                 className="transition-colors duration-200"
@@ -206,16 +212,16 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
 
         {/* "Different Taxonomy" label */}
         <text
-          x="305"
-          y="178"
+          x="330"
+          y="168"
           textAnchor="middle"
           fill="hsl(0, 50%, 60%)"
-          fontSize="16"
+          fontSize="13"
           fontWeight="500"
           fontFamily="'Inter', sans-serif"
           fontStyle="italic"
         >
-          Different Taxonomies
+          Different Taxonomies & Disconnected Tools
         </text>
       </svg>
     </div>
