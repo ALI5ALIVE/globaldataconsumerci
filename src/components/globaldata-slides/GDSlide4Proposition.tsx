@@ -1,19 +1,8 @@
+import { useState } from "react";
 import GDSlideContainer from "./GDSlideContainer";
-import { XCircle, CheckCircle2 } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 import ConnectedIntelligenceWheel from "./ConnectedIntelligenceWheel";
-
-const replaces = [
-  "Tool sprawl across vendors",
-  "Manual reconciliation",
-  "Conflicting answers",
-];
-
-const notThis = [
-  "Another dataset",
-  "Another dashboard",
-  "Another point solution",
-];
+import SolutionValuePanel from "./SolutionValuePanel";
 
 const GDSlide4Proposition = ({
   isPlaying = false,
@@ -24,6 +13,8 @@ const GDSlide4Proposition = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
+  const [activeSegment, setActiveSegment] = useState<string | null>(null);
+
   return (
     <GDSlideContainer
       id="gd-slide-4"
@@ -50,37 +41,15 @@ const GDSlide4Proposition = ({
         <div className="flex-1 grid lg:grid-cols-2 gap-6 items-center">
           {/* Connected Intelligence Wheel */}
           <div className="flex items-center justify-center py-4">
-            <ConnectedIntelligenceWheel />
+            <ConnectedIntelligenceWheel
+              activeSegment={activeSegment}
+              onSegmentHover={setActiveSegment}
+              onSegmentClick={setActiveSegment}
+            />
           </div>
 
-          {/* What it replaces / What it is NOT */}
-          <div className="space-y-4">
-            {/* What it replaces */}
-            <div className="bg-card/50 border border-border/50 rounded-xl p-4">
-              <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">What It Replaces</p>
-              <div className="space-y-2">
-                {replaces.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                    <span className="text-sm text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* What it is NOT */}
-            <div className="bg-card/50 border border-destructive/20 rounded-xl p-4">
-              <p className="text-xs font-semibold text-destructive uppercase tracking-wider mb-3">What It Is NOT</p>
-              <div className="space-y-2">
-                {notThis.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <XCircle className="w-4 h-4 text-destructive shrink-0" />
-                    <span className="text-sm text-muted-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Solution Value Panel */}
+          <SolutionValuePanel activeSolution={activeSegment} />
         </div>
 
         {/* Bottom callout */}
