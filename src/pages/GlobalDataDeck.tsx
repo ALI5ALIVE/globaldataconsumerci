@@ -12,7 +12,6 @@ import GDSlide7MaturityCurve from "@/components/globaldata-slides/GDSlide7Maturi
 import GDSlide8ROI from "@/components/globaldata-slides/GDSlide8ROI";
 import GDSlide9WhyGlobalData from "@/components/globaldata-slides/GDSlide9WhyGlobalData";
 import GDSlide10Solutions from "@/components/globaldata-slides/GDSlide10Solutions";
-import GDSlide11SolutionDeepDives from "@/components/globaldata-slides/GDSlide11SolutionDeepDives";
 
 const slides = [
   { id: "gd-slide-0", label: "Title" },
@@ -26,7 +25,6 @@ const slides = [
   { id: "gd-slide-8", label: "ROI" },
   { id: "gd-slide-9", label: "Why GlobalData" },
   { id: "gd-slide-10", label: "Connected Solutions" },
-  { id: "gd-slide-11", label: "Solution Deep Dives" },
 ];
 
 const GlobalDataDeck = () => {
@@ -201,7 +199,6 @@ const GlobalDataDeck = () => {
         <GDSlide8ROI {...getNarrationProps(8)} />
         <GDSlide9WhyGlobalData {...getNarrationProps(9)} />
         <GDSlide10Solutions {...getNarrationProps(10)} />
-        <GDSlide11SolutionDeepDives {...getNarrationProps(11)} />
       </div>
     </div>
   );
