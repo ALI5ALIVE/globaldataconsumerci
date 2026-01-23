@@ -1,150 +1,127 @@
 
-
-## Scale Up Fragmentation Illustration, Pyramid, and Narrow Details Panel
+## Double Illustration Sizes and Show Only AVA at Apex
 
 ### Overview
-Three adjustments to the GDSlide6ValuePyramid layout:
-1. **Make the fragment image bigger** - Scale up the `GDFragmentationIllustration` within the pyramid's Layer 1
-2. **Make the pyramid 30% bigger** - Increase the overall pyramid dimensions and viewBox
-3. **Make the main copy box 25% shorter in width** - Reduce the details panel column width from 50% to 37.5%
+Two main changes:
+1. Double the size of illustrations in layers 1, 3, and 4
+2. Replace the three-icon GDTransformationalIllustration with just the AVA icon at the apex (layer 5)
 
 ---
 
-### 1. Scale Up Fragmentation Illustration
+### 1. Double Illustration Sizes (Layers 1, 3, 4)
 
 **File:** `src/components/globaldata-slides/GDPyramid3D.tsx`
 
-The fragmentation illustration is embedded in Layer 1 (lines 304-327). Currently it uses multipliers of `1.8` (width) and `1.9` (height).
-
-**Current (lines 311-312):**
+#### Layer 4 (OPERATIONAL - Metrics Gauges) - Lines 261-262:
 ```tsx
-const width = (rightX - leftX) * 1.8;
-const height = layerHeight * 1.9;
+// Current
+const width = (rightX - leftX) * 1.4;
+const height = layerHeight * 1.6;
+
+// New (doubled)
+const width = (rightX - leftX) * 2.8;
+const height = layerHeight * 3.2;
 ```
 
-**New:**
+#### Layer 3 (CONNECTED - Quintuple Loop) - Lines 286-287:
 ```tsx
+// Current
+const width = (rightX - leftX) * 0.95;
+const height = layerHeight * 0.9;
+
+// New (doubled)
+const width = (rightX - leftX) * 1.9;
+const height = layerHeight * 1.8;
+```
+
+#### Layer 1 (FRAGMENTED - Base) - Lines 311-312:
+```tsx
+// Current
 const width = (rightX - leftX) * 2.4;
 const height = layerHeight * 2.5;
-```
 
-This makes the fragmentation illustration approximately 35% larger so it better fills the base layer of the pyramid.
+// New (doubled)
+const width = (rightX - leftX) * 4.8;
+const height = layerHeight * 5.0;
+```
 
 ---
 
-### 2. Make the Pyramid 30% Bigger
+### 2. Replace Apex with Just AVA Icon
 
 **File:** `src/components/globaldata-slides/GDPyramid3D.tsx`
 
-This requires scaling up the pyramid's coordinate system and related values.
+Replace the `GDTransformationalIllustration` component in Layer 5 (lines 229-252) with a simpler inline AVA-only display.
 
-**A. Increase pyramid configuration (lines 52-57):**
-```tsx
-// Current
-apex: { x: 820, y: 5 },
-baseLeft: { x: 5, y: 1350 },
-baseRight: { x: 1635, y: 1350 },
-
-// New (30% increase: 1350 * 1.3 = 1755, width scales proportionally)
-apex: { x: 1066, y: 5 },
-baseLeft: { x: 5, y: 1755 },
-baseRight: { x: 2127, y: 1755 },
-```
-
-**B. Update layer bounds (lines 60-66):**
-Scale all Y values by 1.3 factor:
-```tsx
-// Current
-5: { top: 5, bottom: 274 },
-4: { top: 274, bottom: 543 },
-3: { top: 543, bottom: 812 },
-2: { top: 812, bottom: 1081 },
-1: { top: 1081, bottom: 1350 },
-
-// New (scaled by 1.3)
-5: { top: 5, bottom: 355 },
-4: { top: 355, bottom: 705 },
-3: { top: 705, bottom: 1055 },
-2: { top: 1055, bottom: 1405 },
-1: { top: 1405, bottom: 1755 },
-```
-
-**C. Update viewBox (line 129):**
-```tsx
-// Current
-const viewBox = isMobile ? "0 0 1650 1370" : "0 0 1700 1370";
-
-// New (30% larger)
-const viewBox = isMobile ? "0 0 2145 1780" : "0 0 2210 1780";
-```
-
-**D. Update connector endX (line 120):**
-```tsx
-// Current
-return { startX: rightX + 10, y: centerY, endX: 1680 };
-
-// New
-return { startX: rightX + 10, y: centerY, endX: 2185 };
-```
-
-**E. Update minimum dimensions (lines 148-149):**
-```tsx
-// Current
-minWidth: isMobile ? "660px" : "1040px",
-minHeight: isMobile ? "600px" : "900px",
-
-// New (30% increase)
-minWidth: isMobile ? "858px" : "1352px",
-minHeight: isMobile ? "780px" : "1170px",
-```
-
-**F. Update Y-axis arrow positions (lines 193-197):**
-```tsx
-// Current
-<line x1={40} y1={900} x2={40} y2={80} ... />
-<polygon points="40,56 28,84 52,84" ... />
-<text x={-500} y={20} ... />
-
-// New (scaled)
-<line x1={52} y1={1170} x2={52} y2={104} ... />
-<polygon points="52,73 37,109 67,109" ... />
-<text x={-650} y={26} ... />
-```
-
----
-
-### 3. Make the Details Panel 25% Narrower
-
-**File:** `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
-
-The current layout uses `lg:grid-cols-2` which gives 50%/50% split. To make the copy box 25% shorter in width, change to a custom grid.
-
-**Current (line 312):**
-```tsx
-<div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch h-full">
-```
+**Current (Lines 229-252):**
+Uses `<GDTransformationalIllustration>` which shows:
+- TrendingUp icon (Intelligence)
+- "+" sign
+- Sparkles icon (Ava)
+- "=" sign  
+- Trophy icon (Performance)
 
 **New:**
+Replace with a simple centered AVA icon only:
+
 ```tsx
-<div className="grid lg:grid-cols-[3fr_2fr] gap-6 lg:gap-8 items-stretch h-full">
+{/* Layer 5 (PREDICTIVE - Apex) - AVA Only */}
+{(() => {
+  const bounds = layerBounds[5];
+  const layerHeight = bounds.bottom - bounds.top;
+  const centerY = (bounds.top + bounds.bottom) / 2;
+  const leftX = getLeftX(centerY);
+  const rightX = getRightX(centerY);
+  const width = (rightX - leftX) * 0.8;
+  const height = layerHeight * 0.8;
+  const offsetX = (rightX - leftX - width) / 2;
+  const offsetY = (layerHeight - height) / 2;
+  
+  return (
+    <foreignObject
+      x={leftX + offsetX}
+      y={bounds.top + offsetY}
+      width={width}
+      height={height}
+      className="pointer-events-auto"
+    >
+      <div className="w-full h-full flex items-center justify-center">
+        <div
+          className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 cursor-pointer hover:scale-110 transition-all duration-300"
+          style={{
+            boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
+          }}
+          onClick={() => handleModuleClick("ava")}
+        >
+          <Sparkles 
+            className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
+            strokeWidth={2.5}
+          />
+        </div>
+      </div>
+    </foreignObject>
+  );
+})()}
 ```
 
-This creates a 60%/40% split instead of 50%/50%, making the pyramid area larger and the details panel 25% narrower (from 50% down to ~37.5%).
+This also requires adding `Sparkles` to the Lucide imports at the top of the file:
+```tsx
+import { BarChart3, ShoppingCart, Users, TrendingUp, FileSpreadsheet, Sparkles } from "lucide-react";
+```
 
 ---
 
 ### Summary of Changes
 
-| Component | Current | New | Effect |
-|-----------|---------|-----|--------|
-| Fragmentation width multiplier | 1.8 | 2.4 | +33% larger |
-| Fragmentation height multiplier | 1.9 | 2.5 | +32% larger |
-| Pyramid apex X | 820 | 1066 | 30% scale |
-| Pyramid base Y | 1350 | 1755 | 30% scale |
-| ViewBox | 1700x1370 | 2210x1780 | 30% larger |
-| Grid layout | 50/50 | 60/40 | Details panel 25% narrower |
+| Layer | Current Size | New Size | Other Changes |
+|-------|-------------|----------|---------------|
+| 5 (Apex) | 1.8 x 1.8 | 0.8 x 0.8 | Replace 3-icon illustration with single AVA icon |
+| 4 (Operational) | 1.4 x 1.6 | 2.8 x 3.2 | Doubled |
+| 3 (Connected) | 0.95 x 0.9 | 1.9 x 1.8 | Doubled |
+| 1 (Fragmented) | 2.4 x 2.5 | 4.8 x 5.0 | Doubled |
 
 ### Files to Modify
-- `src/components/globaldata-slides/GDPyramid3D.tsx` - Pyramid scaling and fragmentation size
-- `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` - Grid column ratio
+- `src/components/globaldata-slides/GDPyramid3D.tsx` - Size multipliers and apex illustration replacement
 
+### Note
+The `GDTransformationalIllustration` import can be removed since it will no longer be used, keeping the codebase clean.
