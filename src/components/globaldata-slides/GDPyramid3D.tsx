@@ -112,13 +112,13 @@ const GDPyramid3D = ({
     return layers.find((l) => l.level === level);
   };
 
-  // Label positions
+  // Label positions - CORRECTED: Level 5 at top (y=140), Level 1 at bottom (y=976)
   const labelPositions = {
-    1: { lineStartX: 1000, lineStartY: 140, lineEndX: 1480, lineEndY: 140, labelX: 1490, labelY: 140 },
-    2: { lineStartX: 1100, lineStartY: 350, lineEndX: 1480, lineEndY: 350, labelX: 1490, labelY: 350 },
+    5: { lineStartX: 1000, lineStartY: 140, lineEndX: 1480, lineEndY: 140, labelX: 1490, labelY: 140 },
+    4: { lineStartX: 1100, lineStartY: 350, lineEndX: 1480, lineEndY: 350, labelX: 1490, labelY: 350 },
     3: { lineStartX: 1180, lineStartY: 560, lineEndX: 1480, lineEndY: 560, labelX: 1490, labelY: 560 },
-    4: { lineStartX: 1250, lineStartY: 768, lineEndX: 1480, lineEndY: 768, labelX: 1490, labelY: 768 },
-    5: { lineStartX: 1300, lineStartY: 976, lineEndX: 1480, lineEndY: 976, labelX: 1490, labelY: 976 },
+    2: { lineStartX: 1250, lineStartY: 768, lineEndX: 1480, lineEndY: 768, labelX: 1490, labelY: 768 },
+    1: { lineStartX: 1300, lineStartY: 976, lineEndX: 1480, lineEndY: 976, labelX: 1490, labelY: 976 },
   };
 
   const handleModuleClick = (module: string) => {
@@ -429,7 +429,7 @@ const GDPyramid3D = ({
             const rightEdgeX = getRightX(centerY);
             const layerData = getLayerData(2);
             const isActive = activeLayer === 2;
-            const colors = layerColors[4];
+            const colors = layerColors[2];
 
             return (
               <g>
