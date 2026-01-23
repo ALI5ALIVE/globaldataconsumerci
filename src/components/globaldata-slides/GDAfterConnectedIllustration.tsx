@@ -261,20 +261,6 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
         </g>
       ))}
 
-      {/* Caption */}
-      <text
-        x="230"
-        y="145"
-        textAnchor="middle"
-        fill="hsl(217, 100%, 60%)"
-        fontSize="8"
-        fontWeight="500"
-        fontFamily="'Space Grotesk', sans-serif"
-        letterSpacing="0.1em"
-        className="uppercase"
-      >
-        Connected Intelligence • Unified Taxonomy
-      </text>
     </svg>
   );
 };
