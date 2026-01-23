@@ -108,7 +108,7 @@ const GDSlide2IntelligenceGap = ({
           {/* Right: Quantified Impact */}
           <div>
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quantified Impact</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-3">
               {impacts.map((impact, i) => (
                 <div 
                   key={i}
