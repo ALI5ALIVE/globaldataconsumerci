@@ -1,122 +1,80 @@
 
 
-## Add 4th Confidence Dimension to Intelligence Gap Slide
+## Fix Box Alignment on Intelligence Gap Slide
 
-### Current State
-The slide currently has **3 root causes** (Why It Exists) and **3 quantified impacts**, displayed in two columns with uneven box counts.
+### Issue Identified
 
-### Required Changes
+The two columns have **mismatched dimension ordering**:
 
-1. **Add 4th Root Cause: Confidence**
-   - Title: "Decisions Lack Conviction"
-   - Description: "Teams hedge instead of committing"
-   - Detail: "Diluted action"
-   - Badge: "CONFIDENCE"
-   - Icon: `ShieldAlert` (from lucide-react)
+| Row | Why It Exists (Left) | Quantified Impact (Right) |
+|-----|---------------------|---------------------------|
+| 1   | BREADTH             | Speed                     |
+| 2   | ALIGNMENT           | Breadth                   |
+| 3   | SPEED               | Alignment                 |
+| 4   | CONFIDENCE          | Confidence                |
 
-2. **Add 4th Quantified Impact**
-   - Value: "68%"
-   - Label: "teams"
-   - Description: "lack confidence to act decisively"
-   - Dimension: "Confidence"
-
-3. **Align Layout: 4 Boxes Each Side**
-   - Reduce padding from `p-4` to `p-3` on each card to fit 4 items comfortably
-   - Remove the arrow icons between root cause cards to save vertical space
-   - Ensure both columns have identical box heights using `items-stretch` and `h-full`
+Each row should have matching dimensions so the root cause aligns with its quantified impact.
 
 ---
 
-### Implementation Details
+### Solution
+
+Reorder the `impacts` array to match the order of `rootCauses`:
+
+| Row | Why It Exists | Quantified Impact |
+|-----|---------------|-------------------|
+| 1   | BREADTH       | Breadth (3-5 sources) |
+| 2   | ALIGNMENT     | Alignment (40% launches) |
+| 3   | SPEED         | Speed (12+ weeks) |
+| 4   | CONFIDENCE    | Confidence (68% teams) |
+
+---
+
+### Implementation
 
 **File:** `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
 
-#### 1. Add ShieldAlert import (line 2)
-```tsx
-import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon } from "lucide-react";
-```
+**Lines 36-41:** Reorder the `impacts` array to match root causes order:
 
-#### 2. Add 4th root cause (lines 5-27)
-```tsx
-const rootCauses = [
-  { 
-    icon: Layers, 
-    title: "Signals Fragment", 
-    desc: "Across tools, teams, and vendors",
-    detail: "No single source of truth",
-    badge: "BREADTH"
-  },
-  { 
-    icon: MessageSquareWarning, 
-    title: "Leaders Debate", 
-    desc: "Data instead of committing to direction",
-    detail: "Analysis paralysis",
-    badge: "ALIGNMENT"
-  },
-  { 
-    icon: Clock, 
-    title: "Decisions Arrive Late", 
-    desc: "Too late to matter",
-    detail: "Missed windows",
-    badge: "SPEED"
-  },
-  { 
-    icon: ShieldAlert, 
-    title: "Decisions Lack Conviction", 
-    desc: "Teams hedge instead of committing",
-    detail: "Diluted action",
-    badge: "CONFIDENCE"
-  },
-];
-```
-
-#### 3. Add 4th impact (lines 29-33)
 ```tsx
 const impacts = [
-  { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
   { value: "3-5", label: "sources", desc: "conflicting data per decision", dimension: "Breadth" },
   { value: "40%", label: "launches", desc: "miss optimal windows", dimension: "Alignment" },
+  { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
   { value: "68%", label: "teams", desc: "lack confidence to act decisively", dimension: "Confidence" },
 ];
 ```
 
-#### 4. Update layout for 4 items each (lines 73-118)
-
-**Root Causes column:**
-- Change card padding from `p-4` to `p-3`
-- Remove the `ArrowRight` icon between cards
-- Reduce `space-y-3` to `space-y-2`
-
-**Quantified Impact column:**
-- Change card padding from `p-4` to `p-3`
-- Reduce `space-y-3` to `space-y-2`
-- Reduce value font size from `text-2xl` to `text-xl`
-
 ---
 
-### Narration Update
+### Additional Layout Fix
 
-The narration in `globalDataNarration.ts` for Slide 2 should also be updated to include the 4th dimension. Add after "Decisions arrive late":
+To ensure the boxes have exactly the same height across rows, update the grid container and column styling:
 
+**Line 79:** Add `items-stretch` to the grid:
+```tsx
+<div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
 ```
-Finally, decisions lack conviction. Teams hedge instead of committing. Action gets diluted.
+
+**Lines 81 and 104:** Change both column containers from `space-y-2` to `flex flex-col gap-2` and add `h-full` to ensure they stretch equally:
+```tsx
+<div className="flex flex-col gap-2 h-full">
 ```
 
-And update the quantified impact section:
-
-```
-Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows. And sixty-eight percent of teams lack the confidence to act decisively.
+**Lines 84-99 and 107-119:** Add `h-full` to each card container to make rows align:
+```tsx
+className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all h-full"
 ```
 
 ---
 
-### Visual Result
-| Why It Exists (4 boxes) | Quantified Impact (4 boxes) |
-|-------------------------|------------------------------|
-| Signals Fragment (BREADTH) | 12+ weeks (Speed) |
-| Leaders Debate (ALIGNMENT) | 3-5 sources (Breadth) |
-| Decisions Arrive Late (SPEED) | 40% launches (Alignment) |
+### Visual Result After Fix
+
+| Why It Exists | Quantified Impact |
+|---------------|-------------------|
+| Signals Fragment (BREADTH) | 3-5 sources (Breadth) |
+| Leaders Debate (ALIGNMENT) | 40% launches (Alignment) |
+| Decisions Arrive Late (SPEED) | 12+ weeks (Speed) |
 | Decisions Lack Conviction (CONFIDENCE) | 68% teams (Confidence) |
 
-Both columns will have 4 equally-sized boxes with consistent dimensions.
-
+Each row will now have matching dimensions with equal-height boxes.
