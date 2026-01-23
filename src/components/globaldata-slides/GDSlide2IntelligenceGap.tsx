@@ -34,9 +34,9 @@ const rootCauses = [
 ];
 
 const impacts = [
-  { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
   { value: "3-5", label: "sources", desc: "conflicting data per decision", dimension: "Breadth" },
   { value: "40%", label: "launches", desc: "miss optimal windows", dimension: "Alignment" },
+  { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
   { value: "68%", label: "teams", desc: "lack confidence to act decisively", dimension: "Confidence" },
 ];
 
@@ -76,14 +76,14 @@ const GDSlide2IntelligenceGap = ({
         </div>
 
         {/* Why It Exists + Quantified Impact */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
           {/* Left: Why It Exists */}
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 h-full">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Why It Exists</p>
             {rootCauses.map((cause, i) => (
-              <div 
+                <div 
                 key={i}
-                className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all"
+                className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all h-full"
               >
                 <div className="w-7 h-7 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center flex-shrink-0">
                   <cause.icon className="w-3.5 h-3.5 text-destructive" />
@@ -101,12 +101,12 @@ const GDSlide2IntelligenceGap = ({
           </div>
 
           {/* Right: Quantified Impact */}
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 h-full">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Quantified Impact</p>
             {impacts.map((impact, i) => (
               <div 
                 key={i}
-                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex items-start gap-3"
+                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex items-start gap-3 h-full"
               >
                 <div className="text-right min-w-[55px]">
                   <span className="text-xl font-bold text-destructive">{impact.value}</span>
