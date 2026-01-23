@@ -84,7 +84,7 @@ const GDSlide2IntelligenceGap = ({
               {rootCauses.map((cause, i) => (
                 <div 
                   key={i}
-                  className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 group hover:border-destructive/30 transition-all"
+                  className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 min-h-[84px] group hover:border-destructive/30 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
@@ -112,7 +112,7 @@ const GDSlide2IntelligenceGap = ({
               {impacts.map((impact, i) => (
                 <div 
                   key={i}
-                  className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex items-center gap-3"
+                  className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-4 min-h-[84px] flex items-center gap-3"
                 >
                   <div className="text-right min-w-[60px]">
                     <span className="text-2xl font-bold text-destructive">{impact.value}</span>
