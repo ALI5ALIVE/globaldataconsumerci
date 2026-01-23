@@ -3,9 +3,12 @@ import GDBehaviorShiftCard, { GDBehavioralShift } from "./GDBehaviorShiftCard";
 import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
 
 // AI Readiness indicator component
+// Level 1-2 (FRAGMENTED/MANAGED) = AI Blocked
+// Level 3 (CONNECTED) = AI Enabled  
+// Level 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
 const AIReadinessIndicator = ({ level }: { level: number }) => {
   if (level <= 2) {
-    // Stages 4-5 in inverted order (MANAGED/FRAGMENTED) = AI Blocked
+    // Stages 1-2 (FRAGMENTED/MANAGED) = AI Blocked
     return (
       <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-red-500/15 border border-red-500/30">
         <Lock className="w-3 h-3 text-red-400" />
@@ -21,7 +24,7 @@ const AIReadinessIndicator = ({ level }: { level: number }) => {
       </div>
     );
   } else {
-    // Stages 1-2 in inverted order (PREDICTIVE/OPERATIONAL) = AI Optimized
+    // Stages 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
     return (
       <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/30">
         <Sparkles className="w-3 h-3 text-amber-400" />

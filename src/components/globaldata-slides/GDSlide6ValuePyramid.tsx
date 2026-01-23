@@ -5,11 +5,11 @@ import GDPyramid3D from "./GDPyramid3D";
 import GDDetailsPanel, { GDLayerData } from "./GDDetailsPanel";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
-// Complete content specification with inverted stages: Level 1 = Apex (PREDICTIVE), Level 5 = Base (FRAGMENTED)
+// Complete content specification: Level 1 = Base (FRAGMENTED), Level 5 = Apex (PREDICTIVE)
 const layersData: GDLayerData[] = [
   {
     id: "PREDICTIVE",
-    level: 1,
+    level: 5,
     headline: "Predictive & Adaptive Category Performance",
     sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
@@ -45,7 +45,7 @@ const layersData: GDLayerData[] = [
   },
   {
     id: "OPERATIONAL",
-    level: 2,
+    level: 4,
     headline: "Operational Intelligence",
     sublabel: "Intelligent Ops",
     whatItLooksLike: [
@@ -116,7 +116,7 @@ const layersData: GDLayerData[] = [
   },
   {
     id: "MANAGED",
-    level: 4,
+    level: 2,
     headline: "Managed but Siloed Intelligence",
     sublabel: "Silo Optimisation",
     whatItLooksLike: [
@@ -151,7 +151,7 @@ const layersData: GDLayerData[] = [
   },
   {
     id: "FRAGMENTED",
-    level: 5,
+    level: 1,
     headline: "Fragmented & Reactive Intelligence",
     sublabel: "Starting Point",
     whatItLooksLike: [
@@ -282,7 +282,8 @@ const GDSlide6ValuePyramid = ({
   }, []);
 
   const handleModuleClick = useCallback((module: string) => {
-    setActiveLayerId("MANAGED");
+    const managedLayer = layersData.find(l => l.id === "MANAGED");
+    if (managedLayer) setActiveLayerId("MANAGED");
     setHighlightedModule(module);
     setIsAutoCycling(false);
     setTimeout(() => setHighlightedModule(null), 3000);
@@ -347,7 +348,7 @@ const GDSlide6ValuePyramid = ({
                         ? "bg-primary scale-125"
                         : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                     }`}
-                    aria-label={`Go to stage ${5 - index}`}
+                    aria-label={`Go to stage ${index + 1}`}
                   >
                     {index === currentIndex && isAutoCycling && (
                       <span 
@@ -390,7 +391,7 @@ const GDSlide6ValuePyramid = ({
             </div>
 
             {/* Stage label */}
-            <p className="text-[9px] text-muted-foreground mt-1.5 text-center">
+            <p className="text-[9px] text-muted-foreground mt-1.5 text-center truncate">
               Stage {activeLayer.level} of 5 · {isAutoCycling ? "Click pyramid or pause to explore" : "Click play to resume"}
             </p>
           </div>
