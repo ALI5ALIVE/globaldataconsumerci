@@ -3,23 +3,23 @@ import { Layers, MessageSquareWarning, Clock, Zap, Database, CheckCircle2, Arrow
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const beforeItems = [
-  { icon: Layers, label: "Siloed insights", desc: "Fragmented across tools" },
-  { icon: MessageSquareWarning, label: "Different taxonomies", desc: "No common language" },
-  { icon: Clock, label: "Manual reconciliation", desc: "Time-consuming alignment" },
-  { icon: AlertTriangle, label: "Slow, debated decisions", desc: "Analysis paralysis" },
+  { icon: Layers, label: "Shopper signals scattered", desc: "POS, panels, social in silos" },
+  { icon: MessageSquareWarning, label: "Conflicting shopper views", desc: "Which insight is right?" },
+  { icon: Clock, label: "Manual trend validation", desc: "Weeks to align on the opportunity" },
+  { icon: AlertTriangle, label: "Competitor launched first", desc: "They saw the same trend—faster" },
 ];
 
 const afterItems = [
-  { icon: Database, label: "Unified system", desc: "One connected platform" },
-  { icon: CheckCircle2, label: "Shared truth", desc: "Single taxonomy" },
-  { icon: Zap, label: "Embedded workflows", desc: "Automated orchestration" },
-  { icon: TrendingUp, label: "Confident, fast action", desc: "Aligned decisions" },
+  { icon: Database, label: "One shopper truth", desc: "Unified across touchpoints" },
+  { icon: CheckCircle2, label: "Trend to concept in days", desc: "Not weeks or months" },
+  { icon: Zap, label: "Validated before commit", desc: "Test with real shoppers first" },
+  { icon: TrendingUp, label: "First to shelf", desc: "Own the category moment" },
 ];
 
 const metrics = [
-  { before: "Weeks", after: "Days", label: "Decision cycles", improvement: "70% faster" },
-  { before: "Reactive", after: "Proactive", label: "Launch approach", improvement: "2x success" },
-  { before: "Sprawl", after: "Unified", label: "Tool landscape", improvement: "30% lower TCO" },
+  { before: "12 weeks", after: "3 days", label: "Validate a flavour concept", improvement: "Before competitor locks shelf" },
+  { before: "Gut feel", after: "Shopper-tested", label: "Launch confidence", improvement: "2x success rate" },
+  { before: "Failed SKUs", after: "Lean pipeline", label: "Innovation waste", improvement: "30% less unsold inventory" },
 ];
 
 const GDSlide3BeforeAfter = ({
@@ -34,8 +34,8 @@ const GDSlide3BeforeAfter = ({
   return (
     <GDSlideContainer
       id="gd-slide-3"
-      title="The Transformation: One Platform, One Truth"
-      subtitle="What changes when intelligence works together"
+      title="One Shopper Truth. Faster Wins."
+      subtitle="What changes when you see the full journey—and act on it first"
       slideNumber={3}
       isPlaying={isPlaying}
       isLoading={isLoading}

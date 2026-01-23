@@ -6,30 +6,30 @@ const differentiators = [
   { 
     icon: Layers, 
     title: "Unified Taxonomy", 
-    desc: "Single classification system across all intelligence domains — the unlock",
-    proof: "One truth, not five conflicting ones",
+    desc: "The same shopper language used by 8 of the top 10 global FMCG companies",
+    proof: "One shopper truth across your entire value chain",
     color: "from-primary to-sky-400"
   },
   { 
     icon: Database, 
-    title: "Proprietary Data", 
-    desc: "Market + Consumer intelligence no competitor can replicate — the fuel",
-    proof: "40+ years of consumer behavior data",
+    title: "Proprietary Consumer Data", 
+    desc: "40 years of shopper, category, and competitive intelligence across 200+ markets",
+    proof: "Data no competitor can replicate",
     color: "from-sky-400 to-cyan-400"
   },
   { 
     icon: Users, 
-    title: "Human + AI", 
-    desc: "Analyst expertise amplified by Ava, enterprise-grade AI analyst — the engine",
-    proof: "1,000+ analysts globally",
+    title: "Ava + 1,000 Analysts", 
+    desc: "AI that's analyzed 10M+ consumer data points, amplified by human expertise",
+    proof: "Insights your team would take months to find",
     color: "from-cyan-400 to-teal-400"
   },
 ];
 
 const closingTruths = [
-  { text: "Insight alone does not create advantage", icon: Database },
-  { text: "Speed without confidence creates risk", icon: ArrowRight },
-  { text: "Connected Intelligence creates performance", icon: Sparkles },
+  { text: "Shopper insight alone doesn't win shelf space", icon: Database },
+  { text: "Speed without validation creates failed launches", icon: ArrowRight },
+  { text: "Connected shopper intelligence creates category winners", icon: Sparkles },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -44,8 +44,8 @@ const GDSlide9WhyGlobalData = ({
   return (
     <GDSlideContainer
       id="gd-slide-9"
-      title="Only GlobalData Can Deliver This"
-      subtitle="Proprietary data. Unified taxonomy. AI that amplifies expertise."
+      title="Trusted by the World's Leading Consumer Brands"
+      subtitle="8 of the top 10 FMCG companies. 40 years of shopper intelligence. AI that amplifies expertise."
       slideNumber={9}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -103,9 +103,9 @@ const GDSlide9WhyGlobalData = ({
         <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center">
           {/* Leadership Imperative */}
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-5">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Performance Imperative</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">For Consumer Brand Leaders</p>
             <p className="text-base text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a <span className="font-bold text-primary">connected system</span> will define the next generation of <span className="font-bold text-primary">category performers</span>.
+              The brands that <span className="font-bold text-primary">see shoppers as one connected journey</span>—from trend to shelf to basket—will own the next generation of <span className="font-bold text-primary">category moments</span>.
             </p>
           </div>
 
@@ -130,7 +130,7 @@ const GDSlide9WhyGlobalData = ({
         <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-6 text-center">
           <p className="text-xs font-semibold text-white/80 uppercase tracking-wider mb-2">Final Takeaway</p>
           <p className="text-lg font-bold text-white leading-relaxed">
-            The future belongs to organisations that turn change into decisions — <span className="underline decoration-2">earlier</span>, <span className="underline decoration-2">together</span>, and with <span className="underline decoration-2">conviction</span>.
+            The brands that win will be the ones who see shopper change <span className="underline decoration-2">first</span>, act <span className="underline decoration-2">together</span>, and own the shelf <span className="underline decoration-2">before competitors react</span>.
           </p>
         </div>
       </div>

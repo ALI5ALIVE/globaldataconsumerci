@@ -5,28 +5,28 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const rootCauses = [
   { 
     icon: Layers, 
-    title: "First: Signals Fragment", 
-    desc: "Across tools, teams, and vendors",
-    detail: "No single source of truth"
+    title: "First: Shopper Signals Fragment", 
+    desc: "Consumer insights in one system, POS in another",
+    detail: "No single shopper truth"
   },
   { 
     icon: MessageSquareWarning, 
-    title: "Then: Leaders Debate", 
-    desc: "Data instead of committing to direction",
-    detail: "Analysis paralysis"
+    title: "Then: Teams Debate Sources", 
+    desc: "Which data do we trust for this launch?",
+    detail: "Innovation stalls"
   },
   { 
     icon: Clock, 
-    title: "Finally: Decisions Arrive Late", 
-    desc: "Too late to matter",
-    detail: "Missed windows"
+    title: "Finally: The Shelf Window Closes", 
+    desc: "Competitor launched while you validated",
+    detail: "Category share lost"
   },
 ];
 
 const impacts = [
-  { value: "12+", label: "weeks", desc: "average decision latency" },
-  { value: "3-5", label: "sources", desc: "conflicting data per decision" },
-  { value: "40%", label: "launches", desc: "miss optimal windows" },
+  { value: "12wks", label: "=", desc: "2 missed seasonal windows" },
+  { value: "3-5", label: "sources", desc: "to reconcile per NPD decision" },
+  { value: "40%", label: "of NPD", desc: "misses the consumer moment" },
 ];
 
 const GDSlide2IntelligenceGap = ({
@@ -41,8 +41,8 @@ const GDSlide2IntelligenceGap = ({
   return (
     <GDSlideContainer
       id="gd-slide-2"
-      title="The Intelligence Gap: Where Performance Falls Behind"
-      subtitle="The silent tax on every decision you make"
+      title="The Speed Gap: From Trend to Shelf—Too Slow"
+      subtitle="The hidden cost between seeing an opportunity and owning it"
       slideNumber={2}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -57,10 +57,10 @@ const GDSlide2IntelligenceGap = ({
         <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
             <AlertOctagon className="w-5 h-5 text-destructive" />
-            <span className="text-sm font-semibold text-destructive uppercase tracking-wider">The Intelligence Gap</span>
+            <span className="text-sm font-semibold text-destructive uppercase tracking-wider">The Speed Gap</span>
           </div>
           <p className="text-lg font-medium text-foreground">
-            The delay between <span className="text-destructive">real-world change</span> and <span className="text-destructive">enterprise action</span>.
+            The delay between <span className="text-destructive">spotting a consumer trend</span> and <span className="text-destructive">owning it on shelf</span>.
           </p>
         </div>
 
@@ -115,9 +115,9 @@ const GDSlide2IntelligenceGap = ({
 
         {/* Bottom Line */}
         <div className="bg-card border-2 border-destructive/30 rounded-xl p-5 text-center">
-          <p className="text-sm font-semibold text-destructive uppercase tracking-wider mb-2">Bottom Line</p>
+          <p className="text-sm font-semibold text-destructive uppercase tracking-wider mb-2">Real Example</p>
           <p className="text-lg font-medium text-foreground">
-            This gap is where <span className="text-destructive">growth stalls</span>, <span className="text-destructive">relevance erodes</span>, and <span className="text-destructive">performance is lost</span>.
+            A global snack brand spent <span className="text-destructive">9 months validating</span> a 'protein + gut health' concept. By launch, <span className="text-destructive">three competitors had already captured the position</span>.
           </p>
         </div>
       </div>

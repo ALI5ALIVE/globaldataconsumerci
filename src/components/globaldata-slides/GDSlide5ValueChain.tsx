@@ -6,31 +6,31 @@ const stages = [
   { 
     icon: Target, 
     title: "Strategy & Portfolio", 
-    items: ["Where to play", "Category prioritisation", "Investment focus"],
+    items: ["Which categories are premiumizing?", "Where should we play in plant-based?", "Which shoppers are switching?"],
     color: "from-primary to-sky-400"
   },
   { 
     icon: Lightbulb, 
     title: "Innovation & Product", 
-    items: ["Trend discovery", "Whitespace identification", "Concept screening"],
+    items: ["What flavour/format combos are trending?", "What's the unmet need in protein snacks?", "Will shoppers pay more for clean-label?"],
     color: "from-sky-400 to-cyan-400"
   },
   { 
     icon: Tag, 
     title: "Brand, Pricing & Claims", 
-    items: ["Positioning", "Pricing strategy", "Claims validation"],
+    items: ["Can we claim 'high protein' + 'clean label'?", "What's the optimal price point?", "How do we position vs. competitors?"],
     color: "from-cyan-400 to-teal-400"
   },
   { 
     icon: Truck, 
     title: "Go-to-Market & Sales", 
-    items: ["Channel strategy", "Launch planning", "Enablement"],
+    items: ["Which retailer indexes highest for this SKU?", "What's the right launch story for Tesco vs. Carrefour?", "What sell-in materials convert?"],
     color: "from-teal-400 to-green-400"
   },
   { 
     icon: BarChart3, 
     title: "In-Market Performance", 
-    items: ["Post-launch monitoring", "Competitive response", "Portfolio optimisation"],
+    items: ["Why did this SKU underperform in Tesco?", "How do we respond to competitor promo?", "Which SKUs should we delist?"],
     color: "from-green-400 to-lime-400"
   },
 ];
@@ -47,8 +47,8 @@ const GDSlide5ValueChain = ({
   return (
     <GDSlideContainer
       id="gd-slide-5"
-      title="Intelligence in the Workflow, Not the Inbox"
-      subtitle="Every function. Every decision. One truth."
+      title="From Shopper Insight to Basket Drop"
+      subtitle="The questions your brand asks—answered across the entire journey"
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -115,9 +115,9 @@ const GDSlide5ValueChain = ({
               <Target className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">What Changes</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">Why This Matters For Your Brand</p>
               <p className="text-base text-foreground leading-relaxed">
-                Every function operates from the <span className="font-bold text-primary">same shared truth</span>, so decisions <span className="font-bold text-primary">reinforce each other</span> across the entire value chain.
+                R&D, marketing, and commercial all see the <span className="font-bold text-primary">same shopper</span>—so the product you develop, the claims you make, and the story you tell retailers all <span className="font-bold text-primary">reinforce each other</span>.
               </p>
             </div>
           </div>
@@ -127,15 +127,15 @@ const GDSlide5ValueChain = ({
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">5</p>
-            <p className="text-xs text-muted-foreground">Value chain stages</p>
+            <p className="text-xs text-muted-foreground">Brand functions aligned</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">1</p>
-            <p className="text-xs text-muted-foreground">Source of truth</p>
+            <p className="text-xs text-muted-foreground">Shopper truth</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">∞</p>
-            <p className="text-xs text-muted-foreground">Compounding value</p>
+            <p className="text-xs text-muted-foreground">Decisions that compound</p>
           </div>
         </div>
       </div>
