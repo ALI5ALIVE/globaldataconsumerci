@@ -7,14 +7,14 @@ interface GDFragmentationIllustrationProps {
 
 // 8 nodes with staggered y-positions for organic fragmentation look
 const nodes = [
-  { id: "nielsen", label: "Nielsen", icon: BarChart3, color: "hsl(199, 89%, 48%)", x: 50, y: 75 },
-  { id: "spreadsheets", label: "Spreadsheets", icon: Table2, color: "hsl(140, 70%, 45%)", x: 130, y: 95 },
-  { id: "iri", label: "IRI", icon: ShoppingCart, color: "hsl(330, 80%, 55%)", x: 210, y: 65 },
-  { id: "bi", label: "BI Tools", icon: PieChart, color: "hsl(45, 90%, 50%)", x: 290, y: 100 },
-  { id: "mintel", label: "Mintel", icon: TrendingUp, color: "hsl(145, 70%, 45%)", x: 370, y: 70 },
-  { id: "dashboards", label: "Dashboards", icon: LayoutDashboard, color: "hsl(200, 80%, 50%)", x: 450, y: 90 },
-  { id: "social", label: "Social", icon: MessageCircle, color: "hsl(280, 65%, 55%)", x: 530, y: 60 },
-  { id: "internal", label: "Internal", icon: FileSpreadsheet, color: "hsl(30, 90%, 55%)", x: 610, y: 85 },
+  { id: "nielsen", label: "Nielsen", icon: BarChart3, color: "hsl(199, 89%, 48%)", x: 45, y: 80 },
+  { id: "spreadsheets", label: "Spreadsheets", icon: Table2, color: "hsl(140, 70%, 45%)", x: 132, y: 100 },
+  { id: "iri", label: "IRI", icon: ShoppingCart, color: "hsl(330, 80%, 55%)", x: 219, y: 68 },
+  { id: "bi", label: "BI Tools", icon: PieChart, color: "hsl(45, 90%, 50%)", x: 306, y: 105 },
+  { id: "mintel", label: "Mintel", icon: TrendingUp, color: "hsl(145, 70%, 45%)", x: 393, y: 72 },
+  { id: "dashboards", label: "Dashboards", icon: LayoutDashboard, color: "hsl(200, 80%, 50%)", x: 480, y: 95 },
+  { id: "social", label: "Social", icon: MessageCircle, color: "hsl(280, 65%, 55%)", x: 567, y: 65 },
+  { id: "internal", label: "Internal", icon: FileSpreadsheet, color: "hsl(30, 90%, 55%)", x: 655, y: 88 },
 ];
 
 const brokenConnections = [
@@ -39,12 +39,12 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
     return () => clearInterval(interval);
   }, []);
 
-  // Smaller radius for 8 nodes
-  const nodeRadius = 28;
+  // Larger radius for full width display
+  const nodeRadius = 35;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 660 180" className="w-full max-w-[660px]">
+      <svg viewBox="0 0 700 190" className="w-full max-w-[700px]">
         <defs>
           <filter id="gdFragmentGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="blur" />
@@ -130,7 +130,7 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
         })}
 
         {/* Warning indicators with ≠ symbol - positioned above some nodes */}
-        {[{ x: 170, y: 30 }, { x: 330, y: 25 }, { x: 490, y: 28 }].map((pos, index) => {
+        {[{ x: 175, y: 32 }, { x: 350, y: 28 }, { x: 525, y: 30 }].map((pos, index) => {
           const pulseOpacity = 0.4 + 0.3 * Math.sin((warningPulse + index * 50) * 0.1);
           
           return (
@@ -187,16 +187,16 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
               />
               
               {/* Icon */}
-              <foreignObject x={node.x - 14} y={node.y - 14} width="28" height="28">
+              <foreignObject x={node.x - 18} y={node.y - 18} width="36" height="36">
                 <div className="w-full h-full flex items-center justify-center">
-                  <IconComponent className="w-6 h-6 text-white" strokeWidth={2.5} />
+                  <IconComponent className="w-8 h-8 text-white" strokeWidth={2.5} />
                 </div>
               </foreignObject>
               
               {/* Label */}
               <text
                 x={node.x}
-                y={node.y + nodeRadius + 16}
+                y={node.y + nodeRadius + 18}
                 textAnchor="middle"
                 fill={isHovered ? node.color : "hsl(0, 40%, 70%)"}
                 fontSize="11"
@@ -212,8 +212,8 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
 
         {/* "Different Taxonomy" label */}
         <text
-          x="330"
-          y="168"
+          x="350"
+          y="178"
           textAnchor="middle"
           fill="hsl(0, 50%, 60%)"
           fontSize="13"
