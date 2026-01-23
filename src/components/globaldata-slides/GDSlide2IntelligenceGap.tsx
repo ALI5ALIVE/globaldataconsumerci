@@ -1,5 +1,5 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Layers, MessageSquareWarning, Clock, AlertOctagon, ArrowRight } from "lucide-react";
+import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const rootCauses = [
@@ -24,12 +24,20 @@ const rootCauses = [
     detail: "Missed windows",
     badge: "SPEED"
   },
+  { 
+    icon: ShieldAlert, 
+    title: "Decisions Lack Conviction", 
+    desc: "Teams hedge instead of committing",
+    detail: "Diluted action",
+    badge: "CONFIDENCE"
+  },
 ];
 
 const impacts = [
   { value: "12+", label: "weeks", desc: "average decision latency", dimension: "Speed" },
   { value: "3-5", label: "sources", desc: "conflicting data per decision", dimension: "Breadth" },
   { value: "40%", label: "launches", desc: "miss optimal windows", dimension: "Alignment" },
+  { value: "68%", label: "teams", desc: "lack confidence to act decisively", dimension: "Confidence" },
 ];
 
 const GDSlide2IntelligenceGap = ({
@@ -68,50 +76,45 @@ const GDSlide2IntelligenceGap = ({
         </div>
 
         {/* Why It Exists + Quantified Impact */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Left: Why It Exists */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Why It Exists</p>
             {rootCauses.map((cause, i) => (
               <div 
                 key={i}
-                className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-4 group hover:border-destructive/30 transition-all"
+                className="flex items-start gap-3 bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
-                    <cause.icon className="w-4 h-4 text-destructive" />
-                  </div>
-                  {i < rootCauses.length - 1 && (
-                    <ArrowRight className="w-4 h-4 text-muted-foreground/30 hidden sm:block" />
-                  )}
+                <div className="w-7 h-7 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center flex-shrink-0">
+                  <cause.icon className="w-3.5 h-3.5 text-destructive" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[10px] font-bold text-destructive bg-destructive/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{cause.badge}</span>
+                    <span className="text-[9px] font-bold text-destructive bg-destructive/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{cause.badge}</span>
                   </div>
-                  <h4 className="text-sm font-semibold text-foreground">{cause.title}</h4>
-                  <p className="text-xs text-muted-foreground">{cause.desc}</p>
-                  <p className="text-xs text-destructive mt-1">{cause.detail}</p>
+                  <h4 className="text-sm font-semibold text-foreground leading-tight">{cause.title}</h4>
+                  <p className="text-xs text-muted-foreground leading-tight">{cause.desc}</p>
+                  <p className="text-xs text-destructive mt-0.5">{cause.detail}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Right: Quantified Impact */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Quantified Impact</p>
             {impacts.map((impact, i) => (
               <div 
                 key={i}
-                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-4 flex items-start gap-3"
+                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex items-start gap-3"
               >
-                <div className="text-right min-w-[60px]">
-                  <span className="text-2xl font-bold text-destructive">{impact.value}</span>
+                <div className="text-right min-w-[55px]">
+                  <span className="text-xl font-bold text-destructive">{impact.value}</span>
                   <span className="text-xs text-destructive ml-1">{impact.label}</span>
                 </div>
                 <div className="flex-1 border-l border-destructive/20 pl-3">
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">{impact.dimension}</p>
-                  <p className="text-xs text-foreground">{impact.desc}</p>
+                  <p className="text-[9px] text-muted-foreground uppercase tracking-wider">{impact.dimension}</p>
+                  <p className="text-xs text-foreground leading-tight">{impact.desc}</p>
                 </div>
               </div>
             ))}

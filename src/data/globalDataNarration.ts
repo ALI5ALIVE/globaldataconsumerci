@@ -39,15 +39,17 @@ Category leaders don't just have better data—they have connected intelligence 
     title: "Where Growth and Leadership Are Lost",
     script: `So where exactly does growth get lost? The Intelligence Gap is the delay between real-world change and enterprise action.
 
-Why does it exist? Three reasons.
+Why does it exist? Four reasons.
 
 First, signals fragment. Across tools, teams, and vendors. No single source of truth.
 
 Then, leaders debate. Data instead of committing to direction. Analysis paralysis sets in.
 
-Finally, decisions arrive late. Too late to matter. Missed windows.
+Third, decisions arrive late. Too late to matter. Missed windows.
 
-The quantified impact? Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows.
+Finally, decisions lack conviction. Teams hedge instead of committing. Action gets diluted.
+
+The quantified impact? Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows. And sixty-eight percent of teams lack the confidence to act decisively.
 
 This gap is where growth stalls, relevance erodes, and leadership is lost.`,
     voiceId: DEFAULT_VOICE_ID,
