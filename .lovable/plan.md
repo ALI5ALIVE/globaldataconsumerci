@@ -1,252 +1,293 @@
 
 
-## Enhance Slide 5 Value Chain: Default Selection and Richer Detail Panel
+## Create Inline SVG Illustrations for Slide 3 Before/After Sections
 
-### Summary
+### Overview
 
-Apply the same pattern from Slide 4 to Slide 5 (Value Chain):
-1. **Default to first stage** - Initialize `activeStage` to `0` (Trend & Strategy) so there's never a blank panel
-2. **Reset to default on hover-off** - When user hovers off, revert to default stage instead of `null`
-3. **Enrich the detail panel** - Add JTBD, Pain-to-Outcome, Real Example, and Capability tags using `solutionDeepDives` data
+Create two new SVG illustration components that visually represent:
+1. **Before: Fragmented Intelligence** - Disconnected silos with broken connections, scattered data, and warning indicators
+2. **After: Connected Intelligence** - Unified platform with flowing connections, organized data, and success indicators
 
----
-
-### Current Issues
-
-1. **Blank panel on load**: `activeStage` starts as `null`, showing "Hover over a workflow stage..."
-2. **Blank panel on hover-off**: `handleStageHover(null)` clears the panel
-3. **Limited detail content**: Current panel only shows:
-   - Stage label
-   - Combination name
-   - Questions list
-   - Short description
+These will follow the same visual style as `GDFragmentationIllustration.tsx` - featuring node-based graphics with glow effects, animated elements, and interactive hover states.
 
 ---
 
-### Proposed Changes
+### Visual Design
 
-#### 1. Default Stage Selection
-
-Set initial state to first stage (Trend & Strategy):
-
-```tsx
-// Before
-const [activeStage, setActiveStage] = useState<number | null>(null);
-
-// After
-const [activeStage, setActiveStage] = useState<number | null>(0);
-```
-
-#### 2. Revert to Default on Hover-Off
-
-Update `handleStageHover` to revert to stage 0 instead of null:
-
-```tsx
-// Before
-const handleStageHover = (index: number | null) => {
-  if (!isNarrationControlled) {
-    setActiveStage(index);
-    if (index !== null) setActiveCombo(null);
-  }
-};
-
-// After
-const handleStageHover = (index: number | null) => {
-  if (!isNarrationControlled) {
-    setActiveStage(index !== null ? index : 0); // Revert to first stage
-    if (index !== null) setActiveCombo(null);
-  }
-};
-```
-
-#### 3. Enrich Detail Panel Content
-
-**Import solutionDeepDives data:**
-```tsx
-import { solutionDeepDives } from "@/data/solutionDeepDives";
-```
-
-**Map solution names to deep dive IDs:**
-```tsx
-const solutionToDeepDiveId: Record<string, string> = {
-  "Strategic": "strategic",
-  "Market": "market",
-  "Competitive": "competitive",
-  "Innovation": "innovation",
-  "Sales": "sales",
-};
-```
-
-**Enhanced detail panel structure:**
-
-For each workflow stage, show the **primary solution's** rich content (first solution in the stage's array):
+#### Before Illustration: `GDBeforeSilosIllustration.tsx`
 
 ```text
-+--------------------------------------------------+
-| [Icons] Stage: Trend & Strategy                  |
-| Combination: Where to Play                       |
-|--------------------------------------------------|
-| PRIMARY SOLUTION: Strategic Intelligence         |
-|--------------------------------------------------|
-| JOBS TO BE DONE                                  |
-| When setting portfolio priorities...             |
-| I want to see which categories are premiumizing  |
-| So that I invest in growth spaces first          |
-|--------------------------------------------------|
-| FROM PAIN TO OUTCOME                             |
-| [Pain box - red]                                 |
-|        ↓                                         |
-| [Capability box - neutral]                       |
-|        ↓                                         |
-| [Outcome box - primary]                          |
-|--------------------------------------------------|
-| REAL EXAMPLE                                     |
-| Brand: A top-5 global beverage company           |
-| Result: Captured 4% category share in 18 months  |
-|--------------------------------------------------|
-| KEY CAPABILITIES                                 |
-| [Tag] [Tag] [Tag] [Tag]                          |
-+--------------------------------------------------+
++------------------------------------------------------------------+
+|                                                                  |
+|    [NielsenIQ]----×----[IRI]----×----[Mintel]----×----[Social]   |
+|         ⚠                ⚠               ⚠                       |
+|                                                                  |
+|    [Spreadsheets]--×--[BI Tools]--×--[Internal]--×--[Reports]    |
+|                          ≠               ≠                       |
+|                                                                  |
+|              "Different Taxonomies • Manual Reconciliation"      |
++------------------------------------------------------------------+
+
+Features:
+- 8 scattered nodes in two staggered rows (organic layout)
+- Dashed red broken connection lines with × marks
+- ≠ symbols indicating taxonomy conflicts
+- Pulsing orange warning indicators
+- Hover glow effect on nodes
+- Red/destructive color palette
+```
+
+#### After Illustration: `GDAfterConnectedIllustration.tsx`
+
+```text
++------------------------------------------------------------------+
+|                                                                  |
+|         ┌──────────────────────────────────────────┐             |
+|         │                  AVA                     │             |
+|         │            (Central Hub)                 │             |
+|         └──────────────────────────────────────────┘             |
+|              ↙     ↓     ↓     ↓     ↘                           |
+|    [Market]──[Strategic]──[Competitive]──[Innovation]──[Sales]   |
+|         ↘         ↓           ↓           ↓         ↙            |
+|              ═══════════════════════════════════                 |
+|                      "Unified Taxonomy"                          |
+|                                                                  |
+|              "Connected Intelligence • Shared Truth"             |
++------------------------------------------------------------------+
+
+Features:
+- Central "Ava" hub with radiating connections
+- 5 solution nodes in a connected arc
+- Solid flowing connection lines (animated gradient)
+- Checkmark indicators instead of warnings
+- Unified flow ring around all nodes
+- Primary blue/sky color palette
+- Hover glow effect on nodes
 ```
 
 ---
 
-### New Detail Panel Code
+### File 1: `src/components/globaldata-slides/GDBeforeSilosIllustration.tsx`
 
-Replace the current stage detail panel (lines 257-295) with an enriched version:
+**New component for the "Before" fragmented state**
 
+**Structure:**
 ```tsx
-{activeData && (() => {
-  // Get the primary solution's deep dive
-  const primarySol = activeData.solutions[0];
-  const deepDiveId = solutionToDeepDiveId[primarySol];
-  const deepDive = solutionDeepDives.find(s => s.id === deepDiveId);
-  const firstPain = deepDive?.painToCapability[0];
+import { useState, useEffect } from "react";
+import { BarChart3, Table2, ShoppingCart, PieChart, TrendingUp, 
+         LayoutDashboard, MessageCircle, FileSpreadsheet } from "lucide-react";
 
-  return (
-    <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in">
-      <div className="flex gap-4">
-        {/* Left: Icons + Stage Info */}
-        <div className="shrink-0">
-          <div className="flex gap-1 mb-2">
-            {activeData.solutions.map((sol) => {
-              const Icon = solutionConfig[sol].icon;
-              return (
-                <div key={sol} className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: solutionConfig[sol].color + "20" }}>
-                  <Icon className="w-4 h-4" style={{ color: solutionConfig[sol].color }} />
-                </div>
-              );
-            })}
-          </div>
-          <p className="text-xs text-muted-foreground">Stage {workflowStages.indexOf(activeData) + 1}</p>
-        </div>
+interface GDBeforeSilosIllustrationProps {
+  onNodeClick?: (node: string) => void;
+}
 
-        {/* Right: Rich Content */}
-        <div className="flex-1 grid grid-cols-3 gap-4">
-          {/* Column 1: JTBD */}
-          {deepDive && (
-            <div className="p-3 bg-card/60 rounded-lg border border-border/50">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">
-                Jobs to Be Done
-              </p>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                <span className="text-primary font-medium">When</span> {deepDive.jtbd.when}...{" "}
-                <span className="text-primary font-medium">I want to</span> {deepDive.jtbd.iWantTo}{" "}
-                <span className="text-primary font-medium">so that</span> {deepDive.jtbd.soThat}.
-              </p>
-            </div>
-          )}
+const nodes = [
+  // Row 1 - External data sources (staggered y)
+  { id: "nielsen", label: "NielsenIQ", icon: BarChart3, x: 65, y: 45 },
+  { id: "iri", label: "Circana", icon: ShoppingCart, x: 175, y: 55 },
+  { id: "mintel", label: "Mintel", icon: TrendingUp, x: 285, y: 40 },
+  { id: "social", label: "Social", icon: MessageCircle, x: 395, y: 52 },
+  // Row 2 - Internal tools
+  { id: "spreadsheets", label: "Spreadsheets", icon: Table2, x: 120, y: 110 },
+  { id: "bi", label: "BI Tools", icon: PieChart, x: 230, y: 118 },
+  { id: "internal", label: "Reports", icon: FileSpreadsheet, x: 340, y: 105 },
+];
 
-          {/* Column 2: Pain to Outcome */}
-          {firstPain && (
-            <div className="p-3 bg-card/60 rounded-lg border border-border/50">
-              <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">
-                From Pain to Outcome
-              </p>
-              <div className="flex flex-col gap-1">
-                <div className="px-2 py-1 rounded bg-destructive/10 border border-destructive/20">
-                  <span className="text-[10px] text-destructive">{firstPain.pain}</span>
-                </div>
-                <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
-                <div className="px-2 py-1 rounded bg-card border border-border">
-                  <span className="text-[10px] text-foreground">{firstPain.capability}</span>
-                </div>
-                <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
-                <div className="px-2 py-1 rounded bg-primary/15 border border-primary/30">
-                  <span className="text-[10px] text-primary font-medium">{firstPain.outcome}</span>
-                </div>
-              </div>
-            </div>
-          )}
+const brokenConnections = [
+  // Row 1 connections
+  { from: 0, to: 1 }, { from: 1, to: 2 }, { from: 2, to: 3 },
+  // Row 2 connections
+  { from: 4, to: 5 }, { from: 5, to: 6 },
+  // Cross-row connections
+  { from: 0, to: 4 }, { from: 2, to: 6 },
+];
 
-          {/* Column 3: Real Example + Capabilities */}
-          {deepDive && (
-            <div className="space-y-2">
-              <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
-                <p className="text-[10px] font-semibold text-primary uppercase mb-0.5">Real Example</p>
-                <p className="text-[10px] text-muted-foreground">{deepDive.example.brand}</p>
-                <p className="text-[10px] text-foreground font-medium">{deepDive.example.result}</p>
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {deepDive.capabilities.slice(0, 3).map((cap, i) => (
-                  <span key={i} className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px]">
-                    {cap}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+// Component with:
+// - Animated warning pulse
+// - Hover state tracking
+// - SVG with defs for glow filters
+// - Broken connection lines with × marks
+// - ≠ taxonomy conflict indicators
+// - Node circles with icons
+// - Caption text
+```
+
+**Key Visual Elements:**
+- `nodeRadius: 28` (slightly smaller than GDFragmentationIllustration to fit more nodes)
+- `viewBox: "0 0 460 170"` (compact horizontal layout)
+- Red/destructive color scheme: `hsl(0, 70%, 50%)`
+- Dashed connection lines with 8px dash, 4px gap
+- × break marks between nodes
+- ≠ symbols for taxonomy conflicts
+- Orange warning pulse animation (50ms interval)
+- Hover scale effect (1.1x)
+
+---
+
+### File 2: `src/components/globaldata-slides/GDAfterConnectedIllustration.tsx`
+
+**New component for the "After" connected state**
+
+**Structure:**
+```tsx
+import { useState, useEffect } from "react";
+import { Target, TrendingUp, Swords, Lightbulb, BarChart3, 
+         Sparkles, CheckCircle2 } from "lucide-react";
+
+interface GDAfterConnectedIllustrationProps {
+  onNodeClick?: (node: string) => void;
+}
+
+const centralHub = { id: "ava", label: "Ava AI", icon: Sparkles, x: 230, y: 40 };
+
+const solutionNodes = [
+  { id: "market", label: "Market", icon: TrendingUp, color: "hsl(199, 89%, 48%)", x: 55, y: 95 },
+  { id: "strategic", label: "Strategic", icon: Target, color: "hsl(142, 70%, 45%)", x: 140, y: 105 },
+  { id: "competitive", label: "Competitive", icon: Swords, color: "hsl(330, 80%, 55%)", x: 230, y: 110 },
+  { id: "innovation", label: "Innovation", icon: Lightbulb, color: "hsl(45, 90%, 50%)", x: 320, y: 105 },
+  { id: "sales", label: "Sales", icon: BarChart3, color: "hsl(280, 65%, 55%)", x: 405, y: 95 },
+];
+
+// Component with:
+// - Central Ava hub with radiating connections
+// - Solution nodes in connected arc
+// - Solid gradient connection lines
+// - Animated flow effect (optional)
+// - Checkmark success indicators
+// - Unified ring around all nodes
+// - "Connected Intelligence" caption
+```
+
+**Key Visual Elements:**
+- `viewBox: "0 0 460 160"`
+- Central hub at top with radiating lines to all nodes
+- Primary blue color scheme: `hsl(217, 100%, 50%)`
+- Solid connection lines (no dashes)
+- Gradient stroke from primary to sky blue
+- ✓ checkmarks near connections
+- Unified arc/ring connecting all solution nodes
+- Green pulse animation for success state
+- Hover glow effect matching brand colors
+
+---
+
+### File 3: Update `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
+
+**Changes to integrate the new illustrations:**
+
+**Add imports:**
+```tsx
+import GDBeforeSilosIllustration from "./GDBeforeSilosIllustration";
+import GDAfterConnectedIllustration from "./GDAfterConnectedIllustration";
+```
+
+**Modify Before column (lines 56-82):**
+```tsx
+{/* Before Column */}
+<div className="relative">
+  <div className="absolute -top-2.5 left-3 px-2 py-0.5 bg-destructive/20 border border-destructive/30 rounded text-[10px] font-semibold text-destructive uppercase tracking-wider z-10">
+    Before: Fragmented Intelligence
+  </div>
+  <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full flex flex-col">
+    {/* NEW: SVG Illustration */}
+    <div className="h-36 mb-3">
+      <GDBeforeSilosIllustration />
     </div>
-  );
-})()}
+    
+    {/* Existing icon list (condensed) */}
+    <div className="grid grid-cols-2 gap-2 flex-1">
+      {beforeItems.map((item, i) => (
+        <div key={i} className="flex items-center gap-2 group">
+          <div className="w-7 h-7 rounded-md bg-destructive/10 border border-destructive/20 flex items-center justify-center shrink-0">
+            <item.icon className="w-3.5 h-3.5 text-destructive" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-semibold text-foreground truncate">{item.label}</div>
+            <div className="text-[10px] text-muted-foreground truncate">{item.desc}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Warning indicators (keep existing) */}
+    <div className="mt-3 pt-3 border-t border-destructive/20 grid grid-cols-2 gap-2">
+      ...
+    </div>
+  </div>
+</div>
 ```
 
----
-
-### Additional Imports
-
-Add `ArrowDown` to the icon imports:
-
+**Modify After column (lines 93-124) - same pattern:**
 ```tsx
-import { Target, TrendingUp, Swords, Lightbulb, BarChart3, ChevronRight, ArrowDown } from "lucide-react";
+{/* After Column */}
+<div className="relative">
+  <div className="absolute -top-2.5 left-3 ...">After: Connected Intelligence</div>
+  <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full flex flex-col">
+    {/* NEW: SVG Illustration */}
+    <div className="h-36 mb-3">
+      <GDAfterConnectedIllustration />
+    </div>
+    
+    {/* Existing icon list (condensed to 2-column grid) */}
+    <div className="grid grid-cols-2 gap-2 flex-1">
+      {afterItems.map((item, i) => (
+        ...
+      ))}
+    </div>
+
+    {/* Success indicators (keep existing) */}
+    ...
+  </div>
+</div>
 ```
 
-Add deep dive data import:
+---
 
-```tsx
-import { solutionDeepDives } from "@/data/solutionDeepDives";
-```
+### Layout Comparison
+
+| Element | Current | After Changes |
+|---------|---------|---------------|
+| Before column | 4 icon rows only | SVG illustration + 2x2 icon grid |
+| After column | 4 icon rows only | SVG illustration + 2x2 icon grid |
+| Visual height | ~280px per column | ~340px per column (illustration adds ~140px) |
+| Icon grid | Vertical list | 2-column compact grid |
+| Metrics banner | Unchanged | Unchanged |
 
 ---
 
-### Behavior After Changes
+### Color Palette Reference
 
-| Action | Before | After |
-|--------|--------|-------|
-| Page load | Blank placeholder | Trend & Strategy panel shown |
-| Hover on stage | That stage shown | That stage shown (enriched) |
-| Hover off stage | Blank placeholder | Trend & Strategy panel shown |
-| Hover on combo | Combo shown | Combo shown (unchanged) |
+**Before (Destructive):**
+- Primary: `hsl(0, 70%, 50%)` - Red
+- Glow: `hsl(0, 70%, 55%)`
+- Warning: `hsl(30, 90%, 55%)` - Orange
+- Background: `hsl(0, 70%, 50%, 0.1)`
 
----
-
-### Files to Modify
-
-| File | Changes |
-|------|---------|
-| `src/components/globaldata-slides/GDSlide5ValueChain.tsx` | Add imports, default state, enriched detail panel |
+**After (Primary/Success):**
+- Primary: `hsl(217, 100%, 50%)` - Blue (Comply365 brand)
+- Accent: `hsl(195, 100%, 45%)` - Sky blue
+- Success: `hsl(142, 70%, 45%)` - Green (for checkmarks)
+- Background: `hsl(217, 100%, 50%, 0.1)`
 
 ---
 
-### Technical Details
+### Implementation Summary
 
-1. **Default state**: Initialize `activeStage` to `0` instead of `null`
-2. **Hover handler**: Revert to `0` instead of `null` when hovering off
-3. **Data mapping**: Use `solutionToDeepDiveId` to connect stage solutions to deep dive content
-4. **Primary solution**: Show deep dive for first solution in stage's array (e.g., "Strategic" for "Trend & Strategy")
-5. **Layout**: Three-column grid for JTBD, Pain-to-Outcome, and Example+Capabilities
-6. **Combo panel**: Keep existing combo detail panel unchanged (it shows different content)
+| File | Action | Description |
+|------|--------|-------------|
+| `GDBeforeSilosIllustration.tsx` | Create | New SVG component with fragmented silos, broken connections, warnings |
+| `GDAfterConnectedIllustration.tsx` | Create | New SVG component with Ava hub, connected solutions, success indicators |
+| `GDSlide3BeforeAfter.tsx` | Modify | Import new components, add illustration containers, adjust icon grid to 2-column |
+
+---
+
+### Interactive Features
+
+Both illustrations will include:
+- **Hover effects**: Nodes scale to 1.1x and apply glow filter
+- **Click handlers**: Optional `onNodeClick` callback for future deep-dive integration
+- **Animated elements**: 
+  - Before: Pulsing orange warning indicators
+  - After: Flowing gradient animation on connections
+- **Responsive sizing**: SVG viewBox scales to container width
 
