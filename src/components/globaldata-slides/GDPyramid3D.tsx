@@ -51,18 +51,18 @@ const GDPyramid3D = ({
 
   // Pyramid configuration - Further expanded for larger visual (~30% bigger)
   const layerConfig = {
-    apex: { x: 750, y: 5 },
-    baseLeft: { x: 10, y: 1200 },
-    baseRight: { x: 1490, y: 1200 },
+    apex: { x: 820, y: 5 },
+    baseLeft: { x: 5, y: 1350 },
+    baseRight: { x: 1635, y: 1350 },
   };
 
-  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (5 → 1200 = 1195px)
+  // CORRECTED: Level 1 at base, Level 5 at apex - Scaled for new height (5 → 1350 = 1345px)
   const layerBounds = {
-    5: { top: 5, bottom: 244 },     // PREDICTIVE - Apex
-    4: { top: 244, bottom: 483 },   // OPERATIONAL
-    3: { top: 483, bottom: 722 },   // CONNECTED
-    2: { top: 722, bottom: 961 },   // MANAGED (with 5 silos)
-    1: { top: 961, bottom: 1200 },  // FRAGMENTED - Base
+    5: { top: 5, bottom: 274 },     // PREDICTIVE - Apex
+    4: { top: 274, bottom: 543 },   // OPERATIONAL
+    3: { top: 543, bottom: 812 },   // CONNECTED
+    2: { top: 812, bottom: 1081 },  // MANAGED (with 5 silos)
+    1: { top: 1081, bottom: 1350 }, // FRAGMENTED - Base
   };
 
   const getLeftX = (y: number) => {
@@ -112,13 +112,13 @@ const GDPyramid3D = ({
     return layers.find((l) => l.level === level);
   };
 
-  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for new layer bounds and larger pyramid
+  // Label positions - Level 5 at top, Level 1 at bottom - Adjusted for larger pyramid
   const labelPositions = {
-    5: { lineStartX: 980, lineStartY: 125, lineEndX: 1600, lineEndY: 125, labelX: 1610, labelY: 125 },
-    4: { lineStartX: 1060, lineStartY: 364, lineEndX: 1600, lineEndY: 364, labelX: 1610, labelY: 364 },
-    3: { lineStartX: 1140, lineStartY: 603, lineEndX: 1600, lineEndY: 603, labelX: 1610, labelY: 603 },
-    2: { lineStartX: 1220, lineStartY: 842, lineEndX: 1600, lineEndY: 842, labelX: 1610, labelY: 842 },
-    1: { lineStartX: 1300, lineStartY: 1081, lineEndX: 1600, lineEndY: 1081, labelX: 1610, labelY: 1081 },
+    5: { lineStartX: 1080, lineStartY: 140, lineEndX: 1750, lineEndY: 140, labelX: 1760, labelY: 140 },
+    4: { lineStartX: 1180, lineStartY: 409, lineEndX: 1750, lineEndY: 409, labelX: 1760, labelY: 409 },
+    3: { lineStartX: 1280, lineStartY: 678, lineEndX: 1750, lineEndY: 678, labelX: 1760, labelY: 678 },
+    2: { lineStartX: 1380, lineStartY: 947, lineEndX: 1750, lineEndY: 947, labelX: 1760, labelY: 947 },
+    1: { lineStartX: 1480, lineStartY: 1216, lineEndX: 1750, lineEndY: 1216, labelX: 1760, labelY: 1216 },
   };
 
   const handleModuleClick = (module: string) => {
@@ -127,7 +127,7 @@ const GDPyramid3D = ({
     }
   };
 
-  const viewBox = isMobile ? "0 0 1500 1220" : "0 0 1850 1220";
+  const viewBox = isMobile ? "0 0 1650 1370" : "0 0 2000 1370";
 
   const apexX = layerConfig.apex.x;
   const apexY = layerConfig.apex.y;
@@ -146,8 +146,8 @@ const GDPyramid3D = ({
         preserveAspectRatio="xMidYMid meet"
         style={{ 
           ...(compact ? {} : {
-            minWidth: isMobile ? "600px" : "960px",
-            minHeight: isMobile ? "540px" : "800px",
+            minWidth: isMobile ? "660px" : "1040px",
+            minHeight: isMobile ? "600px" : "900px",
           }),
           filter: isMobile ? "drop-shadow(0 20px 40px rgba(0,0,0,0.4))" : "drop-shadow(0 30px 60px rgba(0,0,0,0.5))",
         }}
