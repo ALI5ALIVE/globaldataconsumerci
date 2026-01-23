@@ -32,7 +32,7 @@ const GDSlide0Title = ({
   return (
     <section
       id="gd-slide-0"
-      className="min-h-screen w-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-16 snap-start relative overflow-hidden bg-background"
+      className="h-screen w-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-12 snap-start relative overflow-hidden bg-background"
     >
       {/* Play button */}
       {onPlay && (

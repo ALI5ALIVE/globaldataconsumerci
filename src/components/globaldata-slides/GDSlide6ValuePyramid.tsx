@@ -316,7 +316,7 @@ const GDSlide6ValuePyramid = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="grid lg:grid-cols-[3fr_2fr] gap-6 lg:gap-8 items-stretch h-full">
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-4 lg:gap-6 items-stretch h-full max-h-full overflow-hidden">
         {/* LEFT: Pyramid Visual */}
         <div className="w-full min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
           <GDPyramid3D

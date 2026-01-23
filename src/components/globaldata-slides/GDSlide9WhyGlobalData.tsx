@@ -55,7 +55,7 @@ const GDSlide9WhyGlobalData = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-5 h-full">
+      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
         {/* Three Differentiators */}
         <div className="grid md:grid-cols-3 gap-4">
           {differentiators.map((diff, i) => {
