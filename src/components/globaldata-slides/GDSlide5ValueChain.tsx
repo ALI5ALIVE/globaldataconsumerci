@@ -196,10 +196,10 @@ const GDSlide5ValueChain = ({
             {workflowStages.map((stage, i) => (
               <div key={stage.id} className="flex items-center">
                 <div
-                  className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${
+                  className={`flex-1 p-4 rounded-xl border cursor-pointer transition-all duration-200 min-h-[140px] ${
                     isStageHighlighted(i)
-                      ? "border-primary bg-primary/10 shadow-lg scale-[1.02]"
-                      : "border-border/50 bg-card/30 hover:border-primary/30"
+                      ? "border-primary bg-primary/15 shadow-lg scale-[1.02]"
+                      : "border-border bg-card/50 hover:border-primary/40"
                   }`}
                   onMouseEnter={() => handleStageHover(i)}
                   onMouseLeave={() => handleStageHover(null)}
@@ -210,17 +210,26 @@ const GDSlide5ValueChain = ({
                     {stage.label}
                   </h4>
                   
-                  {/* Solution Icons */}
-                  <div className="flex justify-center gap-1 mb-2">
+                  {/* Solution Labels with Icons */}
+                  <div className="flex flex-col gap-1 mb-2">
                     {stage.solutions.map((sol) => {
                       const Icon = solutionConfig[sol].icon;
                       return (
                         <div 
                           key={sol}
-                          className="w-6 h-6 rounded-md flex items-center justify-center"
-                          style={{ backgroundColor: solutionConfig[sol].color + "20" }}
+                          className="flex items-center gap-1.5 px-2 py-0.5 rounded-md border"
+                          style={{ 
+                            backgroundColor: solutionConfig[sol].color + "15",
+                            borderColor: solutionConfig[sol].color + "40"
+                          }}
                         >
-                          <Icon className="w-3.5 h-3.5" style={{ color: solutionConfig[sol].color }} />
+                          <Icon className="w-3 h-3" style={{ color: solutionConfig[sol].color }} />
+                          <span 
+                            className="text-[9px] font-medium"
+                            style={{ color: solutionConfig[sol].color }}
+                          >
+                            {sol}
+                          </span>
                         </div>
                       );
                     })}
