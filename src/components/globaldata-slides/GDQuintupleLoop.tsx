@@ -16,23 +16,10 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
 
   // Overlapping infinity model dimensions - larger circles to fill the blue area
-  const loopRadius = 55;
-  const loopSpacing = 88;  // Increased spacing for larger circles with overlap
-  const startX = 124;
+  const loopRadius = 62;
+  const loopSpacing = 95;
+  const startX = 110;
   const cy = 100;
-
-  // SVG path that weaves through all 5 circles in an infinity-style pattern
-  const weavePath = `
-    M ${startX} ${cy}
-    C ${startX} ${cy - 48}, ${startX + loopSpacing * 0.5} ${cy - 48}, ${startX + loopSpacing} ${cy}
-    C ${startX + loopSpacing * 1.5} ${cy + 48}, ${startX + loopSpacing * 2} ${cy + 48}, ${startX + loopSpacing * 2} ${cy}
-    C ${startX + loopSpacing * 2} ${cy - 48}, ${startX + loopSpacing * 2.5} ${cy - 48}, ${startX + loopSpacing * 3} ${cy}
-    C ${startX + loopSpacing * 3.5} ${cy + 48}, ${startX + loopSpacing * 4} ${cy + 48}, ${startX + loopSpacing * 4} ${cy}
-    C ${startX + loopSpacing * 4} ${cy - 48}, ${startX + loopSpacing * 3.5} ${cy - 48}, ${startX + loopSpacing * 3} ${cy}
-    C ${startX + loopSpacing * 2.5} ${cy + 48}, ${startX + loopSpacing * 2} ${cy + 48}, ${startX + loopSpacing * 2} ${cy}
-    C ${startX + loopSpacing * 2} ${cy - 48}, ${startX + loopSpacing * 1.5} ${cy - 48}, ${startX + loopSpacing} ${cy}
-    C ${startX + loopSpacing * 0.5} ${cy + 48}, ${startX} ${cy + 48}, ${startX} ${cy}
-  `;
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -50,15 +37,6 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
           <filter id="gdLoopHoverGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="8" result="blur" />
             <feFlood floodColor="hsl(45, 93%, 70%)" floodOpacity="0.9" />
-            <feComposite in2="blur" operator="in" />
-            <feMerge>
-              <feMergeNode />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id="gdDotGlow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feFlood floodColor="hsl(45, 93%, 58%)" floodOpacity="0.9" />
             <feComposite in2="blur" operator="in" />
             <feMerge>
               <feMergeNode />
@@ -130,35 +108,10 @@ const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
           );
         })}
 
-        {/* Animated dots flowing through all circles in infinity pattern */}
-        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
-          <animateMotion
-            dur="8s"
-            repeatCount="indefinite"
-            path={weavePath}
-          />
-        </circle>
-        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
-          <animateMotion
-            dur="8s"
-            repeatCount="indefinite"
-            begin="2.67s"
-            path={weavePath}
-          />
-        </circle>
-        <circle r="7" fill="hsl(45, 93%, 58%)" style={{ filter: "url(#gdDotGlow)" }}>
-          <animateMotion
-            dur="8s"
-            repeatCount="indefinite"
-            begin="5.33s"
-            path={weavePath}
-          />
-        </circle>
-
         {/* "Unified Taxonomy" label at bottom */}
         <text
           x="300"
-          y="228"
+          y="200"
           textAnchor="middle"
           fill="white"
           fontSize="18"
