@@ -1,4 +1,4 @@
-import { MousePointer2, ArrowRight } from "lucide-react";
+import { MousePointer2, ArrowDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { solutionDeepDives } from "@/data/solutionDeepDives";
 
@@ -71,17 +71,32 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
           </p>
         </div>
         
-        {/* Pain to Outcome */}
+        {/* Pain to Outcome - Vertical stacked layout */}
         <div className="mb-3 p-3 bg-card/60 rounded-lg border border-border/50">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
             From Pain to Outcome
           </p>
-          <div className="flex items-start gap-2 text-sm">
-            <span className="text-destructive/80 text-xs flex-shrink-0">{firstPain.pain}</span>
-            <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <span className="text-foreground text-xs flex-shrink-0">{firstPain.capability}</span>
-            <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <span className="text-primary font-medium text-xs">{firstPain.outcome}</span>
+          <div className="flex flex-col gap-1.5">
+            {/* Pain */}
+            <div className="px-2.5 py-1.5 rounded-md bg-destructive/10 border border-destructive/20">
+              <span className="text-xs text-destructive">{firstPain.pain}</span>
+            </div>
+            {/* Arrow Down */}
+            <div className="flex justify-center">
+              <ArrowDown className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
+            {/* Capability */}
+            <div className="px-2.5 py-1.5 rounded-md bg-card border border-border">
+              <span className="text-xs text-foreground">{firstPain.capability}</span>
+            </div>
+            {/* Arrow Down */}
+            <div className="flex justify-center">
+              <ArrowDown className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
+            {/* Outcome */}
+            <div className="px-2.5 py-1.5 rounded-md bg-primary/15 border border-primary/30">
+              <span className="text-xs text-primary font-medium">{firstPain.outcome}</span>
+            </div>
           </div>
         </div>
         
