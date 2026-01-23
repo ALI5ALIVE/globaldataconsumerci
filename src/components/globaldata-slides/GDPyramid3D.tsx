@@ -372,16 +372,16 @@ const GDPyramid3D = ({
                 <polygon points={points} fill="transparent" className="cursor-pointer hover:fill-white/10 transition-all duration-200" onClick={() => { onLayerClick(2); handleModuleClick(section.id); }} />
 
                 {/* Silo icon - doubled size */}
-                <foreignObject x={sectionCenterX - 24} y={foundationCenterY - 55} width="48" height="48" className="pointer-events-none">
+                <foreignObject x={sectionCenterX - 48} y={foundationCenterY - 90} width="96" height="96" className="pointer-events-none">
                   <div className="w-full h-full flex items-center justify-center">
-                    <IconComponent className="w-10 h-10 text-white/90" strokeWidth={2} />
+                    <IconComponent className="w-20 h-20 text-white/90" strokeWidth={2} />
                   </div>
                 </foreignObject>
 
-                <text x={sectionCenterX} y={foundationCenterY + 4} textAnchor="middle" fill="hsl(210, 40%, 98%)" fontSize="16" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.05em" className="uppercase pointer-events-none select-none">
+                <text x={sectionCenterX} y={foundationCenterY + 20} textAnchor="middle" fill="hsl(210, 40%, 98%)" fontSize="32" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.05em" className="uppercase pointer-events-none select-none">
                   {section.label}
                 </text>
-                <text x={sectionCenterX} y={foundationCenterY + 26} textAnchor="middle" fill="hsl(210, 40%, 80%)" fontSize="12" fontWeight="400" fontFamily="'Inter', sans-serif" className="pointer-events-none select-none">
+                <text x={sectionCenterX} y={foundationCenterY + 54} textAnchor="middle" fill="hsl(210, 40%, 80%)" fontSize="24" fontWeight="400" fontFamily="'Inter', sans-serif" className="pointer-events-none select-none">
                   {section.sublabel}
                 </text>
               </g>
