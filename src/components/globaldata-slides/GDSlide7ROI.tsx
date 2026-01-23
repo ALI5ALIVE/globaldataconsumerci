@@ -35,7 +35,7 @@ const roiPillars = [
   },
 ];
 
-const GDSlide8ROI = ({
+const GDSlide7ROI = ({
   isPlaying = false,
   isLoading = false,
   progress = 0,
@@ -46,10 +46,10 @@ const GDSlide8ROI = ({
 }: SlideNarrationProps) => {
   return (
     <GDSlideContainer
-      id="gd-slide-8"
+      id="gd-slide-7"
       title="ROI Shows Up in Three Places"
       subtitle="Measurable returns that compound as maturity increases"
-      slideNumber={8}
+      slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -141,4 +141,4 @@ const GDSlide8ROI = ({
   );
 };
 
-export default GDSlide8ROI;
+export default GDSlide7ROI;
