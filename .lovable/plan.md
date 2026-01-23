@@ -1,152 +1,186 @@
 
 
-## Headers & Subheaders Narrative Audit
+## Improving Slides 6 & 7: Connected Intelligence as the AI Gateway
 
-### Current State Analysis
+### The Core Message to Reinforce
 
-I've reviewed all 11 slides to assess how well the headers and subheaders convey the narrative arc. The goal is to ensure a presenter can articulate a clear, compelling story to customers.
-
----
-
-### Current Headers & Subheaders
-
-| Slide | Current Title | Current Subtitle |
-|-------|---------------|------------------|
-| 0 | Your Consumers Are Changing Faster Than Your Insights | How leading consumer brands turn constant change into faster, more confident growth and better category performance |
-| 1 | Markets Reward Speed and Conviction | The growth reality every consumer brand faces |
-| 2 | Where Growth and Performance Are Lost | The Intelligence Gap is the delay between real-world change and enterprise action |
-| 3 | From Fragmented Insight to Connected Decisions | The transformation that closes the Intelligence Gap |
-| 4 | Connected Intelligence for Consumer Brands | Closing the Intelligence Gap |
-| 5 | Solutions That Combine for Greater Advantage | Connected intelligence across every workflow stage |
-| 6 | Intelligence Maturity Ladder | From fragmented point solutions to connected intelligence that drives category performance |
-| 7 | The Intelligence Maturity Roadmap | The measurable journey from fragmented insight to predictive performance |
-| 8 | ROI Shows Up in Three Places | Measurable returns that compound as maturity increases |
-| 9 | Built for Connected Intelligence at Scale | Why GlobalData is uniquely positioned to close the Intelligence Gap |
-| 10 | From Weak Signal to Winning Launch | How a global snack brand captured #2 share in 8 weeks |
+Without the **Connected Intelligence layer (Stage 3)**, organizations cannot achieve Optimized (Stage 4) or Predictive (Stage 5) capabilities. In the age of AI, this is critical because:
+- AI requires unified, governed data to function effectively
+- Fragmented data prevents AI from learning across the organization
+- Organizations stuck at Stages 1-2 will be left behind as AI-ready competitors accelerate
 
 ---
 
-### Issues Identified
+### Proposed Changes for Slide 6 (Value Pyramid)
 
-1. **Slides 6 & 7 overlap** - Both reference "maturity" (Ladder vs Roadmap) with similar subtitles, causing confusion
-2. **Slide 4 subtitle too generic** - "Closing the Intelligence Gap" doesn't convey the value proposition
-3. **Slide 5 title unclear** - "Solutions That Combine for Greater Advantage" doesn't specify what advantage
-4. **Slide 1 subtitle passive** - "The growth reality every consumer brand faces" doesn't set up the problem
-5. **Slide 8 title too vague** - "ROI Shows Up in Three Places" doesn't communicate what ROI means
-6. **Slide 10 subtitle too tactical** - Case study framing doesn't connect to the broader narrative
+#### 1. Add "AI Gateway" Visual Marker at Stage 3
 
----
+Add a prominent visual indicator showing Stage 3 as the critical threshold:
 
-### Recommended Changes
+```text
+                    ┌─────────────────┐
+                    │   PREDICTIVE    │  ← Only possible WITH connected layer
+                    │   (AI-Driven)   │
+                    ├─────────────────┤
+                    │   OPTIMIZED     │  ← Only possible WITH connected layer
+                    │   (Intelligent) │
+         ═══════════╪═════════════════╪═══════════════
+         AI GATEWAY │   CONNECTED     │  ← THE PLATFORM SHIFT
+         ═══════════╪═════════════════╪═══════════════
+                    │    MANAGED      │  ← AI cannot work here
+                    │    (Siloed)     │
+                    ├─────────────────┤
+                    │   FRAGMENTED    │  ← AI cannot work here
+                    │   (Reactive)    │
+                    └─────────────────┘
+```
 
-#### Slide 1: Set Up the Market Pressure
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | Markets Reward Speed and Conviction | The Market Rewards Speed and Punishes Hesitation |
-| Subtitle | The growth reality every consumer brand faces | Why the Intelligence Gap is widening for consumer brands |
+**Implementation**: Add a horizontal "AI GATEWAY" marker line between Stages 3 and 4 in `GDPyramid3D.tsx`
 
-**Rationale**: Creates urgency and introduces "Intelligence Gap" earlier to set up Slide 2.
+#### 2. Update Stage 3 (Connected) Content
 
----
+In `GDSlide6ValuePyramid.tsx`, enhance the messaging:
 
-#### Slide 4: Articulate the Answer
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | Connected Intelligence for Consumer Brands | The Answer: Connected Intelligence |
-| Subtitle | Closing the Intelligence Gap | One system that moves faster, aligns better, and acts with confidence |
+| Field | Current | Proposed |
+|-------|---------|----------|
+| `whyItMatters` | "Eliminates handoffs and creates one version of intelligence truth. This is the platform shift." | "This is the platform shift that unlocks AI. Without connected, governed data, Stages 4 and 5 are unreachable—and competitors with unified intelligence will outpace you." |
+| `result` (add) | - | "Foundation for AI-powered optimization and prediction" |
 
-**Rationale**: Uses "The Answer" to signal this is the solution slide. Subtitle echoes the title slide's core promise.
+#### 3. Update Stages 1-2 to Emphasize the Block
 
----
+Add warning messaging to Stages 1-2 that they block AI capability:
 
-#### Slide 5: Clarify the Value Chain
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | Solutions That Combine for Greater Advantage | Intelligence That Compounds Across the Value Chain |
-| Subtitle | Connected intelligence across every workflow stage | From trend to shelf—every stage reinforced by connected solutions |
+**Stage 5 (Fragmented)**:
+- Add to `whyItMatters`: "AI cannot function on fragmented data—organizations here are locked out of the AI advantage."
 
-**Rationale**: "Compounds" connects to ROI messaging. "Trend to shelf" makes the value chain tangible.
+**Stage 4 (Managed/Siloed)**:
+- Add to `whyItMatters`: "Silos prevent AI from learning across the organization. Progress stops here without unification."
 
----
+#### 4. Add "AI Readiness" Indicator to Details Panel
 
-#### Slide 6: Differentiate from Slide 7
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | Intelligence Maturity Ladder | Where Is Your Organisation Today? |
-| Subtitle | From fragmented point solutions to connected intelligence that drives category performance | Five stages of intelligence maturity—and why Stage 3 changes everything |
+Add a small visual indicator showing AI readiness status for each stage:
 
-**Rationale**: Makes it a diagnostic question (engaging). "Stage 3 changes everything" creates intrigue about the platform shift.
-
----
-
-#### Slide 7: Focus on the Journey
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | The Intelligence Maturity Roadmap | Your Roadmap to Predictive Performance |
-| Subtitle | The measurable journey from fragmented insight to predictive performance | The proven path from reactive to first-mover |
-
-**Rationale**: "Your Roadmap" makes it personal. "Proven path" adds credibility. "Reactive to first-mover" is clearer than "fragmented to predictive."
+| Stage | AI Readiness |
+|-------|--------------|
+| 1-2 | "AI Blocked" (red) |
+| 3 | "AI Enabled" (green) |
+| 4-5 | "AI Optimized" (gold) |
 
 ---
 
-#### Slide 8: Make ROI Tangible
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | ROI Shows Up in Three Places | The Return: Speed, Success, Savings |
-| Subtitle | Measurable returns that compound as maturity increases | How connected intelligence delivers measurable advantage |
+### Proposed Changes for Slide 7 (Maturity Curve)
 
-**Rationale**: "Speed, Success, Savings" is memorable alliteration. "The Return" signals this is the payoff slide.
+#### 1. Add "AI Threshold" Visual Marker
+
+In the hockey stick curve visualization, add a horizontal threshold line at Stage 3 with annotation:
+
+```text
+Value
+  ↑
+  │                                    ★ Stage 5: Predictive
+  │                              ┌────────────────────────┐
+  │                        ★     │ AI-POWERED TERRITORY   │
+  │               ★ ─────────────┴────────────────────────┘
+  │         ★     │ Stage 3: AI THRESHOLD
+  │    ★──────────┴─────────────────────────────────────────
+  │               │ PRE-AI TERRITORY
+  └───────────────┴─────────────────────────────────────────→ Time
+        Stage 1   Stage 2   Stage 3   Stage 4   Stage 5
+```
+
+**Implementation**: Add shaded regions and threshold line in the SVG
+
+#### 2. Update Stage Descriptions
+
+**Stage 3 (Connected)**:
+| Field | Current | Proposed |
+|-------|---------|----------|
+| `whyItMatters` | "Eliminates handoffs and creates one version of intelligence truth" | "The AI threshold—unified data is the prerequisite for intelligent automation. Without it, Stages 4 and 5 remain out of reach." |
+| `curveAnnotations` | Add | "AI THRESHOLD: Where automation becomes possible" |
+
+**Stage 4 (Optimized)**:
+| Field | Current | Proposed |
+|-------|---------|----------|
+| `whyItMatters` | "Turns intelligence into controlled execution, not just reporting" | "AI-augmented decisions—only possible because connected data enables machine learning across functions." |
+
+**Stage 5 (Predictive)**:
+| Field | Current | Proposed |
+|-------|---------|----------|
+| `whyItMatters` | "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat" | "AI anticipates and acts—but only for organizations that first achieved connection. This is where the AI advantage compounds." |
+
+#### 3. Add "Age of AI" Callout Box
+
+Add a prominent callout below the curve:
+
+> **In the age of AI, Stage 3 is non-negotiable.**
+> Organizations stuck at Stages 1-2 cannot leverage AI for optimization or prediction. The gap between connected and fragmented organizations is widening exponentially.
 
 ---
 
-#### Slide 10: Connect Case Study to Theme
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Title | From Weak Signal to Winning Launch | Connected Intelligence in Action |
-| Subtitle | How a global snack brand captured #2 share in 8 weeks | From weak signal to winning launch in 6 months |
-
-**Rationale**: Title becomes thematic, subtitle becomes the case study hook.
-
----
-
-### Updated Narrative Arc
-
-After changes, the presenter can articulate this story:
-
-1. **"The Market Rewards Speed and Punishes Hesitation"** - Market pressure is real
-2. **"Where Growth and Performance Are Lost"** - The Intelligence Gap is the problem
-3. **"From Fragmented Insight to Connected Decisions"** - Here's the transformation
-4. **"The Answer: Connected Intelligence"** - Here's our solution
-5. **"Intelligence That Compounds Across the Value Chain"** - Here's how it works
-6. **"Where Is Your Organisation Today?"** - Diagnose your current state
-7. **"Your Roadmap to Predictive Performance"** - Here's how to progress
-8. **"The Return: Speed, Success, Savings"** - Here's the payoff
-9. **"Built for Connected Intelligence at Scale"** - Why GlobalData
-10. **"Connected Intelligence in Action"** - Proof it works
-
----
-
-### Files to Modify
+### Summary of File Changes
 
 | File | Changes |
 |------|---------|
-| `GDSlide0Title.tsx` | Update agenda labels to match new titles |
-| `GDSlide1GrowthReality.tsx` | Update title and subtitle props |
-| `GDSlide4Proposition.tsx` | Update title and subtitle props |
-| `GDSlide5ValueChain.tsx` | Update title and subtitle props |
-| `GDSlide6ValuePyramid.tsx` | Update title and subtitle props |
-| `GDSlide7MaturityCurve.tsx` | Update title and subtitle props |
-| `GDSlide8ROI.tsx` | Update title and subtitle props |
-| `GDSlide10Solutions.tsx` | Update title and subtitle props |
+| `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` | Update `whyItMatters` for stages 3, 4, 5; add AI readiness messaging |
+| `src/components/globaldata-slides/GDPyramid3D.tsx` | Add "AI GATEWAY" visual marker line between layers 3 and 4 |
+| `src/components/globaldata-slides/GDDetailsPanel.tsx` | Add AI readiness indicator badge |
+| `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx` | Update stage descriptions; add AI threshold visual; add "Age of AI" callout |
 
 ---
 
-### Summary
+### Technical Implementation Details
 
-| Metric | Count |
-|--------|-------|
-| Files to modify | 8 |
-| Title changes | 7 |
-| Subtitle changes | 7 |
-| Agenda item updates | 7 |
+#### Pyramid AI Gateway Line (GDPyramid3D.tsx)
+Add between layers 3 and 4:
+```tsx
+{/* AI GATEWAY threshold marker */}
+<line 
+  x1={getLeftX(layerBounds[3].bottom)} 
+  y1={layerBounds[3].bottom} 
+  x2={getRightX(layerBounds[3].bottom)} 
+  y2={layerBounds[3].bottom} 
+  stroke="hsl(45, 93%, 58%)" 
+  strokeWidth="4" 
+  strokeDasharray="16,8"
+/>
+<text x={750} y={layerBounds[3].bottom + 30} textAnchor="middle" fill="hsl(45, 93%, 58%)" fontSize="18" fontWeight="700">
+  AI GATEWAY
+</text>
+```
+
+#### Maturity Curve AI Threshold (GDSlide7MaturityCurve.tsx)
+Add shaded regions and threshold annotation:
+```tsx
+{/* AI Territory shading */}
+<rect x="560" y="60" width={isMobile ? 240 : 560} height="400" fill="hsl(173 80% 40% / 0.08)" rx="8" />
+<text x="780" y="100" fill="hsl(173 80% 50%)" fontSize="16" fontWeight="600">AI-POWERED TERRITORY</text>
+
+{/* Pre-AI Territory shading */}
+<rect x="90" y="460" width="470" height="200" fill="hsl(0 70% 50% / 0.08)" rx="8" />
+<text x="325" y="640" fill="hsl(0 70% 60%)" fontSize="14">PRE-AI TERRITORY</text>
+```
+
+#### Age of AI Callout (GDSlide7MaturityCurve.tsx)
+Add below the curve visualization:
+```tsx
+<div className="bg-primary/10 border border-primary/30 rounded-lg p-3 mt-2">
+  <p className="text-xs font-semibold text-primary">In the age of AI, Stage 3 is non-negotiable.</p>
+  <p className="text-[10px] text-muted-foreground mt-1">
+    Organizations stuck at Stages 1-2 cannot leverage AI for optimization or prediction. 
+    The gap between connected and fragmented organizations is widening exponentially.
+  </p>
+</div>
+```
+
+---
+
+### Expected Narrative Impact
+
+After these changes, the presenter can articulate:
+
+1. **"Look at where your organization sits on this pyramid/curve."**
+2. **"Stage 3—Connected Intelligence—is the AI gateway. It's the threshold that separates organizations that can leverage AI from those that cannot."**
+3. **"Without unified, governed data, AI has nothing to learn from. Your innovation team's data doesn't talk to your commercial team's data. Machine learning across functions is impossible."**
+4. **"In the age of AI, this isn't just about efficiency—it's existential. Organizations above the threshold will accelerate. Those below will fall further behind."**
+5. **"The question isn't whether to pursue AI. The question is: do you have the connected foundation to make AI work?"**
 
