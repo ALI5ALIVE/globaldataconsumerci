@@ -1,25 +1,32 @@
 
 
-## Update Title Slide Subtitle
+## Update Executive Takeaway Box
 
-### Change Required
+### Current Copy (line 97)
+```
+The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the consumer's journey as one connected story.
+```
 
-Update the subtitle text on the title slide (Slide 0) to align with the sharpened enterprise-action narrative.
+### Issue
+This copy uses the old "consumer journey as one connected story" framing, which is softer and consumer-behavior-focused. The new narrative is sharper and enterprise-action-focused.
 
 ---
 
-### Current Copy (lines 85-89)
+### Recommended New Copy Options
 
+**Option A (Recommended)** - Mirrors the new value prop:
 ```
-How leading consumer brands are winning 
-the moments that matter.
+The brands winning today don't have more data—they have connected intelligence that lets them move faster, align better, and act with confidence.
 ```
 
-### New Copy
-
+**Option B** - Emphasizes the Intelligence Gap:
 ```
-How leading consumer brands turn constant change into
-faster, more confident growth and better category performance.
+Category leaders don't just have better data—they've closed the Intelligence Gap and turned intelligence into unified action.
+```
+
+**Option C** - Focuses on speed and conviction:
+```
+The brands winning today don't debate data longer—they've connected their intelligence and move with speed and conviction.
 ```
 
 ---
@@ -28,26 +35,22 @@ faster, more confident growth and better category performance.
 
 **File:** `src/components/globaldata-slides/GDSlide0Title.tsx`
 
-**Lines 85-89:** Replace the current paragraph with the new copy, maintaining the same styling structure:
+**Lines 96-98:** Replace the executive takeaway paragraph:
 
 ```tsx
-<p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-  How leading consumer brands turn constant change into
-  <br className="hidden sm:block" />
-  <span className="text-primary font-medium">faster, more confident growth</span> and better category performance.
+<p className="text-sm text-foreground leading-relaxed">
+  The brands winning today don't have more data—they have connected intelligence that lets them move faster, align better, and act with confidence.
 </p>
 ```
 
-The key phrase "faster, more confident growth" will be highlighted with the primary color to maintain visual consistency with the current design pattern.
-
 ---
 
-### Why This Works
+### Why Option A Works Best
 
-The new subtitle directly connects to the narrative arc:
-- **"constant change"** - acknowledges the market reality (Slide 1)
-- **"faster, more confident growth"** - the outcome of closing the Intelligence Gap
-- **"better category performance"** - the ultimate business result
+1. **"Connected intelligence"** - directly introduces the core concept from Slide 4
+2. **"Move faster, align better, act with confidence"** - echoes the exact value prop language
+3. **"Don't have more data"** - keeps the provocative contrast that challenges the data-abundance assumption
+4. **Drops "shelf space, share of stomach"** - removes softer consumer-brand terminology in favor of sharper enterprise language
 
-This reinforces the enterprise-action focus rather than the softer "moments that matter" phrasing.
+This sets up the entire narrative arc: the title slide hints at the answer (connected intelligence) before the problem (Intelligence Gap) is even defined.
 
