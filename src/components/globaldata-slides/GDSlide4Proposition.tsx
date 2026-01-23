@@ -29,18 +29,18 @@ const GDSlide4Proposition = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Central Value Proposition */}
-        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-6">
-          <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed text-center">
+        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4">
+          <p className="text-base md:text-lg font-medium text-foreground leading-relaxed text-center">
             A unified solution that connects <span className="text-primary font-bold">market, consumer, competitor, innovation, and commercial intelligence</span> into one trusted system—so organisations <span className="text-primary font-bold">move faster, align better, and act with confidence</span>.
           </p>
         </div>
 
         {/* Intelligence Domains Hub */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-6 items-center">
+        <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center min-h-0">
           {/* Connected Intelligence Wheel */}
-          <div className="flex items-center justify-center py-4">
+          <div className="flex items-center justify-center h-full">
             <ConnectedIntelligenceWheel
               activeSegment={activeSegment}
               defaultSegment="Market Intelligence"
@@ -54,7 +54,7 @@ const GDSlide4Proposition = ({
         </div>
 
         {/* Bottom callout */}
-        <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center">
+        <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 text-center">
           <p className="text-sm text-foreground">
             This is intelligence designed to <span className="font-bold text-primary">drive decisions end-to-end</span>—not another layer of data.
           </p>
