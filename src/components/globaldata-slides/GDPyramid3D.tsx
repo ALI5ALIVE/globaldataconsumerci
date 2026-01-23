@@ -22,16 +22,16 @@ interface GDPyramid3DProps {
   compact?: boolean;
 }
 
-// Inverted layer colors: Level 1 = apex (Gold), Level 5 = base (Red)
+// CORRECTED: Level 1 = base (Red), Level 5 = apex (Gold)
 const layerColors = {
-  1: { main: "hsl(45, 93%, 58%)", dark: "hsl(45, 93%, 45%)", glow: "hsl(45, 93%, 58%)" },     // PREDICTIVE - Gold
-  2: { main: "hsl(280, 65%, 55%)", dark: "hsl(280, 65%, 42%)", glow: "hsl(280, 65%, 55%)" },  // OPERATIONAL - Purple
+  1: { main: "hsl(0, 70%, 50%)", dark: "hsl(0, 70%, 38%)", glow: "hsl(0, 70%, 50%)" },        // FRAGMENTED - Red (base)
+  2: { main: "hsl(199, 89%, 48%)", dark: "hsl(199, 89%, 36%)", glow: "hsl(199, 89%, 48%)" },  // MANAGED - Blue
   3: { main: "hsl(195, 100%, 45%)", dark: "hsl(195, 100%, 35%)", glow: "hsl(195, 100%, 45%)" },  // CONNECTED - Sky Blue
-  4: { main: "hsl(199, 89%, 48%)", dark: "hsl(199, 89%, 36%)", glow: "hsl(199, 89%, 48%)" },  // MANAGED - Blue
-  5: { main: "hsl(0, 70%, 50%)", dark: "hsl(0, 70%, 38%)", glow: "hsl(0, 70%, 50%)" },        // FRAGMENTED - Red
+  4: { main: "hsl(280, 65%, 55%)", dark: "hsl(280, 65%, 42%)", glow: "hsl(280, 65%, 55%)" },  // OPERATIONAL - Purple
+  5: { main: "hsl(45, 93%, 58%)", dark: "hsl(45, 93%, 45%)", glow: "hsl(45, 93%, 58%)" },     // PREDICTIVE - Gold (apex)
 };
 
-// 5 silos for Level 4 (MANAGED)
+// 5 silos for Level 2 (MANAGED)
 const foundationSections = [
   { id: "nielseniq", label: "NielsenIQ", sublabel: "Point of Sale", icon: BarChart3, color: "hsl(210, 100%, 45%)" },
   { id: "circana", label: "Circana", sublabel: "Retail Analytics", icon: ShoppingCart, color: "hsl(280, 70%, 50%)" },
@@ -56,13 +56,13 @@ const GDPyramid3D = ({
     baseRight: { x: 1420, y: 1080 },
   };
 
-  // Inverted layer boundaries: Level 1 at apex, Level 5 at base
+  // CORRECTED: Level 1 at base, Level 5 at apex
   const layerBounds = {
-    1: { top: 40, bottom: 248 },    // PREDICTIVE - Apex
-    2: { top: 248, bottom: 456 },   // OPERATIONAL
+    5: { top: 40, bottom: 248 },    // PREDICTIVE - Apex
+    4: { top: 248, bottom: 456 },   // OPERATIONAL
     3: { top: 456, bottom: 664 },   // CONNECTED
-    4: { top: 664, bottom: 872 },   // MANAGED (with 5 silos)
-    5: { top: 872, bottom: 1080 },  // FRAGMENTED - Base
+    2: { top: 664, bottom: 872 },   // MANAGED (with 5 silos)
+    1: { top: 872, bottom: 1080 },  // FRAGMENTED - Base
   };
 
   const getLeftX = (y: number) => {
@@ -87,9 +87,9 @@ const GDPyramid3D = ({
     return `${topLeft},${bounds.top} ${topRight},${bounds.top} ${bottomRight},${bounds.bottom} ${bottomLeft},${bounds.bottom}`;
   };
 
-  // 5 sections for Level 4 (MANAGED silos)
+  // 5 sections for Level 2 (MANAGED silos)
   const getFoundationSectionPoints = (sectionIndex: number) => {
-    const bounds = layerBounds[4];
+    const bounds = layerBounds[2];
     const topLeft = getLeftX(bounds.top);
     const topRight = getRightX(bounds.top);
     const bottomLeft = getLeftX(bounds.bottom);
@@ -135,7 +135,7 @@ const GDPyramid3D = ({
   const rightBaseX = layerConfig.baseRight.x;
   const baseY = layerConfig.baseLeft.y;
 
-  const foundationBounds = layerBounds[4];
+  const foundationBounds = layerBounds[2];
   const foundationCenterY = (foundationBounds.top + foundationBounds.bottom) / 2;
 
   return (
@@ -198,8 +198,8 @@ const GDPyramid3D = ({
           </text>
         </g>
 
-        {/* Render layers 1, 2, 3, 5 (Level 4 is silos, rendered separately) */}
-        {[1, 2, 3, 5].map((level) => {
+        {/* Render layers 5, 4, 3, 1 (Level 2 is silos, rendered separately) */}
+        {[5, 4, 3, 1].map((level) => {
           const points = getLayerPoints(level);
           const colors = layerColors[level as keyof typeof layerColors];
           const isActive = activeLayer === level;
@@ -222,7 +222,7 @@ const GDPyramid3D = ({
                 style={{ filter: isActive ? `url(#gd-active-glow-${level})` : "none", opacity: isActive ? 1 : 0.85 }}
               />
 
-              {level !== 1 && (
+              {level !== 5 && (
                 <line x1={getLeftX(bounds.top)} y1={bounds.top} x2={getRightX(bounds.top)} y2={bounds.top} stroke="white" strokeWidth="2" strokeOpacity={isActive ? "0.4" : "0.2"} />
               )}
 
@@ -249,10 +249,10 @@ const GDPyramid3D = ({
           );
         })}
 
-        {/* Embedded illustrations for layers 1, 2, 3, 5 - DOUBLED SIZE */}
-        {/* Layer 1 (PREDICTIVE - Apex) - Transformational Illustration */}
+        {/* Embedded illustrations for layers 5, 4, 3, 1 - DOUBLED SIZE */}
+        {/* Layer 5 (PREDICTIVE - Apex) - Transformational Illustration */}
         {(() => {
-          const bounds = layerBounds[1];
+          const bounds = layerBounds[5];
           const layerHeight = bounds.bottom - bounds.top;
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
@@ -275,9 +275,9 @@ const GDPyramid3D = ({
           );
         })()}
 
-        {/* Layer 2 (OPERATIONAL) - Metrics Gauges */}
+        {/* Layer 4 (OPERATIONAL) - Metrics Gauges */}
         {(() => {
-          const bounds = layerBounds[2];
+          const bounds = layerBounds[4];
           const layerHeight = bounds.bottom - bounds.top;
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
@@ -325,9 +325,9 @@ const GDPyramid3D = ({
           );
         })()}
 
-        {/* Layer 5 (FRAGMENTED - Base) - Fragmentation Illustration */}
+        {/* Layer 1 (FRAGMENTED - Base) - Fragmentation Illustration */}
         {(() => {
-          const bounds = layerBounds[5];
+          const bounds = layerBounds[1];
           const layerHeight = bounds.bottom - bounds.top;
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
@@ -350,12 +350,12 @@ const GDPyramid3D = ({
           );
         })()}
 
-        {/* Level 4 (MANAGED) - 5 Silos */}
+        {/* Level 2 (MANAGED) - 5 Silos */}
         <g>
           {foundationSections.map((section, index) => {
             const points = getFoundationSectionPoints(index);
-            const isActive = activeLayer === 4;
-            const colors = layerColors[4];
+            const isActive = activeLayer === 2;
+            const colors = layerColors[2];
 
             const topLeftX = getLeftX(foundationBounds.top);
             const topRightX = getRightX(foundationBounds.top);
@@ -378,10 +378,10 @@ const GDPyramid3D = ({
                   stroke={colors.main}
                   strokeWidth={isActive ? "4" : "2"}
                   className="cursor-pointer transition-all duration-300"
-                  onClick={() => { onLayerClick(4); handleModuleClick(section.id); }}
-                  style={{ filter: isActive ? `url(#gd-active-glow-4)` : "none", opacity: isActive ? 1 : 0.85 }}
+                  onClick={() => { onLayerClick(2); handleModuleClick(section.id); }}
+                  style={{ filter: isActive ? `url(#gd-active-glow-2)` : "none", opacity: isActive ? 1 : 0.85 }}
                 />
-                <polygon points={points} fill="transparent" className="cursor-pointer hover:fill-white/10 transition-all duration-200" onClick={() => { onLayerClick(4); handleModuleClick(section.id); }} />
+                <polygon points={points} fill="transparent" className="cursor-pointer hover:fill-white/10 transition-all duration-200" onClick={() => { onLayerClick(2); handleModuleClick(section.id); }} />
 
                 {/* Silo icon - doubled size */}
                 <foreignObject x={sectionCenterX - 24} y={foundationCenterY - 55} width="48" height="48" className="pointer-events-none">
@@ -420,15 +420,15 @@ const GDPyramid3D = ({
           })}
 
           {/* Top edge highlight for silos */}
-          <line x1={getLeftX(foundationBounds.top)} y1={foundationBounds.top} x2={getRightX(foundationBounds.top)} y2={foundationBounds.top} stroke="white" strokeWidth="2" strokeOpacity={activeLayer === 4 ? "0.4" : "0.2"} />
+          <line x1={getLeftX(foundationBounds.top)} y1={foundationBounds.top} x2={getRightX(foundationBounds.top)} y2={foundationBounds.top} stroke="white" strokeWidth="2" strokeOpacity={activeLayer === 2 ? "0.4" : "0.2"} />
 
           {/* Silos label (right side) */}
           {!isMobile && (() => {
-            const labelPos = labelPositions[4];
+            const labelPos = labelPositions[2];
             const centerY = (foundationBounds.top + foundationBounds.bottom) / 2;
             const rightEdgeX = getRightX(centerY);
-            const layerData = getLayerData(4);
-            const isActive = activeLayer === 4;
+            const layerData = getLayerData(2);
+            const isActive = activeLayer === 2;
             const colors = layerColors[4];
 
             return (
@@ -436,7 +436,7 @@ const GDPyramid3D = ({
                 <line x1={rightEdgeX + 10} y1={labelPos.labelY} x2={labelPos.lineEndX} y2={labelPos.labelY} stroke={isActive ? colors.main : "hsl(222, 30%, 30%)"} strokeWidth={isActive ? "3" : "2"} strokeDasharray={isActive ? "none" : "8 8"} className="transition-all duration-300" />
                 <circle cx={rightEdgeX + 10} cy={labelPos.labelY} r={isActive ? "10" : "6"} fill={isActive ? colors.main : "hsl(222, 30%, 40%)"} className="transition-all duration-300" />
 
-                <g className="cursor-pointer" onClick={() => onLayerClick(4)}>
+                <g className="cursor-pointer" onClick={() => onLayerClick(2)}>
                   <rect x={labelPos.lineEndX + 16} y={labelPos.labelY - 52} width="290" height="104" rx="10" fill={isActive ? "hsl(222, 47%, 12%)" : "transparent"} stroke={isActive ? colors.main : "transparent"} strokeWidth="2" className="transition-all duration-300" />
                   <text x={labelPos.lineEndX + 32} y={labelPos.labelY - 8} fill={isActive ? colors.main : "hsl(210, 40%, 80%)"} fontSize="22" fontWeight="700" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.06em" className="transition-all duration-300">
                     {layerData?.label}
@@ -499,20 +499,6 @@ const GDPyramid3D = ({
                 AI GATEWAY
               </text>
               
-              {/* Annotation arrows and labels */}
-              <g transform={`translate(${rightX + 20}, ${markerY})`}>
-                {/* Arrow pointing up */}
-                <line x1="0" y1="-10" x2="0" y2="-60" stroke="hsl(45, 93%, 58%)" strokeWidth="2" markerEnd="url(#arrowUp)" />
-                <text x="10" y="-35" fill="hsl(45, 93%, 70%)" fontSize="12" fontWeight="500" fontFamily="'Inter', sans-serif">
-                  AI-Enabled
-                </text>
-                
-                {/* Arrow pointing down */}
-                <line x1="0" y1="10" x2="0" y2="60" stroke="hsl(0, 70%, 50%)" strokeWidth="2" />
-                <text x="10" y="40" fill="hsl(0, 70%, 60%)" fontSize="12" fontWeight="500" fontFamily="'Inter', sans-serif">
-                  AI-Blocked
-                </text>
-              </g>
             </g>
           );
         })()}
