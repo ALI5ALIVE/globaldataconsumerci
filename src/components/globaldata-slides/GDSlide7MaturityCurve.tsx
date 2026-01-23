@@ -23,7 +23,7 @@ const stagesData: MaturityStage[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and leadership is lost — this is where most organizations start",
+      "Fragmentation is where growth stalls, relevance erodes, and performance suffers — this is where most organizations start",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
       from: "Debating data across systems",
@@ -156,7 +156,7 @@ const stagesData: MaturityStage[] = [
       "Intelligence compounds across the value chain",
     ],
     result: [
-      "Category leadership through speed and foresight",
+      "Category performance through speed and foresight",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
     ],
@@ -268,7 +268,7 @@ const GDSlide7MaturityCurve = ({
     <GDSlideContainer
       id="slide-7"
       title="The Intelligence Maturity Roadmap"
-      subtitle="The measurable journey from fragmented insight to predictive leadership"
+      subtitle="The measurable journey from fragmented insight to predictive performance"
       slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}

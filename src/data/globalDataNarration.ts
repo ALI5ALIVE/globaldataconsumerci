@@ -15,7 +15,7 @@ export const globalDataNarrations: SlideNarration[] = [
 
 For most consumer brands, there's a gap. Not a small one. A gap measured in weeks, sometimes months, between seeing a change and taking action.
 
-That gap has a name. We call it the Intelligence Gap—and it's where growth stalls, relevance erodes, and leadership is lost. The brands winning shelf space and market share right now? They've already closed it.
+That gap has a name. We call it the Intelligence Gap—and it's where growth stalls, relevance erodes, and performance suffers. The brands winning shelf space and market share right now? They've already closed it.
 
 Over the next few minutes, I'm going to show you exactly how—and why it matters more for your organisation right now than ever before.`,
     voiceId: DEFAULT_VOICE_ID,
@@ -31,12 +31,12 @@ Here's the paradox: organisations have more insight than ever, yet less confiden
 
 The real problem? Insight exists, but it doesn't move the organisation together. The problem isn't data scarcity. It's data fragmentation and misalignment.
 
-Category leaders don't just have better data—they have connected intelligence that enables faster, unified action.`,
+Category performers don't just have better data—they have connected intelligence that enables faster, unified action.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 2,
-    title: "Where Growth and Leadership Are Lost",
+    title: "Where Growth and Performance Are Lost",
     script: `So where exactly does growth get lost? The Intelligence Gap is the delay between real-world change and enterprise action.
 
 Why does it exist? Four reasons.
@@ -51,7 +51,7 @@ Finally, decisions lack conviction. Teams hedge instead of committing. Action ge
 
 The quantified impact? Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows. And sixty-eight percent of teams lack the confidence to act decisively.
 
-This gap is where growth stalls, relevance erodes, and leadership is lost.`,
+This gap is where growth stalls, relevance erodes, and performance suffers.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -99,7 +99,7 @@ What changes? Every function operates from the same shared truth, so decisions r
   {
     slideId: 6,
     title: "Intelligence Maturity Ladder",
-    script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—from fragmented point solutions to connected intelligence that drives category leadership.
+    script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—from fragmented point solutions to connected intelligence that drives category performance.
 
 At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. High vendor spend, low self-service, missed windows.
 
@@ -109,7 +109,7 @@ Stage three: Connected and Governed. Unified taxonomy and governance. Self-servi
 
 Stage two: Operational Intelligence. Analytics embedded in daily workflows. AI augmentation with automated trend detection. Decisions in days, not weeks.
 
-And at the apex: Predictive and Adaptive. AI anticipates market shifts before competitors react. Category leadership through speed and foresight.
+And at the apex: Predictive and Adaptive. AI anticipates market shifts before competitors react. Category performance through speed and foresight.
 
 Most organisations are at stage four or five. The question is: how fast can you climb?`,
     voiceId: DEFAULT_VOICE_ID,
@@ -117,7 +117,7 @@ Most organisations are at stage four or five. The question is: how fast can you 
   {
     slideId: 7,
     title: "The Intelligence Maturity Roadmap",
-    script: `This is your roadmap—the measurable journey from fragmented insight to predictive leadership.
+    script: `This is your roadmap—the measurable journey from fragmented insight to predictive performance.
 
 At stage one—Fragmented—you're at the bottom. Insights scattered, no shared taxonomy, decisions debated for weeks. High decision latency and missed windows.
 
@@ -127,7 +127,7 @@ Stage three—Connected—is the platform shift. Market, consumer, commercial in
 
 Stage four—Optimized—is transformational. Intelligence embedded in workflows. Continuous improvement. Decisions in days, not weeks.
 
-And stage five—Predictive. AI anticipates shifts before they surface. Decisions made before competitors can react. Category leadership through speed and foresight.
+And stage five—Predictive. AI anticipates shifts before they surface. Decisions made before competitors can react. Category performance through speed and foresight.
 
 The sooner you start climbing, the faster value accumulates.`,
     voiceId: DEFAULT_VOICE_ID,
@@ -159,9 +159,9 @@ Second—human plus AI at scale. One thousand-plus analysts globally, amplified 
 
 Third—unified taxonomy. Single classification system across all intelligence domains. One truth, not five conflicting ones.
 
-The leadership imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category leaders.
+The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category performers.
 
-Three truths: Insight alone does not create advantage. Speed without confidence creates risk. Connected Intelligence creates leadership.
+Three truths: Insight alone does not create advantage. Speed without confidence creates risk. Connected Intelligence drives category performance.
 
 The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.`,
     voiceId: DEFAULT_VOICE_ID,

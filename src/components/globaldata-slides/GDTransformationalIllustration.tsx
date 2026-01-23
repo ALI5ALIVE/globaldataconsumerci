@@ -73,19 +73,19 @@ const GDTransformationalIllustration = ({ onNodeClick }: GDTransformationalIllus
         {/* Equals sign */}
         <span className="text-white/80 font-bold text-3xl sm:text-4xl">=</span>
 
-        {/* Trophy - Category Leadership */}
+        {/* Trophy - Category Performance */}
         <div
           className={`flex flex-col items-center gap-2 cursor-pointer transition-all duration-300 ${
-            hoveredNode === "leadership" ? "scale-110" : ""
+            hoveredNode === "performance" ? "scale-110" : ""
           }`}
-          onMouseEnter={() => setHoveredNode("leadership")}
+          onMouseEnter={() => setHoveredNode("performance")}
           onMouseLeave={() => setHoveredNode(null)}
-          onClick={() => handleClick("leadership")}
+          onClick={() => handleClick("performance")}
         >
           <div
             className="p-4 sm:p-5 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border border-amber-400/50"
             style={{
-              boxShadow: hoveredNode === "leadership" 
+              boxShadow: hoveredNode === "performance" 
                 ? "0 0 32px 12px hsl(45, 93%, 58%)" 
                 : "0 0 20px 6px hsl(45, 93%, 58%, 0.5)",
             }}
@@ -95,7 +95,7 @@ const GDTransformationalIllustration = ({ onNodeClick }: GDTransformationalIllus
               strokeWidth={2.5}
             />
           </div>
-          <span className="text-sm sm:text-base text-amber-400/80 font-medium">Leadership</span>
+          <span className="text-sm sm:text-base text-amber-400/80 font-medium">Performance</span>
         </div>
       </div>
     </div>

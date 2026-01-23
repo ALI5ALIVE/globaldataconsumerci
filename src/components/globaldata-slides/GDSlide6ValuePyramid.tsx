@@ -10,7 +10,7 @@ const layersData: GDLayerData[] = [
   {
     id: "PREDICTIVE",
     level: 1,
-    headline: "Predictive & Adaptive Category Leadership",
+    headline: "Predictive & Adaptive Category Performance",
     sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
       "AI-driven market predictions integrated into strategic planning cycles",
@@ -20,7 +20,7 @@ const layersData: GDLayerData[] = [
       "Ava anticipates market shifts before competitors can react",
     ],
     result: [
-      "Data-led category leadership, outpacing competition",
+      "Data-led category performance, outpacing competition",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
     ],
@@ -166,7 +166,7 @@ const layersData: GDLayerData[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "Fragmentation is where growth stalls, relevance erodes, and leadership is lost — this is where most organizations start.",
+      "Fragmentation is where growth stalls, relevance erodes, and performance suffers — this is where most organizations start.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
@@ -297,7 +297,7 @@ const GDSlide6ValuePyramid = ({
     <GDSlideContainer
       id="slide-6"
       title="Intelligence Maturity Ladder"
-      subtitle="From fragmented point solutions to connected intelligence that drives category leadership"
+      subtitle="From fragmented point solutions to connected intelligence that drives category performance"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}
