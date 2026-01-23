@@ -1,6 +1,35 @@
-import { CheckCircle, Eye, Target, TrendingUp, ArrowRight } from "lucide-react";
+import { CheckCircle, Eye, Target, TrendingUp, ArrowRight, Cpu, Lock, Sparkles } from "lucide-react";
 import GDBehaviorShiftCard, { GDBehavioralShift } from "./GDBehaviorShiftCard";
 import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
+
+// AI Readiness indicator component
+const AIReadinessIndicator = ({ level }: { level: number }) => {
+  if (level <= 2) {
+    // Stages 4-5 in inverted order (MANAGED/FRAGMENTED) = AI Blocked
+    return (
+      <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-red-500/15 border border-red-500/30">
+        <Lock className="w-3 h-3 text-red-400" />
+        <span className="text-[9px] font-semibold text-red-400 uppercase tracking-wider">AI Blocked</span>
+      </div>
+    );
+  } else if (level === 3) {
+    // Stage 3 (CONNECTED) = AI Enabled
+    return (
+      <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/30">
+        <Cpu className="w-3 h-3 text-emerald-400" />
+        <span className="text-[9px] font-semibold text-emerald-400 uppercase tracking-wider">AI Enabled</span>
+      </div>
+    );
+  } else {
+    // Stages 1-2 in inverted order (PREDICTIVE/OPERATIONAL) = AI Optimized
+    return (
+      <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/30">
+        <Sparkles className="w-3 h-3 text-amber-400" />
+        <span className="text-[9px] font-semibold text-amber-400 uppercase tracking-wider">AI Optimized</span>
+      </div>
+    );
+  }
+};
 
 export interface GDValueProof {
   metrics: string[];
@@ -40,7 +69,7 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
 
   return (
     <div className="h-full flex flex-col gap-2 text-left">
-      {/* Header */}
+      {/* Header with AI Readiness */}
       <div className="flex items-start gap-2 mb-1">
         <div
           className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0"
@@ -49,9 +78,12 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
           {layer.level}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-[9px] uppercase tracking-wider text-muted-foreground font-medium">
-            {layer.sublabel}
-          </p>
+          <div className="flex items-center justify-between gap-2 mb-0.5">
+            <p className="text-[9px] uppercase tracking-wider text-muted-foreground font-medium">
+              {layer.sublabel}
+            </p>
+            <AIReadinessIndicator level={layer.level} />
+          </div>
           <h3 className="text-sm font-bold text-foreground leading-tight truncate">
             {layer.headline}
           </h3>
