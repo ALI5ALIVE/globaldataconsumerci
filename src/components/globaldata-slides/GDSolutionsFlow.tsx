@@ -85,7 +85,7 @@ const flowingDots = [
 
 const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDSolutionsFlowProps) => {
   return (
-    <div className="w-full">
+    <div className="w-full max-h-full overflow-hidden">
       {/* Solutions Flow */}
       <div className="relative">
         {/* Unified Data Layer - Background Bar with animated dots */}

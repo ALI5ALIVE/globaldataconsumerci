@@ -63,7 +63,7 @@ const GDSlide2IntelligenceGap = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-6 h-full">
+      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
         {/* Definition Box */}
         <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">

@@ -62,7 +62,7 @@ const GDSlide0Title = ({
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl w-full text-center space-y-8 sm:space-y-12">
+      <div className="relative z-10 max-w-5xl w-full text-center space-y-6 sm:space-y-8">
         {/* Logo */}
         <div className="flex justify-center items-center gap-3">
           <img src={globalDataLogo} alt="GlobalData" className="h-10 sm:h-12 w-auto" />
@@ -100,7 +100,7 @@ const GDSlide0Title = ({
         </div>
 
         {/* Agenda Grid */}
-        <div className="pt-4 sm:pt-8">
+        <div className="pt-2 sm:pt-4">
           <div className="inline-block">
             <div className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest mb-4">
               The Journey

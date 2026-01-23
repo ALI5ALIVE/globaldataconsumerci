@@ -47,7 +47,7 @@ const GDSlide3BeforeAfter = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Main Before/After Grid */}
         <div className="grid lg:grid-cols-2 gap-4 flex-1">
           {/* Before Column */}
@@ -57,7 +57,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-36 mb-3">
+              <div className="h-32 mb-2">
                 <GDBeforeSilosIllustration />
               </div>
 
@@ -104,7 +104,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-36 mb-3">
+              <div className="h-32 mb-2">
                 <GDAfterConnectedIllustration />
               </div>
 
