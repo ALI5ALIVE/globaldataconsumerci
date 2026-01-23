@@ -306,7 +306,7 @@ const GDSlide6ValuePyramid = ({
     <GDSlideContainer
       id="slide-6"
       title="Where Is Your Organisation Today?"
-      subtitle="Five stages of intelligence maturity—and why Stage 3 changes everything"
+      subtitle="Five stages of intelligence maturity—and why Stage 3 unlocks new ways of working"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}
