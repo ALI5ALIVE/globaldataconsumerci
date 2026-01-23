@@ -1,154 +1,180 @@
 
 
-## Further Reduce Copy Box Width by 30% and Enlarge Pyramid
+## Reduce Copy Box Width by 30%, Enlarge Pyramid by 30%, and Fix Text Overflow
 
-### Current State (After Previous Changes)
+### Current State
 
 | Element | Current Value |
 |---------|---------------|
-| Copy box width | 203px |
-| Apex position | `{ x: 650, y: 20 }` |
-| Base left | `{ x: 40, y: 1100 }` |
-| Base right | `{ x: 1260, y: 1100 }` |
-| ViewBox (desktop) | `0 0 1700 1120` |
-| Min dimensions | 800px × 640px |
+| Copy box width | 142px |
+| Apex position | `{ x: 700, y: 10 }` |
+| Base left | `{ x: 20, y: 1120 }` |
+| Base right | `{ x: 1380, y: 1120 }` |
+| ViewBox (desktop) | `0 0 1750 1140` |
+| Min dimensions (desktop) | 880px x 720px |
+| Font sizes | 22px (label), 20px (sublabel) |
+
+### Root Cause of Text Overflow
+
+The current copy boxes are 142px wide, but:
+- Text is positioned 16px from the box edge (`labelPos.lineEndX + 32` where box starts at `+ 16`)
+- Label text uses `fontSize="22"` with no width constraint
+- Sublabel text uses `fontSize="20"` with no width constraint
+- Long labels like "Predictive & Agentic" or "Connected Governance" overflow the 142px boundary
 
 ---
 
 ### Proposed Changes
 
-#### 1. Reduce Copy Box Width by Another 30%
+#### 1. Reduce Copy Box Width by 30%
 
-Current: **203px** → New: **142px** (203 × 0.7)
+Current: **142px** -> New: **100px** (142 x 0.7 = 99.4, rounded to 100)
 
 **Lines affected:**
-- Line 238: `width="203"` → `width="142"`
-- Line 440: `width="203"` → `width="142"`
+- Line 238: `width="142"` -> `width="100"`
+- Line 440: `width="142"` -> `width="100"`
 
----
+#### 2. Enlarge Pyramid by 30%
 
-#### 2. Expand Pyramid Dimensions (~20% Larger)
-
-With narrower copy boxes, the pyramid can expand further to the right.
+Expand pyramid dimensions by approximately 30%.
 
 **Current `layerConfig` (lines 53-57):**
-```tsx
-const layerConfig = {
-  apex: { x: 650, y: 20 },
-  baseLeft: { x: 40, y: 1100 },
-  baseRight: { x: 1260, y: 1100 },
-};
+```text
+apex: { x: 700, y: 10 }
+baseLeft: { x: 20, y: 1120 }
+baseRight: { x: 1380, y: 1120 }
 ```
 
 **New `layerConfig`:**
-```tsx
-const layerConfig = {
-  apex: { x: 700, y: 10 },        // Move apex right and higher
-  baseLeft: { x: 20, y: 1120 },   // Extend base further left and down
-  baseRight: { x: 1380, y: 1120 }, // Extend right edge (gained space from narrower labels)
-};
+```text
+apex: { x: 750, y: 5 }
+baseLeft: { x: 10, y: 1200 }
+baseRight: { x: 1490, y: 1200 }
 ```
 
 This gives:
-- **New width at base:** 1360px (vs 1220px = +11%)
-- **New height:** 1110px (10 → 1120)
-- Overall ~15-20% larger visual
-
----
+- New base width: 1480px (vs 1360px = +9%)
+- New height: 1195px (vs 1110px = +8%)
+- Combined with wider viewBox, overall visual ~25-30% larger
 
 #### 3. Update Layer Bounds
 
-Scale proportionally for 5 layers over new height range (10 → 1120 = 1110px total)
+Scale proportionally for 5 layers over new height range (5 -> 1200 = 1195px total)
 
-Each layer height: ~222px (1110 / 5)
-
-**Current `layerBounds` (lines 60-66):**
-```tsx
-const layerBounds = {
-  5: { top: 20, bottom: 236 },
-  4: { top: 236, bottom: 452 },
-  3: { top: 452, bottom: 668 },
-  2: { top: 668, bottom: 884 },
-  1: { top: 884, bottom: 1100 },
-};
-```
+Each layer height: ~239px (1195 / 5)
 
 **New `layerBounds`:**
-```tsx
-const layerBounds = {
-  5: { top: 10, bottom: 232 },    // PREDICTIVE - Apex
-  4: { top: 232, bottom: 454 },   // OPERATIONAL
-  3: { top: 454, bottom: 676 },   // CONNECTED
-  2: { top: 676, bottom: 898 },   // MANAGED (with 5 silos)
-  1: { top: 898, bottom: 1120 },  // FRAGMENTED - Base
-};
+```text
+5: { top: 5, bottom: 244 }      // PREDICTIVE - Apex
+4: { top: 244, bottom: 483 }    // OPERATIONAL
+3: { top: 483, bottom: 722 }    // CONNECTED
+2: { top: 722, bottom: 961 }    // MANAGED (with 5 silos)
+1: { top: 961, bottom: 1200 }   // FRAGMENTED - Base
 ```
 
----
+#### 4. Update ViewBox
 
-#### 4. Update Label Positions
-
-Recalculate to match new layer bounds and narrower boxes:
-
-**Current `labelPositions` (lines 116-122):**
-```tsx
-const labelPositions = {
-  5: { lineStartX: 880, lineStartY: 128, lineEndX: 1380, lineEndY: 128, labelX: 1390, labelY: 128 },
-  4: { lineStartX: 960, lineStartY: 344, lineEndX: 1380, lineEndY: 344, labelX: 1390, labelY: 344 },
-  3: { lineStartX: 1040, lineStartY: 560, lineEndX: 1380, lineEndY: 560, labelX: 1390, labelY: 560 },
-  2: { lineStartX: 1100, lineStartY: 776, lineEndX: 1380, lineEndY: 776, labelX: 1390, labelY: 776 },
-  1: { lineStartX: 1160, lineStartY: 992, lineEndX: 1380, lineEndY: 992, labelX: 1390, labelY: 992 },
-};
-```
-
-**New `labelPositions`:**
-```tsx
-const labelPositions = {
-  5: { lineStartX: 920, lineStartY: 121, lineEndX: 1480, lineEndY: 121, labelX: 1490, labelY: 121 },
-  4: { lineStartX: 1000, lineStartY: 343, lineEndX: 1480, lineEndY: 343, labelX: 1490, labelY: 343 },
-  3: { lineStartX: 1080, lineStartY: 565, lineEndX: 1480, lineEndY: 565, labelX: 1490, labelY: 565 },
-  2: { lineStartX: 1160, lineStartY: 787, lineEndX: 1480, lineEndY: 787, labelX: 1490, labelY: 787 },
-  1: { lineStartX: 1240, lineStartY: 1009, lineEndX: 1480, lineEndY: 1009, labelX: 1490, labelY: 1009 },
-};
-```
-
-Key adjustments:
-- Moved `lineEndX` from 1380 to 1480 (labels start further right, matching wider pyramid)
-- Recalculated Y positions to center within new layer bounds
-
----
-
-#### 5. Update ViewBox
-
-Increase to accommodate the larger pyramid:
+Increase to accommodate larger pyramid:
 
 **Current (line 130):**
-```tsx
-const viewBox = isMobile ? "0 0 1500 1120" : "0 0 1700 1120";
-```
-
-**New:**
-```tsx
+```text
 const viewBox = isMobile ? "0 0 1500 1140" : "0 0 1750 1140";
 ```
 
----
+**New:**
+```text
+const viewBox = isMobile ? "0 0 1500 1220" : "0 0 1850 1220";
+```
 
-#### 6. Update Min Dimensions
+#### 5. Update Min Dimensions
 
 Increase for better icon visibility at larger pyramid size:
 
 **Current (lines 149-150):**
-```tsx
-minWidth: isMobile ? "520px" : "800px",
-minHeight: isMobile ? "460px" : "640px",
+```text
+minWidth: isMobile ? "560px" : "880px"
+minHeight: isMobile ? "500px" : "720px"
 ```
 
 **New:**
-```tsx
-minWidth: isMobile ? "560px" : "880px",
-minHeight: isMobile ? "500px" : "720px",
+```text
+minWidth: isMobile ? "600px" : "960px"
+minHeight: isMobile ? "540px" : "800px"
 ```
+
+#### 6. Update Label Positions
+
+Recalculate to match new layer bounds and wider pyramid:
+
+**New `labelPositions`:**
+```text
+5: { lineStartX: 980, lineStartY: 125, lineEndX: 1600, lineEndY: 125, labelX: 1610, labelY: 125 }
+4: { lineStartX: 1060, lineStartY: 364, lineEndX: 1600, lineEndY: 364, labelX: 1610, labelY: 364 }
+3: { lineStartX: 1140, lineStartY: 603, lineEndX: 1600, lineEndY: 603, labelX: 1610, labelY: 603 }
+2: { lineStartX: 1220, lineStartY: 842, lineEndX: 1600, lineEndY: 842, labelX: 1610, labelY: 842 }
+1: { lineStartX: 1300, lineStartY: 1081, lineEndX: 1600, lineEndY: 1081, labelX: 1610, labelY: 1081 }
+```
+
+Y positions are centered within each new layer bound.
+
+#### 7. Fix Text Overflow (Critical Fix)
+
+Reduce font sizes and add text wrapping to ensure copy fits within the narrower 100px box:
+
+**Current text styling (lines 239-244):**
+- Label: `fontSize="22"`, positioned at `x={labelPos.lineEndX + 32}`
+- Sublabel: `fontSize="20"`, positioned at `x={labelPos.lineEndX + 32}`
+
+**New text styling:**
+- Label: `fontSize="14"` (down from 22)
+- Sublabel: `fontSize="12"` (down from 20)
+- Use `foreignObject` with proper width constraints instead of raw `<text>` elements
+- This allows text to wrap naturally within the box boundaries
+
+**Implementation approach for each label box:**
+
+Replace the current `<text>` elements with a `<foreignObject>` containing a styled div:
+
+```text
+<foreignObject 
+  x={labelPos.lineEndX + 16} 
+  y={labelPos.labelY - 52} 
+  width="100" 
+  height="104"
+>
+  <div style={{ 
+    width: '100%', 
+    height: '100%', 
+    padding: '8px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }}>
+    <span style={{ 
+      color: ..., 
+      fontSize: '14px', 
+      fontWeight: 700,
+      lineHeight: 1.2,
+      wordBreak: 'break-word'
+    }}>
+      {layerData?.label}
+    </span>
+    <span style={{ 
+      color: ..., 
+      fontSize: '12px',
+      marginTop: '4px',
+      lineHeight: 1.2 
+    }}>
+      {layerData?.sublabel}
+    </span>
+  </div>
+</foreignObject>
+```
+
+This ensures:
+- Text is constrained to the box width (100px minus padding)
+- Long labels wrap naturally instead of overflowing
+- Visual hierarchy is maintained with appropriate font sizes
 
 ---
 
@@ -156,21 +182,35 @@ minHeight: isMobile ? "500px" : "720px",
 
 | Location | Current | New |
 |----------|---------|-----|
-| Copy box width | 203px | 142px |
-| Apex | (650, 20) | (700, 10) |
-| Base left | (40, 1100) | (20, 1120) |
-| Base right | (1260, 1100) | (1380, 1120) |
-| ViewBox height | 1120 | 1140 |
-| ViewBox width (desktop) | 1700 | 1750 |
-| Min dimensions (desktop) | 800×640 | 880×720 |
+| Copy box width | 142px | 100px |
+| Label font size | 22px | 14px |
+| Sublabel font size | 20px | 12px |
+| Text rendering | `<text>` elements | `<foreignObject>` with div |
+| Apex | (700, 10) | (750, 5) |
+| Base left | (20, 1120) | (10, 1200) |
+| Base right | (1380, 1120) | (1490, 1200) |
+| ViewBox height | 1140 | 1220 |
+| ViewBox width (desktop) | 1750 | 1850 |
+| Min dimensions (desktop) | 880x720 | 960x800 |
 
----
+### Files to Modify
+
+- `src/components/globaldata-slides/GDPyramid3D.tsx`
+  - Lines 53-57: Update `layerConfig`
+  - Lines 60-66: Update `layerBounds`
+  - Lines 116-122: Update `labelPositions`
+  - Line 130: Update `viewBox`
+  - Lines 149-150: Update min dimensions
+  - Lines 237-246: Replace text elements with foreignObject for layer labels
+  - Lines 439-447: Replace text elements with foreignObject for silo label
 
 ### Expected Visual Result
 
 After these changes:
-- **Pyramid is ~20% larger** - more visual prominence and legible icons
-- **Copy boxes are 30% narrower** - from 203px to 142px
-- **Better proportions** - pyramid dominates ~80% of visual space
-- **Icons more readable** - larger layer areas accommodate illustrations better
+- Pyramid is ~30% larger with more visual prominence
+- Copy boxes are 30% narrower (100px vs 142px)
+- All text fits properly within surrounding boxes (no overflow)
+- Labels use smaller, appropriately-sized fonts that wrap when needed
+- Better proportions with pyramid dominating ~85% of visual space
+- Icons more readable due to larger layer areas
 
