@@ -1,226 +1,179 @@
 
 
-## Improve Slide 5: Value Chain with Solution Combinations
+## Fix Slide 5: Add Solution Labels and Fix Black-on-Black Styling
 
 ### Summary
 
-Transform the current static "Value Chain" slide into an interactive visualization that shows how the 5 intelligence solutions can be **combined strategically across workflow stages**, inspired by the PDF's "Where to Play & How to Win" concept. The new design will demonstrate that solutions are not siloed but work together across the innovation/go-to-market lifecycle.
+Fix two issues in the Value Chain slide:
+1. **Add solution text labels** - Show which solutions support each workflow stage, not just icons
+2. **Fix dark styling** - Increase contrast so solution boxes are visible against the dark background
 
 ---
 
-### Current State Analysis
+### Issue Analysis
 
-**Existing Slide 5 (`GDSlide5ValueChain.tsx`):**
-- Shows 5 generic value chain stages (Strategy & Portfolio, Innovation & Product, Brand/Pricing/Claims, Go-to-Market & Sales, In-Market Performance)
-- Static cards with bullet points
-- No connection to the 5 intelligence solutions
-- Generic "What Changes" callout
-- Stats: "5 stages, 1 source of truth, infinite compounding"
+**Current Problems:**
 
-**Key Insight from PDF (Page 9):**
-The PDF shows an "Innovation workflow" with questions at each stage (Which markets? What white space? Which products? etc.) and maps **multiple intelligence solutions to each stage**. The slide title is "Solutions can be combined for greater advantage – e.g. Where to Play & How to Win?"
+1. **Solution icons without labels** - Each workflow card shows 2-3 small icons, but no text explaining which solutions they represent. Users must guess what Target, TrendingUp, Swords icons mean.
 
----
-
-### Problem with Current Design
-
-1. **No connection to solutions** - The 5 intelligence solutions (Strategic, Market, Competitive, Innovation, Sales) are not linked to value chain stages
-2. **No interactivity** - Users cannot explore which solutions apply where
-3. **No "combination" messaging** - Doesn't show that solutions work together (e.g., Strategic + Market for "Where to Play")
-4. **Generic questions** - Doesn't surface the real business questions at each stage
+2. **Poor contrast** - The solution icon containers use:
+   ```tsx
+   style={{ backgroundColor: solutionConfig[sol].color + "20" }}
+   ```
+   This creates 20% opacity backgrounds that are nearly invisible on the dark `bg-card/30` cards.
 
 ---
 
-### Proposed Solution: Interactive Solution-to-Workflow Mapping
+### Solution 1: Add Solution Text Labels
 
-**New slide title:** "Solutions That Combine for Greater Advantage"
-**Subtitle:** "Connected intelligence across every workflow stage"
-
-**Visual design:**
+**Change workflow cards to show solution names:**
 
 ```text
-+--------------------------------------------------------------------+
-|  Solutions That Combine for Greater Advantage                       |
-|  Connected intelligence across every workflow stage                 |
-+--------------------------------------------------------------------+
-|                                                                     |
-|  [Where to Play]    [How to Win]    [How to Execute]               |
-|   Strategic +        Innovation +    Sales +                        |
-|   Market             Competitive     Market                         |
-|   (clickable)        (clickable)     (clickable)                   |
-|                                                                     |
-+--------------------------------------------------------------------+
-|                                                                     |
-|  +----------+  +----------+  +----------+  +----------+  +--------+|
-|  | Trend &  |->| White    |->| Concept  |->| Market   |->| Post-  ||
-|  | Strategy |  | Space    |  | Screening|  | Entry    |  | Launch ||
-|  +----------+  +----------+  +----------+  +----------+  +--------+|
-|  | Questions|  | Questions|  | Questions|  | Questions|  | Q's    ||
-|  |----------|  |----------|  |----------|  |----------|  |--------|
-|  | [Icons]  |  | [Icons]  |  | [Icons]  |  | [Icons]  |  | [Icons]||
-|  | Solutions|  | Solutions|  | Solutions|  | Solutions|  | Solns  ||
-|  +----------+  +----------+  +----------+  +----------+  +--------+|
-|                                                                     |
-+--------------------------------------------------------------------+
-|  [Detail Panel: Shows active stage questions + solution combos]     |
-+--------------------------------------------------------------------+
++------------------------+
+|   Trend & Strategy     |
+|                        |
+|  [Icon] Strategic      |
+|  [Icon] Market         |
+|                        |
+|    "Where to Play"     |
++------------------------+
 ```
+
+Each workflow card will display:
+- Stage name (existing)
+- Solution list with icon + label (improved)
+- Combination tag (existing)
 
 ---
 
-### Data Structure: Workflow Stages with Solution Mapping
+### Solution 2: Fix Black-on-Black Styling
 
-Based on the PDF, each workflow stage has:
-1. **Key business questions** (from PDF page 9)
-2. **Primary solutions** that apply
-3. **Combination examples**
+**Increase opacity and add borders:**
 
-| Stage | Questions | Primary Solutions | Combination Example |
-|-------|-----------|-------------------|---------------------|
-| **Trend & Strategy** | Which markets and categories? Macro trends? Size of the prize? | Strategic, Market | "Where to Play": Strategic + Market Intelligence |
-| **White Space** | What white space exists? What approaches are working? | Market, Innovation, Competitive | Trend-to-opportunity validation |
-| **Concept Screening** | Which products with consumers? Initial reactions? How to differentiate? | Innovation, Competitive | Concept vs. competitive positioning |
-| **Market Entry** | In which channels should I launch? What is the TAM? | Sales, Market, Competitive | Channel + pricing strategy |
-| **Post-Launch** | How do I measure engagement? When should we consider a refresh? How can I monitor competitors? | Sales, Competitive, Market | Performance + competitive response |
+| Element | Current | Fixed |
+|---------|---------|-------|
+| Icon container background | `color + "20"` (20%) | `color + "30"` (30%) |
+| Icon container border | None | `1px solid ${color}60` |
+| Card background | `bg-card/30` | `bg-card/50` |
+| Card border when inactive | `border-border/50` | `border-border` |
 
 ---
 
 ### File Changes
 
-#### 1. Update `GDSlide5ValueChain.tsx`
+**File:** `src/components/globaldata-slides/GDSlide5ValueChain.tsx`
 
-**Major changes:**
-- Replace static `stages` array with new `workflowStages` data structure
-- Add `solutionCombos` data for "Where to Play" / "How to Win" / "How to Execute" messaging
-- Add interactive hover/click state to show stage details
-- Replace generic callout with dynamic detail panel
-- Map solution icons to each stage (multiple solutions per stage)
+#### Change 1: Update Workflow Card Solution Display (lines 213-227)
 
-**New component structure:**
-
+**Current:**
 ```tsx
-// New data structure
-const workflowStages = [
-  {
-    id: "trend-strategy",
-    label: "Trend & Strategy",
-    questions: ["Which markets and categories?", "Macro trends?", "Size of the prize?"],
-    solutions: ["Strategic Intelligence", "Market Intelligence"],
-    combination: { name: "Where to Play", description: "Identify growth spaces before competitors" },
-  },
-  {
-    id: "whitespace",
-    label: "White Space",
-    questions: ["What white space exists?", "What approaches are working?"],
-    solutions: ["Market Intelligence", "Innovation Intelligence", "Competitive Intelligence"],
-    combination: { name: "Opportunity Discovery", description: "Validate trends with competitive context" },
-  },
-  // ... etc
-];
-
-const solutionCombos = [
-  { label: "Where to Play", solutions: ["Strategic", "Market"], color: "primary" },
-  { label: "How to Win", solutions: ["Innovation", "Competitive"], color: "sky-500" },
-  { label: "How to Execute", solutions: ["Sales", "Market"], color: "green-500" },
-];
+{/* Solution Icons */}
+<div className="flex justify-center gap-1 mb-2">
+  {stage.solutions.map((sol) => {
+    const Icon = solutionConfig[sol].icon;
+    return (
+      <div 
+        key={sol}
+        className="w-6 h-6 rounded-md flex items-center justify-center"
+        style={{ backgroundColor: solutionConfig[sol].color + "20" }}
+      >
+        <Icon className="w-3.5 h-3.5" style={{ color: solutionConfig[sol].color }} />
+      </div>
+    );
+  })}
+</div>
 ```
 
-**New state management:**
-- `activeStage: number | null` - Currently hovered/selected workflow stage
-- Same narration sync pattern used in `GDSlide10Solutions.tsx`
+**Fixed:**
+```tsx
+{/* Solution Labels with Icons */}
+<div className="flex flex-col gap-1 mb-2">
+  {stage.solutions.map((sol) => {
+    const Icon = solutionConfig[sol].icon;
+    return (
+      <div 
+        key={sol}
+        className="flex items-center gap-1.5 px-2 py-0.5 rounded-md border"
+        style={{ 
+          backgroundColor: solutionConfig[sol].color + "15",
+          borderColor: solutionConfig[sol].color + "40"
+        }}
+      >
+        <Icon className="w-3 h-3" style={{ color: solutionConfig[sol].color }} />
+        <span 
+          className="text-[9px] font-medium"
+          style={{ color: solutionConfig[sol].color }}
+        >
+          {sol}
+        </span>
+      </div>
+    );
+  })}
+</div>
+```
 
-#### 2. Visual Elements
+#### Change 2: Improve Card Contrast (lines 198-207)
 
-**Solution Combo Pills (top section):**
-Three highlighted combination examples that users can click to see how solutions work together:
-- "Where to Play" = Strategic + Market
-- "How to Win" = Innovation + Competitive  
-- "How to Execute" = Sales + Market
+**Current:**
+```tsx
+className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${
+  isStageHighlighted(i)
+    ? "border-primary bg-primary/10 shadow-lg scale-[1.02]"
+    : "border-border/50 bg-card/30 hover:border-primary/30"
+}`}
+```
 
-**Workflow Cards (middle section):**
-5 horizontal cards representing the innovation/go-to-market lifecycle. Each card:
-- Shows stage name and icon
-- Displays small solution icons (2-3 per stage)
-- Highlights when hovered/clicked
-- Connects via flow arrows
+**Fixed:**
+```tsx
+className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 ${
+  isStageHighlighted(i)
+    ? "border-primary bg-primary/15 shadow-lg scale-[1.02]"
+    : "border-border bg-card/50 hover:border-primary/40"
+}`}
+```
 
-**Detail Panel (bottom section):**
-When a stage is active, shows:
-- Stage name and questions
-- Which solutions apply with their icons
-- Example of combined value
+#### Change 3: Make Cards Taller for Solution Labels (lines 209-234)
+
+Adjust padding and min-height to accommodate vertical solution list:
+```tsx
+<div
+  className={`flex-1 p-4 rounded-xl border cursor-pointer transition-all duration-200 min-h-[140px] ${...}`}
+>
+```
 
 ---
 
-### Animation & Interactivity
+### Expected Visual Result
 
-1. **Hover on workflow card** - Highlights card, shows detail panel below
-2. **Hover on solution combo pill** - Highlights relevant workflow stages
-3. **Narration sync** - Progress through stages during audio playback (same pattern as Slide 10)
-4. **Transitions** - `animate-fade-in` on detail panel, `transition-all duration-200` on cards
+Each workflow card will now display:
 
----
+```text
++------------------------+
+|   Trend & Strategy     |
+|                        |
+| ┌──────────────────┐   |
+| │ ⎯ Strategic      │   |
+| └──────────────────┘   |
+| ┌──────────────────┐   |
+| │ ↗ Market         │   |
+| └──────────────────┘   |
+|                        |
+|    "Where to Play"     |
++------------------------+
+```
 
-### Solution Icon Mapping
-
-Use existing icons from the codebase:
-
-| Solution | Icon | Color |
-|----------|------|-------|
-| Strategic | Target | blue-500 |
-| Market | TrendingUp | sky-400 |
-| Competitive | Users / Swords | cyan-400 |
-| Innovation | Lightbulb | teal-400 |
-| Sales | Truck | green-400 |
+- Each solution has a visible colored border
+- Text label next to icon
+- Cards have higher contrast background
 
 ---
 
 ### Implementation Steps
 
-1. **Create new data structures** - `workflowStages` and `solutionCombos` arrays with questions, solutions, and combination messaging
-2. **Update component state** - Add `activeStage` state and narration sync logic (copy pattern from `GDSlide10Solutions.tsx`)
-3. **Build Solution Combo Pills** - Horizontal row of clickable combo examples
-4. **Redesign Workflow Cards** - Replace static cards with interactive version showing multiple solution icons per stage
-5. **Create Detail Panel** - Dynamic panel showing stage questions and solution applications
-6. **Update title/subtitle** - "Solutions That Combine for Greater Advantage" / "Connected intelligence across every workflow stage"
-7. **Update narration** in `globalDataNarration.ts` - Script for the new interactive slide
-
----
-
-### Technical Details
-
-**Props interface** (unchanged):
-```tsx
-interface SlideNarrationProps {
-  isPlaying?: boolean;
-  isLoading?: boolean;
-  progress?: number;
-  hasCompleted?: boolean;
-  onPlay?: () => void;
-  onPause?: () => void;
-  onNextSlide?: () => void;
-}
-```
-
-**Narration step timings** (similar to Slide 10):
-```tsx
-const stepTimings = [
-  { index: 0, startPercent: 15 },  // Trend & Strategy
-  { index: 1, startPercent: 30 },  // White Space
-  { index: 2, startPercent: 45 },  // Concept Screening
-  { index: 3, startPercent: 60 },  // Market Entry
-  { index: 4, startPercent: 75 },  // Post-Launch
-];
-```
-
----
-
-### Expected Outcome
-
-The improved Slide 5 will:
-1. **Show solution combinations** - Not just individual solutions, but how they work together
-2. **Map to real workflows** - Based on actual business questions from the PDF
-3. **Be interactive** - Users can explore which solutions apply where
-4. **Reinforce key messaging** - "Where to Play", "How to Win", "How to Execute" framework
-5. **Demonstrate compound value** - Each stage builds on the previous with connected intelligence
+1. Update workflow card solution display to show vertical list with icon + text label
+2. Add borders to solution containers for visibility
+3. Increase card background opacity from `/30` to `/50`
+4. Increase border visibility from `border/50` to full `border`
+5. Add min-height to cards to accommodate solution labels
+6. Adjust padding for better spacing
 
