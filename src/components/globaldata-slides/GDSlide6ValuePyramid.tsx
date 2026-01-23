@@ -83,28 +83,28 @@ const layersData: GDLayerData[] = [
   {
     id: "CONNECTED",
     level: 3,
-    headline: "Connected: One Truth Emerges",
+    headline: "Connected: One Shopper Truth Emerges",
     sublabel: "Optimizing / Platform Foundation",
     whatItLooksLike: [
-      "Unified taxonomy, governance, and KPIs across all data types and markets",
-      "Democratized, self-service access to insights with training and enablement",
-      "Consistent brand safety, compliance, and usage policies globally",
-      "Market, consumer, innovation, competitive intelligence unified on single platform",
+      "One version of who your shopper is—shared by R&D, marketing, and retail execution",
+      "Unified taxonomy across POS, panel, social, and competitive data",
+      "Self-service access to shopper insights with proper governance",
+      "Consumer, market, innovation, and competitive intelligence on one platform",
     ],
     result: [
-      "Speed-to-insight improves; dependency on specialists reduced",
-      "Consistent data quality fuels trusted decision-making",
-      "One version of consumer truth across the organization",
-      "Foundation for AI-augmented insight is in place",
+      "Brand managers and category teams speak the same language",
+      "NPD decisions validated against consistent shopper truth",
+      "Time from insight to action drops dramatically",
+      "Foundation for AI-augmented shopper intelligence is in place",
     ],
     whyItMatters:
-      "Governance is the hidden accelerator. Without it, even the best data creates confusion. With it, organizations scale smarter, faster, and safer.",
+      "This is where brands stop debating data and start acting on shoppers. One version of shopper truth—from R&D to retail execution—changes everything.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
-      from: "Debating whose data is right",
-      to: "Acting on shared consumer truth",
-      culturalMarker: "One truth, one taxonomy, one platform",
+      from: "Debating whose shopper data is right",
+      to: "Acting on one shared shopper truth",
+      culturalMarker: "R&D and retail see the same shopper",
     },
     timeAllocation: {
       reconciliation: 20,
@@ -113,7 +113,7 @@ const layersData: GDLayerData[] = [
     },
     valueProof: {
       metrics: ["70% self-service", "Data prep -50%", "Reconciliation ↓60%", "Audit-ready"],
-      roiStatement: "Single source of truth reduces reconciliation overhead by 60%.",
+      roiStatement: "One shopper truth means 60% less time reconciling—more time winning.",
     },
   },
   {
@@ -154,29 +154,29 @@ const layersData: GDLayerData[] = [
   {
     id: "FRAGMENTED",
     level: 5,
-    headline: "Firefighting: Insight Exists, Trust Doesn't",
+    headline: "Firefighting: Your Shopper Data Doesn't Connect",
     sublabel: "Starting Point",
     whatItLooksLike: [
-      "Insight requests handled ad hoc; minimal self-service",
-      "Multiple, disconnected tools and data sources",
-      "Decisions often made with incomplete or outdated data",
-      "Multiple insight providers with different taxonomies",
-      "Signals validated too late; opportunities missed",
+      "Your brand manager is using a deck from last quarter about last quarter's shopper",
+      "POS says one thing, consumer panel says another, social listening says a third",
+      "You found out about the trend after your competitor launched",
+      "Every NPD decision starts with 'which data source should we trust?'",
+      "Innovation team and commercial team have different views of the same shopper",
     ],
     result: [
-      "High dependency on external vendors or agencies for insights",
-      "Significant time spent wrangling data vs. acting on it",
-      "Teams debate data sources instead of acting on insights",
-      "High variability and slow response to market signals",
+      "High dependency on external vendors who each have different taxonomies",
+      "Weeks spent aligning data before you can even start the strategy conversation",
+      "Competitors move faster because they're not stuck reconciling",
+      "Failed launches because the insight was right but the timing was wrong",
     ],
     whyItMatters:
-      "This stage represents the highest risk and lowest leverage. Every delay in intelligence maturity compounds the gap with faster-moving competitors.",
+      "Most brands are here. The cost isn't obvious—it's the launches that came too late, the shelf space you didn't win, the trends you saw but couldn't act on fast enough.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
-      from: "Reconciling conflicting data across providers",
-      to: "This is where most organizations start",
-      culturalMarker: "Insight exists, but trust and alignment don't",
+      from: "Reconciling conflicting shopper data across providers",
+      to: "This is where most consumer brands start",
+      culturalMarker: "Shopper insight exists, but trust and alignment don't",
     },
     timeAllocation: {
       reconciliation: 60,
@@ -184,8 +184,8 @@ const layersData: GDLayerData[] = [
       strategic: 10,
     },
     valueProof: {
-      metrics: ["High vendor spend", "Low self-service", "Reconciliation ↑", "Missed windows ↑"],
-      roiStatement: "Hidden costs: reconciliation, late validation, inconsistent action.",
+      metrics: ["High vendor spend", "Low self-service", "Reconciliation ↑", "Missed shelf windows ↑"],
+      roiStatement: "Hidden costs: reconciliation, late validation, shelf space you didn't win.",
     },
   },
 ];
@@ -300,8 +300,8 @@ const GDSlide6ValuePyramid = ({
   return (
     <GDSlideContainer
       id="slide-6"
-      title="The Intelligence Capability Stack"
-      subtitle="A framework for assessing where you are today"
+      title="Where Is Your Brand Today?"
+      subtitle="A framework for assessing your shopper intelligence maturity"
       slideNumber={6}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

@@ -4,15 +4,15 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import ConnectedIntelligenceWheel from "./ConnectedIntelligenceWheel";
 
 const replaces = [
-  "Tool sprawl across vendors",
-  "Manual reconciliation",
-  "Conflicting answers",
+  "See the full shopper journey—from trend emergence to basket drop",
+  "Know why a product is winning (or losing) across every touchpoint",
+  "Align brand, innovation, and commercial around the same consumer truth",
 ];
 
 const notThis = [
-  "Another dataset",
-  "Another dashboard",
-  "Another point solution",
+  "Another consumer panel you can't connect",
+  "Another dashboard that doesn't match your other data",
+  "Another point solution that creates more reconciliation",
 ];
 
 const GDSlide4Proposition = ({
@@ -27,8 +27,8 @@ const GDSlide4Proposition = ({
   return (
     <GDSlideContainer
       id="gd-slide-4"
-      title="Introducing Connected Intelligence"
-      subtitle="The operating system for category performance"
+      title="See the Full Shopper Journey. Act First."
+      subtitle="Understand your shopper faster than anyone—and act before they've moved on"
       slideNumber={4}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -42,7 +42,7 @@ const GDSlide4Proposition = ({
         {/* Central Value Proposition */}
         <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-6">
           <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed text-center">
-            <span className="text-primary font-bold">Five intelligence domains</span>. One governing taxonomy. <span className="text-primary font-bold">Decisions that compound</span> — not conflict.
+            <span className="text-primary font-bold">From trend emergence to basket drop</span>—one connected view of your shopper. <span className="text-primary font-bold">Every team aligned. Every decision faster.</span>
           </p>
         </div>
 
@@ -55,9 +55,9 @@ const GDSlide4Proposition = ({
 
           {/* What it replaces / What it is NOT */}
           <div className="space-y-4">
-            {/* What it replaces */}
+            {/* What it enables */}
             <div className="bg-card/50 border border-border/50 rounded-xl p-4">
-              <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">What It Replaces</p>
+              <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">What This Means For Your Brand</p>
               <div className="space-y-2">
                 {replaces.map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
@@ -86,7 +86,7 @@ const GDSlide4Proposition = ({
         {/* Bottom callout */}
         <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 text-center">
           <p className="text-sm text-foreground">
-            This is <span className="font-bold text-primary">intelligence designed to drive decisions end-to-end</span> — not another layer of data.
+            This isn't about better data. It's about <span className="font-bold text-primary">understanding your shopper faster than anyone else</span>—and acting on it before they've moved on.
           </p>
         </div>
       </div>

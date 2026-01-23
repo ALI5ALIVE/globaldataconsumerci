@@ -4,15 +4,15 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
-  { num: 1, label: "Market Reality", summary: "Has your intelligence kept pace?" },
-  { num: 2, label: "Intelligence Gap", summary: "The silent tax on every decision" },
-  { num: 3, label: "Before & After", summary: "One platform, one truth" },
-  { num: 4, label: "The Proposition", summary: "The operating system for performance" },
-  { num: 5, label: "Value Chain", summary: "Intelligence in the workflow" },
-  { num: 6, label: "Capability Stack", summary: "Where are you today?" },
-  { num: 7, label: "Your Roadmap", summary: "How value accelerates as you climb" },
-  { num: 8, label: "ROI", summary: "Returns that start immediately" },
-  { num: 9, label: "Why GlobalData", summary: "Only GlobalData can deliver this" },
+  { num: 1, label: "Market Reality", summary: "Your shoppers are changing faster" },
+  { num: 2, label: "Intelligence Gap", summary: "From trend to shelf—too slow" },
+  { num: 3, label: "Before & After", summary: "One shopper truth, faster wins" },
+  { num: 4, label: "The Proposition", summary: "See the full shopper journey" },
+  { num: 5, label: "Value Chain", summary: "From insight to basket drop" },
+  { num: 6, label: "Capability Stack", summary: "Where is your brand today?" },
+  { num: 7, label: "Your Roadmap", summary: "From trend-spotting to first-mover" },
+  { num: 8, label: "ROI", summary: "Fewer failed SKUs, faster wins" },
+  { num: 9, label: "Why GlobalData", summary: "Trusted by 8 of top 10 FMCG" },
 ];
 
 interface GDSlide0TitleProps extends SlideNarrationProps {
@@ -71,30 +71,30 @@ const GDSlide0Title = ({
         {/* Headline */}
         <div className="space-y-4 sm:space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
-            <span className="text-foreground">The Intelligence Gap</span>
+            <span className="text-foreground">Your Shoppers Are Changing</span>
             <br />
             <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
-              Is Costing You
+              Faster Than
             </span>
             <br />
             <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
-              Category Performance
+              Your Insights
             </span>
           </h1>
           
           <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            And how the world's best consumer brands 
+            How leading consumer brands are winning 
             <br className="hidden sm:block" />
-            <span className="text-primary font-medium">are closing it</span>.
+            <span className="text-primary font-medium">the moments that matter</span>.
           </p>
         </div>
 
         {/* Executive Takeaway */}
         <div className="max-w-2xl mx-auto">
           <div className="bg-card/50 backdrop-blur-sm border border-primary/30 rounded-lg p-4">
-            <p className="text-xs text-primary uppercase tracking-wider font-semibold mb-2">Executive Takeaway</p>
+            <p className="text-xs text-primary uppercase tracking-wider font-semibold mb-2">For CMOs, CSOs & Category Leaders</p>
             <p className="text-sm text-foreground leading-relaxed">
-              Category performers don't have better data. They have connected intelligence — and it changes everything.
+              The brands winning shelf space, share of stomach, and consumer loyalty don't have more data—they see the shopper's journey as one connected story.
             </p>
           </div>
         </div>

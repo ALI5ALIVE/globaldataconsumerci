@@ -60,8 +60,8 @@ const GDSlide10Solutions = ({
   return (
     <GDSlideContainer
       id="gd-slide-10"
-      title="One Platform. Five Solutions. Compounding Returns."
-      subtitle="See how it works for a global FMCG brand"
+      title="From Weak Signal to Winning Launch"
+      subtitle="How a global snack brand captured #2 share in 8 weeks"
       slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -78,11 +78,11 @@ const GDSlide10Solutions = ({
             Case Study
           </span>
           <span className="text-muted-foreground">
-            Global FMCG brand in healthy snacks
+            Target: Urban European commuters, 25-40, health-conscious but time-poor
           </span>
           <ArrowRight className="w-4 h-4 text-muted-foreground hidden sm:block" />
           <span className="text-foreground font-medium hidden sm:inline">
-            "Win growth in high-protein on-the-go segment"
+            Segment growing 14% YoY · 3 competitors already have 2+ SKUs each
           </span>
         </div>
 
@@ -131,18 +131,18 @@ const GDSlide10Solutions = ({
         {/* Bottom Stats */}
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
-            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">5</div>
-            <div className="text-xs text-muted-foreground">Intelligence Solutions</div>
+            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">6mo</div>
+            <div className="text-xs text-muted-foreground">Launched (vs 14mo typical)</div>
           </div>
           <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
-            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">1</div>
-            <div className="text-xs text-muted-foreground">Unified Taxonomy</div>
+            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">#2</div>
+            <div className="text-xs text-muted-foreground">Segment position in 8 weeks</div>
           </div>
           <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
             <div className="flex justify-center">
               <Infinity className="w-8 h-8 sm:w-10 sm:h-10 text-primary mb-1" />
             </div>
-            <div className="text-xs text-muted-foreground">Compounding Value</div>
+            <div className="text-xs text-muted-foreground">Intelligence that compounds</div>
           </div>
         </div>
       </div>
