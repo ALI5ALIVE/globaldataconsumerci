@@ -44,7 +44,7 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
 
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 700 190" className="w-full max-w-[700px]">
+      <svg viewBox="0 0 700 190" className="w-full h-full">
         <defs>
           <filter id="gdFragmentGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="4" result="blur" />
