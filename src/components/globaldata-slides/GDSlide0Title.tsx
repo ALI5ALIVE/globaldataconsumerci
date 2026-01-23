@@ -83,9 +83,9 @@ const GDSlide0Title = ({
           </h1>
           
           <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            How leading consumer brands are winning 
+            How leading consumer brands turn constant change into
             <br className="hidden sm:block" />
-            <span className="text-primary font-medium">the moments that matter</span>.
+            <span className="text-primary font-medium">faster, more confident growth</span> and better category performance.
           </p>
         </div>
 
