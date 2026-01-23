@@ -43,6 +43,7 @@ const GDSlide4Proposition = ({
           <div className="flex items-center justify-center py-4">
             <ConnectedIntelligenceWheel
               activeSegment={activeSegment}
+              defaultSegment="Market Intelligence"
               onSegmentHover={setActiveSegment}
               onSegmentClick={setActiveSegment}
             />

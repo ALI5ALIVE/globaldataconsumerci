@@ -2,12 +2,14 @@ import React from "react";
 
 interface ConnectedIntelligenceWheelProps {
   activeSegment?: string | null;
+  defaultSegment?: string;
   onSegmentHover?: (segmentName: string | null) => void;
   onSegmentClick?: (segmentName: string) => void;
 }
 
 const ConnectedIntelligenceWheel = ({
   activeSegment,
+  defaultSegment = "Market Intelligence",
   onSegmentHover,
   onSegmentClick,
 }: ConnectedIntelligenceWheelProps) => {
@@ -117,7 +119,7 @@ const ConnectedIntelligenceWheel = ({
                 opacity={activeSegment && activeSegment !== segment.name ? 0.5 : 1}
                 className="cursor-pointer transition-all duration-200"
                 onMouseEnter={() => onSegmentHover?.(segment.name)}
-                onMouseLeave={() => onSegmentHover?.(null)}
+                onMouseLeave={() => onSegmentHover?.(defaultSegment)}
                 onClick={() => onSegmentClick?.(segment.name)}
               />
               <text
