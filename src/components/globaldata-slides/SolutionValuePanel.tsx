@@ -1,62 +1,29 @@
-import { MousePointer2, TrendingUp, Compass, Swords, Lightbulb, BarChart3 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { MousePointer2, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { solutionDeepDives } from "@/data/solutionDeepDives";
 
 interface SolutionValuePanelProps {
   activeSolution: string | null;
 }
 
-interface SolutionData {
-  icon: LucideIcon;
-  headline: string;
-  oneLiner: string;
-  outcome: string;
-  color: string;
-}
-
-const solutionData: Record<string, SolutionData> = {
-  "Sales Intelligence": {
-    icon: TrendingUp,
-    headline: "Sales Intelligence",
-    oneLiner: "Prioritize markets, brands, and opportunities with AI-driven insights for revenue growth.",
-    outcome: "Action-ready intelligence for pipeline planning and expansion strategy.",
-    color: "hsl(195 85% 50%)",
-  },
-  "Strategic Intelligence": {
-    icon: Compass,
-    headline: "Strategic Intelligence",
-    oneLiner: "Track market, category, and consumer shifts for informed, long-term strategic decisions.",
-    outcome: "Actionable insights on emerging risks and opportunities across portfolios and channels.",
-    color: "hsl(190 80% 45%)",
-  },
-  "Competitor Intelligence": {
-    icon: Swords,
-    headline: "Competitive Intelligence",
-    oneLiner: "Outperform competitors by tracking their strategies, investments, and market share shifts.",
-    outcome: "Proprietary data and expert insights reveal competitor focus and relevance.",
-    color: "hsl(210 75% 50%)",
-  },
-  "Innovation Intelligence": {
-    icon: Lightbulb,
-    headline: "Innovation Intelligence",
-    oneLiner: "Accelerate innovation and reduce time-to-market with real-time consumer insight.",
-    outcome: "Validate concepts, optimize propositions, and prioritize pipelines based on demand.",
-    color: "hsl(200 90% 45%)",
-  },
-  "Market Intelligence": {
-    icon: BarChart3,
-    headline: "Market Intelligence",
-    oneLiner: "Understand market dynamics and size growth opportunities across categories and segments.",
-    outcome: "Smarter strategic, portfolio, and investment decisions based on demand shifts.",
-    color: "hsl(217 100% 40%)",
-  },
+// Map wheel segment names to solution IDs
+const segmentToSolutionId: Record<string, string> = {
+  "Strategic Intelligence": "strategic",
+  "Market Intelligence": "market",
+  "Competitor Intelligence": "competitive",
+  "Innovation Intelligence": "innovation",
+  "Sales Intelligence": "sales",
 };
 
 const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
-  const solution = activeSolution ? solutionData[activeSolution] : null;
+  const solutionId = activeSolution ? segmentToSolutionId[activeSolution] : null;
+  const deepDive = solutionId 
+    ? solutionDeepDives.find(s => s.id === solutionId) 
+    : null;
 
-  if (!solution) {
+  if (!deepDive) {
     return (
-      <div className="h-full min-h-[200px] flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-6">
+      <div className="h-full min-h-[280px] flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-6">
         <div className="text-center">
           <MousePointer2 className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
           <p className="text-sm text-muted-foreground">
@@ -67,36 +34,85 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
     );
   }
 
-  const IconComponent = solution.icon;
+  const IconComponent = deepDive.icon;
+  const firstPain = deepDive.painToCapability[0];
 
   return (
-    <div 
-      className="h-full min-h-[200px] bg-card/50 border rounded-xl p-5 animate-fade-in"
-      style={{ borderColor: `${solution.color}50` }}
-    >
-      <div className="flex items-center gap-3 mb-4">
-        <div 
-          className="w-10 h-10 rounded-lg flex items-center justify-center"
-          style={{ backgroundColor: `${solution.color}20` }}
-        >
-          <IconComponent className="w-5 h-5" style={{ color: solution.color }} />
+    <AnimatePresence mode="wait">
+      <motion.div 
+        key={deepDive.id}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.2 }}
+        className="h-full min-h-[280px] bg-card/50 border rounded-xl p-4 overflow-y-auto"
+        style={{ borderColor: `${deepDive.color}40` }}
+      >
+        {/* Header: Icon + Title */}
+        <div className="flex items-center gap-3 mb-3">
+          <div 
+            className="w-10 h-10 rounded-lg flex items-center justify-center"
+            style={{ backgroundColor: `${deepDive.color}20` }}
+          >
+            <IconComponent className="w-5 h-5" style={{ color: deepDive.color }} />
+          </div>
+          <h3 className="text-lg font-bold text-foreground">{deepDive.label}</h3>
         </div>
-        <h3 className="text-lg font-bold text-foreground">{solution.headline}</h3>
-      </div>
-      
-      <p className="text-sm text-foreground leading-relaxed mb-4">
-        {solution.oneLiner}
-      </p>
-      
-      <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-        <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">
-          Outcome
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {solution.outcome}
-        </p>
-      </div>
-    </div>
+        
+        {/* JTBD Section */}
+        <div className="mb-3 p-3 bg-card/60 rounded-lg border border-border/50">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+            Jobs to Be Done
+          </p>
+          <p className="text-sm text-foreground leading-relaxed">
+            <span className="text-primary font-medium">When</span> {deepDive.jtbd.when}, {" "}
+            <span className="text-primary font-medium">I want to</span> {deepDive.jtbd.iWantTo} {" "}
+            <span className="text-primary font-medium">so that</span> {deepDive.jtbd.soThat}.
+          </p>
+        </div>
+        
+        {/* Pain to Outcome */}
+        <div className="mb-3 p-3 bg-card/60 rounded-lg border border-border/50">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+            From Pain to Outcome
+          </p>
+          <div className="flex items-start gap-2 text-sm">
+            <span className="text-destructive/80 text-xs flex-shrink-0">{firstPain.pain}</span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <span className="text-foreground text-xs flex-shrink-0">{firstPain.capability}</span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <span className="text-primary font-medium text-xs">{firstPain.outcome}</span>
+          </div>
+        </div>
+        
+        {/* Real Example */}
+        <div className="mb-3 p-3 bg-primary/10 rounded-lg border border-primary/20">
+          <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-1">
+            Real Example
+          </p>
+          <p className="text-xs text-muted-foreground">{deepDive.example.brand}</p>
+          <p className="text-sm font-medium text-foreground mt-1">
+            {deepDive.example.result}
+          </p>
+        </div>
+        
+        {/* Capabilities Tags */}
+        <div className="flex flex-wrap gap-1.5">
+          {deepDive.capabilities.slice(0, 4).map((cap, i) => (
+            <span 
+              key={i}
+              className="px-2 py-1 rounded-full text-[10px] font-medium"
+              style={{ 
+                backgroundColor: `${deepDive.color}15`,
+                color: deepDive.color 
+              }}
+            >
+              {cap}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
