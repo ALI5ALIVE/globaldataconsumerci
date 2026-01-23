@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
-import { Target, TrendingUp, Swords, Lightbulb, BarChart3, ChevronRight } from "lucide-react";
+import { Target, TrendingUp, Swords, Lightbulb, BarChart3, ChevronRight, ArrowDown } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 import type { LucideIcon } from "lucide-react";
+import { solutionDeepDives } from "@/data/solutionDeepDives";
 
 // Solution icon and color mapping
 const solutionConfig: Record<string, { icon: LucideIcon; color: string }> = {
@@ -11,6 +12,15 @@ const solutionConfig: Record<string, { icon: LucideIcon; color: string }> = {
   "Competitive": { icon: Swords, color: "hsl(180 70% 45%)" },
   "Innovation": { icon: Lightbulb, color: "hsl(165 70% 45%)" },
   "Sales": { icon: BarChart3, color: "hsl(145 70% 45%)" },
+};
+
+// Map solution names to deep dive IDs
+const solutionToDeepDiveId: Record<string, string> = {
+  "Strategic": "strategic",
+  "Market": "market",
+  "Competitive": "competitive",
+  "Innovation": "innovation",
+  "Sales": "sales",
 };
 
 // Workflow stages with solution mapping (based on PDF)
@@ -95,7 +105,7 @@ const GDSlide5ValueChain = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  const [activeStage, setActiveStage] = useState<number | null>(null);
+  const [activeStage, setActiveStage] = useState<number | null>(0);
   const [activeCombo, setActiveCombo] = useState<number | null>(null);
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
 
@@ -120,7 +130,7 @@ const GDSlide5ValueChain = ({
 
   const handleStageHover = (index: number | null) => {
     if (!isNarrationControlled) {
-      setActiveStage(index);
+      setActiveStage(index !== null ? index : 0); // Revert to first stage
       if (index !== null) setActiveCombo(null);
     }
   };
@@ -253,47 +263,99 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Detail Panel */}
-        <div className="min-h-[120px]">
-          {activeData ? (
-            <div 
-              className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex gap-1 shrink-0">
-                  {activeData.solutions.map((sol) => {
-                    const Icon = solutionConfig[sol].icon;
-                    return (
-                      <div 
-                        key={sol}
-                        className="w-10 h-10 rounded-lg flex items-center justify-center"
-                        style={{ backgroundColor: solutionConfig[sol].color + "20", border: `1px solid ${solutionConfig[sol].color}40` }}
-                      >
-                        <Icon className="w-5 h-5" style={{ color: solutionConfig[sol].color }} />
+        <div className="min-h-[140px]">
+          {activeData && (() => {
+            // Get the primary solution's deep dive
+            const primarySol = activeData.solutions[0];
+            const deepDiveId = solutionToDeepDiveId[primarySol];
+            const deepDive = solutionDeepDives.find(s => s.id === deepDiveId);
+            const firstPain = deepDive?.painToCapability[0];
+
+            return (
+              <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in">
+                <div className="flex gap-4">
+                  {/* Left: Icons + Stage Info */}
+                  <div className="shrink-0">
+                    <div className="flex gap-1 mb-2">
+                      {activeData.solutions.map((sol) => {
+                        const Icon = solutionConfig[sol].icon;
+                        return (
+                          <div 
+                            key={sol} 
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style={{ backgroundColor: solutionConfig[sol].color + "20" }}
+                          >
+                            <Icon className="w-4 h-4" style={{ color: solutionConfig[sol].color }} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <p className="text-xs font-semibold text-foreground">{activeData.label}</p>
+                    <p className="text-[10px] text-muted-foreground">Stage {workflowStages.indexOf(activeData) + 1}</p>
+                  </div>
+
+                  {/* Right: Rich Content */}
+                  <div className="flex-1 grid grid-cols-3 gap-4">
+                    {/* Column 1: JTBD */}
+                    {deepDive && (
+                      <div className="p-3 bg-card/60 rounded-lg border border-border/50">
+                        <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">
+                          Jobs to Be Done
+                        </p>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          <span className="text-primary font-medium">When</span> {deepDive.jtbd.when.toLowerCase()}...{" "}
+                          <span className="text-primary font-medium">I want to</span> {deepDive.jtbd.iWantTo.toLowerCase()}{" "}
+                          <span className="text-primary font-medium">so that</span> {deepDive.jtbd.soThat.toLowerCase()}.
+                        </p>
                       </div>
-                    );
-                  })}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-bold text-foreground">{activeData.label}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-primary/20 text-[10px] font-medium text-primary">
-                      {activeData.combination.name}
-                    </span>
+                    )}
+
+                    {/* Column 2: Pain to Outcome */}
+                    {firstPain && (
+                      <div className="p-3 bg-card/60 rounded-lg border border-border/50">
+                        <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-1">
+                          From Pain to Outcome
+                        </p>
+                        <div className="flex flex-col gap-1">
+                          <div className="px-2 py-1 rounded bg-destructive/10 border border-destructive/20">
+                            <span className="text-[10px] text-destructive">{firstPain.pain}</span>
+                          </div>
+                          <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
+                          <div className="px-2 py-1 rounded bg-card border border-border">
+                            <span className="text-[10px] text-foreground">{firstPain.capability}</span>
+                          </div>
+                          <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
+                          <div className="px-2 py-1 rounded bg-primary/15 border border-primary/30">
+                            <span className="text-[10px] text-primary font-medium">{firstPain.outcome}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Column 3: Real Example + Capabilities */}
+                    {deepDive && (
+                      <div className="space-y-2">
+                        <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
+                          <p className="text-[10px] font-semibold text-primary uppercase mb-0.5">Real Example</p>
+                          <p className="text-[10px] text-muted-foreground">{deepDive.example.brand}</p>
+                          <p className="text-[10px] text-foreground font-medium">{deepDive.example.result}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {deepDive.capabilities.slice(0, 3).map((cap, i) => (
+                            <span key={i} className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px]">
+                              {cap}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                    {activeData.questions.map((q, j) => (
-                      <p key={j} className="text-xs text-muted-foreground flex items-start gap-1">
-                        <span className="text-primary">•</span> {q}
-                      </p>
-                    ))}
-                  </div>
-                  <p className="text-xs text-primary mt-2 font-medium">
-                    → {activeData.combination.description}
-                  </p>
                 </div>
               </div>
-            </div>
-          ) : activeComboData ? (
+            );
+          })()}
+          
+          {activeComboData && !activeData && (
             <div 
               className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in"
             >
@@ -322,12 +384,6 @@ const GDSlide5ValueChain = ({
                   </p>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="h-full flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-4">
-              <p className="text-sm text-muted-foreground text-center">
-                Hover over a workflow stage or combination to explore how solutions work together
-              </p>
             </div>
           )}
         </div>
