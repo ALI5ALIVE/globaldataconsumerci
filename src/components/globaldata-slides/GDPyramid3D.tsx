@@ -393,6 +393,13 @@ const GDPyramid3D = ({
                     <IconComponent className="w-10 h-10 text-white/90" strokeWidth={2} />
                   </div>
                 </foreignObject>
+
+                <text x={sectionCenterX} y={foundationCenterY + 4} textAnchor="middle" fill="hsl(210, 40%, 98%)" fontSize="16" fontWeight="600" fontFamily="'Space Grotesk', sans-serif" letterSpacing="0.05em" className="uppercase pointer-events-none select-none">
+                  {section.label}
+                </text>
+                <text x={sectionCenterX} y={foundationCenterY + 26} textAnchor="middle" fill="hsl(210, 40%, 80%)" fontSize="12" fontWeight="400" fontFamily="'Inter', sans-serif" className="pointer-events-none select-none">
+                  {section.sublabel}
+                </text>
               </g>
             );
           })}
