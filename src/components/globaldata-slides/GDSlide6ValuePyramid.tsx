@@ -316,9 +316,9 @@ const GDSlide6ValuePyramid = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="grid lg:grid-cols-[3fr_2fr] gap-3 lg:gap-4 items-stretch h-full max-h-full overflow-hidden">
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-2 lg:gap-3 items-stretch h-full max-h-full overflow-hidden">
         {/* LEFT: Pyramid Visual */}
-        <div className="w-full min-h-0 max-h-[380px] flex items-center justify-center">
+        <div className="w-full min-h-0 max-h-[360px] flex items-center justify-center">
           <GDPyramid3D
             layers={layersData.map((layer) => ({
               id: layer.id,
@@ -336,7 +336,7 @@ const GDSlide6ValuePyramid = ({
         </div>
 
         {/* RIGHT: Details Panel */}
-        <div className="h-full overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
+        <div className="h-full overflow-y-auto bg-card/30 rounded-lg p-3 border border-border/30 flex flex-col">
           <div className={`flex-1 transition-all duration-200 ${
             isTransitioning 
               ? 'opacity-0 translate-x-4' 
@@ -346,7 +346,7 @@ const GDSlide6ValuePyramid = ({
           </div>
           
           {/* Stage Indicator & Controls */}
-          <div className="mt-3 pt-3 border-t border-border/30">
+          <div className="mt-2 pt-2 border-t border-border/30">
             <div className="flex items-center justify-between gap-2">
               {/* Stage dots */}
               <div className="flex items-center gap-1.5">

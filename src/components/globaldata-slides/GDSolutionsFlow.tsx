@@ -85,12 +85,12 @@ const flowingDots = [
 
 const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDSolutionsFlowProps) => {
   return (
-    <div className="w-full max-h-full overflow-hidden">
+    <div className="w-full max-h-[calc(100%-60px)] overflow-hidden">
       {/* Solutions Flow */}
       <div className="relative">
         {/* Unified Data Layer - Background Bar with animated dots */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-lg border border-primary/30 flex items-center justify-center z-0 overflow-hidden">
-          <span className="text-xs sm:text-sm font-medium text-primary relative z-10">
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-r from-primary/20 via-primary/30 to-primary/20 rounded-lg border border-primary/30 flex items-center justify-center z-0 overflow-hidden">
+          <span className="text-[10px] sm:text-xs font-medium text-primary relative z-10">
             Unified Taxonomy & Data Layer
           </span>
           
@@ -187,7 +187,7 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
         </svg>
 
         {/* Solutions Grid */}
-        <div className="grid grid-cols-5 gap-2 sm:gap-4 pb-16 relative z-10">
+        <div className="grid grid-cols-5 gap-1.5 sm:gap-3 pb-14 relative z-10">
           {solutions.map((solution, index) => {
             const Icon = solution.icon;
             const isActive = activeStep === index;
@@ -198,7 +198,7 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
                 key={solution.id}
                 onClick={() => onStepClick?.(index)}
                 className={cn(
-                  "relative flex flex-col items-center p-2 sm:p-4 rounded-xl border transition-all duration-300",
+                  "relative flex flex-col items-center p-2 sm:p-3 rounded-xl border transition-all duration-300",
                   "bg-card/50 backdrop-blur-sm",
                   isActive
                     ? `${solution.borderColor} ${solution.bgColor} scale-105 shadow-lg`
@@ -216,13 +216,13 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
 
                 {/* Icon */}
                 <div className={cn(
-                  "w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mb-2 transition-all duration-300",
+                  "w-6 h-6 sm:w-10 sm:h-10 rounded-full flex items-center justify-center mb-1.5 transition-all duration-300",
                   isActive
                     ? `bg-gradient-to-br ${solution.color}`
                     : "bg-muted"
                 )}>
                   <Icon className={cn(
-                    "w-4 h-4 sm:w-6 sm:h-6",
+                    "w-3 h-3 sm:w-5 sm:h-5",
                     isActive ? "text-white" : "text-muted-foreground"
                   )} />
                 </div>
@@ -258,34 +258,34 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
       {/* Active Solution Details */}
       {activeStep !== null && activeStep >= 0 && activeStep < solutions.length && (
         <div className={cn(
-          "mt-6 p-4 sm:p-6 rounded-xl border transition-all duration-300",
+          "mt-3 p-3 sm:p-4 rounded-xl border transition-all duration-300",
           solutions[activeStep].borderColor,
           solutions[activeStep].bgColor
         )}>
-          <div className="flex items-start gap-4">
+          <div className="flex items-start gap-3">
             <div className={cn(
-              "w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0",
+              "w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0",
               `bg-gradient-to-br ${solutions[activeStep].color}`
             )}>
               {(() => {
                 const Icon = solutions[activeStep].icon;
-                return <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />;
+                return <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />;
               })()}
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-base sm:text-lg font-semibold text-foreground mb-1">
+              <h4 className="text-sm sm:text-base font-semibold text-foreground mb-0.5">
                 {solutions[activeStep].label}
               </h4>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-xs text-muted-foreground mb-2">
                 {solutions[activeStep].description}
               </p>
               
               {/* Capabilities */}
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="flex flex-wrap gap-1.5 mb-2">
                 {solutions[activeStep].capabilities.map((cap, i) => (
                   <span
                     key={i}
-                    className="text-xs px-2 py-1 rounded-full bg-background/50 border border-border/50 text-muted-foreground"
+                    className="text-[10px] px-1.5 py-0.5 rounded-full bg-background/50 border border-border/50 text-muted-foreground"
                   >
                     {cap}
                   </span>
@@ -293,9 +293,9 @@ const GDSolutionsFlow = ({ activeStep, onStepClick, isNarrationControlled }: GDS
               </div>
 
               {/* Case Study Output */}
-              <div className="p-3 rounded-lg bg-background/50 border border-border/30">
-                <p className="text-xs text-muted-foreground mb-1">Case Study Output:</p>
-                <p className="text-sm text-foreground">{solutions[activeStep].caseOutput}</p>
+              <div className="p-2 rounded-lg bg-background/50 border border-border/30">
+                <p className="text-[10px] text-muted-foreground mb-0.5">Case Study Output:</p>
+                <p className="text-xs text-foreground">{solutions[activeStep].caseOutput}</p>
               </div>
             </div>
           </div>

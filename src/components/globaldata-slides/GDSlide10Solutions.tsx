@@ -71,16 +71,16 @@ const GDSlide10Solutions = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Case Study Context */}
-        <div className="flex flex-wrap items-center gap-3 text-sm">
-          <span className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary font-medium">
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          <span className="px-2 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary font-medium">
             Case Study
           </span>
           <span className="text-muted-foreground">
             Target: Urban European commuters, 25-40, health-conscious but time-poor
           </span>
-          <ArrowRight className="w-4 h-4 text-muted-foreground hidden sm:block" />
+          <ArrowRight className="w-3 h-3 text-muted-foreground hidden sm:block" />
           <span className="text-foreground font-medium hidden sm:inline">
             Segment growing 14% YoY · 3 competitors already have 2+ SKUs each
           </span>
@@ -94,16 +94,16 @@ const GDSlide10Solutions = ({
         />
 
         {/* Comparison Table */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
           {/* Separate */}
-          <div className="p-4 rounded-xl bg-card/30 border border-border/30">
-            <h4 className="text-sm font-semibold text-muted-foreground mb-3 flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-card/30 border border-border/30">
+            <h4 className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-muted-foreground/50" />
               If Bought Separately
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {comparisonData.map((item, i) => (
-                <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                <li key={i} className="text-xs text-muted-foreground flex items-start gap-2">
                   <span className="text-muted-foreground/50">•</span>
                   {item.separate}
                 </li>
@@ -112,14 +112,14 @@ const GDSlide10Solutions = ({
           </div>
 
           {/* Connected */}
-          <div className="p-4 rounded-xl bg-primary/5 border border-primary/30">
-            <h4 className="text-sm font-semibold text-primary mb-3 flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-primary/5 border border-primary/30">
+            <h4 className="text-xs font-semibold text-primary mb-2 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary" />
               If Bought as Connected Platform
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {comparisonData.map((item, i) => (
-                <li key={i} className="text-sm text-foreground flex items-start gap-2">
+                <li key={i} className="text-xs text-foreground flex items-start gap-2">
                   <span className="text-primary">✓</span>
                   {item.connected}
                 </li>
@@ -129,20 +129,20 @@ const GDSlide10Solutions = ({
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-3">
-          <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
-            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">6mo</div>
-            <div className="text-xs text-muted-foreground">Launched (vs 14mo typical)</div>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="text-center p-2 rounded-lg bg-card/30 border border-border/30">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-0.5">6mo</div>
+            <div className="text-[11px] text-muted-foreground">Launched (vs 14mo typical)</div>
           </div>
-          <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
-            <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">#2</div>
-            <div className="text-xs text-muted-foreground">Segment position in 8 weeks</div>
+          <div className="text-center p-2 rounded-lg bg-card/30 border border-border/30">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-0.5">#2</div>
+            <div className="text-[11px] text-muted-foreground">Segment position in 8 weeks</div>
           </div>
-          <div className="text-center p-3 rounded-lg bg-card/30 border border-border/30">
+          <div className="text-center p-2 rounded-lg bg-card/30 border border-border/30">
             <div className="flex justify-center">
-              <Infinity className="w-8 h-8 sm:w-10 sm:h-10 text-primary mb-1" />
+              <Infinity className="w-6 h-6 sm:w-8 sm:h-8 text-primary mb-0.5" />
             </div>
-            <div className="text-xs text-muted-foreground">Intelligence that compounds</div>
+            <div className="text-[11px] text-muted-foreground">Intelligence that compounds</div>
           </div>
         </div>
       </div>
