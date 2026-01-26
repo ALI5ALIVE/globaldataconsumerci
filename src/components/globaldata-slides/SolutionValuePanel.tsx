@@ -23,7 +23,7 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
 
   if (!deepDive) {
     return (
-      <div className="h-full min-h-[200px] flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-6">
+      <div className="h-full min-h-[160px] max-h-[320px] flex items-center justify-center bg-card/30 border border-border/30 rounded-xl p-4">
         <div className="text-center">
           <MousePointer2 className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
           <p className="text-sm text-muted-foreground">
@@ -45,7 +45,7 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.2 }}
-        className="h-full min-h-[200px] bg-card/50 border rounded-xl p-4 overflow-y-auto"
+        className="h-full min-h-[160px] max-h-[320px] bg-card/50 border rounded-xl p-3 overflow-y-auto"
         style={{ borderColor: `${deepDive.color}40` }}
       >
         {/* Header: Icon + Title */}
@@ -60,7 +60,7 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
         </div>
         
         {/* JTBD Section */}
-        <div className="mb-2 p-2 bg-card/60 rounded-lg border border-border/50">
+        <div className="mb-1.5 p-1.5 bg-card/60 rounded-lg border border-border/50">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
             Jobs to Be Done
           </p>
@@ -72,7 +72,7 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
         </div>
         
         {/* Pain to Outcome - Vertical stacked layout */}
-        <div className="mb-2 p-2 bg-card/60 rounded-lg border border-border/50">
+        <div className="mb-1.5 p-1.5 bg-card/60 rounded-lg border border-border/50">
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
             From Pain to Outcome
           </p>
@@ -101,7 +101,7 @@ const SolutionValuePanel = ({ activeSolution }: SolutionValuePanelProps) => {
         </div>
         
         {/* Real Example */}
-        <div className="mb-2 p-2 bg-primary/10 rounded-lg border border-primary/20">
+        <div className="mb-1.5 p-1.5 bg-primary/10 rounded-lg border border-primary/20">
           <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-1">
             Real Example
           </p>

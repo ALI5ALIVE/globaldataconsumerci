@@ -166,7 +166,7 @@ const GDSlide5ValueChain = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Solution Combo Pills */}
         <div className="flex flex-wrap justify-center gap-3">
           {solutionCombos.map((combo, i) => (
@@ -263,7 +263,7 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Detail Panel */}
-        <div className="min-h-[140px]">
+        <div className="min-h-[120px] max-h-[140px]">
           {activeData && (() => {
             // Get the primary solution's deep dive
             const primarySol = activeData.solutions[0];
@@ -389,7 +389,7 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-2">
           <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
             <p className="text-2xl font-bold text-primary">5</p>
             <p className="text-xs text-muted-foreground">Workflow stages</p>

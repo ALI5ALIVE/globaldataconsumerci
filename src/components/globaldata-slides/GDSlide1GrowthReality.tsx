@@ -49,7 +49,7 @@ const GDSlide1GrowthReality = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Pain Points Grid */}
         <div className="grid md:grid-cols-3 gap-4">
           {painPoints.map((point, i) => (
@@ -75,7 +75,7 @@ const GDSlide1GrowthReality = ({
         </div>
 
         {/* The Paradox */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center">
+        <div className="grid lg:grid-cols-2 gap-3 items-center">
           <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-6">
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="w-5 h-5 text-amber-400" />

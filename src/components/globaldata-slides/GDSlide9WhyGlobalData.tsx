@@ -55,7 +55,7 @@ const GDSlide9WhyGlobalData = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Three Differentiators */}
         <div className="grid md:grid-cols-3 gap-4">
           {differentiators.map((diff, i) => {
@@ -100,7 +100,7 @@ const GDSlide9WhyGlobalData = ({
         </div>
 
         {/* Executive Close Section */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-4 items-center">
+        <div className="grid lg:grid-cols-2 gap-3 items-center">
           {/* Leadership Imperative */}
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-5">
             <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Performance Imperative</p>

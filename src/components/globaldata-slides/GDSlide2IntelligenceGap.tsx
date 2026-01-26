@@ -63,7 +63,7 @@ const GDSlide2IntelligenceGap = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-4 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
         {/* Definition Box */}
         <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-2">
@@ -76,7 +76,7 @@ const GDSlide2IntelligenceGap = ({
         </div>
 
         {/* Why It Exists + Quantified Impact */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
           {/* Left: Why It Exists */}
           <div className="flex flex-col gap-2 h-full">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Why It Exists</p>

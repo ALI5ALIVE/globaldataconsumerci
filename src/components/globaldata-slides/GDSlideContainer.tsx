@@ -108,7 +108,7 @@ const GDSlideContainer = ({
         </div>
 
         {/* Content area */}
-        <div className="w-full flex-1 overflow-hidden">{children}</div>
+        <div className="w-full flex-1 min-h-0 relative">{children}</div>
       </div>
     </section>
   );
