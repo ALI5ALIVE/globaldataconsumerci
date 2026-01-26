@@ -1,226 +1,180 @@
 
-## Fix Content Overflow Issues Across GlobalData Deck Slides
+
+## Comprehensive Fix for GlobalData Deck Content Overflow
 
 ### Problem Summary
 
-The user reports that content is being cut off on Slide 3 (Before/After copy boxes) and Slide 4 (Connected Intelligence Wheel), requiring scrolling on laptop screens (1366x768). The target is to ensure all slides fit within the viewport without scrolling on standard laptop screens.
-
----
+Multiple slides in the GlobalData deck have content being cut off:
+1. **Slide 3 (Before/After)**: The label badges (e.g., "Before: Fragmented Intelligence") positioned with `absolute -top-2.5` are being clipped by the container's `overflow-hidden`
+2. **Slide 4 (Proposition)**: The Connected Intelligence Wheel and Solution Value Panel overflow the viewport
+3. **Multiple slides**: Content at the bottom is cut off due to insufficient height constraints and excessive padding/gaps
 
 ### Root Cause Analysis
 
-After reviewing the code, I identified the following issues:
+1. **GDSlideContainer (Line 46)**: Uses `overflow-hidden` which clips any absolutely positioned elements that extend beyond the container boundaries
 
-1. **Slide 3 (GDSlide3BeforeAfter.tsx)**
-   - The grid containing Before/After columns uses `flex-1` which tries to expand beyond available space
-   - SVG containers at `h-20` (80px) combined with icon grids and indicators creates overflow
-   - The layout doesn't properly constrain to available height
+2. **Slide 3 (GDSlide3BeforeAfter.tsx)**:
+   - Lines 55-56: Absolute positioned labels use `-top-2.5` which positions them outside the card, getting clipped
+   - Line 52: `flex-1` on the grid causes it to expand beyond available space
+   - Line 60, 107: Illustration containers at `h-20` (80px) consume significant vertical space
 
-2. **Slide 4 (GDSlide4Proposition.tsx)**
-   - `ConnectedIntelligenceWheel` component has no max-height constraint (`max-w-md` but no height limit)
-   - The wheel SVG expands freely, pushing the `SolutionValuePanel` off-screen
-   - Gap between elements at `gap-3`/`gap-4` adds unnecessary space
+3. **Slide 4 (GDSlide4Proposition.tsx)**:
+   - Line 41: No max-height constraint on the grid containing the wheel and panel
+   - Line 43: Wheel container has no height limits
+   - ConnectedIntelligenceWheel.tsx Line 88: Uses `max-w-md` (448px) but no height constraint
 
-3. **ConnectedIntelligenceWheel.tsx**
-   - Uses `max-w-md` (448px) which on smaller screens causes the SVG to be too large
-   - No height constraints on the wrapper or SVG
-
-4. **SolutionValuePanel.tsx**
-   - Uses `min-h-[200px]` which prevents proper shrinking when space is limited
-   - Content sections have generous padding
+4. **Slides 1, 2, 5, 8, 9**: Use `flex-1` on content sections which can cause overflow when combined with fixed-height elements
 
 ---
 
 ### Technical Solution
 
-#### 1. Fix Slide 3 - Before/After Layout
+#### 1. Fix GDSlideContainer - Allow Labels to Show
+
+**File:** `src/components/globaldata-slides/GDSlideContainer.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 46 | `overflow-hidden` | Change to `overflow-visible` for the content area but keep `overflow-hidden` on section |
+| 111 | `overflow-hidden` | Remove to allow badge labels to be visible |
+
+New approach - wrap children with proper overflow handling:
+```tsx
+// Line 110-111: Change content area wrapper
+<div className="w-full flex-1 min-h-0 relative">{children}</div>
+```
+
+#### 2. Fix Slide 3 - Before/After Labels and Layout
 
 **File:** `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
 
-**Changes:**
-- Add responsive tabs for smaller screens (as user requested)
-- On larger screens, keep side-by-side layout with constrained heights
-- Reduce SVG container from `h-20` to `h-16`
-- Remove `flex-1` from grid to prevent over-expansion
-- Tighten spacing in icon grid and indicators
+**Issue 1: Labels are clipped**
+Move labels inside the cards instead of absolute positioning outside:
 
-```text
-Current Layout (Lines 50-157):
-+------------------------------------------+
-| flex flex-col gap-3 h-full max-h-full    |
-|   +-- grid lg:grid-cols-2 gap-4 flex-1   | <- flex-1 causes expansion
-|   |     +-- Before Column                |
-|   |     |   h-20 illustration            | <- Too tall
-|   |     |   grid grid-cols-2 gap-2 flex-1|
-|   |     |   indicators gap-1             |
-|   |     +-- After Column                 |
-|   +-- Metrics Banner p-3                 |
-+------------------------------------------+
+| Line | Current | Change |
+|------|---------|--------|
+| 54-57 | Absolute label `-top-2.5` | Move inside card with `mb-2` margin |
+| 101-104 | Absolute label `-top-2.5` | Move inside card with `mb-2` margin |
 
-New Layout:
-+------------------------------------------+
-| flex flex-col gap-2 h-full max-h-full    | <- Reduced gap
-|   +-- Tabs (hidden lg:hidden)            | <- NEW: Mobile tabs
-|   +-- grid lg:grid-cols-2 gap-3          | <- No flex-1
-|   |     +-- Before Column                |
-|   |     |   h-14 illustration            | <- Reduced height
-|   |     |   grid grid-cols-2 gap-1.5     |
-|   |     |   indicators gap-1             |
-|   |     +-- After Column                 |
-|   +-- Metrics Banner p-2                 | <- Reduced padding
-+------------------------------------------+
-```
+**Issue 2: Content overflow**
+| Line | Current | Change |
+|------|---------|--------|
+| 50 | `gap-3` | Reduce to `gap-2` |
+| 52 | `gap-4 flex-1` | Remove `flex-1`, reduce to `gap-3` |
+| 58, 105 | `p-4 pt-6` | Change to `p-3` (no pt-6 needed since label is inside) |
+| 60, 107 | `h-20` | Reduce to `h-16` |
+| 65, 112 | `gap-2` | Reduce to `gap-1.5` |
+| 80, 127 | `mt-2 pt-2` | Reduce to `mt-1.5 pt-1.5` |
+| 142 | `p-3` | Reduce to `p-2` |
 
-**Specific Line Changes:**
-
-| Line | Current | New |
-|------|---------|-----|
-| 50 | `gap-3 h-full max-h-full` | `gap-2 h-full max-h-full` |
-| 52 | `grid lg:grid-cols-2 gap-4 flex-1` | `grid lg:grid-cols-2 gap-3` |
-| 60, 107 | `h-20 mb-1` | `h-14 mb-1` |
-| 65, 112 | `grid-cols-2 gap-2 flex-1` | `grid-cols-2 gap-1.5` |
-| 68, 115 | `w-7 h-7` | `w-6 h-6` |
-| 80, 127 | `mt-2 pt-2 ... gap-1` | `mt-1.5 pt-1.5 ... gap-1` |
-| 142 | `p-3` | `p-2` |
-| 143 | `gap-2` | `gap-1.5` |
-
-**Add Tab State (new code at line 27):**
+**New label structure (Lines 54-58):**
 ```tsx
-const [activeTab, setActiveTab] = useState<'before' | 'after'>('before');
+<div className="relative bg-card/30 border border-destructive/20 rounded-xl p-3 h-full flex flex-col">
+  {/* Label inside the card */}
+  <div className="inline-flex self-start px-2 py-0.5 mb-2 bg-destructive/20 border border-destructive/30 rounded text-[10px] font-semibold text-destructive uppercase tracking-wider">
+    Before: Fragmented Intelligence
+  </div>
+  {/* Rest of content */}
 ```
 
-**Add Tabs UI (insert after line 51):**
-```tsx
-{/* Mobile Tabs */}
-<div className="flex lg:hidden gap-2 mb-2">
-  <button
-    onClick={() => setActiveTab('before')}
-    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
-      activeTab === 'before'
-        ? 'bg-destructive/20 text-destructive border border-destructive/30'
-        : 'bg-card/50 text-muted-foreground border border-border/50'
-    }`}
-  >
-    Before
-  </button>
-  <button
-    onClick={() => setActiveTab('after')}
-    className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
-      activeTab === 'after'
-        ? 'bg-primary/20 text-primary border border-primary/30'
-        : 'bg-card/50 text-muted-foreground border border-border/50'
-    }`}
-  >
-    After
-  </button>
-</div>
-```
-
-**Conditionally show columns on mobile:**
-```tsx
-{/* Before Column - Line 54 */}
-<div className={`relative ${activeTab === 'before' ? 'block' : 'hidden'} lg:block`}>
-
-{/* After Column - Line 101 */}
-<div className={`relative ${activeTab === 'after' ? 'block' : 'hidden'} lg:block`}>
-```
-
----
-
-#### 2. Fix Slide 4 - Proposition Layout
+#### 3. Fix Slide 4 - Wheel and Panel Constraints
 
 **File:** `src/components/globaldata-slides/GDSlide4Proposition.tsx`
 
-**Changes:**
-- Add explicit max-height constraint to the wheel container
-- Reduce gaps between sections
-- Add overflow handling
-
-| Line | Current | New |
-|------|---------|-----|
-| 32 | `gap-3 h-full max-h-full` | `gap-2 h-full max-h-full` |
-| 34 | `rounded-xl p-4` | `rounded-xl p-3` |
-| 41 | `gap-4 items-center min-h-0` | `gap-3 items-center min-h-0 max-h-[calc(100%-100px)]` |
-| 43 | `h-full` | `h-full max-h-[300px]` |
-| 57 | `rounded-lg p-3` | `rounded-lg p-2` |
-
----
-
-#### 3. Fix ConnectedIntelligenceWheel Size
+| Line | Current | Change |
+|------|---------|--------|
+| 32 | `gap-3` | Reduce to `gap-2` |
+| 34 | `p-4` | Reduce to `p-3` |
+| 41 | `gap-4` | Add `max-h-[calc(100%-120px)]`, reduce to `gap-3` |
+| 43 | `h-full` | Add `max-h-[320px]` |
+| 57 | `p-3` | Reduce to `p-2` |
 
 **File:** `src/components/globaldata-slides/ConnectedIntelligenceWheel.tsx`
 
-**Changes:**
-- Reduce max-width from `max-w-md` to `max-w-xs`
-- Add max-height constraint to SVG
-
-| Line | Current | New |
-|------|---------|-----|
-| 88 | `max-w-md mx-auto` | `max-w-xs mx-auto` |
-| 89 | `w-full h-auto` | `w-full h-auto max-h-[280px]` |
-
----
-
-#### 4. Fix SolutionValuePanel Height
+| Line | Current | Change |
+|------|---------|--------|
+| 88 | `max-w-md` | Change to `max-w-sm` |
+| 89 | `w-full h-auto` | Add `max-h-[300px]` |
 
 **File:** `src/components/globaldata-slides/SolutionValuePanel.tsx`
 
-**Changes:**
-- Reduce minimum height and add maximum height constraint
-- Reduce padding in content sections
+| Line | Current | Change |
+|------|---------|--------|
+| 26, 48 | `min-h-[200px]` | Change to `min-h-[160px] max-h-[320px]` |
+| 48 | `p-4` | Reduce to `p-3` |
+| 63, 75, 104 | `mb-2 p-2` | Reduce to `mb-1.5 p-1.5` |
 
-| Line | Current | New |
-|------|---------|-----|
-| 26 | `min-h-[200px]` | `min-h-[150px] max-h-[300px]` |
-| 48 | `min-h-[200px]` | `min-h-[150px] max-h-[300px]` |
-| 48 | `p-4` | `p-3` |
-| 63 | `mb-2 p-2` | `mb-1.5 p-1.5` |
-| 75 | `mb-2 p-2` | `mb-1.5 p-1.5` |
-| 104 | `mb-2 p-2` | `mb-1.5 p-1.5` |
+#### 4. Fix Remaining Slides for Consistency
+
+**File:** `src/components/globaldata-slides/GDSlide1GrowthReality.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 52 | `gap-4` | Reduce to `gap-3` |
+| 78 | `flex-1` | Remove `flex-1` to prevent expansion |
+
+**File:** `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 66 | `gap-4` | Reduce to `gap-3` |
+| 79 | `gap-4` | Reduce to `gap-3` |
+
+**File:** `src/components/globaldata-slides/GDSlide5ValueChain.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 169 | `gap-3` | Reduce to `gap-2` |
+| 266 | `min-h-[140px]` | Change to `min-h-[120px] max-h-[140px]` |
+| 392 | `gap-4` | Reduce to `gap-2` |
+
+**File:** `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 319 | `gap-4 lg:gap-6` | Reduce to `gap-3 lg:gap-4` |
+| 321 | `min-h-[300px] lg:min-h-[400px]` | Change to `min-h-0 max-h-[380px]` |
+
+**File:** `src/components/globaldata-slides/GDSlide8ROI.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 61 | `gap-4` | Reduce to `gap-3` |
+| 63 | `gap-5 flex-1` | Remove `flex-1`, reduce to `gap-4` |
+
+**File:** `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx`
+
+| Line | Current | Change |
+|------|---------|--------|
+| 58 | `gap-4` | Reduce to `gap-3` |
+| 103 | `flex-1 gap-4` | Remove `flex-1`, keep `gap-3` |
 
 ---
 
-### Files to Modify
+### Summary of Changes by File
 
-| File | Changes |
-|------|---------|
-| `GDSlide3BeforeAfter.tsx` | Add tab state, add mobile tabs UI, reduce heights/gaps/padding |
-| `GDSlide4Proposition.tsx` | Add max-height constraints, reduce gaps/padding |
-| `ConnectedIntelligenceWheel.tsx` | Reduce max-width, add max-height to SVG |
-| `SolutionValuePanel.tsx` | Reduce min-height, add max-height, reduce padding |
-
----
-
-### Expected Height Calculation (768px viewport)
-
-**After changes:**
-
-| Element | Height |
-|---------|--------|
-| Container padding | 48px |
-| Header (title + subtitle) | 60px |
-| Available for content | 660px |
-
-**Slide 3 content:**
-- Main gap: 8px
-- Before/After grid: ~220px (with reduced heights)
-- Metrics banner: ~60px
-- Total: ~290px (fits comfortably)
-
-**Slide 4 content:**
-- Main gap: 8px
-- Value proposition box: ~60px
-- Intelligence hub: 300px max (wheel + panel)
-- Bottom callout: ~50px
-- Total: ~420px (fits comfortably)
+| File | Key Changes |
+|------|-------------|
+| `GDSlideContainer.tsx` | Remove `overflow-hidden` from content wrapper |
+| `GDSlide3BeforeAfter.tsx` | Move labels inside cards, reduce heights/gaps/padding |
+| `GDSlide4Proposition.tsx` | Add max-height constraints, reduce gaps |
+| `ConnectedIntelligenceWheel.tsx` | Constrain width to `max-w-sm`, add `max-h-[300px]` |
+| `SolutionValuePanel.tsx` | Add max-height, reduce min-height and padding |
+| `GDSlide1GrowthReality.tsx` | Remove `flex-1`, reduce gaps |
+| `GDSlide2IntelligenceGap.tsx` | Reduce gaps |
+| `GDSlide5ValueChain.tsx` | Constrain detail panel height, reduce gaps |
+| `GDSlide6ValuePyramid.tsx` | Reduce pyramid container height, reduce gaps |
+| `GDSlide8ROI.tsx` | Remove `flex-1`, reduce gaps |
+| `GDSlide9WhyGlobalData.tsx` | Remove `flex-1`, reduce gaps |
 
 ---
 
-### Testing Checklist
+### Expected Outcome
 
-After implementation:
-1. View deck at 1366x768 resolution
-2. Verify Slide 3 Before/After columns show fully without scrolling
-3. Verify Slide 4 wheel and panel fit without cutoff
-4. Test mobile tabs work correctly on Slide 3
-5. Verify all other slides still fit properly
+After these changes:
+- **Slide 3**: "Before" and "After" labels will be fully visible inside their cards
+- **Slide 4**: The Connected Intelligence Wheel and panel will fit within viewport
+- **All slides**: Content will fit on standard 1366x768 laptop screens without scrolling
+- Labels, copy, and illustrations will all be visible without cutoff
+- Image sizes remain appropriate and legible
+
