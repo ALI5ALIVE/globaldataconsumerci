@@ -49,25 +49,25 @@ const GDSlide1GrowthReality = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Pain Points Grid */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-3">
           {painPoints.map((point, i) => (
             <div 
               key={i}
-              className="bg-card/50 border border-border/50 rounded-xl p-5 hover:border-destructive/30 transition-all group"
+              className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-destructive/30 transition-all group"
             >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
-                  <point.icon className="w-5 h-5 text-destructive" />
+              <div className="flex items-start gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
+                  <point.icon className="w-4 h-4 text-destructive" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
-                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{point.desc}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{point.desc}</p>
                 </div>
               </div>
-              <div className="flex items-baseline gap-1.5 pt-3 border-t border-border/30">
-                <span className="text-2xl font-bold text-destructive">{point.stat}</span>
+              <div className="flex items-baseline gap-1.5 pt-2 border-t border-border/30">
+                <span className="text-xl font-bold text-destructive">{point.stat}</span>
                 <span className="text-xs text-muted-foreground">{point.statLabel}</span>
               </div>
             </div>
@@ -75,37 +75,37 @@ const GDSlide1GrowthReality = ({
         </div>
 
         {/* The Paradox */}
-        <div className="grid lg:grid-cols-2 gap-3 items-center">
-          <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <AlertTriangle className="w-5 h-5 text-amber-400" />
-              <span className="text-sm font-semibold text-amber-400 uppercase tracking-wider">The Paradox</span>
+        <div className="grid lg:grid-cols-2 gap-2 items-center">
+          <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">The Paradox</span>
             </div>
-            <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
+            <p className="text-base font-medium text-foreground leading-relaxed mb-3">
               Organisations have <span className="text-amber-400">more insight than ever</span>, yet <span className="text-amber-400">less confidence</span>.
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               Data abundance hasn't created clarity. It's created noise, debate, and delayed decisions.
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-destructive/10 to-red-500/5 border border-destructive/30 rounded-xl p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <Zap className="w-5 h-5 text-destructive" />
-              <span className="text-sm font-semibold text-destructive uppercase tracking-wider">The Real Problem</span>
+          <div className="bg-gradient-to-br from-destructive/10 to-red-500/5 border border-destructive/30 rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-4 h-4 text-destructive" />
+              <span className="text-xs font-semibold text-destructive uppercase tracking-wider">The Real Problem</span>
             </div>
-            <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
+            <p className="text-base font-medium text-foreground leading-relaxed mb-3">
               Insight exists, but it doesn't <span className="text-destructive">move the organisation together</span>.
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               The problem isn't data scarcity. It's data fragmentation and misalignment.
             </p>
           </div>
         </div>
 
         {/* Bottom callout */}
-        <div className="bg-card border border-border/50 rounded-lg p-4 text-center">
-          <p className="text-sm text-foreground">
+        <div className="bg-card border border-border/50 rounded-lg p-3 text-center">
+          <p className="text-xs text-foreground">
             <span className="font-semibold text-primary">Category leaders</span> don't just have better data — they have <span className="font-semibold text-primary">connected intelligence</span> that enables faster, unified action.
           </p>
         </div>

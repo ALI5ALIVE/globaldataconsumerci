@@ -278,13 +278,13 @@ const GDSlide7MaturityCurve = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch flex-1">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 items-stretch flex-1">
           {/* LEFT: Hockey Stick Curve - 2x scaled */}
-          <div className="bg-card/30 rounded-xl border border-border/30 p-4 md:p-6 flex items-center justify-center lg:col-span-2">
+          <div className="bg-card/30 rounded-xl border border-border/30 p-3 md:p-4 flex items-center justify-center lg:col-span-2">
             <svg
               viewBox={viewBox}
-              className="w-full h-auto max-h-[500px]"
+              className="w-full h-auto max-h-[420px]"
               preserveAspectRatio="xMidYMid meet"
             >
               <defs>

@@ -55,24 +55,24 @@ const GDSlide9WhyGlobalData = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-3 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Three Differentiators */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-3">
           {differentiators.map((diff, i) => {
             const Icon = diff.icon;
             return (
               <div 
                 key={i}
-                className="bg-card/50 border border-border/50 rounded-xl p-5 hover:border-primary/30 transition-all group"
+                className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group"
               >
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${diff.color} flex items-center justify-center mb-4`}>
-                  <Icon className="w-6 h-6 text-white" />
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${diff.color} flex items-center justify-center mb-3`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-sm font-bold text-foreground mb-2">{diff.title}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{diff.desc}</p>
-                <div className="flex items-center gap-2 pt-3 border-t border-border/30">
-                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-xs text-primary font-medium">{diff.proof}</span>
+                <h3 className="text-xs font-bold text-foreground mb-1">{diff.title}</h3>
+                <p className="text-[11px] text-muted-foreground mb-2">{diff.desc}</p>
+                <div className="flex items-center gap-2 pt-2 border-t border-border/30">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="text-[11px] text-primary font-medium">{diff.proof}</span>
                 </div>
               </div>
             );
@@ -80,19 +80,19 @@ const GDSlide9WhyGlobalData = ({
         </div>
 
         {/* Ava Highlight */}
-        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/5 border border-purple-500/30 rounded-xl p-5">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0">
-              <Brain className="w-7 h-7 text-white" />
+        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/5 border border-purple-500/30 rounded-xl p-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0">
+              <Brain className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h4 className="text-base font-bold text-foreground">Ava</h4>
-                <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-[10px] text-purple-400 font-semibold uppercase">
+                <h4 className="text-sm font-bold text-foreground">Ava</h4>
+                <span className="px-1.5 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-[9px] text-purple-400 font-semibold uppercase">
                   Enterprise AI Analyst
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 AI-powered research analyst that amplifies human expertise — accelerating insight discovery, pattern recognition, and decision support across all intelligence domains.
               </p>
             </div>
@@ -100,26 +100,26 @@ const GDSlide9WhyGlobalData = ({
         </div>
 
         {/* Executive Close Section */}
-        <div className="grid lg:grid-cols-2 gap-3 items-center">
+        <div className="grid lg:grid-cols-2 gap-2 items-center">
           {/* Leadership Imperative */}
-          <div className="bg-primary/10 border border-primary/30 rounded-xl p-5">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">Performance Imperative</p>
-            <p className="text-base text-foreground leading-relaxed">
+          <div className="bg-primary/10 border border-primary/30 rounded-xl p-4">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-2">Performance Imperative</p>
+            <p className="text-sm text-foreground leading-relaxed">
               Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of category performers</span>.
             </p>
           </div>
 
           {/* Three Truths */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {closingTruths.map((truth, i) => {
               const Icon = truth.icon;
               return (
                 <div 
                   key={i}
-                  className="flex items-center gap-3 bg-card/50 border border-border/50 rounded-lg p-3"
+                  className="flex items-center gap-2 bg-card/50 border border-border/50 rounded-lg p-2"
                 >
-                  <Icon className="w-4 h-4 text-primary shrink-0" />
-                  <span className="text-sm text-foreground">{truth.text}</span>
+                  <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="text-xs text-foreground">{truth.text}</span>
                 </div>
               );
             })}
@@ -127,9 +127,9 @@ const GDSlide9WhyGlobalData = ({
         </div>
 
         {/* Final Takeaway */}
-        <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-6 text-center">
-          <p className="text-xs font-semibold text-white/80 uppercase tracking-wider mb-2">Final Takeaway</p>
-          <p className="text-lg font-bold text-white leading-relaxed">
+        <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-5 text-center">
+          <p className="text-[10px] font-semibold text-white/80 uppercase tracking-wider mb-1">Final Takeaway</p>
+          <p className="text-base font-bold text-white leading-relaxed">
             The future belongs to organisations that turn change into decisions — <span className="underline decoration-2">earlier</span>, <span className="underline decoration-2">together</span>, and with <span className="underline decoration-2">conviction</span>.
           </p>
         </div>
