@@ -1,35 +1,67 @@
 
-## Fix Slides 3 and 4 - Content Overflow Issues
+## Fix Slide 3 Content Overflow and Title Slide Logo
 
-### Problem Analysis
+### Problem 1: Title Slide Logo
 
-Both slides are experiencing content cut-off because:
+**Current Issue**: The `globaldata-logo-white.svg` file is a simple text-only placeholder SVG, not the branded GlobalData logo with the circular "G" icon.
 
-1. **Slide Container (`GDSlideContainer.tsx`)**: Uses `py-12 sm:py-16` (48-64px vertical padding) which reduces available content space significantly
-2. **Slide 3**: SVG illustrations at `h-32` (128px each) take up too much space, plus fixed-height indicator boxes
-3. **Slide 4**: The Connected Intelligence Wheel has no max-height constraint and expands beyond available space
+**Fix**: Replace the placeholder SVG with a proper GlobalData-style branded logo that includes:
+- A circular "G" icon with an integrated arrow/orbital element
+- The "GlobalData" text
+
+**File to Change**: `src/assets/globaldata-logo-white.svg`
+
+```xml
+<!-- New branded logo SVG -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 32" fill="none">
+  <!-- Circular G icon with arrow -->
+  <circle cx="16" cy="16" r="14" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M16 6 C9 6 4 11 4 18 C4 25 9 30 16 30 C23 30 28 25 28 18 L20 18" 
+        stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M22 14 L28 18 L22 22" stroke="white" stroke-width="2" fill="none" 
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Orbital dot -->
+  <circle cx="26" cy="8" r="2.5" fill="#3B82F6"/>
+  <!-- Text -->
+  <text x="38" y="22" font-family="system-ui, -apple-system, sans-serif" 
+        font-size="18" font-weight="600" fill="white">GlobalData</text>
+</svg>
+```
 
 ---
 
-### Technical Changes
+### Problem 2: Slide 3 Before/After Content Cut Off
 
-#### 1. Reduce GDSlideContainer Vertical Padding
+**Current Issue**: 
+- SVG illustrations use `h-32` (128px) which is too tall
+- Combined with icon grids and indicator sections, content overflows the viewport
+- The `GDSlideContainer` uses `py-12 sm:py-16` (48-64px) of vertical padding
 
-**File:** `src/components/globaldata-slides/GDSlideContainer.tsx`
+**Root Cause Analysis**:
+- Each Before/After column contains:
+  - Label badge: ~20px
+  - SVG illustration: 128px (h-32)  
+  - 4-item icon grid: ~100px
+  - 2-column indicator section: ~60px
+  - Padding and margins: ~50px
+- Total per column: ~360px minimum
+- Plus: Title header (~80px), Metrics banner (~100px)
+- Container padding: ~96px (48px top + 48px bottom)
+- Total needed: ~630px+ but viewport height minus container padding leaves less space
 
-**Line 46** - Reduce section padding:
+**Technical Changes**:
+
+#### 1. Reduce GDSlideContainer Padding
+
+**File**: `src/components/globaldata-slides/GDSlideContainer.tsx`
+
+**Line 46** - Reduce vertical padding:
 ```tsx
 // Current
-className={cn(
-  "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-12 sm:py-16 snap-start relative overflow-hidden",
-  ...
-)}
+"h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-12 sm:py-16 snap-start relative overflow-hidden"
 
-// New  
-className={cn(
-  "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-8 sm:py-10 snap-start relative overflow-hidden",
-  ...
-)}
+// New
+"h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-6 sm:py-8 snap-start relative overflow-hidden"
 ```
 
 **Line 92** - Reduce header margin:
@@ -38,22 +70,22 @@ className={cn(
 <div className="mb-4 sm:mb-6">
 
 // New
-<div className="mb-3 sm:mb-4">
+<div className="mb-2 sm:mb-3">
 ```
 
 ---
 
-#### 2. Fix Slide 3 Before/After Layout
+#### 2. Reduce Illustration Height in Slide 3
 
-**File:** `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
+**File**: `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
 
-**Lines 60, 107** - Reduce SVG illustration height:
+**Lines 60, 107** - Reduce SVG container height from `h-32` to `h-20`:
 ```tsx
 // Current
 <div className="h-32 mb-2">
 
 // New
-<div className="h-24 mb-1">
+<div className="h-20 mb-1">
 ```
 
 **Lines 80, 127** - Reduce indicator section spacing:
@@ -62,15 +94,15 @@ className={cn(
 <div className="mt-3 pt-3 border-t ... grid grid-cols-2 gap-2">
 
 // New
-<div className="mt-2 pt-2 border-t ... grid grid-cols-2 gap-1.5">
+<div className="mt-2 pt-2 border-t ... grid grid-cols-2 gap-1">
 ```
 
-**Lines 81, 85, 128, 132** - Reduce indicator padding:
+**Lines 81, 85, 128, 132** - Reduce indicator box padding:
 ```tsx
 // Current
 <div className="bg-destructive/10 rounded-lg p-2 text-center">
 
-// New
+// New  
 <div className="bg-destructive/10 rounded-lg p-1.5 text-center">
 ```
 
@@ -89,89 +121,48 @@ className={cn(
 <div className="grid grid-cols-3 gap-4">
 
 // New
-<div className="grid grid-cols-3 gap-3">
+<div className="grid grid-cols-3 gap-2">
 ```
 
 ---
 
-#### 3. Fix Slide 4 Wheel and Panel Layout
-
-**File:** `src/components/globaldata-slides/GDSlide4Proposition.tsx`
-
-**Line 41** - Constrain the grid height:
-```tsx
-// Current
-<div className="flex-1 grid lg:grid-cols-2 gap-4 items-center min-h-0">
-
-// New
-<div className="flex-1 grid lg:grid-cols-2 gap-3 items-center min-h-0 max-h-full">
-```
-
-**Line 43** - Add max height to wheel container:
-```tsx
-// Current
-<div className="flex items-center justify-center h-full">
-
-// New
-<div className="flex items-center justify-center h-full max-h-[320px]">
-```
-
-**File:** `src/components/globaldata-slides/ConnectedIntelligenceWheel.tsx`
-
-**Line 88** - Add max-width and max-height constraints:
-```tsx
-// Current
-<div className="relative w-full max-w-md mx-auto">
-  <svg viewBox="0 0 400 400" className="w-full h-auto">
-
-// New
-<div className="relative w-full max-w-xs mx-auto">
-  <svg viewBox="0 0 400 400" className="w-full h-auto max-h-[280px]">
-```
-
-**File:** `src/components/globaldata-slides/SolutionValuePanel.tsx`
-
-**Lines 26, 48** - Reduce minimum heights and add max height:
-```tsx
-// Current
-<div className="h-full min-h-[200px] flex items-center ...">
-
-// New
-<div className="h-full min-h-[160px] max-h-[320px] flex items-center ...">
-```
-
-```tsx
-// Current (line 48)
-className="h-full min-h-[200px] bg-card/50 border rounded-xl p-4 overflow-y-auto"
-
-// New
-className="h-full min-h-[160px] max-h-[320px] bg-card/50 border rounded-xl p-3 overflow-y-auto"
-```
-
----
-
-### Summary of Changes
+### Summary of All Changes
 
 | File | Lines | Change |
 |------|-------|--------|
-| `GDSlideContainer.tsx` | 46 | `py-12 sm:py-16` → `py-8 sm:py-10` |
-| `GDSlideContainer.tsx` | 92 | `mb-4 sm:mb-6` → `mb-3 sm:mb-4` |
-| `GDSlide3BeforeAfter.tsx` | 60, 107 | `h-32 mb-2` → `h-24 mb-1` |
-| `GDSlide3BeforeAfter.tsx` | 80, 127 | `mt-3 pt-3 gap-2` → `mt-2 pt-2 gap-1.5` |
+| `globaldata-logo-white.svg` | All | Replace with branded logo with G icon |
+| `GDSlideContainer.tsx` | 46 | `py-12 sm:py-16` → `py-6 sm:py-8` |
+| `GDSlideContainer.tsx` | 92 | `mb-4 sm:mb-6` → `mb-2 sm:mb-3` |
+| `GDSlide3BeforeAfter.tsx` | 60, 107 | `h-32 mb-2` → `h-20 mb-1` |
+| `GDSlide3BeforeAfter.tsx` | 80, 127 | `mt-3 pt-3 gap-2` → `mt-2 pt-2 gap-1` |
 | `GDSlide3BeforeAfter.tsx` | 81, 85, 128, 132 | `p-2` → `p-1.5` |
-| `GDSlide3BeforeAfter.tsx` | 142-143 | `p-4 gap-4` → `p-3 gap-3` |
-| `GDSlide4Proposition.tsx` | 41 | Add `max-h-full` |
-| `GDSlide4Proposition.tsx` | 43 | Add `max-h-[320px]` |
-| `ConnectedIntelligenceWheel.tsx` | 88 | `max-w-md` → `max-w-xs`, add `max-h-[280px]` |
-| `SolutionValuePanel.tsx` | 26, 48 | `min-h-[200px]` → `min-h-[160px] max-h-[320px]`, `p-4` → `p-3` |
+| `GDSlide3BeforeAfter.tsx` | 142 | `p-4` → `p-3` |
+| `GDSlide3BeforeAfter.tsx` | 143 | `gap-4` → `gap-2` |
+
+---
+
+### Space Savings Calculation
+
+**Before Changes** (approximate):
+- Container padding: 96px
+- Header: 80px
+- Illustrations: 256px (128px x 2 rows worth)
+- Content: 160px
+- Metrics: 100px
+- **Total**: 692px (exceeds many viewports)
+
+**After Changes**:
+- Container padding: 48px (saved 48px)
+- Header: 60px (saved 20px)
+- Illustrations: 160px (saved 96px)
+- Content: 140px (saved 20px)
+- Metrics: 80px (saved 20px)
+- **Total**: 488px (fits 768px+ viewports comfortably)
 
 ---
 
 ### Expected Outcome
 
-After these changes:
-- **Slide 3**: Before/After columns with illustrations and copy boxes will fit within viewport without scrolling
-- **Slide 4**: Connected Intelligence Wheel and Solution Value Panel will be fully visible
-- Both slides will maintain `h-screen` constraint with `overflow-hidden`
-- No content will be cut off at the top or bottom
-- All slides following the same container will benefit from reduced padding
+1. **Title Slide**: GlobalData logo displays with the branded circular G icon with arrow, matching the professional brand identity
+2. **Slide 3**: Before/After columns with illustrations, copy boxes, and indicators all fit within viewport without scrolling
+3. **All Slides**: Reduced container padding benefits all slides in the deck, giving more room for content
