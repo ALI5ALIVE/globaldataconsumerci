@@ -57,7 +57,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-32 mb-2">
+              <div className="h-20 mb-1">
                 <GDBeforeSilosIllustration />
               </div>
 
@@ -77,12 +77,12 @@ const GDSlide3BeforeAfter = ({
               </div>
 
               {/* Warning indicators */}
-              <div className="mt-3 pt-3 border-t border-destructive/20 grid grid-cols-2 gap-2">
-                <div className="bg-destructive/10 rounded-lg p-2 text-center">
+              <div className="mt-2 pt-2 border-t border-destructive/20 grid grid-cols-2 gap-1">
+                <div className="bg-destructive/10 rounded-lg p-1.5 text-center">
                   <p className="text-xs font-medium text-destructive">12+ weeks</p>
                   <p className="text-[10px] text-muted-foreground">to decision</p>
                 </div>
-                <div className="bg-destructive/10 rounded-lg p-2 text-center">
+                <div className="bg-destructive/10 rounded-lg p-1.5 text-center">
                   <p className="text-xs font-medium text-destructive">3-5 sources</p>
                   <p className="text-[10px] text-muted-foreground">to reconcile</p>
                 </div>
@@ -104,7 +104,7 @@ const GDSlide3BeforeAfter = ({
             </div>
             <div className="bg-card/30 border border-primary/20 rounded-xl p-4 pt-6 h-full flex flex-col">
               {/* SVG Illustration */}
-              <div className="h-32 mb-2">
+              <div className="h-20 mb-1">
                 <GDAfterConnectedIllustration />
               </div>
 
@@ -124,12 +124,12 @@ const GDSlide3BeforeAfter = ({
               </div>
 
               {/* Success indicators */}
-              <div className="mt-3 pt-3 border-t border-primary/20 grid grid-cols-2 gap-2">
-                <div className="bg-primary/10 rounded-lg p-2 text-center">
+              <div className="mt-2 pt-2 border-t border-primary/20 grid grid-cols-2 gap-1">
+                <div className="bg-primary/10 rounded-lg p-1.5 text-center">
                   <p className="text-xs font-medium text-primary">Days</p>
                   <p className="text-[10px] text-muted-foreground">to decision</p>
                 </div>
-                <div className="bg-primary/10 rounded-lg p-2 text-center">
+                <div className="bg-primary/10 rounded-lg p-1.5 text-center">
                   <p className="text-xs font-medium text-primary">1 source</p>
                   <p className="text-[10px] text-muted-foreground">of truth</p>
                 </div>
@@ -139,8 +139,8 @@ const GDSlide3BeforeAfter = ({
         </div>
 
         {/* Metrics Banner */}
-        <div className="bg-card border border-border/50 rounded-xl p-4">
-          <div className="grid grid-cols-3 gap-4">
+        <div className="bg-card border border-border/50 rounded-xl p-3">
+          <div className="grid grid-cols-3 gap-2">
             {metrics.map((metric, i) => (
               <div key={i} className="text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
