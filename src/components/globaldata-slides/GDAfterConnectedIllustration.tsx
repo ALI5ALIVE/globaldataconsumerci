@@ -15,14 +15,14 @@ const modules = [
 const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrationProps) => {
   const [hoveredModule, setHoveredModule] = useState<string | null>(null);
 
-  const loopRadius = 22;
-  const loopSpacing = 52;
+  const loopRadius = 28;
+  const loopSpacing = 58;
   const startX = 46;
-  const cy = 45;
+  const cy = 50;
 
   return (
     <svg
-      viewBox="0 0 300 100"
+      viewBox="0 0 340 120"
       className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -118,7 +118,7 @@ const GDAfterConnectedIllustration = ({ onNodeClick }: GDAfterConnectedIllustrat
               y={cy + loopRadius + 12}
               textAnchor="middle"
               fill={isHovered ? "hsl(195, 100%, 70%)" : "hsl(217, 100%, 65%)"}
-              fontSize="7"
+              fontSize="9"
               fontWeight="600"
               fontFamily="'Space Grotesk', sans-serif"
               letterSpacing="0.01em"

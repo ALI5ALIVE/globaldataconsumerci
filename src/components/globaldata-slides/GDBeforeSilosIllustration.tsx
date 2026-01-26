@@ -37,11 +37,11 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
     return () => clearInterval(interval);
   }, []);
 
-  const nodeRadius = 26;
+  const nodeRadius = 32;
 
   return (
     <svg
-      viewBox="0 0 460 155"
+      viewBox="0 0 460 180"
       className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -181,7 +181,7 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
               y={node.y + 2}
               textAnchor="middle"
               dominantBaseline="middle"
-              fontSize="18"
+              fontSize="22"
               className="pointer-events-none select-none"
             >
               {node.icon}
@@ -193,7 +193,7 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
               y={node.y + nodeRadius + 12}
               textAnchor="middle"
               fill={isHovered ? "hsl(0, 0%, 95%)" : "hsl(0, 0%, 75%)"}
-              fontSize="9"
+              fontSize="11"
               fontWeight="600"
               fontFamily="'Space Grotesk', sans-serif"
               className="pointer-events-none select-none"
@@ -226,7 +226,7 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
             textAnchor="middle"
             dominantBaseline="middle"
             fill="white"
-            fontSize="9"
+            fontSize="11"
             fontWeight="bold"
           >
             !
