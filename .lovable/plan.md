@@ -1,98 +1,177 @@
 
+## Fix Slides 3 and 4 - Content Overflow Issues
 
-## Hide Slide 11 (Connected Solutions) from GlobalData Deck
+### Problem Analysis
 
-### Overview
+Both slides are experiencing content cut-off because:
 
-Remove the "Connected Solutions" slide (currently displayed as slide 10) from the GlobalData presentation deck. This involves removing the slide component from the rendering, updating the slides array for navigation, and adjusting the agenda items on the title slide.
+1. **Slide Container (`GDSlideContainer.tsx`)**: Uses `py-12 sm:py-16` (48-64px vertical padding) which reduces available content space significantly
+2. **Slide 3**: SVG illustrations at `h-32` (128px each) take up too much space, plus fixed-height indicator boxes
+3. **Slide 4**: The Connected Intelligence Wheel has no max-height constraint and expands beyond available space
 
 ---
 
-### Technical Implementation
+### Technical Changes
 
-#### 1. Remove Slide from Navigation Array
+#### 1. Reduce GDSlideContainer Vertical Padding
 
-**File:** `src/pages/GlobalDataDeck.tsx`
+**File:** `src/components/globaldata-slides/GDSlideContainer.tsx`
 
-**Line 27** - Remove the last entry from the slides array:
-
+**Line 46** - Reduce section padding:
 ```tsx
 // Current
-const slides = [
-  { id: "gd-slide-0", label: "Title" },
-  { id: "gd-slide-1", label: "Market Reality" },
-  { id: "gd-slide-2", label: "Intelligence Gap" },
-  { id: "gd-slide-3", label: "Transformation" },
-  { id: "gd-slide-4", label: "The Proposition" },
-  { id: "gd-slide-5", label: "Value Chain" },
-  { id: "gd-slide-6", label: "Capability Stack" },
-  { id: "gd-slide-7", label: "Your Roadmap" },
-  { id: "gd-slide-8", label: "ROI" },
-  { id: "gd-slide-9", label: "Why GlobalData" },
-  { id: "gd-slide-10", label: "Connected Solutions" },  // Remove this line
-];
+className={cn(
+  "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-12 sm:py-16 snap-start relative overflow-hidden",
+  ...
+)}
+
+// New  
+className={cn(
+  "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-8 sm:py-10 snap-start relative overflow-hidden",
+  ...
+)}
+```
+
+**Line 92** - Reduce header margin:
+```tsx
+// Current
+<div className="mb-4 sm:mb-6">
 
 // New
-const slides = [
-  { id: "gd-slide-0", label: "Title" },
-  { id: "gd-slide-1", label: "Market Reality" },
-  { id: "gd-slide-2", label: "Intelligence Gap" },
-  { id: "gd-slide-3", label: "Transformation" },
-  { id: "gd-slide-4", label: "The Proposition" },
-  { id: "gd-slide-5", label: "Value Chain" },
-  { id: "gd-slide-6", label: "Capability Stack" },
-  { id: "gd-slide-7", label: "Your Roadmap" },
-  { id: "gd-slide-8", label: "ROI" },
-  { id: "gd-slide-9", label: "Why GlobalData" },
-];
+<div className="mb-3 sm:mb-4">
 ```
 
 ---
 
-#### 2. Remove Slide Component from Render
+#### 2. Fix Slide 3 Before/After Layout
 
-**File:** `src/pages/GlobalDataDeck.tsx`
+**File:** `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx`
 
-**Line 14** - Remove the import:
+**Lines 60, 107** - Reduce SVG illustration height:
 ```tsx
-// Remove this import
-import GDSlide10Solutions from "@/components/globaldata-slides/GDSlide10Solutions";
+// Current
+<div className="h-32 mb-2">
+
+// New
+<div className="h-24 mb-1">
 ```
 
-**Line 201** - Remove the slide component:
+**Lines 80, 127** - Reduce indicator section spacing:
 ```tsx
-// Remove this line
-<GDSlide10Solutions {...getNarrationProps(10)} />
+// Current
+<div className="mt-3 pt-3 border-t ... grid grid-cols-2 gap-2">
+
+// New
+<div className="mt-2 pt-2 border-t ... grid grid-cols-2 gap-1.5">
+```
+
+**Lines 81, 85, 128, 132** - Reduce indicator padding:
+```tsx
+// Current
+<div className="bg-destructive/10 rounded-lg p-2 text-center">
+
+// New
+<div className="bg-destructive/10 rounded-lg p-1.5 text-center">
+```
+
+**Line 142** - Reduce metrics banner padding:
+```tsx
+// Current
+<div className="bg-card border border-border/50 rounded-xl p-4">
+
+// New
+<div className="bg-card border border-border/50 rounded-xl p-3">
+```
+
+**Line 143** - Reduce metrics grid gap:
+```tsx
+// Current
+<div className="grid grid-cols-3 gap-4">
+
+// New
+<div className="grid grid-cols-3 gap-3">
 ```
 
 ---
 
-#### 3. Update "Why GlobalData" Slide to be Final Slide
+#### 3. Fix Slide 4 Wheel and Panel Layout
 
-**File:** `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx`
+**File:** `src/components/globaldata-slides/GDSlide4Proposition.tsx`
 
-Update the `onNextSlide` behavior - since this is now the last slide, ensure the narration doesn't try to navigate to a non-existent slide (this is handled automatically by the `getNarrationProps` function which checks `slideId < slides.length - 1`).
+**Line 41** - Constrain the grid height:
+```tsx
+// Current
+<div className="flex-1 grid lg:grid-cols-2 gap-4 items-center min-h-0">
 
-No code change needed - the logic already handles this correctly.
+// New
+<div className="flex-1 grid lg:grid-cols-2 gap-3 items-center min-h-0 max-h-full">
+```
+
+**Line 43** - Add max height to wheel container:
+```tsx
+// Current
+<div className="flex items-center justify-center h-full">
+
+// New
+<div className="flex items-center justify-center h-full max-h-[320px]">
+```
+
+**File:** `src/components/globaldata-slides/ConnectedIntelligenceWheel.tsx`
+
+**Line 88** - Add max-width and max-height constraints:
+```tsx
+// Current
+<div className="relative w-full max-w-md mx-auto">
+  <svg viewBox="0 0 400 400" className="w-full h-auto">
+
+// New
+<div className="relative w-full max-w-xs mx-auto">
+  <svg viewBox="0 0 400 400" className="w-full h-auto max-h-[280px]">
+```
+
+**File:** `src/components/globaldata-slides/SolutionValuePanel.tsx`
+
+**Lines 26, 48** - Reduce minimum heights and add max height:
+```tsx
+// Current
+<div className="h-full min-h-[200px] flex items-center ...">
+
+// New
+<div className="h-full min-h-[160px] max-h-[320px] flex items-center ...">
+```
+
+```tsx
+// Current (line 48)
+className="h-full min-h-[200px] bg-card/50 border rounded-xl p-4 overflow-y-auto"
+
+// New
+className="h-full min-h-[160px] max-h-[320px] bg-card/50 border rounded-xl p-3 overflow-y-auto"
+```
 
 ---
 
 ### Summary of Changes
 
-| File | Change |
-|------|--------|
-| `GlobalDataDeck.tsx` (Line 14) | Remove `GDSlide10Solutions` import |
-| `GlobalDataDeck.tsx` (Line 27) | Remove `gd-slide-10` from slides array |
-| `GlobalDataDeck.tsx` (Line 201) | Remove `<GDSlide10Solutions />` component |
+| File | Lines | Change |
+|------|-------|--------|
+| `GDSlideContainer.tsx` | 46 | `py-12 sm:py-16` → `py-8 sm:py-10` |
+| `GDSlideContainer.tsx` | 92 | `mb-4 sm:mb-6` → `mb-3 sm:mb-4` |
+| `GDSlide3BeforeAfter.tsx` | 60, 107 | `h-32 mb-2` → `h-24 mb-1` |
+| `GDSlide3BeforeAfter.tsx` | 80, 127 | `mt-3 pt-3 gap-2` → `mt-2 pt-2 gap-1.5` |
+| `GDSlide3BeforeAfter.tsx` | 81, 85, 128, 132 | `p-2` → `p-1.5` |
+| `GDSlide3BeforeAfter.tsx` | 142-143 | `p-4 gap-4` → `p-3 gap-3` |
+| `GDSlide4Proposition.tsx` | 41 | Add `max-h-full` |
+| `GDSlide4Proposition.tsx` | 43 | Add `max-h-[320px]` |
+| `ConnectedIntelligenceWheel.tsx` | 88 | `max-w-md` → `max-w-xs`, add `max-h-[280px]` |
+| `SolutionValuePanel.tsx` | 26, 48 | `min-h-[200px]` → `min-h-[160px] max-h-[320px]`, `p-4` → `p-3` |
 
 ---
 
-### Result
+### Expected Outcome
 
 After these changes:
-- The deck will have **10 slides** (0-9)
-- Navigation dots will show 10 slides instead of 11
-- Header counter will show "X / 10"
-- "Why GlobalData" becomes the final slide
-- The "Connected Solutions" slide component files remain in the codebase (can be re-enabled later if needed)
-
+- **Slide 3**: Before/After columns with illustrations and copy boxes will fit within viewport without scrolling
+- **Slide 4**: Connected Intelligence Wheel and Solution Value Panel will be fully visible
+- Both slides will maintain `h-screen` constraint with `overflow-hidden`
+- No content will be cut off at the top or bottom
+- All slides following the same container will benefit from reduced padding
