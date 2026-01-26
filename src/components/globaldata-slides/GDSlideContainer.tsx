@@ -43,7 +43,7 @@ const GDSlideContainer = ({
     <section
       id={id}
       className={cn(
-        "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-12 sm:py-16 snap-start relative overflow-hidden",
+        "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-6 sm:py-8 snap-start relative overflow-hidden",
         variant === "light" ? "slide-light bg-white text-foreground" : "bg-background",
         className
       )}
@@ -89,7 +89,7 @@ const GDSlideContainer = ({
           </div>
         )}
         {/* Header section - left aligned */}
-        <div className="mb-4 sm:mb-6">
+        <div className="mb-2 sm:mb-3">
           <h2 className={cn(
             "text-2xl sm:text-3xl md:text-4xl font-display font-bold leading-tight mb-2",
             variant === "light" ? "text-foreground" : "text-foreground"
