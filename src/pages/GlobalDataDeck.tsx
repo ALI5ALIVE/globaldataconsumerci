@@ -15,16 +15,15 @@ import GDSlide9WhyGlobalData from "@/components/globaldata-slides/GDSlide9WhyGlo
 
 const slides = [
   { id: "gd-slide-0", label: "Title" },
-  { id: "gd-slide-1", label: "Market Reality" },
+  { id: "gd-slide-1", label: "Market Pressure" },
   { id: "gd-slide-2", label: "Intelligence Gap" },
   { id: "gd-slide-3", label: "Transformation" },
-  { id: "gd-slide-4", label: "The Proposition" },
+  { id: "gd-slide-4", label: "The Answer" },
   { id: "gd-slide-5", label: "Value Chain" },
-  { id: "gd-slide-6", label: "Capability Stack" },
+  { id: "gd-slide-6", label: "Your Position" },
   { id: "gd-slide-7", label: "Your Roadmap" },
-  { id: "gd-slide-8", label: "ROI" },
+  { id: "gd-slide-8", label: "The Return" },
   { id: "gd-slide-9", label: "Why GlobalData" },
-  
 ];
 
 const GlobalDataDeck = () => {
