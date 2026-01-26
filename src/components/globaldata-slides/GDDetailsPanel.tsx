@@ -71,7 +71,7 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
   const highlightedItems = highlightedModule ? moduleHighlights[highlightedModule] || [] : [];
 
   return (
-    <div className="h-full flex flex-col gap-2 text-left">
+    <div className="h-full flex flex-col gap-2.5 text-left">
       {/* Header with AI Readiness */}
       <div className="flex items-start gap-2 mb-1">
         <div
@@ -94,7 +94,7 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
       </div>
 
       {/* What It Looks Like */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex items-center gap-1">
           <Eye className="w-2.5 h-2.5" style={{ color: layer.accentColor }} />
           <span className="text-[8px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -129,7 +129,7 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
       </div>
 
       {/* Result */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex items-center gap-1">
           <Target className="w-2.5 h-2.5" style={{ color: layer.accentColor }} />
           <span className="text-[8px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -147,14 +147,14 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
       </div>
 
       {/* Value Proof */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         <div className="flex items-center gap-1">
           <TrendingUp className="w-2.5 h-2.5" style={{ color: layer.accentColor }} />
           <span className="text-[8px] font-semibold uppercase tracking-wider text-muted-foreground">
             Value Proof
           </span>
         </div>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {layer.valueProof.metrics.slice(0, 4).map((metric, index) => (
             <span
               key={index}

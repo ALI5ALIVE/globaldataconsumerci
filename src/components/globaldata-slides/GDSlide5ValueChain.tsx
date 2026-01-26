@@ -166,7 +166,7 @@ const GDSlide5ValueChain = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-1.5 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Solution Combo Pills */}
         <div className="flex flex-wrap justify-center gap-2">
           {solutionCombos.map((combo, i) => (
@@ -206,7 +206,7 @@ const GDSlide5ValueChain = ({
             {workflowStages.map((stage, i) => (
               <div key={stage.id} className="flex items-center">
                 <div
-                  className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 min-h-[110px] ${
+                  className={`flex-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 min-h-[100px] ${
                     isStageHighlighted(i)
                       ? "border-primary bg-primary/15 shadow-lg scale-[1.02]"
                       : "border-border bg-card/50 hover:border-primary/40"
@@ -263,7 +263,7 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Detail Panel */}
-        <div className="min-h-[90px] max-h-[110px]">
+        <div className="min-h-[140px] max-h-[180px]">
           {activeData && (() => {
             // Get the primary solution's deep dive
             const primarySol = activeData.solutions[0];
@@ -272,8 +272,8 @@ const GDSlide5ValueChain = ({
             const firstPain = deepDive?.painToCapability[0];
 
             return (
-              <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-3 animate-fade-in">
-                <div className="flex gap-3">
+              <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 animate-fade-in">
+                <div className="flex gap-4">
                   {/* Left: Icons + Stage Info */}
                   <div className="shrink-0">
                     <div className="flex gap-1 mb-1">
@@ -282,27 +282,27 @@ const GDSlide5ValueChain = ({
                         return (
                           <div 
                             key={sol} 
-                            className="w-6 h-6 rounded-lg flex items-center justify-center"
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
                             style={{ backgroundColor: solutionConfig[sol].color + "20" }}
                           >
-                            <Icon className="w-3.5 h-3.5" style={{ color: solutionConfig[sol].color }} />
+                            <Icon className="w-4 h-4" style={{ color: solutionConfig[sol].color }} />
                           </div>
                         );
                       })}
                     </div>
-                    <p className="text-[11px] font-semibold text-foreground">{activeData.label}</p>
-                    <p className="text-[9px] text-muted-foreground">Stage {workflowStages.indexOf(activeData) + 1}</p>
+                    <p className="text-xs font-semibold text-foreground">{activeData.label}</p>
+                    <p className="text-[10px] text-muted-foreground">Stage {workflowStages.indexOf(activeData) + 1}</p>
                   </div>
 
                   {/* Right: Rich Content */}
-                  <div className="flex-1 grid grid-cols-3 gap-2">
+                  <div className="flex-1 grid grid-cols-3 gap-3">
                     {/* Column 1: JTBD */}
                     {deepDive && (
-                      <div className="p-2 bg-card/60 rounded-lg border border-border/50">
-                        <p className="text-[9px] font-semibold text-muted-foreground uppercase mb-0.5">
+                      <div className="p-3 bg-card/60 rounded-lg border border-border/50">
+                        <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-0.5">
                           Jobs to Be Done
                         </p>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        <p className="text-xs text-muted-foreground leading-relaxed">
                           <span className="text-primary font-medium">When</span> {deepDive.jtbd.when.toLowerCase()}...{" "}
                           <span className="text-primary font-medium">I want to</span> {deepDive.jtbd.iWantTo.toLowerCase()}{" "}
                           <span className="text-primary font-medium">so that</span> {deepDive.jtbd.soThat.toLowerCase()}.
@@ -312,21 +312,21 @@ const GDSlide5ValueChain = ({
 
                     {/* Column 2: Pain to Outcome */}
                     {firstPain && (
-                      <div className="p-2 bg-card/60 rounded-lg border border-border/50">
-                        <p className="text-[9px] font-semibold text-muted-foreground uppercase mb-0.5">
+                      <div className="p-3 bg-card/60 rounded-lg border border-border/50">
+                        <p className="text-[10px] font-semibold text-muted-foreground uppercase mb-0.5">
                           From Pain to Outcome
                         </p>
                         <div className="flex flex-col gap-0.5">
-                          <div className="px-1.5 py-0.5 rounded bg-destructive/10 border border-destructive/20">
-                            <span className="text-[9px] text-destructive">{firstPain.pain}</span>
+                          <div className="px-2 py-1 rounded bg-destructive/10 border border-destructive/20">
+                            <span className="text-[10px] text-destructive">{firstPain.pain}</span>
                           </div>
-                          <ArrowDown className="w-2.5 h-2.5 text-muted-foreground mx-auto" />
-                          <div className="px-1.5 py-0.5 rounded bg-card border border-border">
-                            <span className="text-[9px] text-foreground">{firstPain.capability}</span>
+                          <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
+                          <div className="px-2 py-1 rounded bg-card border border-border">
+                            <span className="text-[10px] text-foreground">{firstPain.capability}</span>
                           </div>
-                          <ArrowDown className="w-2.5 h-2.5 text-muted-foreground mx-auto" />
-                          <div className="px-1.5 py-0.5 rounded bg-primary/15 border border-primary/30">
-                            <span className="text-[9px] text-primary font-medium">{firstPain.outcome}</span>
+                          <ArrowDown className="w-3 h-3 text-muted-foreground mx-auto" />
+                          <div className="px-2 py-1 rounded bg-primary/15 border border-primary/30">
+                            <span className="text-[10px] text-primary font-medium">{firstPain.outcome}</span>
                           </div>
                         </div>
                       </div>
@@ -334,15 +334,15 @@ const GDSlide5ValueChain = ({
 
                     {/* Column 3: Real Example + Capabilities */}
                     {deepDive && (
-                      <div className="space-y-1">
-                        <div className="p-1.5 bg-primary/10 rounded-lg border border-primary/20">
-                          <p className="text-[9px] font-semibold text-primary uppercase">Real Example</p>
-                          <p className="text-[9px] text-muted-foreground">{deepDive.example.brand}</p>
-                          <p className="text-[9px] text-foreground font-medium">{deepDive.example.result}</p>
+                      <div className="space-y-1.5">
+                        <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
+                          <p className="text-[10px] font-semibold text-primary uppercase">Real Example</p>
+                          <p className="text-[10px] text-muted-foreground">{deepDive.example.brand}</p>
+                          <p className="text-[10px] text-foreground font-medium">{deepDive.example.result}</p>
                         </div>
-                        <div className="flex flex-wrap gap-0.5">
-                          {deepDive.capabilities.slice(0, 2).map((cap, i) => (
-                            <span key={i} className="px-1 py-0.5 rounded bg-primary/10 text-primary text-[8px]">
+                        <div className="flex flex-wrap gap-1">
+                          {deepDive.capabilities.slice(0, 3).map((cap, i) => (
+                            <span key={i} className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px]">
                               {cap}
                             </span>
                           ))}
@@ -389,10 +389,10 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-1.5">
-          <div className="bg-card/50 border border-border/50 rounded-lg p-2 text-center">
-            <p className="text-xl font-bold text-primary">5</p>
-            <p className="text-[11px] text-muted-foreground">Workflow stages</p>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-card/50 border border-border/50 rounded-lg p-3 text-center">
+            <p className="text-2xl font-bold text-primary">5</p>
+            <p className="text-xs text-muted-foreground">Workflow stages</p>
           </div>
           <div className="bg-card/50 border border-border/50 rounded-lg p-2 text-center">
             <p className="text-xl font-bold text-primary">3</p>
