@@ -39,7 +39,7 @@ const GDBehaviorShiftCard = ({ behavioralShift, accentColor, level }: GDBehavior
 
   return (
     <div
-      className="relative p-1.5 rounded border transition-all duration-300 mb-1"
+      className="relative p-2 rounded border transition-all duration-300 mb-1.5"
       style={{
         borderColor: `${accentColor}30`,
         background: `linear-gradient(135deg, ${accentColor}08 0%, transparent 100%)`,

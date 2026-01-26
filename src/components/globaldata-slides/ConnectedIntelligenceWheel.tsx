@@ -85,8 +85,8 @@ const ConnectedIntelligenceWheel = ({
   };
 
   return (
-    <div className="relative w-full max-w-xs mx-auto">
-      <svg viewBox="0 0 400 400" className="w-full h-auto max-h-[260px]">
+    <div className="relative w-full max-w-md mx-auto">
+      <svg viewBox="0 0 400 400" className="w-full h-auto max-h-[380px]">
         <defs>
           <filter id="wheelGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="blur" />

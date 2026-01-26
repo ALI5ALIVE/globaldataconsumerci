@@ -20,7 +20,7 @@ const GDTimeAllocationBar = ({ timeAllocation, accentColor }: GDTimeAllocationBa
 
   return (
     <div
-      className="relative p-1.5 rounded border transition-all duration-300"
+      className="relative p-2 rounded border transition-all duration-300"
       style={{
         borderColor: `${accentColor}30`,
         background: `linear-gradient(135deg, ${accentColor}08 0%, transparent 100%)`,
