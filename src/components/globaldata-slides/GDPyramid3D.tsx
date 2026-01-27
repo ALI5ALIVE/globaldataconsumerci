@@ -452,53 +452,6 @@ const GDPyramid3D = ({
         <path d={`M${apexX},${apexY} L${rightBaseX},${baseY}`} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.25" />
         <path d={`M${leftBaseX},${baseY} L${rightBaseX},${baseY}`} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.1" />
 
-        {/* AI GATEWAY threshold marker between Layer 3 and Layer 4 */}
-        {!isMobile && (() => {
-          const bounds = layerBounds[3];
-          const leftX = getLeftX(bounds.bottom);
-          const rightX = getRightX(bounds.bottom);
-          const markerY = bounds.bottom;
-          
-          return (
-            <g>
-              {/* Dashed AI Gateway line */}
-              <line 
-                x1={leftX} 
-                y1={markerY} 
-                x2={rightX} 
-                y2={markerY} 
-                stroke="hsl(45, 93%, 58%)" 
-                strokeWidth="4" 
-                strokeDasharray="16,8"
-                opacity="0.9"
-              />
-              
-              {/* AI Gateway label on left side */}
-              <rect 
-                x={leftX - 180} 
-                y={markerY - 20} 
-                width="160" 
-                height="40" 
-                rx="6" 
-                fill="hsl(45, 93%, 58%)" 
-                fillOpacity="0.95" 
-              />
-              <text 
-                x={leftX - 100} 
-                y={markerY + 7} 
-                textAnchor="middle" 
-                fill="hsl(222, 47%, 11%)" 
-                fontSize="15" 
-                fontWeight="700" 
-                fontFamily="'Space Grotesk', sans-serif" 
-                letterSpacing="0.1em"
-              >
-                AI GATEWAY
-              </text>
-              
-            </g>
-          );
-        })()}
       </svg>
 
       {/* Ambient glow effect */}
