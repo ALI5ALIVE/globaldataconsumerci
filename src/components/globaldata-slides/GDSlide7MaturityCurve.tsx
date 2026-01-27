@@ -313,43 +313,6 @@ const GDSlide7MaturityCurve = ({
                 </filter>
               </defs>
 
-              {/* AI THRESHOLD line at Stage 3 */}
-              {!isMobile && (
-                <g className={`transition-opacity duration-700 delay-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
-                  <line 
-                    x1="90" 
-                    y1="460" 
-                    x2="1120" 
-                    y2="460" 
-                    stroke="hsl(45 93% 58%)" 
-                    strokeWidth="3" 
-                    strokeDasharray="12,8"
-                    opacity="0.7"
-                  />
-                  <rect 
-                    x="980" 
-                    y="440" 
-                    width="130" 
-                    height="36" 
-                    rx="6" 
-                    fill="hsl(45 93% 58%)" 
-                    fillOpacity="0.2"
-                    stroke="hsl(45 93% 58%)"
-                    strokeWidth="2"
-                  />
-                  <text 
-                    x="1045" 
-                    y="464" 
-                    fill="hsl(45 93% 58%)" 
-                    fontSize="14" 
-                    fontWeight="700" 
-                    textAnchor="middle" 
-                    className="font-display"
-                  >
-                    AI GATEWAY
-                  </text>
-                </g>
-              )}
 
               {/* Y-axis - 2x scaled */}
               <line x1="90" y1="660" x2="90" y2="60" stroke="hsl(222 47% 25%)" strokeWidth="3" />
