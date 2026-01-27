@@ -1,59 +1,64 @@
 
+# Remove AI Gateway from Pyramid and Roadmap
 
-# Fix Copy Box Overflow on Connected Intelligence Slide
+## Overview
+Remove the "AI GATEWAY" visual elements from both the Value Pyramid (Slide 6) and the Roadmap/Maturity Curve (Slide 7). This will create cleaner visualizations without the threshold marker.
 
-## Problem
-The Solution Value Panel on Slide 4 ("The Answer: Connected Intelligence") requires scrolling because the content exceeds the available vertical space. The panel is set to `max-h-[340px]` with `overflow-hidden`, causing content to be cut off at the bottom.
+## Files to Update
 
-## Solution
-Reduce typography sizes and spacing within the `SolutionValuePanel` component to fit all content without scrolling.
+### 1. `src/components/globaldata-slides/GDPyramid3D.tsx`
+**Remove:** Lines 455-501 (the entire AI GATEWAY threshold marker block)
 
-## File to Update
-**`src/components/globaldata-slides/SolutionValuePanel.tsx`**
+This section renders:
+- A dashed gold line between Layer 3 (Connected) and Layer 4 (Operational)
+- A gold rectangle with "AI GATEWAY" text on the left side of the pyramid
 
-## Changes
+**Change:** Delete the entire block that starts with:
+```jsx
+{/* AI GATEWAY threshold marker between Layer 3 and Layer 4 */}
+{!isMobile && (() => {
+  ...
+})()}
+```
 
-### 1. Reduce Header Size (Lines 52-60)
-- Icon container: `w-8 h-8` → `w-6 h-6`, icon `w-4 h-4` → `w-3 h-3`
-- Title: `text-base` → `text-sm`
-- Margin: `mb-1.5` → `mb-1`
+---
 
-### 2. Compact JTBD Section (Lines 63-72)
-- Section padding: `p-1.5` → `p-1`
-- Section margin: `mb-1.5` → `mb-1`
-- JTBD text: `text-[11px]` → `text-[10px]`
+### 2. `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
+**Remove:** Lines 316-351 (the AI GATEWAY threshold line and label on the maturity curve)
 
-### 3. Compact Pain-to-Outcome Section (Lines 75-101)
-- Section padding: `p-1.5` → `p-1`
-- Section margin: `mb-1.5` → `mb-1`
-- Text in boxes: `text-[11px]` → `text-[10px]`
-- Inner padding: `px-2 py-1` → `px-1.5 py-0.5`
-- Arrow icons: `w-3 h-3` → `w-2.5 h-2.5`
-- Reduce gap between items: `gap-0.5` → keep but tighten arrow spacing
+This section renders:
+- A horizontal dashed gold line at the Stage 3 level (y=460)
+- A gold-bordered rectangle with "AI GATEWAY" text
 
-### 4. Compact Real Example Section (Lines 104-112)
-- Section padding: `p-1.5` → `p-1`
-- Section margin: `mb-1.5` → `mb-1`
-- Brand text: `text-[10px]` → `text-[9px]`
-- Result text: `text-[11px]` → `text-[10px]`
+**Change:** Delete the entire block that starts with:
+```jsx
+{/* AI THRESHOLD line at Stage 3 */}
+{!isMobile && (
+  <g className={`transition-opacity duration-700 delay-300 ...`}>
+    <line ... />
+    <rect ... />
+    <text>AI GATEWAY</text>
+  </g>
+)}
+```
 
-### 5. Reduce Capability Tags (Lines 115-128)
-- Gap: `gap-1` → `gap-0.5`
-- Tag padding: `px-1.5 py-0.5` → `px-1 py-0.5`
-- Tag text: `text-[9px]` → `text-[8px]`
+---
 
-## Summary of Typography Reductions
-| Element | Before | After |
-|---------|--------|-------|
-| Title | `text-base` | `text-sm` |
-| JTBD text | `text-[11px]` | `text-[10px]` |
-| Pain/Capability/Outcome | `text-[11px]` | `text-[10px]` |
-| Brand name | `text-[10px]` | `text-[9px]` |
-| Result text | `text-[11px]` | `text-[10px]` |
-| Capability tags | `text-[9px]` | `text-[8px]` |
+## Summary of Removals
+
+| File | What's Removed | Visual Impact |
+|------|----------------|---------------|
+| `GDPyramid3D.tsx` | Dashed gold line + "AI GATEWAY" label between layers 3-4 | Cleaner pyramid without threshold marker |
+| `GDSlide7MaturityCurve.tsx` | Horizontal dashed line + "AI GATEWAY" label at Stage 3 level | Cleaner curve with only stage markers and "CONNECTED INTELLIGENCE" label |
+
+---
+
+## What Remains
+- The "CONNECTED INTELLIGENCE" vertical marker on the roadmap (lines 400-408) will remain intact
+- All pyramid layers and their illustrations remain unchanged
+- All maturity curve stage markers and labels remain unchanged
+
+---
 
 ## Outcome
-- All content will fit within the 340px max height without scrolling or being cut off
-- Visual hierarchy is preserved with proportional reductions
-- Maintains readability while maximizing vertical space efficiency
-
+Both slides will display their core visualizations without the "AI GATEWAY" annotations, providing a simpler visual hierarchy while maintaining all other informational elements.
