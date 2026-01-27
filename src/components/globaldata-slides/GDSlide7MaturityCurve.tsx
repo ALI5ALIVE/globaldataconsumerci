@@ -311,68 +311,7 @@ const GDSlide7MaturityCurve = ({
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
-                {/* AI Territory gradient fill */}
-                <linearGradient id="gdAITerritoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="hsl(45 93% 58%)" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="hsl(173 80% 40%)" stopOpacity="0.05" />
-                </linearGradient>
-
-                {/* Pre-AI Territory gradient fill */}
-                <linearGradient id="gdPreAITerritoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="hsl(199 89% 48%)" stopOpacity="0.08" />
-                  <stop offset="100%" stopColor="hsl(0 70% 50%)" stopOpacity="0.12" />
-                </linearGradient>
               </defs>
-
-              {/* AI-POWERED TERRITORY shading (above Stage 3) */}
-              {!isMobile && (
-                <g className={`transition-opacity duration-700 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
-                  <rect 
-                    x="540" 
-                    y="60" 
-                    width="580" 
-                    height="420" 
-                    rx="12" 
-                    fill="url(#gdAITerritoryGrad)" 
-                  />
-                  <text 
-                    x="830" 
-                    y="90" 
-                    fill="hsl(45 93% 58%)" 
-                    fontSize="16" 
-                    fontWeight="700" 
-                    textAnchor="middle" 
-                    className="font-display uppercase tracking-wider"
-                  >
-                    AI-POWERED TERRITORY
-                  </text>
-                </g>
-              )}
-
-              {/* PRE-AI TERRITORY shading (below Stage 3) */}
-              {!isMobile && (
-                <g className={`transition-opacity duration-700 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
-                  <rect 
-                    x="100" 
-                    y="500" 
-                    width="440" 
-                    height="150" 
-                    rx="12" 
-                    fill="url(#gdPreAITerritoryGrad)" 
-                  />
-                  <text 
-                    x="320" 
-                    y="630" 
-                    fill="hsl(0 70% 60%)" 
-                    fontSize="14" 
-                    fontWeight="600" 
-                    textAnchor="middle" 
-                    className="font-display uppercase tracking-wider"
-                  >
-                    PRE-AI TERRITORY
-                  </text>
-                </g>
-              )}
 
               {/* AI THRESHOLD line at Stage 3 */}
               {!isMobile && (
