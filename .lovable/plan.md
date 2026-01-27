@@ -1,99 +1,37 @@
 
-# Fix Slide 5 Value Chain - Detail Panel Overlapping Bottom Stats
+# Fix Slide 5 - Push Bottom Stats Section Lower
 
-## Problem Summary
+## Problem
 
-On Slide 5 "Intelligence That Compounds Across the Value Chain", the Detail Panel (containing JTBD, Pain to Outcome flow, and Real Example) visually overlaps with the Bottom Stats section ("5 Workflow stages", "3 Strategic combinations", "∞ Compounding value" boxes).
+The Bottom Stats boxes ("5 Workflow stages", "3 Strategic combinations", "∞ Compounding value") are positioned too high on the slide. The user wants them moved further down toward the bottom of the slide viewport.
 
-**Root Cause:**
-- The Detail Panel at lines 266-389 has `min-h-[140px] max-h-[180px]` but the 3-column grid content inside (JTBD, Pain→Outcome, Real Example) exceeds this height
-- The content is being clipped or overflowing into the Bottom Stats area below
+## Root Cause
 
----
+The current layout at line 169 uses `flex flex-col gap-2` which stacks all elements from top to bottom with consistent small gaps. There's no mechanism to push the Bottom Stats section to the bottom of the available space.
 
-## Technical Solution
+## Solution
+
+Use flexbox spacing to push the Bottom Stats section to the bottom of the content area while keeping the upper elements (Combo Pills, Workflow Cards, Detail Panel) positioned at the top.
 
 ### File: `src/components/globaldata-slides/GDSlide5ValueChain.tsx`
 
-**Strategy:** Compact the Detail Panel content to fit within its container and ensure clear separation from the Bottom Stats.
-
-#### 1. Reduce Detail Panel internal padding and spacing
+#### Changes:
 
 | Line | Current | Change To |
 |------|---------|-----------|
-| 275 | `p-4` | `p-2.5` |
-| 276 | `gap-4` | `gap-3` |
-| 298 | `gap-3` | `gap-2` |
+| 266 | `<div className="min-h-[120px] max-h-[150px]">` | `<div className="min-h-[120px] max-h-[150px] flex-grow">` |
+| 391 | `{/* Bottom Stats */}` | `{/* Bottom Stats - pushed to bottom */}` |
+| 392 | `<div className="grid grid-cols-3 gap-1.5">` | `<div className="grid grid-cols-3 gap-1.5 mt-auto">` |
 
-#### 2. Compact the 3-column grid sections (JTBD, Pain→Outcome, Real Example)
+**What this does:**
+1. Adding `flex-grow` to the Detail Panel container allows it to expand and fill available vertical space
+2. Adding `mt-auto` to the Bottom Stats section pushes it to the very bottom of the flex container
 
-**JTBD Column (lines 300-311):**
-| Line | Current | Change To |
-|------|---------|-----------|
-| 301 | `p-3` | `p-2` |
-| 305 | `text-xs ... leading-relaxed` | `text-[10px] ... leading-snug` |
-
-**Pain to Outcome Column (lines 314-332):**
-| Line | Current | Change To |
-|------|---------|-----------|
-| 315 | `p-3` | `p-2` |
-| 319 | `gap-0.5` | `gap-0` (remove vertical gaps between boxes) |
-| 321, 325, 329 | `text-[10px]` | `text-[9px]` |
-| 323, 327 | `w-3 h-3` | `w-2.5 h-2.5` (smaller arrows) |
-
-**Real Example Column (lines 336-350):**
-| Line | Current | Change To |
-|------|---------|-----------|
-| 338 | `p-2` | `p-1.5` |
-| 339, 340, 341 | `text-[10px]` | `text-[9px]` |
-| 343 | `gap-1` | `gap-0.5` |
-| 345 | `text-[9px]` | `text-[8px]` |
-
-#### 3. Reduce left column (stage info) size
-
-| Line | Current | Change To |
-|------|---------|-----------|
-| 285 | `w-8 h-8` | `w-6 h-6` |
-| 288 | `w-4 h-4` | `w-3 h-3` |
-| 293 | `text-xs` | `text-[11px]` |
-
-#### 4. Adjust Detail Panel height constraints
-
-| Line | Current | Change To |
-|------|---------|-----------|
-| 266 | `min-h-[140px] max-h-[180px]` | `min-h-[120px] max-h-[150px]` |
-
-#### 5. Compact Bottom Stats section
-
-| Line | Current | Change To |
-|------|---------|-----------|
-| 392 | `gap-2` | `gap-1.5` |
-| 393, 397, 401 | `p-3` / `p-2` | `p-2` / `p-1.5` |
-| 394 | `text-2xl` | `text-xl` |
-| 398, 402 | `text-xl` | `text-lg` |
-| 395 | `text-xs` | `text-[11px]` |
-| 399, 403 | `text-[11px]` | `text-[10px]` |
-
----
-
-## Summary of Changes
-
-| Element | Before | After |
-|---------|--------|-------|
-| Detail Panel height | 140-180px | 120-150px |
-| Detail Panel padding | p-4 | p-2.5 |
-| Grid columns padding | p-3 | p-2 |
-| Pain→Outcome text | text-[10px] | text-[9px] |
-| Pain→Outcome arrows | w-3 h-3 | w-2.5 h-2.5 |
-| Stage icons | w-8 h-8 | w-6 h-6 |
-| Bottom Stats numbers | text-2xl/xl | text-xl/lg |
-
----
+This approach ensures the Bottom Stats boxes are anchored to the bottom of the slide's content area, creating clear visual separation from the Detail Panel above.
 
 ## Expected Outcome
 
-1. The Detail Panel content (JTBD, Pain to Outcome, Real Example) will fit within its container without overflow
-2. Clear visual separation between the Detail Panel and Bottom Stats boxes
-3. No overlapping of any elements
-4. All content remains visible and readable
-5. Slide maintains the "no page scroll" 768p viewport optimization
+1. Bottom Stats section will be positioned at the bottom of the slide content area
+2. Clear vertical separation between the Detail Panel and Bottom Stats
+3. Slide maintains proper layout within 768p viewport
+4. All content remains visible without scrolling
