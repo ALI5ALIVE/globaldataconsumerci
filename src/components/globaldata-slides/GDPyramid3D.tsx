@@ -246,15 +246,14 @@ const GDPyramid3D = ({
               className="pointer-events-auto"
             >
               <div 
-                className="w-full h-full flex items-center justify-center cursor-pointer"
-                onPointerDownCapture={() => onLayerClick(5)}
+                className="w-full h-full flex items-center justify-center cursor-pointer group"
+                onClick={() => onLayerClick(5)}
               >
                 <div
-                  className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 cursor-pointer hover:scale-110 transition-all duration-300"
+                  className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 group-hover:scale-110 transition-all duration-300 pointer-events-none"
                   style={{
                     boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
                   }}
-                  onClick={() => handleModuleClick("ava")}
                 >
                   <Sparkles 
                     className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
