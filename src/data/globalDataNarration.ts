@@ -103,15 +103,15 @@ What changes? Every function operates from the same shared truth, so decisions r
 
 At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. High vendor spend, low self-service, missed windows.
 
-Stage four: Managed but Siloed. Strong systems in specific domains, but fragmented by function. Reporting is regular but backward-looking. Structured intelligence, but limited cross-functional value.
+Stage two: Managed but Siloed. Strong systems in specific domains, but fragmented by function. Reporting is regular but backward-looking. Structured intelligence, but limited cross-functional value.
 
 Stage three: Connected and Governed. Unified taxonomy and governance. Self-service access with proper governance. This is the platform shift—reconciliation time drops sixty percent.
 
-Stage two: Operational Intelligence. Analytics embedded in daily workflows. AI augmentation with automated trend detection. Decisions in days, not weeks.
+Stage four: Operational Intelligence. Analytics embedded in daily workflows. AI augmentation with automated trend detection. Decisions in days, not weeks.
 
 And at the apex: Predictive and Adaptive. AI anticipates market shifts before competitors react. Category performance through speed and foresight.
 
-Most organisations are at stage four or five. The question is: how fast can you climb?`,
+Most organisations are at stage one or two. The question is: how fast can you climb?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
