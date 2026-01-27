@@ -1,7 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import SlidePlayButton from "@/components/SlidePlayButton";
 import type { SlideNarrationProps } from "@/types/slideProps";
-import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 const agendaItems = [
   { num: 1, label: "Market Pressure", summary: "Speed rewarded, hesitation punished" },
@@ -63,11 +62,6 @@ const GDSlide0Title = ({
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl w-full text-center space-y-6 sm:space-y-8">
-        {/* Logo */}
-        <div className="flex justify-center items-center gap-3">
-          <img src={globalDataLogo} alt="GlobalData" className="h-10 sm:h-12 w-auto" />
-        </div>
-
         {/* Headline */}
         <div className="space-y-4 sm:space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
