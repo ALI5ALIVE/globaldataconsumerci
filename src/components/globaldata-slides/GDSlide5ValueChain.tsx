@@ -263,7 +263,7 @@ const GDSlide5ValueChain = ({
         </div>
 
         {/* Detail Panel */}
-        <div className="min-h-[120px] max-h-[150px]">
+        <div className="min-h-[120px] max-h-[150px] flex-grow">
           {activeData && (() => {
             // Get the primary solution's deep dive
             const primarySol = activeData.solutions[0];
@@ -388,8 +388,8 @@ const GDSlide5ValueChain = ({
           )}
         </div>
 
-        {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-1.5">
+        {/* Bottom Stats - pushed to bottom */}
+        <div className="grid grid-cols-3 gap-1.5 mt-auto">
           <div className="bg-card/50 border border-border/50 rounded-lg p-2 text-center">
             <p className="text-xl font-bold text-primary">5</p>
             <p className="text-[11px] text-muted-foreground">Workflow stages</p>
