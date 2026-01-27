@@ -8,7 +8,7 @@ import PageNavigation from "./PageNavigation";
 const layersData: LayerData[] = [
   {
     id: "PREDICTIVE",
-    level: 1,
+    level: 5,
     headline: "Predictive & Agentic Reliability",
     sublabel: "AI-Accelerated",
     whatItLooksLike: [
@@ -44,7 +44,7 @@ const layersData: LayerData[] = [
   },
   {
     id: "CLOSED_LOOP",
-    level: 2,
+    level: 4,
     headline: "Closed-Loop Operational Improvement",
     sublabel: "Outcome Engine",
     whatItLooksLike: [
@@ -113,7 +113,7 @@ const layersData: LayerData[] = [
   },
   {
     id: "MANAGED",
-    level: 4,
+    level: 2,
     headline: "Managed (Siloed) Compliance",
     sublabel: "Structured but disconnected",
     whatItLooksLike: [
@@ -146,7 +146,7 @@ const layersData: LayerData[] = [
   },
   {
     id: "FRAGMENTED",
-    level: 5,
+    level: 1,
     headline: "Fragmented & Reactive",
     sublabel: "The starting point",
     whatItLooksLike: [
@@ -240,7 +240,7 @@ const CategoryPyramid = () => {
   }, []);
 
   const handleModuleClick = useCallback((module: string) => {
-    setActiveLayerId("CONNECTED");
+    setActiveLayerId("MANAGED");
     setHighlightedModule(module);
     setIsAutoCycling(false); // Pause on manual interaction
     setTimeout(() => setHighlightedModule(null), 3000);
