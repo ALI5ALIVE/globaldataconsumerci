@@ -417,7 +417,12 @@ const Pyramid3D = ({
           
           return (
             <foreignObject x={startX} y={bounds.top + 10} width={width} height={bounds.bottom - bounds.top - 20}>
-              <div className="w-full h-full flex items-center justify-center overflow-hidden">
+              <div
+                className="w-full h-full flex items-center justify-center overflow-hidden cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(1)}
+                role="button"
+                aria-label="Select Stage 1"
+              >
                 <FragmentationIllustration onNodeClick={handleModuleClick} />
               </div>
             </foreignObject>
@@ -437,7 +442,12 @@ const Pyramid3D = ({
           
           return (
             <foreignObject x={startX} y={yPosition} width={width} height={height} style={{ overflow: 'visible' }}>
-              <div className="w-full h-full flex items-center justify-center">
+              <div
+                className="w-full h-full flex items-center justify-center cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(5)}
+                role="button"
+                aria-label="Select Stage 5"
+              >
                 <TransformationalIllustration onNodeClick={handleModuleClick} />
               </div>
             </foreignObject>
@@ -455,7 +465,12 @@ const Pyramid3D = ({
           
           return (
             <foreignObject x={centerX - width * 0.48} y={bounds.top + 12} width={width * 0.96} height={bounds.bottom - bounds.top - 24}>
-              <div className="w-full h-full flex items-center justify-center rounded-lg bg-card/60 backdrop-blur-sm ring-2 ring-border/60">
+              <div
+                className="w-full h-full flex items-center justify-center rounded-lg bg-card/60 backdrop-blur-sm ring-2 ring-border/60 cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(4)}
+                role="button"
+                aria-label="Select Stage 4"
+              >
                 <MetricsGauges onMetricClick={handleModuleClick} />
               </div>
             </foreignObject>
@@ -474,7 +489,12 @@ const Pyramid3D = ({
           
           return (
             <foreignObject x={startX} y={bounds.top + 16} width={width} height={bounds.bottom - bounds.top - 32}>
-              <div className="w-full h-full flex items-center justify-center overflow-hidden rounded-lg bg-card/60 backdrop-blur-sm ring-2 ring-border/60">
+              <div
+                className="w-full h-full flex items-center justify-center overflow-hidden rounded-lg bg-card/60 backdrop-blur-sm ring-2 ring-border/60 cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(3)}
+                role="button"
+                aria-label="Select Stage 3"
+              >
                 <TripleLoop onModuleClick={handleModuleClick} />
               </div>
             </foreignObject>
