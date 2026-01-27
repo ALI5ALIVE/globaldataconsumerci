@@ -1,38 +1,28 @@
 
 
-# Remove Bottom Stats Cards from Value Chain Slide
+# Update Slide Title Wording
 
 ## What Will Change
-Remove the three stat cards at the bottom of Slide 5 ("Intelligence That Compounds Across the Value Chain"):
-- "5 Workflow stages"
-- "3 Strategic combinations"
-- "∞ Compounding value"
+Update the title on Slide 1 (Market Pressure) from:
+- **Current:** "The Market Rewards Speed and Punishes Hesitation"
+- **New:** "The Market Rewards Speed and Punishes Delay"
 
 ## File to Update
-**`src/components/globaldata-slides/GDSlide5ValueChain.tsx`**
+**`src/components/globaldata-slides/GDSlide1GrowthReality.tsx`**
 
 ## Change Details
-Delete lines 391-405, which contain:
+Update line 41, changing the `title` prop passed to `GDSlideContainer`:
+
 ```jsx
-{/* Bottom Stats - pushed to bottom */}
-<div className="grid grid-cols-3 gap-1.5 mt-auto">
-  <div className="bg-card/50 border border-border/50 rounded-lg p-2 text-center">
-    <p className="text-xl font-bold text-primary">5</p>
-    <p className="text-[11px] text-muted-foreground">Workflow stages</p>
-  </div>
-  <div className="bg-card/50 border border-border/50 rounded-lg p-1.5 text-center">
-    <p className="text-lg font-bold text-primary">3</p>
-    <p className="text-[10px] text-muted-foreground">Strategic combinations</p>
-  </div>
-  <div className="bg-card/50 border border-border/50 rounded-lg p-1.5 text-center">
-    <p className="text-lg font-bold text-primary">∞</p>
-    <p className="text-[10px] text-muted-foreground">Compounding value</p>
-  </div>
-</div>
+// Before
+title="The Market Rewards Speed and Punishes Hesitation"
+
+// After
+title="The Market Rewards Speed and Punishes Delay"
 ```
 
 ## Result
-- The three bottom stat cards will be removed from the slide
-- The Detail Panel will have more vertical space to breathe
-- The slide will maintain its zero-scroll layout on 768p screens
+- The slide title will display "The Market Rewards Speed and Punishes Delay"
+- "Delay" is more action-oriented and directly ties to the time-to-decision theme of the slide
+- No other changes needed
 
