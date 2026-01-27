@@ -245,7 +245,10 @@ const GDPyramid3D = ({
               height={height}
               className="pointer-events-auto"
             >
-              <div className="w-full h-full flex items-center justify-center">
+              <div 
+                className="w-full h-full flex items-center justify-center cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(5)}
+              >
                 <div
                   className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 cursor-pointer hover:scale-110 transition-all duration-300"
                   style={{
@@ -283,7 +286,12 @@ const GDPyramid3D = ({
               height={height}
               className="pointer-events-auto"
             >
-              <GDMetricsGauges onMetricClick={handleModuleClick} />
+              <div 
+                className="w-full h-full cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(4)}
+              >
+                <GDMetricsGauges onMetricClick={handleModuleClick} />
+              </div>
             </foreignObject>
           );
         })()}
@@ -308,7 +316,12 @@ const GDPyramid3D = ({
               height={height}
               className="pointer-events-auto"
             >
-              <GDQuintupleLoop onModuleClick={handleModuleClick} />
+              <div 
+                className="w-full h-full cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(3)}
+              >
+                <GDQuintupleLoop onModuleClick={handleModuleClick} />
+              </div>
             </foreignObject>
           );
         })()}
@@ -333,7 +346,12 @@ const GDPyramid3D = ({
               height={height}
               className="pointer-events-auto"
             >
-              <GDFragmentationIllustration onNodeClick={handleModuleClick} />
+              <div 
+                className="w-full h-full cursor-pointer"
+                onPointerDownCapture={() => onLayerClick(1)}
+              >
+                <GDFragmentationIllustration onNodeClick={handleModuleClick} />
+              </div>
             </foreignObject>
           );
         })()}
