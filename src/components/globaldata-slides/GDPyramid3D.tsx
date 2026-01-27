@@ -224,56 +224,17 @@ const GDPyramid3D = ({
           );
         })}
 
-        {/* Embedded illustrations for layers 5, 4, 3, 1 - DOUBLED SIZE */}
-        {/* Layer 5 (PREDICTIVE - Apex) - AVA Only */}
-        {(() => {
-          const bounds = layerBounds[5];
-          const layerHeight = bounds.bottom - bounds.top;
-          const centerY = (bounds.top + bounds.bottom) / 2;
-          const leftX = getLeftX(centerY);
-          const rightX = getRightX(centerY);
-          const width = (rightX - leftX) * 0.8;
-          const height = layerHeight * 0.8;
-          const offsetX = (rightX - leftX - width) / 2;
-          const offsetY = (layerHeight - height) / 2;
-          
-          return (
-            <foreignObject
-              x={leftX + offsetX}
-              y={bounds.top + offsetY}
-              width={width}
-              height={height}
-              className="pointer-events-auto"
-            >
-              <div 
-                className="w-full h-full flex items-center justify-center cursor-pointer group"
-                onClick={() => onLayerClick(5)}
-              >
-                <div
-                  className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 group-hover:scale-110 transition-all duration-300 pointer-events-none"
-                  style={{
-                    boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
-                  }}
-                >
-                  <Sparkles 
-                    className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
-                    strokeWidth={2.5}
-                  />
-                </div>
-              </div>
-            </foreignObject>
-          );
-        })()}
-
-        {/* Layer 4 (OPERATIONAL) - Metrics Gauges */}
+        {/* Embedded illustrations for layers 4, 3, 1 - DOUBLED SIZE */}
+        {/* Layer 4 (OPERATIONAL) - Metrics Gauges - Constrained hitbox */}
         {(() => {
           const bounds = layerBounds[4];
           const layerHeight = bounds.bottom - bounds.top;
           const centerY = (bounds.top + bounds.bottom) / 2;
           const leftX = getLeftX(centerY);
           const rightX = getRightX(centerY);
-          const width = (rightX - leftX) * 11.2;
-          const height = layerHeight * 12.8;
+          // FIXED: Constrain hitbox to layer bounds (was 11.2 / 12.8 causing apex overlap)
+          const width = (rightX - leftX) * 0.95;
+          const height = layerHeight * 0.9;
           const offsetX = (rightX - leftX - width) / 2;
           const offsetY = (layerHeight - height) / 2;
           
@@ -288,6 +249,7 @@ const GDPyramid3D = ({
               <div 
                 className="w-full h-full cursor-pointer"
                 onPointerDownCapture={() => onLayerClick(4)}
+                onClick={() => onLayerClick(4)}
               >
                 <GDMetricsGauges onMetricClick={handleModuleClick} />
               </div>
@@ -348,8 +310,50 @@ const GDPyramid3D = ({
               <div 
                 className="w-full h-full cursor-pointer"
                 onPointerDownCapture={() => onLayerClick(1)}
+                onClick={() => onLayerClick(1)}
               >
                 <GDFragmentationIllustration onNodeClick={handleModuleClick} />
+              </div>
+            </foreignObject>
+          );
+        })()}
+
+        {/* Layer 5 (PREDICTIVE - Apex) - AVA Only - Rendered LAST for topmost SVG stacking */}
+        {(() => {
+          const bounds = layerBounds[5];
+          const layerHeight = bounds.bottom - bounds.top;
+          const centerY = (bounds.top + bounds.bottom) / 2;
+          const leftX = getLeftX(centerY);
+          const rightX = getRightX(centerY);
+          const width = (rightX - leftX) * 0.8;
+          const height = layerHeight * 0.8;
+          const offsetX = (rightX - leftX - width) / 2;
+          const offsetY = (layerHeight - height) / 2;
+          
+          return (
+            <foreignObject
+              x={leftX + offsetX}
+              y={bounds.top + offsetY}
+              width={width}
+              height={height}
+              className="pointer-events-auto"
+            >
+              <div 
+                className="w-full h-full flex items-center justify-center cursor-pointer group"
+                onPointerDownCapture={() => onLayerClick(5)}
+                onClick={() => onLayerClick(5)}
+              >
+                <div
+                  className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 group-hover:scale-110 transition-all duration-300 pointer-events-none"
+                  style={{
+                    boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
+                  }}
+                >
+                  <Sparkles 
+                    className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
+                    strokeWidth={2.5}
+                  />
+                </div>
               </div>
             </foreignObject>
           );
