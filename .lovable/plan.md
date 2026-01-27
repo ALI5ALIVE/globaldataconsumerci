@@ -1,81 +1,58 @@
 
-# Fix Layer 5 (Apex) Click Not Working
+## Goal
+Make the apex (Level 5) reliably selectable so clicking it updates the copy/details panel to the PREDICTIVE stage.
 
-## Problem
-Layer 5 (the apex with the AVA/Sparkles icon) is not responding to clicks properly. While the outer wrapper has `onPointerDownCapture={() => onLayerClick(5)}`, the inner AVA icon container has its own `onClick={() => handleModuleClick("ava")}` which may be interfering with the expected behavior.
+## What’s actually going wrong (based on code)
+- In `GDSlide6ValuePyramid.tsx`, `onModuleClick` is wired to `handleModuleClick`.
+- `handleModuleClick` **always forces the active stage to "MANAGED"**:
+  - `setActiveLayerId("MANAGED")`
+- In `GDPyramid3D.tsx` (Layer 5 foreignObject), the AVA icon container currently has:
+  - `onPointerDownCapture={() => onLayerClick(5)}` on the wrapper (good)
+  - BUT the inner AVA card has `onClick={() => handleModuleClick("ava")}` (bad for stage navigation)
+- Result: even if the pointer-down capture selects level 5 briefly, the subsequent click event triggers `handleModuleClick("ava")`, which forces the stage back to MANAGED. To the user it looks like “Level 5 clicking doesn’t work”.
 
-The issue is that `onPointerDownCapture` fires on pointer DOWN, but the visual feedback and state update happen before the click completes. The inner `onClick` then fires and may cause unexpected behavior.
+## Fix strategy (minimal + consistent with your other pyramid)
+We will prevent the apex AVA icon from triggering the module-click pathway (which is intended for Level 2 “silos”), and ensure the apex click only selects Level 5.
 
-## Solution
-Modify the Layer 5 foreignObject content to ensure clicking anywhere triggers the layer selection:
+### Primary fix (recommended): remove module click from the apex AVA element
+**File:** `src/components/globaldata-slides/GDPyramid3D.tsx`
 
-1. **Add `onClick` to outer wrapper** - In addition to `onPointerDownCapture`, add an `onClick` handler
-2. **Remove redundant inner onClick** - The AVA icon doesn't need a separate module click handler since clicking it should just select Layer 5
-3. **Add `pointer-events-none` to inner decorative div** - Let clicks pass through to the outer handler
+**Change Layer 5 foreignObject block:**
+1. Remove `onClick={() => handleModuleClick("ava")}` from the inner AVA card.
+2. Make sure the wrapper handles the “select Level 5” action:
+   - Keep `onPointerDownCapture={() => onLayerClick(5)}`
+   - Add `onClick={() => onLayerClick(5)}` as a fallback (helps across browsers and input types)
+3. Ensure the inner AVA card does not intercept pointer events:
+   - Add `pointer-events-none` to the inner AVA card (or at least to the Sparkles icon container)
+4. Preserve the hover “scale up” effect without needing pointer events on the inner element:
+   - Add `group` to the wrapper
+   - Change inner scaling class from `hover:scale-110` to `group-hover:scale-110`
 
-## File to Update
-**`src/components/globaldata-slides/GDPyramid3D.tsx`**
+**Net result:** Clicking the AVA icon (or anywhere inside the apex foreignObject) consistently triggers `onLayerClick(5)` and cannot be overridden by the “module click forces MANAGED” logic.
 
-## Changes
+### Secondary hardening (optional but very safe): ignore non-silo modules in Slide 6 handler
+If you want to keep the concept of “module clicks” but limit them to the 5 Level-2 silos only:
 
-### Lines 248-264 - Modify Layer 5 foreignObject content
+**File:** `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
 
-**Current code:**
-```tsx
-<div 
-  className="w-full h-full flex items-center justify-center cursor-pointer"
-  onPointerDownCapture={() => onLayerClick(5)}
->
-  <div
-    className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 cursor-pointer hover:scale-110 transition-all duration-300"
-    style={{
-      boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
-    }}
-    onClick={() => handleModuleClick("ava")}
-  >
-    <Sparkles 
-      className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
-      strokeWidth={2.5}
-    />
-  </div>
-</div>
-```
+Update `handleModuleClick` to only force MANAGED for known Level-2 module IDs:
+- Allowed: `nielseniq`, `circana`, `kantar`, `euromonitor`, `mintel`
+- If `module === "ava"` (or anything else), do nothing (or optionally set stage 5)
 
-**Updated code:**
-```tsx
-<div 
-  className="w-full h-full flex items-center justify-center cursor-pointer"
-  onClick={() => onLayerClick(5)}
->
-  <div
-    className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 hover:scale-110 transition-all duration-300 pointer-events-none"
-    style={{
-      boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
-    }}
-  >
-    <Sparkles 
-      className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
-      strokeWidth={2.5}
-    />
-  </div>
-</div>
-```
+This is defensive, but the primary fix above should already resolve the apex issue.
 
-## Summary of Changes
+## How we’ll validate the fix
+1. Go to Slide 6 (“Where Is Your Organisation Today?”).
+2. Click Level 1, Level 2 silos, Level 3, Level 4: confirm they still update the copy box.
+3. Click the apex AVA icon:
+   - Expected: copy box updates to “Predictive & Adaptive Category Performance” (Stage 5).
+4. Click Level 2 silos again:
+   - Expected: stage changes to 2 and highlights the silo module as before.
 
-| Change | Before | After |
-|--------|--------|-------|
-| Outer div handler | `onPointerDownCapture={() => onLayerClick(5)}` | `onClick={() => onLayerClick(5)}` |
-| Inner div onClick | `onClick={() => handleModuleClick("ava")}` | Removed |
-| Inner div classes | `cursor-pointer` | `pointer-events-none` |
+## Files involved
+- `src/components/globaldata-slides/GDPyramid3D.tsx` (required)
+- `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` (optional hardening)
 
-## Why This Works
-- Using `onClick` on the outer wrapper ensures the layer selection fires on a complete click event
-- Adding `pointer-events-none` to the inner decorative div means all clicks pass through to the outer wrapper
-- Removing the inner `onClick` eliminates competing event handlers
-- The hover effect on the inner div still works because it's CSS-based (hover states work even with `pointer-events-none` when the parent receives events)
-
-## Outcome
-- Clicking anywhere on Layer 5 (the apex with AVA icon) will select it and update the details panel
-- Consistent behavior with other layers
-- Visual hover effects are preserved
+## Why this approach
+- It matches the working pattern in your homepage pyramid (`Pyramid3D.tsx`): apex visuals should not route into “module click” logic that’s meant for lower-level sections.
+- It removes the event-handler conflict instead of trying to “fight” it with more pointer capture handlers.
