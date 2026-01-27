@@ -289,8 +289,11 @@ const GDSlide6ValuePyramid = ({
   }, [activeLayerId]);
 
   const handleModuleClick = useCallback((module: string) => {
-    const managedLayer = layersData.find(l => l.id === "MANAGED");
-    if (managedLayer) setActiveLayerId("MANAGED");
+    // Only switch to MANAGED stage for Level 2 silo modules
+    const siloModules = ["nielseniq", "circana", "kantar", "euromonitor", "mintel"];
+    if (siloModules.includes(module)) {
+      setActiveLayerId("MANAGED");
+    }
     setHighlightedModule(module);
     setIsAutoCycling(false);
     setTimeout(() => setHighlightedModule(null), 3000);
