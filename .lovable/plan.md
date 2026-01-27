@@ -1,85 +1,81 @@
 
-# Fix Pyramid Level Clickability
+# Fix Layer 5 (Apex) Click Not Working
 
 ## Problem
-The pyramid layers are not responding to clicks because the embedded illustrations (AVA icon, Metrics Gauges, Quintuple Loop, Fragmentation Illustration) overlay the clickable polygon areas. When users click on these visual elements, the events are captured by the illustrations instead of propagating to the pyramid layer click handlers.
+Layer 5 (the apex with the AVA/Sparkles icon) is not responding to clicks properly. While the outer wrapper has `onPointerDownCapture={() => onLayerClick(5)}`, the inner AVA icon container has its own `onClick={() => handleModuleClick("ava")}` which may be interfering with the expected behavior.
+
+The issue is that `onPointerDownCapture` fires on pointer DOWN, but the visual feedback and state update happen before the click completes. The inner `onClick` then fires and may cause unexpected behavior.
 
 ## Solution
-Add `onPointerDownCapture` handlers to the wrapper `div` inside each `foreignObject` to ensure click events trigger the layer selection even when clicking on the illustrations. This approach intercepts pointer events at the capture phase before they reach the illustration components.
+Modify the Layer 5 foreignObject content to ensure clicking anywhere triggers the layer selection:
+
+1. **Add `onClick` to outer wrapper** - In addition to `onPointerDownCapture`, add an `onClick` handler
+2. **Remove redundant inner onClick** - The AVA icon doesn't need a separate module click handler since clicking it should just select Layer 5
+3. **Add `pointer-events-none` to inner decorative div** - Let clicks pass through to the outer handler
 
 ## File to Update
 **`src/components/globaldata-slides/GDPyramid3D.tsx`**
 
 ## Changes
 
-### 1. Layer 5 (PREDICTIVE - AVA Icon) - Lines 248-262
-Add `onPointerDownCapture` to the wrapper div:
+### Lines 248-264 - Modify Layer 5 foreignObject content
+
+**Current code:**
 ```tsx
 <div 
   className="w-full h-full flex items-center justify-center cursor-pointer"
   onPointerDownCapture={() => onLayerClick(5)}
 >
-```
-
-### 2. Layer 4 (OPERATIONAL - Metrics Gauges) - Lines 278-288
-Wrap the `GDMetricsGauges` component in a clickable div:
-```tsx
-<div 
-  className="w-full h-full cursor-pointer"
-  onPointerDownCapture={() => onLayerClick(4)}
->
-  <GDMetricsGauges onMetricClick={handleModuleClick} />
+  <div
+    className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 cursor-pointer hover:scale-110 transition-all duration-300"
+    style={{
+      boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
+    }}
+    onClick={() => handleModuleClick("ava")}
+  >
+    <Sparkles 
+      className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
+      strokeWidth={2.5}
+    />
+  </div>
 </div>
 ```
 
-### 3. Layer 3 (CONNECTED - Quintuple Loop) - Lines 303-313
-Wrap the `GDQuintupleLoop` component in a clickable div:
+**Updated code:**
 ```tsx
 <div 
-  className="w-full h-full cursor-pointer"
-  onPointerDownCapture={() => onLayerClick(3)}
+  className="w-full h-full flex items-center justify-center cursor-pointer"
+  onClick={() => onLayerClick(5)}
 >
-  <GDQuintupleLoop onModuleClick={handleModuleClick} />
+  <div
+    className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 hover:scale-110 transition-all duration-300 pointer-events-none"
+    style={{
+      boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
+    }}
+  >
+    <Sparkles 
+      className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
+      strokeWidth={2.5}
+    />
+  </div>
 </div>
 ```
-
-### 4. Layer 1 (FRAGMENTED - Fragmentation Illustration) - Lines 328-338
-Wrap the `GDFragmentationIllustration` component in a clickable div:
-```tsx
-<div 
-  className="w-full h-full cursor-pointer"
-  onPointerDownCapture={() => onLayerClick(1)}
->
-  <GDFragmentationIllustration onNodeClick={handleModuleClick} />
-</div>
-```
-
-### 5. Level 2 Silos (Already Clickable)
-The Level 2 silos already have proper click handlers directly on the polygons (line 369), so no changes needed there.
-
----
 
 ## Summary of Changes
 
-| Layer | Current State | Fix Applied |
-|-------|--------------|-------------|
-| Layer 5 (Apex) | AVA icon blocks clicks | Add `onPointerDownCapture={() => onLayerClick(5)}` |
-| Layer 4 | Gauges block clicks | Add `onPointerDownCapture={() => onLayerClick(4)}` |
-| Layer 3 | Loop blocks clicks | Add `onPointerDownCapture={() => onLayerClick(3)}` |
-| Layer 2 | Silos already clickable | No change needed |
-| Layer 1 (Base) | Fragmentation blocks clicks | Add `onPointerDownCapture={() => onLayerClick(1)}` |
+| Change | Before | After |
+|--------|--------|-------|
+| Outer div handler | `onPointerDownCapture={() => onLayerClick(5)}` | `onClick={() => onLayerClick(5)}` |
+| Inner div onClick | `onClick={() => handleModuleClick("ava")}` | Removed |
+| Inner div classes | `cursor-pointer` | `pointer-events-none` |
 
----
-
-## Technical Details
-- **Why `onPointerDownCapture`?** The capture phase runs before the bubbling phase, so the event is intercepted before it reaches child components
-- **Why not `onClick`?** The illustrations have their own click handlers (`onModuleClick`); using capture phase allows both to work
-- **`cursor-pointer`** provides visual feedback that the entire layer is clickable
-
----
+## Why This Works
+- Using `onClick` on the outer wrapper ensures the layer selection fires on a complete click event
+- Adding `pointer-events-none` to the inner decorative div means all clicks pass through to the outer wrapper
+- Removing the inner `onClick` eliminates competing event handlers
+- The hover effect on the inner div still works because it's CSS-based (hover states work even with `pointer-events-none` when the parent receives events)
 
 ## Outcome
-- Users can click anywhere on any pyramid level (including the illustrations) to select that stage
-- The details panel updates immediately to show the selected stage's content
-- The smooth fade transition between stages (already implemented) will continue to work
-- Module-specific clicks within illustrations will still trigger their own handlers after the layer is selected
+- Clicking anywhere on Layer 5 (the apex with AVA icon) will select it and update the details panel
+- Consistent behavior with other layers
+- Visual hover effects are preserved
