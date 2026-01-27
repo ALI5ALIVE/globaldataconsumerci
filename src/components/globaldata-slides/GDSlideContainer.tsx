@@ -63,7 +63,7 @@ const GDSlideContainer = ({
 
       <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col relative">
         {/* Footer - bottom left, aligned with content */}
-        <div className="absolute -bottom-10 left-0 hidden sm:block">
+        <div className="absolute bottom-2 left-0 hidden sm:block">
           <p className="text-[10px] text-muted-foreground">
             © 2026 GlobalData · Connected Consumer Intelligence Platform
           </p>
@@ -71,7 +71,7 @@ const GDSlideContainer = ({
 
         {/* Slide number - bottom right, aligned with content */}
         {slideNumber !== undefined && (
-          <div className="absolute -bottom-10 right-0">
+          <div className="absolute bottom-2 right-0">
             <span className={cn(
               "text-sm font-medium",
               variant === "light" ? "text-muted-foreground" : "text-muted-foreground"
