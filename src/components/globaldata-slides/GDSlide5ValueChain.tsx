@@ -388,21 +388,6 @@ const GDSlide5ValueChain = ({
           )}
         </div>
 
-        {/* Bottom Stats - pushed to bottom */}
-        <div className="grid grid-cols-3 gap-1.5 mt-auto">
-          <div className="bg-card/50 border border-border/50 rounded-lg p-2 text-center">
-            <p className="text-xl font-bold text-primary">5</p>
-            <p className="text-[11px] text-muted-foreground">Workflow stages</p>
-          </div>
-          <div className="bg-card/50 border border-border/50 rounded-lg p-1.5 text-center">
-            <p className="text-lg font-bold text-primary">3</p>
-            <p className="text-[10px] text-muted-foreground">Strategic combinations</p>
-          </div>
-          <div className="bg-card/50 border border-border/50 rounded-lg p-1.5 text-center">
-            <p className="text-lg font-bold text-primary">∞</p>
-            <p className="text-[10px] text-muted-foreground">Compounding value</p>
-          </div>
-        </div>
       </div>
     </GDSlideContainer>
   );
