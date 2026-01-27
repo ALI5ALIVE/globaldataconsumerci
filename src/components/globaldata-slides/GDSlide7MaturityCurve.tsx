@@ -464,7 +464,7 @@ const GDSlide7MaturityCurve = ({
                   <line x1="560" y1="460" x2="560" y2="660" stroke="hsl(173 80% 40%)" strokeWidth="3" strokeDasharray="8,6" />
                   <rect x="470" y="510" width="180" height="40" rx="6" fill="hsl(173 80% 40% / 0.2)" stroke="hsl(173 80% 40%)" strokeWidth="2" />
                   <text x="560" y="538" fill="hsl(173 80% 50%)" fontSize="18" fontWeight="600" textAnchor="middle" className="font-display">
-                    PLATFORM SHIFT
+                    CONNECTED INTELLIGENCE
                   </text>
                 </g>
               )}
