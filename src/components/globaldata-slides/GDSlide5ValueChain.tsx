@@ -30,7 +30,7 @@ const workflowStages = [
     label: "Trend & Strategy",
     questions: ["Which markets and categories?", "Macro trends?", "Size of the prize?"],
     solutions: ["Strategic", "Market"],
-    combination: { name: "Where to Play", description: "Identify growth spaces before competitors" },
+    combination: { name: "Where to Play", description: "Market quantifies; Strategic guides action" },
   },
   {
     id: "whitespace",
@@ -67,7 +67,7 @@ const solutionCombos = [
   { 
     label: "Where to Play", 
     solutions: ["Strategic", "Market"], 
-    description: "Identify markets and categories with the highest growth potential",
+    description: "Market quantifies the opportunity; Strategic translates it into priority actions",
     color: "hsl(217 100% 50%)",
     stageIndices: [0, 1],
   },
@@ -81,7 +81,7 @@ const solutionCombos = [
   { 
     label: "How to Execute", 
     solutions: ["Sales", "Market"], 
-    description: "Launch and scale with precision across channels",
+    description: "Launch and scale with defensible market facts across channels",
     color: "hsl(145 70% 45%)",
     stageIndices: [3, 4],
   },
