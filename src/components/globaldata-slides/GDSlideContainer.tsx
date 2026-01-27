@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import SlidePlayButton from "@/components/SlidePlayButton";
-import globalDataLogo from "@/assets/globaldata-logo-white.svg";
 
 interface GDSlideContainerProps {
   id: string;
@@ -63,13 +62,6 @@ const GDSlideContainer = ({
       )}
 
       <div className="max-w-7xl w-full mx-auto flex-1 flex flex-col relative">
-        {/* GlobalData Logo - top right, aligned with content */}
-        <div className="absolute -top-8 right-0">
-          <div className="flex items-center gap-2">
-            <img src={globalDataLogo} alt="GlobalData" className="h-6 sm:h-8 w-auto" />
-          </div>
-        </div>
-
         {/* Footer - bottom left, aligned with content */}
         <div className="absolute -bottom-10 left-0 hidden sm:block">
           <p className="text-[10px] text-muted-foreground">
