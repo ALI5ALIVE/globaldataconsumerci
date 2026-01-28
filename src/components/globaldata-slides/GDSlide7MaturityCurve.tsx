@@ -184,8 +184,8 @@ const GDSlide7MaturityCurve = ({
   return (
     <GDSlideContainer
       id="slide-7"
-      title="Your Roadmap to Predictive Performance"
-      subtitle="The proven path from reactive to first-mover"
+      title="Transforming How Teams Work"
+      subtitle="From 12-week decisions to hours"
       slideNumber={8}
       isPlaying={isPlaying}
       isLoading={isLoading}
