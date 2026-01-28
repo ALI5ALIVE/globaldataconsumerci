@@ -1,96 +1,68 @@
 
 
-# Move "Where Teams Spend Time" Card to Slide 8 and Update Narration
+# Fix Narration-Animation Sync on Slide 8
 
-## Summary
+## Problem Analysis
 
-Move the time allocation visualization (GDTimeAllocationBar) from Slide 6 to Slide 8, and update the Slide 8 narration to incorporate the powerful insight about how teams spend their time differently at each maturity stage.
+The animation and narration are out of sync because:
+1. **The stage timing percentages are incorrect** - The current values (12%, 28%, 45%, 62%, 78%) don't align with where each stage is actually discussed in the narration
+2. **The script was extended** - The recently added time allocation section (discussing Stage 1 and Stage 5 again) shifted the content proportions
 
-## Rationale
+## Current vs. Required Timing
 
-The time allocation data tells a compelling story about the operational transformation:
-- **Stage 1 (Fragmented)**: 60% Reconcile, 30% Analysis, 10% Strategic
-- **Stage 5 (Predictive)**: 5% Reconcile, 20% Analysis, 75% Strategic
+The narration script for Slide 8 (slideId: 7) is approximately 1,850 characters. Here's where each stage is mentioned:
 
-This shows the real human value of maturity progression - teams shift from "debating data" to "driving strategy."
+| Stage | Current % | Actual Script Position | New % |
+|-------|-----------|------------------------|-------|
+| 1 | 12% | "At stage one, teams request..." (≈10% into script) | **8%** |
+| 2 | 28% | "At stage two, you've got structure..." (≈22% into script) | **20%** |
+| 3 | 45% | "Stage three changes everything..." (≈35% into script) | **32%** |
+| 4 | 62% | "Stage four embeds intelligence..." (≈48% into script) | **45%** |
+| 5 | 78% | "And stage five—predictive..." (≈58% into script) | **55%** |
 
-## Files to Modify
+The time allocation section at the end (~68-95%) re-discusses stages 1 and 5, but the animation should stay on Stage 5 during that conclusion.
 
-### 1. `src/components/globaldata-slides/RoadmapStageDetails.tsx`
+## File to Modify
 
-**Add time allocation data and component**
+**`src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`**
 
-| Change | Details |
-|--------|---------|
-| Import | Add `GDTimeAllocationBar` and `GDTimeAllocation` |
-| Interface | Extend `RoadmapStage` with `timeAllocation?: GDTimeAllocation` |
-| Component | Add `<GDTimeAllocationBar>` below the "Time to Decision" section |
-
-### 2. `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
-
-**Add time allocation data to each roadmap stage**
-
-| Stage | Reconcile | Analysis | Strategic |
-|-------|-----------|----------|-----------|
-| 1 - Fragmented | 60% | 30% | 10% |
-| 2 - Managed | 40% | 40% | 20% |
-| 3 - Connected | 20% | 40% | 40% |
-| 4 - Optimized | 10% | 30% | 60% |
-| 5 - Predictive | 5% | 20% | 75% |
-
-### 3. `src/data/globalDataNarration.ts`
-
-**Update Slide 8 (slideId: 7) narration to include time allocation insight**
-
-Add after the roadmap walkthrough:
-
-```text
-But here's the hidden cost most executives miss—where your teams actually spend their time.
-
-At stage one, sixty percent of analyst time goes to reconciling conflicting data sources. Thirty percent to actual analysis. Just ten percent on strategic work. That's your most expensive people doing data janitoring instead of driving growth.
-
-By stage five, that ratio inverts completely. Only five percent on reconciliation—because there's one truth. Twenty percent on analysis. And seventy-five percent on strategic work that actually moves the business.
-
-The transformation isn't just about faster decisions. It's about liberating your teams to do the work that matters.
-```
-
-## Technical Implementation Details
-
-### RoadmapStageDetails.tsx Changes
+### Change: Update `stageTimings` array (Lines 111-117)
 
 ```typescript
-// Add import
-import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
+// CURRENT (out of sync)
+const stageTimings = [
+  { stage: 1, startPercent: 12 },
+  { stage: 2, startPercent: 28 },
+  { stage: 3, startPercent: 45 },
+  { stage: 4, startPercent: 62 },
+  { stage: 5, startPercent: 78 },
+];
 
-// Extend interface
-export interface RoadmapStage {
-  // ... existing fields ...
-  timeAllocation?: GDTimeAllocation;  // Add this field
-}
-
-// Add component after Time to Decision section
-{stage.timeAllocation && (
-  <div className="mt-2">
-    <GDTimeAllocationBar
-      timeAllocation={stage.timeAllocation}
-      accentColor={stage.accentColor}
-    />
-  </div>
-)}
+// UPDATED (synchronized)
+const stageTimings = [
+  { stage: 1, startPercent: 8 },
+  { stage: 2, startPercent: 20 },
+  { stage: 3, startPercent: 32 },
+  { stage: 4, startPercent: 45 },
+  { stage: 5, startPercent: 55 },
+];
 ```
 
-### GDSlide7MaturityCurve.tsx Data Updates
+## Expected Result
 
-Each stage in `roadmapStagesData` gets a new `timeAllocation` property matching the values from Slide 6.
+| Narration Moment | Animation |
+|------------------|-----------|
+| "At stage one, teams request insights..." | Curve animates to Stage 1 marker |
+| "At stage two, you've got structure..." | Curve animates to Stage 2 marker |
+| "Stage three changes everything..." | Curve animates to Stage 3 marker |
+| "Stage four embeds intelligence..." | Curve animates to Stage 4 marker |
+| "And stage five—predictive..." | Curve animates to Stage 5 marker |
+| "But here's the hidden cost..." (time allocation) | Stays on Stage 5 through conclusion |
 
-## Narrative Flow Result
+## Technical Notes
 
-| Before | After |
-|--------|-------|
-| Slide 8 focuses only on decision speed | Slide 8 shows both decision speed AND team productivity transformation |
-| Time allocation buried in Slide 6 details panel | Time allocation becomes a key proof point in the operational transformation story |
-
-## Visual Result
-
-The "Where Teams Spend Time" stacked bar will appear in the right-hand detail panel on Slide 8, updating dynamically as users click through stages 1-5. This creates a powerful visual contrast between the 60/30/10 split at Stage 1 and the 5/20/75 split at Stage 5.
+- The timing percentages are based on audio playback progress (0-100%)
+- The `useEffect` in the component listens to `progress` and updates `activeStage` accordingly
+- The `stageTimings` array is searched in reverse order to find the highest matching stage for the current progress
+- Stage 5 should remain active for the final ~45% of the narration (the time allocation discussion and conclusion)
 
