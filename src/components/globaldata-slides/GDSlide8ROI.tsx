@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import { Clock, TrendingUp, DollarSign, ArrowRight, Zap } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
@@ -35,6 +36,16 @@ const roiPillars = [
   },
 ];
 
+const stepTimings = [
+  { step: 'intro', startPercent: 0 },
+  { step: 'pillar1', startPercent: 12 },
+  { step: 'pillar2', startPercent: 32 },
+  { step: 'pillar3', startPercent: 52 },
+  { step: 'compounding', startPercent: 72 },
+];
+
+const stepOrder = ['intro', 'pillar1', 'pillar2', 'pillar3', 'compounding'];
+
 const GDSlide8ROI = ({
   isPlaying = false,
   isLoading = false,
@@ -44,6 +55,32 @@ const GDSlide8ROI = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
+  const [activeStep, setActiveStep] = useState<string>('compounding');
+  const [isNarrationControlled, setIsNarrationControlled] = useState(false);
+
+  useEffect(() => {
+    if (isPlaying && progress > 0) {
+      setIsNarrationControlled(true);
+      const currentTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
+      if (currentTiming) {
+        setActiveStep(currentTiming.step);
+      }
+    } else if (!isPlaying && isNarrationControlled && hasCompleted) {
+      setActiveStep('compounding');
+      setIsNarrationControlled(false);
+    } else if (!isPlaying && !isNarrationControlled) {
+      setActiveStep('compounding');
+    }
+  }, [isPlaying, progress, hasCompleted, isNarrationControlled]);
+
+  const isVisible = (step: string) => {
+    const activeIndex = stepOrder.indexOf(activeStep);
+    const stepIndex = stepOrder.indexOf(step);
+    return stepIndex <= activeIndex;
+  };
+
+  const isPillarVisible = (index: number) => isVisible(`pillar${index + 1}`);
+
   return (
     <GDSlideContainer
       id="gd-slide-8"
@@ -66,7 +103,9 @@ const GDSlide8ROI = ({
             return (
               <div 
                 key={i}
-                className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group flex flex-col"
+                className={`bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all duration-300 group flex flex-col ${
+                  isPillarVisible(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
               >
                 {/* Header */}
                 <div className="flex items-start gap-2 mb-3">
@@ -101,7 +140,9 @@ const GDSlide8ROI = ({
         </div>
 
         {/* Compounding Message */}
-        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4">
+        <div className={`bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 transition-all duration-500 ${
+          isVisible('compounding') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
               <Zap className="w-5 h-5 text-primary" />
@@ -116,7 +157,9 @@ const GDSlide8ROI = ({
         </div>
 
         {/* Visual Compounding Chart */}
-        <div className="bg-card border border-border/50 rounded-xl p-3">
+        <div className={`bg-card border border-border/50 rounded-xl p-3 transition-all duration-500 ${
+          isVisible('compounding') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
           <div className="flex items-center justify-between">
             {[1, 2, 3, 4, 5].map((stage) => (
               <div key={stage} className="flex flex-col items-center">
