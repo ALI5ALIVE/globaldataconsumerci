@@ -12,14 +12,6 @@ const segmentTimings = [
   { segment: 'Strategic Intelligence', startPercent: 65 },
 ];
 
-const stepTimings = [
-  { step: 'intro', startPercent: 0 },
-  { step: 'wheel', startPercent: 28 },
-  { step: 'callout', startPercent: 78 },
-];
-
-const stepOrder = ['intro', 'wheel', 'callout'];
-
 const GDSlide4Proposition = ({
   isPlaying = false,
   isLoading = false,
@@ -30,19 +22,12 @@ const GDSlide4Proposition = ({
   onNextSlide,
 }: SlideNarrationProps) => {
   const [activeSegment, setActiveSegment] = useState<string | null>("Market Intelligence");
-  const [activeStep, setActiveStep] = useState<string>('callout');
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const userInteractedRef = useRef(false);
 
   useEffect(() => {
     if (isPlaying && progress > 0) {
       setIsNarrationControlled(true);
-      
-      // Update step visibility
-      const currentStepTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
-      if (currentStepTiming) {
-        setActiveStep(currentStepTiming.step);
-      }
       
       // Auto-cycle through segments if user hasn't interacted
       if (!userInteractedRef.current) {
@@ -52,19 +37,10 @@ const GDSlide4Proposition = ({
         }
       }
     } else if (!isPlaying && isNarrationControlled && hasCompleted) {
-      setActiveStep('callout');
       setIsNarrationControlled(false);
       userInteractedRef.current = false;
-    } else if (!isPlaying && !isNarrationControlled) {
-      setActiveStep('callout');
     }
   }, [isPlaying, progress, hasCompleted, isNarrationControlled]);
-
-  const isVisible = (step: string) => {
-    const activeIndex = stepOrder.indexOf(activeStep);
-    const stepIndex = stepOrder.indexOf(step);
-    return stepIndex <= activeIndex;
-  };
 
   const handleSegmentHover = (segment: string | null) => {
     userInteractedRef.current = true;
@@ -92,18 +68,14 @@ const GDSlide4Proposition = ({
     >
       <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Central Value Proposition */}
-        <div className={`bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-2 transition-all duration-300 ${
-          isVisible('intro') ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        }`}>
+        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-2">
           <p className="text-[13px] md:text-sm font-medium text-foreground leading-snug text-center">
             A unified solution that connects <span className="text-primary font-bold">market, consumer, competitor, innovation, and commercial intelligence</span> into one trusted system—so organisations <span className="text-primary font-bold">move faster, align better, and act with confidence</span>.
           </p>
         </div>
 
         {/* Intelligence Domains Hub */}
-        <div className={`flex-1 grid lg:grid-cols-2 gap-3 items-center min-h-0 transition-all duration-500 ${
-          isVisible('wheel') ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-        }`}>
+        <div className="flex-1 grid lg:grid-cols-2 gap-3 items-center min-h-0">
           {/* Connected Intelligence Wheel */}
           <div className="flex items-center justify-center h-full max-h-[340px]">
             <ConnectedIntelligenceWheel
@@ -119,9 +91,7 @@ const GDSlide4Proposition = ({
         </div>
 
         {/* Bottom callout */}
-        <div className={`bg-primary/10 border border-primary/30 rounded-lg p-1.5 text-center transition-all duration-300 ${
-          isVisible('callout') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
+        <div className="bg-primary/10 border border-primary/30 rounded-lg p-1.5 text-center">
           <p className="text-[12px] text-foreground leading-snug">
             This is intelligence designed to <span className="font-bold text-primary">drive decisions end-to-end</span>—not another layer of data.
           </p>

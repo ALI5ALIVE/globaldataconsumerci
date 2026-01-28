@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
@@ -41,18 +40,6 @@ const impacts = [
   { value: "68%", label: "teams", desc: "lack confidence to act decisively", dimension: "Confidence" },
 ];
 
-const stepTimings = [
-  { step: 'definition', startPercent: 0 },
-  { step: 'cause1', startPercent: 15 },
-  { step: 'cause2', startPercent: 30 },
-  { step: 'cause3', startPercent: 42 },
-  { step: 'cause4', startPercent: 55 },
-  { step: 'impacts', startPercent: 68 },
-  { step: 'bottomLine', startPercent: 88 },
-];
-
-const stepOrder = ['definition', 'cause1', 'cause2', 'cause3', 'cause4', 'impacts', 'bottomLine'];
-
 const GDSlide2IntelligenceGap = ({
   isPlaying = false,
   isLoading = false,
@@ -62,33 +49,6 @@ const GDSlide2IntelligenceGap = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  const [activeStep, setActiveStep] = useState<string>('bottomLine');
-  const [isNarrationControlled, setIsNarrationControlled] = useState(false);
-
-  useEffect(() => {
-    if (isPlaying && progress > 0) {
-      setIsNarrationControlled(true);
-      const currentTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
-      if (currentTiming) {
-        setActiveStep(currentTiming.step);
-      }
-    } else if (!isPlaying && isNarrationControlled && hasCompleted) {
-      setActiveStep('bottomLine');
-      setIsNarrationControlled(false);
-    } else if (!isPlaying && !isNarrationControlled) {
-      setActiveStep('bottomLine');
-    }
-  }, [isPlaying, progress, hasCompleted, isNarrationControlled]);
-
-  const isVisible = (step: string) => {
-    const activeIndex = stepOrder.indexOf(activeStep);
-    const stepIndex = stepOrder.indexOf(step);
-    return stepIndex <= activeIndex;
-  };
-
-  const isCauseVisible = (index: number) => isVisible(`cause${index + 1}`);
-  const isImpactVisible = (index: number) => isVisible('impacts');
-
   return (
     <GDSlideContainer
       id="gd-slide-2"
@@ -105,9 +65,7 @@ const GDSlide2IntelligenceGap = ({
     >
       <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
         {/* Definition Box */}
-        <div className={`bg-destructive/10 border border-destructive/30 rounded-xl p-4 transition-all duration-300 ${
-          isVisible('definition') ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        }`}>
+        <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <AlertOctagon className="w-4 h-4 text-destructive" />
             <span className="text-xs font-semibold text-destructive uppercase tracking-wider">The Intelligence Gap</span>
@@ -125,9 +83,7 @@ const GDSlide2IntelligenceGap = ({
             {rootCauses.map((cause, i) => (
               <div 
                 key={i}
-                className={`flex items-start gap-2 bg-card/50 border border-border/50 rounded-lg p-2 group hover:border-destructive/30 transition-all duration-300 h-full ${
-                  isCauseVisible(i) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-                }`}
+                className="flex items-start gap-2 bg-card/50 border border-border/50 rounded-lg p-2 group hover:border-destructive/30 transition-all duration-300 h-full"
               >
                 <div className="w-6 h-6 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center flex-shrink-0">
                   <cause.icon className="w-3 h-3 text-destructive" />
@@ -150,9 +106,7 @@ const GDSlide2IntelligenceGap = ({
             {impacts.map((impact, i) => (
               <div 
                 key={i}
-                className={`bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-2 flex items-start gap-2 h-full transition-all duration-300 ${
-                  isImpactVisible(i) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-                }`}
+                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-2 flex items-start gap-2 h-full"
               >
                 <div className="text-right min-w-[50px]">
                   <span className="text-lg font-bold text-destructive">{impact.value}</span>
@@ -168,9 +122,7 @@ const GDSlide2IntelligenceGap = ({
         </div>
 
         {/* Bottom Line */}
-        <div className={`bg-card border-2 border-destructive/30 rounded-xl p-4 text-center transition-all duration-300 ${
-          isVisible('bottomLine') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
+        <div className="bg-card border-2 border-destructive/30 rounded-xl p-4 text-center">
           <p className="text-xs font-semibold text-destructive uppercase tracking-wider mb-1">Bottom Line</p>
           <p className="text-base font-medium text-foreground">
             This gap is where <span className="text-destructive">growth stalls</span>, <span className="text-destructive">relevance erodes</span>, and <span className="text-destructive">performance suffers</span>.
