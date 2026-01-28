@@ -7,9 +7,9 @@ interface GDQuintupleLoopProps {
 const modules = [
   { id: "market", label: "Market" },
   { id: "innovation", label: "Innovation" },
-  { id: "consumer", label: "Consumer" },
+  { id: "strategic", label: "Strategic" },
   { id: "competitive", label: "Competitive" },
-  { id: "commercial", label: "Commercial" },
+  { id: "sales", label: "Sales" },
 ];
 
 const GDQuintupleLoop = ({ onModuleClick }: GDQuintupleLoopProps) => {
