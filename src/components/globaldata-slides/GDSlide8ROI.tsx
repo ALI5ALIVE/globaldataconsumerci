@@ -44,6 +44,14 @@ const stepTimings = [
   { step: 'compounding', startPercent: 85 },
 ];
 
+const stageBarTimings = [
+  { stage: 1, startPercent: 22 },
+  { stage: 2, startPercent: 40 },
+  { stage: 3, startPercent: 55 },
+  { stage: 4, startPercent: 70 },
+  { stage: 5, startPercent: 85 },
+];
+
 const stepOrder = ['intro', 'pillar1', 'pillar2', 'pillar3', 'compounding'];
 
 const GDSlide8ROI = ({
@@ -62,6 +70,7 @@ const GDSlide8ROI = ({
   });
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const [hasEverPlayed, setHasEverPlayed] = useState(false);
+  const [highlightedStage, setHighlightedStage] = useState(() => hasCompleted ? 5 : 0);
 
   useEffect(() => {
     if (isPlaying && progress > 0) {
@@ -71,13 +80,18 @@ const GDSlide8ROI = ({
       if (currentTiming) {
         setActiveStep(currentTiming.step);
       }
+      // Sync highlighted stage with narration progress
+      const currentStageTiming = [...stageBarTimings].reverse().find(t => progress >= t.startPercent);
+      setHighlightedStage(currentStageTiming ? currentStageTiming.stage : 0);
     } else if (!isPlaying && isNarrationControlled && hasCompleted) {
       // Narration finished - show full state
       setActiveStep('compounding');
+      setHighlightedStage(5);
       setIsNarrationControlled(false);
     } else if (!isPlaying && !isNarrationControlled && !hasEverPlayed) {
       // Never played - show full state for preview
       setActiveStep('compounding');
+      setHighlightedStage(5);
     }
     // When paused mid-narration, keep current step (don't reset)
   }, [isPlaying, progress, hasCompleted, isNarrationControlled, hasEverPlayed]);
@@ -173,21 +187,24 @@ const GDSlide8ROI = ({
           </div>
         </div>
 
-        {/* Visual Compounding Chart */}
-        <div className={`bg-card border border-border/50 rounded-xl p-3 transition-all duration-500 ${
-          isVisible('compounding') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        {/* Visual Compounding Chart - Always visible */}
+        <div className="bg-card border border-border/50 rounded-xl p-3 transition-all duration-500">
           <div className="flex items-center justify-between">
             {[1, 2, 3, 4, 5].map((stage) => (
               <div key={stage} className="flex flex-col items-center">
                 <div 
-                  className="w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg transition-all"
+                  className={`w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg transition-all duration-300 ${
+                    stage === highlightedStage ? 'ring-2 ring-primary shadow-lg shadow-primary/30' : ''
+                  }`}
                   style={{ 
                     height: `${16 + stage * 16}px`,
-                    opacity: stage * 0.2 + 0.2
+                    opacity: stage <= highlightedStage ? 1 : 0.3,
+                    transform: stage === highlightedStage ? 'scale(1.1)' : 'scale(1)',
                   }}
                 />
-                <span className="text-[10px] text-muted-foreground mt-1.5">Stage {stage}</span>
+                <span className={`text-[10px] mt-1.5 transition-colors duration-300 ${
+                  stage <= highlightedStage ? 'text-primary font-medium' : 'text-muted-foreground'
+                }`}>Stage {stage}</span>
               </div>
             ))}
           </div>
