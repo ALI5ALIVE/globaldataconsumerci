@@ -44,14 +44,6 @@ const stepTimings = [
   { step: 'compounding', startPercent: 85 },
 ];
 
-const stageBarTimings = [
-  { stage: 1, startPercent: 22 },
-  { stage: 2, startPercent: 40 },
-  { stage: 3, startPercent: 55 },
-  { stage: 4, startPercent: 70 },
-  { stage: 5, startPercent: 85 },
-];
-
 const stepOrder = ['intro', 'pillar1', 'pillar2', 'pillar3', 'compounding'];
 
 const GDSlide8ROI = ({
@@ -70,7 +62,6 @@ const GDSlide8ROI = ({
   });
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const [hasEverPlayed, setHasEverPlayed] = useState(false);
-  const [highlightedStage, setHighlightedStage] = useState(() => hasCompleted ? 5 : 0);
 
   useEffect(() => {
     if (isPlaying && progress > 0) {
@@ -80,18 +71,13 @@ const GDSlide8ROI = ({
       if (currentTiming) {
         setActiveStep(currentTiming.step);
       }
-      // Sync highlighted stage with narration progress
-      const currentStageTiming = [...stageBarTimings].reverse().find(t => progress >= t.startPercent);
-      setHighlightedStage(currentStageTiming ? currentStageTiming.stage : 0);
     } else if (!isPlaying && isNarrationControlled && hasCompleted) {
       // Narration finished - show full state
       setActiveStep('compounding');
-      setHighlightedStage(5);
       setIsNarrationControlled(false);
     } else if (!isPlaying && !isNarrationControlled && !hasEverPlayed) {
       // Never played - show full state for preview
       setActiveStep('compounding');
-      setHighlightedStage(5);
     }
     // When paused mid-narration, keep current step (don't reset)
   }, [isPlaying, progress, hasCompleted, isNarrationControlled, hasEverPlayed]);
@@ -119,14 +105,6 @@ const GDSlide8ROI = ({
       onNextSlide={onNextSlide}
     >
       <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden relative">
-        {/* DEV: Calibration overlay for timing adjustment */}
-        {import.meta.env.DEV && (isPlaying || progress > 0) && (
-          <div className="absolute top-2 right-2 z-50 bg-background/90 border border-primary rounded px-3 py-2 text-xs font-mono">
-            <div className="text-primary font-bold">Slide 8 Calibration</div>
-            <div>Progress: <span className="text-primary">{progress.toFixed(1)}%</span></div>
-            <div>Step: <span className="text-primary">{activeStep}</span></div>
-          </div>
-        )}
         {/* ROI Pillars Grid */}
         <div className="grid md:grid-cols-3 gap-3">
           {roiPillars.map((pillar, i) => {
@@ -193,18 +171,13 @@ const GDSlide8ROI = ({
             {[1, 2, 3, 4, 5].map((stage) => (
               <div key={stage} className="flex flex-col items-center">
                 <div 
-                  className={`w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg transition-all duration-300 ${
-                    stage === highlightedStage ? 'ring-2 ring-primary shadow-lg shadow-primary/30' : ''
-                  }`}
+                  className="w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg"
                   style={{ 
                     height: `${16 + stage * 16}px`,
-                    opacity: stage <= highlightedStage ? 1 : 0.3,
-                    transform: stage === highlightedStage ? 'scale(1.1)' : 'scale(1)',
+                    opacity: stage * 0.2 + 0.2
                   }}
                 />
-                <span className={`text-[10px] mt-1.5 transition-colors duration-300 ${
-                  stage <= highlightedStage ? 'text-primary font-medium' : 'text-muted-foreground'
-                }`}>Stage {stage}</span>
+                <span className="text-[10px] text-muted-foreground mt-1.5">Stage {stage}</span>
               </div>
             ))}
           </div>
