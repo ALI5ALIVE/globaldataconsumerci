@@ -1,8 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import { Clock, TrendingUp, DollarSign, ArrowRight, Zap } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
-import { getGlobalDataNarration } from "@/data/globalDataNarration";
 
 const roiPillars = [
   { 
@@ -37,69 +35,6 @@ const roiPillars = [
   },
 ];
 
-// Compute timing percentages from narration script cues
-const computeTimingsFromScript = () => {
-  const narration = getGlobalDataNarration(8);
-  if (!narration) {
-    // Fallback timings
-    return {
-      stepTimings: [
-        { step: 'intro', startPercent: 0 },
-        { step: 'pillar1', startPercent: 15 },
-        { step: 'pillar2', startPercent: 35 },
-        { step: 'pillar3', startPercent: 55 },
-        { step: 'compounding', startPercent: 75 },
-      ],
-      stageBarTimings: [
-        { stage: 1, startPercent: 5 },
-        { stage: 2, startPercent: 15 },
-        { stage: 3, startPercent: 35 },
-        { stage: 4, startPercent: 55 },
-        { stage: 5, startPercent: 75 },
-      ],
-    };
-  }
-
-  const script = narration.script;
-  const len = script.length;
-
-  // Find cue phrases in the script
-  const cues = [
-    { key: 'first', phrase: 'First, speed' },
-    { key: 'second', phrase: 'Second, better' },
-    { key: 'third', phrase: 'Third, lower' },
-    { key: 'keyMessage', phrase: "Here's the key message" },
-  ];
-
-  const positions: Record<string, number> = {};
-  cues.forEach(({ key, phrase }) => {
-    const idx = script.indexOf(phrase);
-    positions[key] = idx >= 0 ? Math.round((idx / len) * 100) : 0;
-  });
-
-  // Step timings for pillar reveals
-  const stepTimings = [
-    { step: 'intro', startPercent: 0 },
-    { step: 'pillar1', startPercent: positions.first || 15 },
-    { step: 'pillar2', startPercent: positions.second || 35 },
-    { step: 'pillar3', startPercent: positions.third || 55 },
-    { step: 'compounding', startPercent: positions.keyMessage || 75 },
-  ];
-
-  // Stage bar timings: Stage 1 at intro, 2-5 at cues
-  const stageBarTimings = [
-    { stage: 1, startPercent: 5 }, // Early intro
-    { stage: 2, startPercent: positions.first || 15 },
-    { stage: 3, startPercent: positions.second || 35 },
-    { stage: 4, startPercent: positions.third || 55 },
-    { stage: 5, startPercent: positions.keyMessage || 75 },
-  ];
-
-  return { stepTimings, stageBarTimings };
-};
-
-const stepOrder = ['intro', 'pillar1', 'pillar2', 'pillar3', 'compounding'];
-
 const GDSlide8ROI = ({
   isPlaying = false,
   isLoading = false,
@@ -109,54 +44,6 @@ const GDSlide8ROI = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  // Compute timings once
-  const { stepTimings, stageBarTimings } = useMemo(() => computeTimingsFromScript(), []);
-
-  // Start at 'intro' when narration will control, 'compounding' when idle
-  const [activeStep, setActiveStep] = useState<string>(() => {
-    return hasCompleted ? 'compounding' : 'intro';
-  });
-  const [highlightedStage, setHighlightedStage] = useState<number>(() => {
-    return hasCompleted ? 5 : 0;
-  });
-  const [isNarrationControlled, setIsNarrationControlled] = useState(false);
-  const [hasEverPlayed, setHasEverPlayed] = useState(false);
-
-  useEffect(() => {
-    if (isPlaying && progress > 0) {
-      setIsNarrationControlled(true);
-      setHasEverPlayed(true);
-
-      // Sync pillar steps
-      const currentTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
-      if (currentTiming) {
-        setActiveStep(currentTiming.step);
-      }
-
-      // Sync stage bar highlight
-      const currentStageTiming = [...stageBarTimings].reverse().find(t => progress >= t.startPercent);
-      setHighlightedStage(currentStageTiming ? currentStageTiming.stage : 0);
-    } else if (!isPlaying && isNarrationControlled && hasCompleted) {
-      // Narration finished - show full state
-      setActiveStep('compounding');
-      setHighlightedStage(5);
-      setIsNarrationControlled(false);
-    } else if (!isPlaying && !isNarrationControlled && !hasEverPlayed) {
-      // Never played - show full state for preview
-      setActiveStep('compounding');
-      setHighlightedStage(5);
-    }
-    // When paused mid-narration, keep current step (don't reset)
-  }, [isPlaying, progress, hasCompleted, isNarrationControlled, hasEverPlayed, stepTimings, stageBarTimings]);
-
-  const isVisible = (step: string) => {
-    const activeIndex = stepOrder.indexOf(activeStep);
-    const stepIndex = stepOrder.indexOf(step);
-    return stepIndex <= activeIndex;
-  };
-
-  const isPillarVisible = (index: number) => isVisible(`pillar${index + 1}`);
-
   return (
     <GDSlideContainer
       id="gd-slide-8"
@@ -179,9 +66,7 @@ const GDSlide8ROI = ({
             return (
               <div 
                 key={i}
-                className={`bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all duration-300 group flex flex-col ${
-                  isPillarVisible(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+                className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group flex flex-col"
               >
                 {/* Header */}
                 <div className="flex items-start gap-2 mb-3">
@@ -216,9 +101,7 @@ const GDSlide8ROI = ({
         </div>
 
         {/* Compounding Message */}
-        <div className={`bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4 transition-all duration-500 ${
-          isVisible('compounding') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4">
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
               <Zap className="w-5 h-5 text-primary" />
@@ -232,32 +115,23 @@ const GDSlide8ROI = ({
           </div>
         </div>
 
-        {/* Visual Compounding Chart - Always visible */}
-        <div className="bg-card border border-border/50 rounded-xl p-3 transition-all duration-500">
+        {/* Visual Compounding Chart - Static graduated display */}
+        <div className="bg-card border border-border/50 rounded-xl p-3">
           <div className="flex items-center justify-between">
-            {[1, 2, 3, 4, 5].map((stage) => {
-              const isActive = stage === highlightedStage;
-              const isPast = stage <= highlightedStage;
-              return (
-                <div key={stage} className="flex flex-col items-center">
-                  <div 
-                    className={`w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg transition-all duration-300 ${
-                      isActive ? 'ring-2 ring-primary shadow-lg shadow-primary/30' : ''
-                    }`}
-                    style={{ 
-                      height: `${16 + stage * 16}px`,
-                      opacity: isPast ? 1 : 0.3,
-                      transform: isActive ? 'scale(1.1)' : 'scale(1)',
-                    }}
-                  />
-                  <span className={`text-[10px] mt-1.5 transition-colors duration-300 ${
-                    isActive ? 'text-primary font-semibold' : 'text-muted-foreground'
-                  }`}>
-                    Stage {stage}
-                  </span>
-                </div>
-              );
-            })}
+            {[1, 2, 3, 4, 5].map((stage) => (
+              <div key={stage} className="flex flex-col items-center">
+                <div 
+                  className="w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg"
+                  style={{ 
+                    height: `${16 + stage * 16}px`,
+                    opacity: 0.4 + (stage * 0.12)
+                  }}
+                />
+                <span className="text-[10px] mt-1.5 text-muted-foreground">
+                  Stage {stage}
+                </span>
+              </div>
+            ))}
           </div>
           <div className="flex items-center justify-center gap-2 mt-2 pt-2 border-t border-border/30">
             <ArrowRight className="w-3 h-3 text-primary" />
