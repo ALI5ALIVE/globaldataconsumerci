@@ -344,13 +344,13 @@ const GDPyramid3D = ({
                 onClick={() => onLayerClick(5)}
               >
                 <div
-                  className="p-5 sm:p-6 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 group-hover:scale-110 transition-all duration-300 pointer-events-none"
+                  className="p-7 sm:p-9 rounded-xl bg-gradient-to-b from-amber-400/30 to-amber-600/20 border-2 border-amber-400/50 group-hover:scale-110 transition-all duration-300 pointer-events-none"
                   style={{
                     boxShadow: "0 0 32px 12px hsl(45, 93%, 58%, 0.6)",
                   }}
                 >
                   <Sparkles 
-                    className="w-16 h-16 sm:w-20 sm:h-20 text-amber-400" 
+                    className="w-24 h-24 sm:w-[120px] sm:h-[120px] text-amber-400" 
                     strokeWidth={2.5}
                   />
                 </div>

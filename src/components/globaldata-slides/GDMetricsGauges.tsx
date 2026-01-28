@@ -58,10 +58,10 @@ const GDMetricsGauges = ({ onMetricClick }: GDMetricsGaugesProps) => {
 
         {/* Ava sparkle indicator at top center */}
         <g transform="translate(260, 16)">
-          <circle r="16" fill="hsl(45, 93%, 58%)" fillOpacity="0.3" />
-          <foreignObject x="-12" y="-12" width="24" height="24">
+          <circle r="24" fill="hsl(45, 93%, 58%)" fillOpacity="0.3" />
+          <foreignObject x="-18" y="-18" width="36" height="36">
             <div className="w-full h-full flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-amber-400" />
+              <Sparkles className="w-9 h-9 text-amber-400" />
             </div>
           </foreignObject>
         </g>
@@ -130,9 +130,9 @@ const GDMetricsGauges = ({ onMetricClick }: GDMetricsGaugesProps) => {
               </g>
               
               {/* Icon */}
-              <foreignObject x={cx - 16} y={gaugeCenterY - 36} width="32" height="32">
+              <foreignObject x={cx - 24} y={gaugeCenterY - 44} width="48" height="48">
                 <div className="w-full h-full flex items-center justify-center">
-                  <IconComponent className="w-6 h-6 text-white/80" strokeWidth={2} />
+                  <IconComponent className="w-9 h-9 text-white/80" strokeWidth={2} />
                 </div>
               </foreignObject>
               
