@@ -1,4 +1,5 @@
 import { Wrench, Users, Lightbulb, Clock } from "lucide-react";
+import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
 
 export interface RoadmapStage {
   id: string;
@@ -12,6 +13,7 @@ export interface RoadmapStage {
     exampleUseCase: string;
     timeToDecision: string;
   };
+  timeAllocation?: GDTimeAllocation;
 }
 
 interface RoadmapStageDetailsProps {
@@ -130,6 +132,16 @@ const RoadmapStageDetails = ({ stage }: RoadmapStageDetailsProps) => {
           {stage.waysOfWorking.timeToDecision}
         </span>
       </div>
+
+      {/* Time Allocation Bar */}
+      {stage.timeAllocation && (
+        <div className="mt-2">
+          <GDTimeAllocationBar
+            timeAllocation={stage.timeAllocation}
+            accentColor={stage.accentColor}
+          />
+        </div>
+      )}
     </div>
   );
 };

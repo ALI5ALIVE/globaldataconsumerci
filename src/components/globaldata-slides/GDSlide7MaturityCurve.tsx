@@ -23,6 +23,7 @@ const roadmapStagesData: RoadmapStage[] = [
       exampleUseCase: "Which Nielsen data do we trust vs Kantar? — 3 days debating before any decision",
       timeToDecision: "12+ weeks",
     },
+    timeAllocation: { reconciliation: 60, analysis: 30, strategic: 10 },
   },
   {
     id: "MANAGED",
@@ -40,6 +41,7 @@ const roadmapStagesData: RoadmapStage[] = [
       exampleUseCase: "Here's the brand health update — but NPD has completely different consumer segmentation",
       timeToDecision: "6-8 weeks",
     },
+    timeAllocation: { reconciliation: 40, analysis: 40, strategic: 20 },
   },
   {
     id: "CONNECTED",
@@ -57,6 +59,7 @@ const roadmapStagesData: RoadmapStage[] = [
       exampleUseCase: "Pull the integrated view for UK protein snacks — done in 10 minutes",
       timeToDecision: "2-3 weeks",
     },
+    timeAllocation: { reconciliation: 20, analysis: 40, strategic: 40 },
   },
   {
     id: "OPTIMIZED",
@@ -74,6 +77,7 @@ const roadmapStagesData: RoadmapStage[] = [
       exampleUseCase: "Alert: Competitor launched at 15% lower price — here's recommended response",
       timeToDecision: "3-5 days",
     },
+    timeAllocation: { reconciliation: 10, analysis: 30, strategic: 60 },
   },
   {
     id: "PREDICTIVE",
@@ -91,6 +95,7 @@ const roadmapStagesData: RoadmapStage[] = [
       exampleUseCase: "Ava recommends pausing Product X investment based on weakening trend signal",
       timeToDecision: "Hours",
     },
+    timeAllocation: { reconciliation: 5, analysis: 20, strategic: 75 },
   },
 ];
 
