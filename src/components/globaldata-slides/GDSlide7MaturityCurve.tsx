@@ -1,187 +1,107 @@
 import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
-import MaturityStageDetails from "@/components/MaturityStageDetails";
+import RoadmapStageDetails, { RoadmapStage } from "./RoadmapStageDetails";
 import GDMaturitySummaryBanner from "./GDMaturitySummaryBanner";
 import { useIsMobile } from "@/hooks/use-mobile";
-import type { MaturityStage } from "@/components/MaturityCurveVisualization";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
-const stagesData: MaturityStage[] = [
+// New data structure focused on Ways of Working (actions, behaviors, use cases)
+const roadmapStagesData: RoadmapStage[] = [
   {
     id: "FRAGMENTED",
     stage: 1,
     headline: "Fragmented & Reactive",
     sublabel: "Manual / Reactive",
-    whatItLooksLike: [
-      "Insights scattered across disconnected tools",
-      "No shared taxonomy across intelligence domains",
-      "Decisions debated for weeks with conflicting data",
-      "Manual reconciliation required for every decision",
-    ],
-    result: [
-      "High decision latency and missed windows",
-      "Launches fail due to incomplete intelligence",
-    ],
-    whyItMatters:
-      "AI cannot function on fragmented data—organizations here are locked out of the AI advantage",
     accentColor: "hsl(0 70% 50%)",
-    behavioralShift: {
-      from: "Debating data across systems",
-      to: "Reactive decisions just to keep up",
-      culturalMarker: "We have data, but no confidence",
+    waysOfWorking: {
+      keyActions: [
+        "Request insights via email, wait 2-3 weeks for response",
+        "Export data to spreadsheets manually for analysis",
+        "Schedule ad-hoc vendor calls to reconcile conflicting data",
+      ],
+      teamBehavior: "Brand, innovation, and commercial teams each maintain separate data sources and vendor relationships",
+      exampleUseCase: "Which Nielsen data do we trust vs Kantar? — 3 days debating before any decision",
+      timeToDecision: "12+ weeks",
     },
-    timeAllocation: {
-      coordination: 60,
-      administration: 30,
-      improvement: 10,
-    },
-    valueProof: {
-      metrics: ["Decision latency 12+ wks", "3-5 conflicting sources", "40% miss windows"],
-      roiStatement: "Hidden costs: missed opportunities, failed launches, eroded margins",
-    },
-    curveAnnotations: ["Disconnected tools", "No shared taxonomy", "Slow decisions"],
   },
   {
     id: "MANAGED",
     stage: 2,
     headline: "Managed (Siloed)",
     sublabel: "Silo Optimisation",
-    whatItLooksLike: [
-      "Strong systems in specific domains",
-      "Intelligence is structured but disconnected",
-      "Analysis produces insights but alignment is inconsistent",
-    ],
-    result: [
-      "Intelligence is managed, but decisions do not systematically improve",
-      "Conflicting data persists",
-    ],
-    whyItMatters:
-      "Silos prevent AI from learning across the organization. Progress stops here without unification",
     accentColor: "hsl(199 89% 48%)",
-    behavioralShift: {
-      from: "Debating data with limited visibility",
-      to: "Structured processes within each silo",
-      culturalMarker: "We're informed, but not aligned",
+    waysOfWorking: {
+      keyActions: [
+        "Run separate brand tracker, innovation pipeline, competitive monitor",
+        "Share quarterly reports across functions",
+        "Maintain domain-specific dashboards and workflows",
+      ],
+      teamBehavior: "Teams have their own tools that work well internally, but alignment happens only in big meetings",
+      exampleUseCase: "Here's the brand health update — but NPD has completely different consumer segmentation",
+      timeToDecision: "6-8 weeks",
     },
-    timeAllocation: {
-      coordination: 45,
-      administration: 35,
-      improvement: 20,
-    },
-    valueProof: {
-      metrics: ["Domain coverage ↑", "Process consistency ↑", "Cross-func ROI limited"],
-      roiStatement: "Structured intelligence, but limited cross-functional ROI",
-    },
-    curveAnnotations: ["Better process", "Still manual handoffs", "Slow change cycles"],
   },
   {
     id: "CONNECTED",
     stage: 3,
     headline: "Connected Intelligence",
     sublabel: "Platform Shift",
-    whatItLooksLike: [
-      "Market, Consumer, Commercial intelligence unified into one governed system",
-      "Shared taxonomy and traceability established",
-      "Visibility improves; fragmentation reduces",
-    ],
-    result: [
-      "Improved governance and confidence",
-      "Decision readiness increases",
-      "Foundation for optimized operations is in place",
-    ],
-    whyItMatters:
-      "The AI threshold—unified data unlocks new ways of working and operational performance. Without it, true agentic and predictive capabilities remain out of reach. Building this foundation internally? 3-5 years minimum.",
     accentColor: "hsl(173 80% 40%)",
-    behavioralShift: {
-      from: "Chasing data across tools and vendors",
-      to: "Single source of truth, async collaboration",
-      culturalMarker: "We can see what's happening across the market",
+    waysOfWorking: {
+      keyActions: [
+        "Query any data source with one search",
+        "Export to any workflow from unified platform",
+        "Share dashboards cross-functionally in real-time",
+      ],
+      teamBehavior: "Real-time access to same truth; async collaboration replaces alignment meetings",
+      exampleUseCase: "Pull the integrated view for UK protein snacks — done in 10 minutes",
+      timeToDecision: "2-3 weeks",
     },
-    timeAllocation: {
-      coordination: 30,
-      administration: 35,
-      improvement: 35,
-    },
-    valueProof: {
-      metrics: ["Decision prep ↓ 30%", "Handoffs ↓ 50%", "Visibility ↑"],
-      roiStatement: "Reconciliation time drops 60%",
-    },
-    curveAnnotations: ["AI THRESHOLD", "Reconciliation ↓60%", "Unified data unlocks AI"],
   },
   {
     id: "OPTIMIZED",
     stage: 4,
     headline: "Optimized Operations",
     sublabel: "Intelligent Ops",
-    whatItLooksLike: [
-      "Intelligence embedded directly into decision workflows",
-      "Continuous improvement cycles across all functions",
-      "Evidence captured automatically at every decision point",
-      "Cross-functional alignment through shared dashboards",
-    ],
-    result: [
-      "Reduced decision latency",
-      "Faster time-to-market",
-      "Measurable performance improvement across KPIs",
-    ],
-    whyItMatters:
-      "AI-augmented decisions—only possible because connected data enables machine learning across functions",
     accentColor: "hsl(280 65% 55%)",
-    behavioralShift: {
-      from: "Reactive fixes and analysis requests",
-      to: "Proactive improvement with outcome ownership",
-      culturalMarker: "Insights drive real change, not just reports",
+    waysOfWorking: {
+      keyActions: [
+        "Receive automated alerts when market share drops 2%+",
+        "Get AI-generated decision recommendations",
+        "Run scenario models with real-time data",
+      ],
+      teamBehavior: "Decisions made in shared workspaces with embedded intelligence; fewer meetings, faster action",
+      exampleUseCase: "Alert: Competitor launched at 15% lower price — here's recommended response",
+      timeToDecision: "3-5 days",
     },
-    timeAllocation: {
-      coordination: 20,
-      administration: 30,
-      improvement: 50,
-    },
-    valueProof: {
-      metrics: ["Latency ↓ 50%", "Time-to-market ↓ 40%", "KPI lift ↑"],
-      roiStatement: "Decisions in days, not weeks",
-    },
-    curveAnnotations: ["Decisions in days, not weeks", "Prioritised interventions", "Faster decisions"],
   },
   {
     id: "PREDICTIVE",
     stage: 5,
     headline: "Predictive & Proactive",
     sublabel: "AI-Driven Foresight",
-    whatItLooksLike: [
-      "AI anticipates market shifts before they surface",
-      "Proactive positioning recommendations generated automatically",
-      "Decisions made before competitors can react",
-      "Continuous market monitoring with exception-led alerts",
-      "Intelligence compounds across the value chain",
-    ],
-    result: [
-      "Category performance through speed and foresight",
-      "First-mover advantage becomes systematic",
-      "Teams shift from analysis to strategic action",
-      "The aspiration state for category-leading consumer brands",
-    ],
-    whyItMatters:
-      "The aspiration for all consumer brands: AI anticipates and acts with conviction. But this level of agentic capability is only possible for organizations that first achieved connection. Building this internally would take years—the buy vs build case is clear.",
     accentColor: "hsl(45 93% 58%)",
-    behavioralShift: {
-      from: "Reactive analysis and reporting",
-      to: "Proactive intelligence and strategic action",
-      culturalMarker: "We see what's coming before it arrives",
+    waysOfWorking: {
+      keyActions: [
+        "Ava flags emerging competitor launch 6 weeks before announcement",
+        "AI generates positioning recommendations automatically",
+        "Validate strategic pivots with real-time data in hours",
+      ],
+      teamBehavior: "AI recommends, humans approve and refine; strategic focus replaces reactive firefighting",
+      exampleUseCase: "Ava recommends pausing Product X investment based on weakening trend signal",
+      timeToDecision: "Hours",
     },
-    timeAllocation: {
-      coordination: 10,
-      administration: 20,
-      improvement: 70,
-    },
-    valueProof: {
-      metrics: ["Decision speed ↑ 70%", "Launch success 2x", "TCO ↓ 30%"],
-      roiStatement: "See disruption before it hits",
-    },
-    curveAnnotations: ["See disruption before it hits", "Human-in-loop control", "Continuous proof"],
   },
 ];
 
+// Curve annotations for each stage (unchanged from original)
+const curveAnnotations: Record<number, string[]> = {
+  1: ["Disconnected tools", "No shared taxonomy", "Slow decisions"],
+  2: ["Better process", "Still manual handoffs", "Slow change cycles"],
+  3: ["AI THRESHOLD", "Reconciliation ↓60%", "Unified data unlocks AI"],
+  4: ["Decisions in days, not weeks", "Prioritised interventions", "Faster decisions"],
+  5: ["See disruption before it hits", "Human-in-loop control", "Continuous proof"],
+};
 // Timing markers for narration-synced stage changes
 const stageTimings = [
   { stage: 1, startPercent: 12 },
@@ -225,7 +145,7 @@ const GDSlide7MaturityCurve = ({
   }, [isPlaying, progress, activeStage, isNarrationControlled]);
 
   const selectedStage =
-    stagesData.find((s) => s.stage === activeStage) || stagesData[0];
+    roadmapStagesData.find((s) => s.stage === activeStage) || roadmapStagesData[0];
 
   // 2x scaled viewBox dimensions
   const viewBox = isMobile ? "0 0 840 760" : "0 0 1160 760";
@@ -369,7 +289,7 @@ const GDSlide7MaturityCurve = ({
               )}
 
               {/* Stage markers - 2x scaled */}
-              {stagesData.map((stage, index) => {
+              {roadmapStagesData.map((stage, index) => {
                 const point = curvePoints[index];
                 const isStageActive = activeStage === stage.stage;
                 
@@ -427,19 +347,19 @@ const GDSlide7MaturityCurve = ({
                     })()}
 
                     {/* Active stage annotations - desktop only, 2x scaled */}
-                    {isStageActive && !isMobile && (
+                    {isStageActive && !isMobile && curveAnnotations[stage.stage] && (
                       <g className="animate-fade-in">
                         <rect
                           x={point.x - 130}
                           y={stage.stage === 5 ? point.y + 40 : point.y - 136}
                           width="260"
-                          height={stage.curveAnnotations.length * 28 + 24}
+                          height={curveAnnotations[stage.stage].length * 28 + 24}
                           rx="8"
                           fill="hsl(222 47% 10% / 0.95)"
                           stroke={stage.accentColor}
                           strokeWidth="2"
                         />
-                        {stage.curveAnnotations.map((annotation, i) => (
+                        {curveAnnotations[stage.stage].map((annotation, i) => (
                           <text
                             key={i}
                             x={point.x}
@@ -463,12 +383,12 @@ const GDSlide7MaturityCurve = ({
           {/* RIGHT: Stage Details Panel */}
           <div className="bg-card/30 rounded-xl border border-border/30 p-4 md:p-6">
             <div className={`transition-all duration-500 ${isNarrationControlled ? 'animate-fade-in' : ''}`}>
-              <MaturityStageDetails stage={selectedStage} />
+              <RoadmapStageDetails stage={selectedStage} />
             </div>
 
             {/* Stage dots navigation */}
             <div className="flex justify-center gap-2 mt-4 pt-4 border-t border-border/30">
-              {stagesData.map((stage) => (
+              {roadmapStagesData.map((stage) => (
                 <button
                   key={stage.id}
                   onClick={() => setActiveStage(stage.stage)}
