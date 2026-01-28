@@ -1,33 +1,43 @@
 
+# Increase Stage 4 & 5 Icons by 50% on Pyramid
 
-# Update Slide 8 Title to "Transforming How Teams Work"
+## Summary
 
-## Change Summary
+Increase the visual size of icons displayed within pyramid layers 4 (OPERATIONAL) and 5 (PREDICTIVE) by 50% for better visibility.
 
-Update the title and subtitle of Slide 8 to better reflect its new "Ways of Working" content focus and create a stronger narrative flow from Slide 7.
+## Files to Modify
 
-## File to Modify
+### 1. `src/components/globaldata-slides/GDPyramid3D.tsx`
 
-**`src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`**
+**Stage 5 (PREDICTIVE - Apex) Icon** - Lines 346-355
 
-### Current (Line ~168-169 in GDSlideContainer props):
-```tsx
-title="Your Roadmap to Predictive Performance"
-subtitle="The proven path from reactive to first-mover"
-```
+| Property | Current | New (50% larger) |
+|----------|---------|------------------|
+| Icon size | `w-16 h-16 sm:w-20 sm:h-20` | `w-24 h-24 sm:w-[120px] sm:h-[120px]` |
+| Container padding | `p-5 sm:p-6` | `p-7 sm:p-9` |
 
-### Updated:
-```tsx
-title="Transforming How Teams Work"
-subtitle="From 12-week decisions to hours"
-```
+This makes the Ava sparkle icon grow from 64-80px to 96-120px.
 
-## Narrative Flow Result
+### 2. `src/components/globaldata-slides/GDMetricsGauges.tsx`
 
-| Slide | Title | Focus |
-|-------|-------|-------|
-| **Slide 7** | Where Is Your Organisation Today? | Diagnosis - current state assessment |
-| **Slide 8** | Transforming How Teams Work | Action - how operations evolve at each stage |
+**Ava Sparkle at Top** - Lines 60-67
 
-The new title shifts focus from abstract "maturity" to tangible team transformation, while the subtitle uses the concrete metric (12 weeks to hours) that appears in the stage content.
+| Property | Current | New (50% larger) |
+|----------|---------|------------------|
+| Circle radius | `r="16"` | `r="24"` |
+| ForeignObject | `width="24" height="24"` | `width="36" height="36"` |
+| Icon class | `w-6 h-6` | `w-9 h-9` |
 
+**Metric Icons Inside Gauges** - Lines 133-137
+
+| Property | Current | New (50% larger) |
+|----------|---------|------------------|
+| ForeignObject | `width="32" height="32"` | `width="48" height="48"` |
+| Icon class | `w-6 h-6` | `w-9 h-9` |
+| Position offset | `x={cx - 16} y={gaugeCenterY - 36}` | `x={cx - 24} y={gaugeCenterY - 44}` |
+
+## Technical Notes
+
+- Tailwind doesn't have `w-30` or `h-30`, so we use arbitrary values `w-[120px] h-[120px]` for the 50% increase on larger screens
+- The gauge dimensions (radius, width) are kept the same since only icons were requested to be enlarged
+- Position offsets are adjusted to keep icons centered after size increase
