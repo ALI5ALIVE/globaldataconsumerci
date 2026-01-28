@@ -1,8 +1,28 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import GDPyramid3D from "./GDPyramid3D";
 import GDDetailsPanel, { GDLayerData } from "./GDDetailsPanel";
 import type { SlideNarrationProps } from "@/types/slideProps";
+import { getGlobalDataNarration } from "@/data/globalDataNarration";
+import { computeStageTimingsFromScript } from "@/utils/narrationTimingUtils";
+
+// Marker phrases for each stage in the narration script (slideId: 6)
+const STAGE_MARKERS = [
+  { stage: "FRAGMENTED", phrase: "At the base:" },
+  { stage: "MANAGED", phrase: "Stage two:" },
+  { stage: "CONNECTED", phrase: "Stage three:" },
+  { stage: "OPTIMISED", phrase: "Stage four:" },
+  { stage: "PREDICTIVE", phrase: "And at the apex:" },
+];
+
+// Fallback timings if script parsing fails
+const FALLBACK_TIMINGS = [
+  { stage: "FRAGMENTED", startPercent: 12 },
+  { stage: "MANAGED", startPercent: 28 },
+  { stage: "CONNECTED", startPercent: 42 },
+  { stage: "OPTIMISED", startPercent: 56 },
+  { stage: "PREDICTIVE", startPercent: 72 },
+];
 
 // Complete content specification: Level 1 = Base (FRAGMENTED), Level 5 = Apex (PREDICTIVE)
 const layersData: GDLayerData[] = [
@@ -198,15 +218,6 @@ const glowClasses: Record<string, string> = {
 // Progression from base to apex (narration order)
 const layerOrder = ["FRAGMENTED", "MANAGED", "CONNECTED", "OPTIMISED", "PREDICTIVE"];
 
-// Timing markers for narration-synced stage changes
-const stageTimings = [
-  { stage: "FRAGMENTED", startPercent: 12 },
-  { stage: "MANAGED", startPercent: 28 },
-  { stage: "CONNECTED", startPercent: 42 },
-  { stage: "OPTIMISED", startPercent: 56 },
-  { stage: "PREDICTIVE", startPercent: 72 },
-];
-
 const GDSlide6ValuePyramid = ({
   isPlaying: narrationPlaying = false,
   isLoading: narrationLoading = false,
@@ -221,6 +232,21 @@ const GDSlide6ValuePyramid = ({
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Compute stage timings from script at runtime
+  const stageTimings = useMemo(() => {
+    const narration = getGlobalDataNarration(6);
+    if (!narration?.script) {
+      console.warn("[GDSlide6ValuePyramid] No narration script found, using fallback timings");
+      return FALLBACK_TIMINGS;
+    }
+    return computeStageTimingsFromScript(
+      narration.script,
+      STAGE_MARKERS,
+      1.5, // lag percent
+      FALLBACK_TIMINGS
+    );
+  }, []);
+
   const activeLayer = layersData.find((l) => l.id === activeLayerId) || layersData[4];
   const currentIndex = layerOrder.indexOf(activeLayerId);
 
@@ -234,7 +260,7 @@ const GDSlide6ValuePyramid = ({
         .find(t => narrationProgress >= t.startPercent);
       
       if (currentTiming && currentTiming.stage !== activeLayerId) {
-        setActiveLayerId(currentTiming.stage);
+        setActiveLayerId(currentTiming.stage as string);
       }
     } else if (!narrationPlaying && isNarrationControlled) {
       setIsNarrationControlled(false);
