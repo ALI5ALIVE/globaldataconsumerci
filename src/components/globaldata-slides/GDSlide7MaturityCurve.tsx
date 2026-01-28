@@ -204,8 +204,7 @@ const GDSlide7MaturityCurve = ({
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const isMobile = useIsMobile();
 
-  // Gate animation on narration - don't animate before narration starts
-  const isAnimated = isPlaying || progress > 0 || hasCompleted;
+  // Curve is always visible - activeStage animation syncs with narration
 
   // Sync stage with narration progress
   useEffect(() => {
@@ -355,12 +354,12 @@ const GDSlide7MaturityCurve = ({
                 strokeWidth="6"
                 strokeLinecap="round"
                 filter="url(#gdSlideGlow)"
-                className={`transition-all duration-1000 ${isAnimated ? "opacity-100" : "opacity-0"}`}
+                className="opacity-100"
               />
 
               {/* Platform Shift marker - desktop only, 2x scaled */}
               {!isMobile && (
-                <g className={`transition-opacity duration-700 delay-500 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
+                <g className="opacity-100">
                   <line x1="560" y1="460" x2="560" y2="660" stroke="hsl(173 80% 40%)" strokeWidth="3" strokeDasharray="8,6" />
                   <rect x="470" y="510" width="180" height="40" rx="6" fill="hsl(173 80% 40% / 0.2)" stroke="hsl(173 80% 40%)" strokeWidth="2" />
                   <text x="560" y="538" fill="hsl(173 80% 50%)" fontSize="18" fontWeight="600" textAnchor="middle" className="font-display">
@@ -382,16 +381,14 @@ const GDSlide7MaturityCurve = ({
                       r={isStageActive ? 24 : 18}
                       fill={stage.accentColor}
                       filter={isStageActive ? "url(#gdSlideActiveGlow)" : "url(#gdSlideGlow)"}
-                      className={`transition-all duration-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}
-                      style={{ transitionDelay: `${index * 80}ms` }}
+                      className="transition-all duration-300 opacity-100"
                     />
                     <circle
                       cx={point.x}
                       cy={point.y}
                       r={isStageActive ? 12 : 8}
                       fill="hsl(222 47% 6%)"
-                      className={`transition-all duration-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}
-                      style={{ transitionDelay: `${index * 80}ms` }}
+                      className="transition-all duration-300 opacity-100"
                     />
                     <text
                       x={point.x}
@@ -400,8 +397,7 @@ const GDSlide7MaturityCurve = ({
                       fontSize="18"
                       fontWeight="bold"
                       textAnchor="middle"
-                      className={`transition-all duration-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}
-                      style={{ transitionDelay: `${index * 80}ms` }}
+                      className="transition-all duration-300 opacity-100"
                     >
                       {stage.stage}
                     </text>
