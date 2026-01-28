@@ -38,10 +38,10 @@ const roiPillars = [
 
 const stepTimings = [
   { step: 'intro', startPercent: 0 },
-  { step: 'pillar1', startPercent: 12 },
-  { step: 'pillar2', startPercent: 32 },
-  { step: 'pillar3', startPercent: 52 },
-  { step: 'compounding', startPercent: 72 },
+  { step: 'pillar1', startPercent: 15 },
+  { step: 'pillar2', startPercent: 38 },
+  { step: 'pillar3', startPercent: 58 },
+  { step: 'compounding', startPercent: 78 },
 ];
 
 const stepOrder = ['intro', 'pillar1', 'pillar2', 'pillar3', 'compounding'];

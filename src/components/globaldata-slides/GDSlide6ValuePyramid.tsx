@@ -23,9 +23,10 @@ const layersData: GDLayerData[] = [
       "Data-led category performance, outpacing competition",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
+      "The aspiration state for category-leading consumer brands",
     ],
     whyItMatters:
-      "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat.",
+      "The aspiration for every consumer brand: AI anticipates while humans control. This level of predictive, agentic capability is only possible with connected foundations—and replicating it internally would take years. Intelligence becomes an unassailable competitive moat.",
     colorClass: "bg-gradient-to-b from-pyramid-transformational to-pyramid-transformational/80",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
@@ -96,7 +97,7 @@ const layersData: GDLayerData[] = [
       "Foundation for AI-powered optimization and prediction",
     ],
     whyItMatters:
-      "This is the platform shift that unlocks AI. Without connected, governed data, Stages 4 and 5 are unreachable—and competitors with unified intelligence will outpace you.",
+      "This is the platform shift that unlocks new ways of working. Without connected, governed data, true agentic and predictive capabilities remain impossible—and building this foundation internally takes 3-5 years. Buy vs build: the gap widens every quarter you delay.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {

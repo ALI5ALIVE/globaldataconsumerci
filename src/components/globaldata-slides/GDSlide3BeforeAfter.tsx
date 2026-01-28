@@ -27,9 +27,9 @@ const metrics = [
 
 const stepTimings = [
   { step: 'intro', startPercent: 0 },
-  { step: 'before', startPercent: 10 },
-  { step: 'after', startPercent: 38 },
-  { step: 'metrics', startPercent: 65 },
+  { step: 'before', startPercent: 12 },
+  { step: 'after', startPercent: 45 },
+  { step: 'metrics', startPercent: 72 },
 ];
 
 const stepOrder = ['intro', 'before', 'after', 'metrics'];

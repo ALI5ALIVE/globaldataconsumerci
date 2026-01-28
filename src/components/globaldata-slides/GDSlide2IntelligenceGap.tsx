@@ -43,12 +43,12 @@ const impacts = [
 
 const stepTimings = [
   { step: 'definition', startPercent: 0 },
-  { step: 'cause1', startPercent: 12 },
-  { step: 'cause2', startPercent: 25 },
-  { step: 'cause3', startPercent: 38 },
-  { step: 'cause4', startPercent: 50 },
-  { step: 'impacts', startPercent: 62 },
-  { step: 'bottomLine', startPercent: 85 },
+  { step: 'cause1', startPercent: 15 },
+  { step: 'cause2', startPercent: 30 },
+  { step: 'cause3', startPercent: 42 },
+  { step: 'cause4', startPercent: 55 },
+  { step: 'impacts', startPercent: 68 },
+  { step: 'bottomLine', startPercent: 88 },
 ];
 
 const stepOrder = ['definition', 'cause1', 'cause2', 'cause3', 'cause4', 'impacts', 'bottomLine'];

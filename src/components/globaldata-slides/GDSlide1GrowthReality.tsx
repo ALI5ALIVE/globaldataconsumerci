@@ -29,12 +29,12 @@ const painPoints = [
 
 const stepTimings = [
   { step: 'intro', startPercent: 0 },
-  { step: 'painPoint1', startPercent: 15 },
-  { step: 'painPoint2', startPercent: 23 },
-  { step: 'painPoint3', startPercent: 31 },
-  { step: 'paradox', startPercent: 42 },
-  { step: 'realProblem', startPercent: 58 },
-  { step: 'callout', startPercent: 78 },
+  { step: 'painPoint1', startPercent: 10 },
+  { step: 'painPoint2', startPercent: 22 },
+  { step: 'painPoint3', startPercent: 34 },
+  { step: 'paradox', startPercent: 46 },
+  { step: 'realProblem', startPercent: 62 },
+  { step: 'callout', startPercent: 82 },
 ];
 
 const stepOrder = ['intro', 'painPoint1', 'painPoint2', 'painPoint3', 'paradox', 'realProblem', 'callout'];

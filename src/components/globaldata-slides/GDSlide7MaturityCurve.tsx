@@ -90,7 +90,7 @@ const stagesData: MaturityStage[] = [
       "Foundation for optimized operations is in place",
     ],
     whyItMatters:
-      "The AI threshold—unified data is the prerequisite for intelligent automation. Without it, Stages 4 and 5 remain out of reach.",
+      "The AI threshold—unified data unlocks new ways of working and operational performance. Without it, true agentic and predictive capabilities remain out of reach. Building this foundation internally? 3-5 years minimum.",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
       from: "Chasing data across tools and vendors",
@@ -159,9 +159,10 @@ const stagesData: MaturityStage[] = [
       "Category performance through speed and foresight",
       "First-mover advantage becomes systematic",
       "Teams shift from analysis to strategic action",
+      "The aspiration state for category-leading consumer brands",
     ],
     whyItMatters:
-      "AI anticipates and acts—but only for organizations that first achieved connection. This is where the AI advantage compounds",
+      "The aspiration for all consumer brands: AI anticipates and acts with conviction. But this level of agentic capability is only possible for organizations that first achieved connection. Building this internally would take years—the buy vs build case is clear.",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
       from: "Reactive analysis and reporting",
