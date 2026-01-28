@@ -20,9 +20,9 @@ const layersData: GDLayerData[] = [
     ],
     result: [
       "Data-led category performance, outpacing competition",
+      "Two times higher launch success",
+      "Thirty percent lower total cost of ownership",
       "First-mover advantage becomes systematic",
-      "Teams shift from analysis to strategic action",
-      "The aspiration state for category-leading consumer brands",
     ],
     whyItMatters:
       "The aspiration for every consumer brand: AI anticipates while humans control. This level of predictive, agentic capability is only possible with connected foundations—and replicating it internally would take years. Intelligence becomes an unassailable competitive moat.",
@@ -39,28 +39,28 @@ const layersData: GDLayerData[] = [
       strategic: 75,
     },
     valueProof: {
-      metrics: ["Category share +3-5pts", "35% faster response", "ROI 15:1+", "First-mover systematic"],
-      roiStatement: "See disruption before it hits—and act first.",
+      metrics: ["Decision speed ↑ 70%", "Launch success 2x", "TCO ↓ 30%", "First-mover systematic"],
+      roiStatement: "See disruption before it hits. 2x launch success, 30% lower TCO.",
     },
   },
   {
-    id: "OPERATIONAL",
+    id: "OPTIMISED",
     level: 4,
-    headline: "Operational Intelligence",
-    sublabel: "Intelligent Ops",
+    headline: "Optimised Intelligence",
+    sublabel: "Intelligence in Action",
     whatItLooksLike: [
-      "Advanced analytics integrated into daily workflows across multiple markets",
+      "Intelligence embedded directly into decision workflows",
       "Consumer, category, and commercial insights connected in unified models",
       "AI augmentation: automated trend detection, decision recommendations",
       "Category insights embedded into key commercial and innovation decisions",
     ],
     result: [
-      "Predictive-led decisions at local and regional levels",
-      "Reduced decision latency, faster time-to-market",
+      "Decisions in days, not weeks",
+      "70% faster decision cycles",
       "Measurable performance improvement across KPIs",
     ],
     whyItMatters:
-      "Turns intelligence into controlled execution, not just reporting. Decisions in days, not weeks.",
+      "Connected intelligence becomes operational intelligence. Decisions in days, not weeks—only possible because you built the connected foundation first.",
     colorClass: "bg-gradient-to-b from-pyramid-commercial to-pyramid-commercial/80",
     accentColor: "hsl(280 65% 55%)",
     behavioralShift: {
@@ -74,8 +74,8 @@ const layersData: GDLayerData[] = [
       strategic: 60,
     },
     valueProof: {
-      metrics: ["Decision cycle -40-70%", "ROMI +25%", "Innovation hit +30%", "NPD hit rate ↑"],
-      roiStatement: "60% of time on growth decisions, AI synthesizes complexity.",
+      metrics: ["Decision speed ↑ 70%", "ROMI +25%", "Launch success ↑", "NPD hit rate ↑"],
+      roiStatement: "Decisions in days, not weeks. 70% faster decision cycles.",
     },
   },
   {
@@ -189,21 +189,21 @@ const layersData: GDLayerData[] = [
 
 const glowClasses: Record<string, string> = {
   PREDICTIVE: "glow-transformational",
-  OPERATIONAL: "glow-commercial",
+  OPTIMISED: "glow-commercial",
   CONNECTED: "glow-operational",
   MANAGED: "glow-foundation",
   FRAGMENTED: "glow-fragmentation",
 };
 
 // Progression from base to apex (narration order)
-const layerOrder = ["FRAGMENTED", "MANAGED", "CONNECTED", "OPERATIONAL", "PREDICTIVE"];
+const layerOrder = ["FRAGMENTED", "MANAGED", "CONNECTED", "OPTIMISED", "PREDICTIVE"];
 
 // Timing markers for narration-synced stage changes
 const stageTimings = [
   { stage: "FRAGMENTED", startPercent: 12 },
   { stage: "MANAGED", startPercent: 28 },
   { stage: "CONNECTED", startPercent: 42 },
-  { stage: "OPERATIONAL", startPercent: 56 },
+  { stage: "OPTIMISED", startPercent: 56 },
   { stage: "PREDICTIVE", startPercent: 72 },
 ];
 
