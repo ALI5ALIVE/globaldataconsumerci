@@ -267,7 +267,7 @@ const GDSlide7MaturityCurve = ({
       id="slide-7"
       title="Your Roadmap to Predictive Performance"
       subtitle="The proven path from reactive to first-mover"
-      slideNumber={7}
+      slideNumber={8}
       isPlaying={isPlaying}
       isLoading={isLoading}
       progress={progress}
@@ -277,14 +277,6 @@ const GDSlide7MaturityCurve = ({
       onNextSlide={onNextSlide}
     >
       <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden relative">
-        {/* DEV: Calibration overlay for timing adjustment */}
-        {import.meta.env.DEV && (isPlaying || progress > 0) && (
-          <div className="absolute top-2 right-2 z-50 bg-background/90 border border-primary rounded px-3 py-2 text-xs font-mono">
-            <div className="text-primary font-bold">Slide 7 Calibration</div>
-            <div>Progress: <span className="text-primary">{progress.toFixed(1)}%</span></div>
-            <div>Stage: <span className="text-primary">{activeStage}</span></div>
-          </div>
-        )}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 items-stretch flex-1">
           {/* LEFT: Hockey Stick Curve - 2x scaled */}
           <div className="bg-card/30 rounded-xl border border-border/30 p-3 md:p-4 flex items-center justify-center lg:col-span-2">
