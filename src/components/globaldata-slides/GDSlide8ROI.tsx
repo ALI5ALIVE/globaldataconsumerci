@@ -55,23 +55,32 @@ const GDSlide8ROI = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  const [activeStep, setActiveStep] = useState<string>('compounding');
+  // Start at 'intro' when narration will control, 'compounding' when idle
+  const [activeStep, setActiveStep] = useState<string>(() => {
+    // If narration has completed or never started, show full state
+    return hasCompleted ? 'compounding' : 'intro';
+  });
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
+  const [hasEverPlayed, setHasEverPlayed] = useState(false);
 
   useEffect(() => {
     if (isPlaying && progress > 0) {
       setIsNarrationControlled(true);
+      setHasEverPlayed(true);
       const currentTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
       if (currentTiming) {
         setActiveStep(currentTiming.step);
       }
     } else if (!isPlaying && isNarrationControlled && hasCompleted) {
+      // Narration finished - show full state
       setActiveStep('compounding');
       setIsNarrationControlled(false);
-    } else if (!isPlaying && !isNarrationControlled) {
+    } else if (!isPlaying && !isNarrationControlled && !hasEverPlayed) {
+      // Never played - show full state for preview
       setActiveStep('compounding');
     }
-  }, [isPlaying, progress, hasCompleted, isNarrationControlled]);
+    // When paused mid-narration, keep current step (don't reset)
+  }, [isPlaying, progress, hasCompleted, isNarrationControlled, hasEverPlayed]);
 
   const isVisible = (step: string) => {
     const activeIndex = stepOrder.indexOf(activeStep);
@@ -95,7 +104,15 @@ const GDSlide8ROI = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
+      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden relative">
+        {/* DEV: Calibration overlay for timing adjustment */}
+        {import.meta.env.DEV && (isPlaying || progress > 0) && (
+          <div className="absolute top-2 right-2 z-50 bg-background/90 border border-primary rounded px-3 py-2 text-xs font-mono">
+            <div className="text-primary font-bold">Slide 8 Calibration</div>
+            <div>Progress: <span className="text-primary">{progress.toFixed(1)}%</span></div>
+            <div>Step: <span className="text-primary">{activeStep}</span></div>
+          </div>
+        )}
         {/* ROI Pillars Grid */}
         <div className="grid md:grid-cols-3 gap-3">
           {roiPillars.map((pillar, i) => {

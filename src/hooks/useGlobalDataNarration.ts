@@ -12,6 +12,26 @@ interface NarrativeState {
   hasCompleted: boolean;
 }
 
+interface CacheEntry {
+  audioUrl: string;
+  scriptKey: string;
+}
+
+// Simple hash function for script content
+const hashScript = (script: string): string => {
+  let hash = 0;
+  for (let i = 0; i < script.length; i++) {
+    const char = script.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+  return hash.toString(36);
+};
+
+const generateScriptKey = (script: string, voiceId: string): string => {
+  return `${voiceId}::${script.length}::${hashScript(script)}`;
+};
+
 export const useGlobalDataNarration = () => {
   const [state, setState] = useState<NarrativeState>({
     isPlaying: false,
@@ -22,18 +42,25 @@ export const useGlobalDataNarration = () => {
   });
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const cacheRef = useRef<Map<number, string>>(new Map());
+  const cacheRef = useRef<Map<number, CacheEntry>>(new Map());
 
-  const fetchAudio = async (slideId: number): Promise<string> => {
-    // Check cache first
-    const cached = cacheRef.current.get(slideId);
-    if (cached) {
-      return cached;
-    }
-
+  const fetchAudio = async (slideId: number, forceRegenerate = false): Promise<string> => {
     const narration = getGlobalDataNarration(slideId);
     if (!narration) {
       throw new Error(`No narration found for GlobalData slide ${slideId}`);
+    }
+
+    const currentScriptKey = generateScriptKey(narration.script, narration.voiceId);
+    
+    // Check cache - but validate script key matches
+    const cached = cacheRef.current.get(slideId);
+    if (cached && !forceRegenerate) {
+      if (cached.scriptKey === currentScriptKey) {
+        return cached.audioUrl;
+      }
+      // Script changed - revoke old URL to prevent memory leak
+      URL.revokeObjectURL(cached.audioUrl);
+      cacheRef.current.delete(slideId);
     }
 
     const response = await fetch(`${SUPABASE_URL}/functions/v1/elevenlabs-tts`, {
@@ -55,8 +82,8 @@ export const useGlobalDataNarration = () => {
     const audioBlob = await response.blob();
     const audioUrl = URL.createObjectURL(audioBlob);
     
-    // Cache the audio URL
-    cacheRef.current.set(slideId, audioUrl);
+    // Cache with script key for validation
+    cacheRef.current.set(slideId, { audioUrl, scriptKey: currentScriptKey });
     
     return audioUrl;
   };
@@ -75,7 +102,7 @@ export const useGlobalDataNarration = () => {
     }));
   }, []);
 
-  const play = useCallback(async (slideId: number) => {
+  const play = useCallback(async (slideId: number, options?: { forceRegenerate?: boolean }) => {
     // Stop any current playback
     stop();
 
@@ -88,7 +115,7 @@ export const useGlobalDataNarration = () => {
     }));
 
     try {
-      const audioUrl = await fetchAudio(slideId);
+      const audioUrl = await fetchAudio(slideId, options?.forceRegenerate);
       
       const audio = new Audio(audioUrl);
       audioRef.current = audio;
