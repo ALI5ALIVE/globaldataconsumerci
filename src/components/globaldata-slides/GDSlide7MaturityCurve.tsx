@@ -184,11 +184,11 @@ const stagesData: MaturityStage[] = [
 
 // Timing markers for narration-synced stage changes
 const stageTimings = [
-  { stage: 1, startPercent: 10 },
-  { stage: 2, startPercent: 22 },
-  { stage: 3, startPercent: 35 },
-  { stage: 4, startPercent: 50 },
-  { stage: 5, startPercent: 68 },
+  { stage: 1, startPercent: 12 },
+  { stage: 2, startPercent: 28 },
+  { stage: 3, startPercent: 45 },
+  { stage: 4, startPercent: 62 },
+  { stage: 5, startPercent: 78 },
 ];
 
 const GDSlide7MaturityCurve = ({
