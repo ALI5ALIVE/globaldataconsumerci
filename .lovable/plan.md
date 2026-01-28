@@ -1,253 +1,173 @@
 
+# Animation Timing Correction & Messaging Enhancement Plan
 
-# Narrative-Animation Alignment Review and Improvement Plan
+## Part 1: Animation Timing Corrections
 
-## Executive Summary
+After analyzing the narration scripts word-by-word against the current animation timings, I've identified that animations are triggering **before** the narrator mentions each element. The timing percentages need to be **increased (delayed)** to align with when the narrator actually speaks each point.
 
-After reviewing all 10 slides (0-9) and their corresponding narration scripts, I've identified which slides have animation timing synchronized with narration and which need implementation. This plan details the gaps and provides a complete implementation strategy.
+### Slide 1 - GDSlide1GrowthReality.tsx
 
----
+**Problem:** Pain points and sections appear before narrator mentions them.
 
-## Current State Analysis
+**Narration Flow Analysis:**
+| Content | Narrator Starts At | Current Timing | Corrected Timing |
+|---------|-------------------|----------------|------------------|
+| Intro | 0% | 0% | 0% ✓ |
+| "Market velocity..." | ~10% | 15% | 10% |
+| "Shrinking windows..." | ~22% | 23% | 22% |
+| "Asymmetric competition..." | ~34% | 31% | 34% |
+| "Here's the paradox..." | ~46% | 42% | 46% |
+| "The real problem..." | ~62% | 58% | 62% |
+| "Category performers..." | ~82% | 78% | 82% |
 
-### Already Synchronized (3 slides)
-
-| Slide | Component | Mechanism | Status |
-|-------|-----------|-----------|--------|
-| **Slide 5** | GDSlide5ValueChain | `stepTimings` array (15%, 30%, 45%, 60%, 75%) | Synced |
-| **Slide 6** | GDSlide6ValuePyramid | `stageTimings` array (12%, 28%, 42%, 56%, 72%) | Synced |
-| **Slide 7** | GDSlide7MaturityCurve | `stageTimings` array (10%, 22%, 35%, 50%, 68%) | Synced |
-
-These slides correctly use `useEffect` hooks that watch `progress` and `isPlaying` to progressively reveal content as the narrator discusses each element.
-
-### Not Synchronized (5 slides need work)
-
-| Slide | Component | Issue | Narrative Elements to Sync |
-|-------|-----------|-------|---------------------------|
-| **Slide 1** | GDSlide1GrowthReality | All content appears at once | 3 pain points, Paradox section, Real Problem section, Bottom callout |
-| **Slide 2** | GDSlide2IntelligenceGap | All content appears at once | 4 root causes, 4 quantified impacts, Bottom line |
-| **Slide 3** | GDSlide3BeforeAfter | All content appears at once | Before section, After section, 3 transformation metrics |
-| **Slide 4** | GDSlide4Proposition | Wheel visible but no progressive reveal | 5 wheel segments should highlight as narrator mentions each |
-| **Slide 8** | GDSlide8ROI | All content appears at once | 3 ROI pillars, compounding message |
-
-### Static Slides (2 slides - no changes needed)
-
-| Slide | Component | Reason |
-|-------|-----------|--------|
-| **Slide 0** | GDSlide0Title | Title slide with agenda - no progressive content |
-| **Slide 9** | GDSlide9WhyGlobalData | Summary slide - content appears together as designed |
+**Change:** Update `stepTimings` array (lines 30-38)
 
 ---
 
-## Detailed Implementation Plan
+### Slide 2 - GDSlide2IntelligenceGap.tsx
 
-### 1. Slide 1 - GDSlide1GrowthReality
+**Problem:** Root causes appear before narrator describes each one.
 
-**Narrative Structure:**
-```
-0-15%:  "Here's the growth reality..." (intro)
-15-35%: "Market velocity...Shrinking windows...Asymmetric competition" (3 pain points)
-35-55%: "Here's the paradox..." (Paradox card)
-55-75%: "The real problem..." (Real Problem card)
-75-100%: "Category performers..." (Bottom callout)
-```
+**Narration Flow Analysis:**
+| Content | Narrator Starts At | Current Timing | Corrected Timing |
+|---------|-------------------|----------------|------------------|
+| Definition box | 0% | 0% | 0% ✓ |
+| "First, signals fragment..." | ~15% | 12% | 15% |
+| "Then, leaders debate..." | ~30% | 25% | 30% |
+| "Third, decisions arrive late..." | ~42% | 38% | 42% |
+| "Finally, decisions lack conviction..." | ~55% | 50% | 55% |
+| "The quantified impact..." | ~68% | 62% | 68% |
+| "This gap is where..." | ~88% | 85% | 88% |
 
-**Technical Changes:**
-- Add `stepTimings` array with percentages mapping to each section
-- Add `activeStep` state variable
-- Use `useEffect` to watch `progress` and `isPlaying`
-- Apply opacity/translate transitions to each section based on `activeStep`
-
-**Step Timings:**
-```typescript
-const stepTimings = [
-  { step: 'intro', startPercent: 0 },
-  { step: 'painPoint1', startPercent: 15 },
-  { step: 'painPoint2', startPercent: 23 },
-  { step: 'painPoint3', startPercent: 31 },
-  { step: 'paradox', startPercent: 42 },
-  { step: 'realProblem', startPercent: 58 },
-  { step: 'callout', startPercent: 78 },
-];
-```
+**Change:** Update `stepTimings` array (lines 44-52)
 
 ---
 
-### 2. Slide 2 - GDSlide2IntelligenceGap
+### Slide 3 - GDSlide3BeforeAfter.tsx
 
-**Narrative Structure:**
-```
-0-12%:  "So where exactly does growth get lost?" (Definition box)
-12-25%: "First, signals fragment..." (Root cause 1)
-25-38%: "Then, leaders debate..." (Root cause 2)
-38-50%: "Third, decisions arrive late..." (Root cause 3)
-50-62%: "Finally, decisions lack conviction..." (Root cause 4)
-62-85%: "The quantified impact..." (4 impact metrics)
-85-100%: "This gap is where growth stalls..." (Bottom line)
-```
+**Problem:** Before/After sections reveal slightly early.
 
-**Technical Changes:**
-- Add `stepTimings` for 4 root causes appearing sequentially
-- Add paired reveal for quantified impacts (each appears with its root cause)
-- Bottom line reveals after all causes/impacts shown
+**Narration Flow Analysis:**
+| Content | Narrator Starts At | Current Timing | Corrected Timing |
+|---------|-------------------|----------------|------------------|
+| Intro | 0% | 0% | 0% ✓ |
+| "Look at the left side..." | ~12% | 10% | 12% |
+| "Now look at the right side..." | ~45% | 38% | 45% |
+| "The transformation..." | ~72% | 65% | 72% |
 
-**Step Timings:**
-```typescript
-const stepTimings = [
-  { step: 'definition', startPercent: 0 },
-  { step: 'cause1', startPercent: 12 },
-  { step: 'cause2', startPercent: 25 },
-  { step: 'cause3', startPercent: 38 },
-  { step: 'cause4', startPercent: 50 },
-  { step: 'impacts', startPercent: 62 },
-  { step: 'bottomLine', startPercent: 85 },
-];
-```
+**Change:** Update `stepTimings` array (lines 28-33)
 
 ---
 
-### 3. Slide 3 - GDSlide3BeforeAfter
+### Slide 4 - GDSlide4Proposition.tsx
 
-**Narrative Structure:**
-```
-0-10%:  "But here's what happens..." (intro)
-10-35%: "Look at the left side..." (Before column with 4 items + metrics)
-35-60%: "Now look at the right side..." (After column with 4 items + metrics)
-60-100%: "The transformation..." (3 metrics banner)
-```
+**Problem:** Wheel and callout sections appear too early.
 
-**Technical Changes:**
-- Before section fully visible first
-- After section reveals when narrator says "Now look at the right side"
-- Metrics banner animates in at the end
+**Narration Flow Analysis:**
+| Content | Narrator Starts At | Current Timing | Corrected Timing |
+|---------|-------------------|----------------|------------------|
+| Intro | 0% | 0% | 0% ✓ |
+| "A unified solution..." (wheel visible) | ~28% | 20% | 28% |
+| "This is intelligence designed..." | ~78% | 80% | 78% |
 
-**Step Timings:**
-```typescript
-const stepTimings = [
-  { step: 'intro', startPercent: 0 },
-  { step: 'before', startPercent: 10 },
-  { step: 'after', startPercent: 38 },
-  { step: 'metrics', startPercent: 65 },
-];
-```
+**Change:** Update `stepTimings` array (lines ~15-18)
 
 ---
 
-### 4. Slide 4 - GDSlide4Proposition
+### Slide 8 - GDSlide8ROI.tsx
 
-**Narrative Structure:**
-```
-0-20%:  "This is Connected Intelligence..." (Value proposition box)
-20-40%: "A unified solution that connects..." (Wheel intro)
-40-80%: "Hover over each segment..." (Interactive exploration prompt)
-80-100%: "This is intelligence designed..." (Bottom callout)
-```
+**Problem:** ROI pillars appear before narrator describes each.
 
-**Technical Changes:**
-- The wheel is already interactive (hover-based)
-- Add subtle highlight animation that cycles through segments during narration
-- Auto-rotate through segments if user doesn't interact
+**Narration Flow Analysis:**
+| Content | Narrator Starts At | Current Timing | Corrected Timing |
+|---------|-------------------|----------------|------------------|
+| Intro | 0% | 0% | 0% ✓ |
+| "First, speed to decision..." | ~15% | 12% | 15% |
+| "Second, better growth outcomes..." | ~38% | 32% | 38% |
+| "Third, lower cost of intelligence..." | ~58% | 52% | 58% |
+| "Here's the key message..." | ~78% | 72% | 78% |
 
-**Step Timings:**
-```typescript
-const segmentTimings = [
-  { segment: 'Market Intelligence', startPercent: 25 },
-  { segment: 'Competitor Intelligence', startPercent: 35 },
-  { segment: 'Innovation Intelligence', startPercent: 45 },
-  { segment: 'Sales Intelligence', startPercent: 55 },
-  { segment: 'Strategic Intelligence', startPercent: 65 },
-];
-```
+**Change:** Update `stepTimings` array (lines 39-45)
 
 ---
 
-### 5. Slide 8 - GDSlide8ROI
+## Part 2: Messaging Enhancement for Slides 6 & 7
 
-**Narrative Structure:**
-```
-0-10%:  "ROI shows up in three places..." (intro)
-10-30%: "First, speed to decision..." (Pillar 1)
-30-50%: "Second, better growth outcomes..." (Pillar 2)
-50-70%: "Third, lower cost of intelligence..." (Pillar 3)
-70-100%: "Here's the key message: ROI compounds..." (Compounding section + chart)
-```
-
-**Technical Changes:**
-- 3 ROI pillars reveal one-by-one
-- Compounding message and chart reveal together at the end
-
-**Step Timings:**
-```typescript
-const stepTimings = [
-  { step: 'intro', startPercent: 0 },
-  { step: 'pillar1', startPercent: 12 },
-  { step: 'pillar2', startPercent: 32 },
-  { step: 'pillar3', startPercent: 52 },
-  { step: 'compounding', startPercent: 72 },
-];
-```
+### Key Messages to Reinforce:
+1. **Connection unlocks new ways of working** - Stage 3 is the platform shift
+2. **Apex is the aspiration** for all consumer brands
+3. **Without connection, agentic/predictive capabilities are impossible**
+4. **Build vs Buy** - building internally would take years
 
 ---
 
-## Implementation Pattern (Reusable)
+### Slide 6 - GDSlide6ValuePyramid.tsx (layersData)
 
-Each slide will follow this pattern:
+**Stage 3 (CONNECTED) - Enhance `whyItMatters`:**
 
-```typescript
-// 1. Define timing markers
-const stepTimings = [
-  { step: 'elementName', startPercent: XX },
-  // ...
-];
+Current:
+> "This is the platform shift that unlocks AI. Without connected, governed data, Stages 4 and 5 are unreachable—and competitors with unified intelligence will outpace you."
 
-// 2. Add state
-const [activeStep, setActiveStep] = useState<string>('');
-const [isNarrationControlled, setIsNarrationControlled] = useState(false);
+Enhanced:
+> "This is the platform shift that unlocks new ways of working. Without connected, governed data, true agentic and predictive capabilities remain impossible—and building this foundation internally takes 3-5 years. Buy vs build: the gap widens every quarter you delay."
 
-// 3. Add useEffect to sync with narration
-useEffect(() => {
-  if (isPlaying && progress > 0) {
-    setIsNarrationControlled(true);
-    
-    const currentTiming = [...stepTimings]
-      .reverse()
-      .find(t => progress >= t.startPercent);
-    
-    if (currentTiming) {
-      setActiveStep(currentTiming.step);
-    }
-  } else if (!isPlaying && isNarrationControlled) {
-    setIsNarrationControlled(false);
-  }
-}, [isPlaying, progress]);
+**Stage 5 (PREDICTIVE) - Enhance `whyItMatters`:**
 
-// 4. Apply conditional visibility in JSX
-<div className={`transition-all duration-300 ${
-  activeStep >= 'thisStep' ? 'opacity-100' : 'opacity-0'
-}`}>
-  {/* Content */}
-</div>
-```
+Current:
+> "AI compresses the insight-to-action gap while keeping humans in control — intelligence becomes a competitive moat."
+
+Enhanced:
+> "The aspiration for every consumer brand: AI anticipates while humans control. This level of predictive, agentic capability is only possible with connected foundations—and replicating it internally would take years. Intelligence becomes an unassailable competitive moat."
+
+**Stage 5 (PREDICTIVE) - Add to result array:**
+- Add: "The aspiration state for category-leading consumer brands"
 
 ---
 
-## Files to Modify
+### Slide 7 - GDSlide7MaturityCurve.tsx (stagesData)
+
+**Stage 3 (CONNECTED) - Enhance `whyItMatters`:**
+
+Current:
+> "The AI threshold—unified data is the prerequisite for intelligent automation. Without it, Stages 4 and 5 remain out of reach."
+
+Enhanced:
+> "The AI threshold—unified data unlocks new ways of working and operational performance. Without it, true agentic and predictive capabilities remain out of reach. Building this foundation internally? 3-5 years minimum."
+
+**Stage 5 (PREDICTIVE) - Enhance `whyItMatters`:**
+
+Current:
+> "AI anticipates and acts—but only for organizations that first achieved connection. This is where the AI advantage compounds"
+
+Enhanced:
+> "The aspiration for all consumer brands: AI anticipates and acts with conviction. But this level of agentic capability is only possible for organizations that first achieved connection. Building this internally would take years—the buy vs build case is clear."
+
+**Stage 5 (PREDICTIVE) - Add to result array:**
+- Add: "The aspiration state for category-leading consumer brands"
+
+---
+
+## Technical Implementation Summary
+
+### Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/components/globaldata-slides/GDSlide1GrowthReality.tsx` | Add timing sync for 3 pain points + paradox sections |
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | Add timing sync for 4 causes + 4 impacts |
-| `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx` | Add timing sync for before/after reveal |
-| `src/components/globaldata-slides/GDSlide4Proposition.tsx` | Add auto-cycling wheel segments during narration |
-| `src/components/globaldata-slides/GDSlide8ROI.tsx` | Add timing sync for 3 ROI pillars |
+| `GDSlide1GrowthReality.tsx` | Update `stepTimings` percentages |
+| `GDSlide2IntelligenceGap.tsx` | Update `stepTimings` percentages |
+| `GDSlide3BeforeAfter.tsx` | Update `stepTimings` percentages |
+| `GDSlide4Proposition.tsx` | Update `stepTimings` percentages |
+| `GDSlide8ROI.tsx` | Update `stepTimings` percentages |
+| `GDSlide6ValuePyramid.tsx` | Update Stage 3 & 5 `whyItMatters` and `result` arrays |
+| `GDSlide7MaturityCurve.tsx` | Update Stage 3 & 5 `whyItMatters` and `result` arrays |
 
 ---
 
 ## Expected Outcome
 
 After implementation:
-- **All 10 slides** will have visual elements that animate in sync with the narrator
-- Elements will appear progressively as the narrator discusses them
-- When narration stops, users can still interact freely with all elements
-- The presentation will feel like a professionally synchronized pitch deck
-
+- **Animations will trigger at the exact moment** the narrator mentions each element
+- **Slide 6 (Pyramid)** will reinforce: connection enables new ways of working, apex is the aspiration, build vs buy argument
+- **Slide 7 (Maturity Curve)** will reinforce: same messaging plus operational performance gains
+- Both slides will clearly communicate that **agentic/predictive capabilities require connected foundations**
+- The **build vs buy** message will be prominent: "3-5 years to build internally"
