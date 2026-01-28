@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { Play, Pause } from "lucide-react";
 import GDSlideContainer from "./GDSlideContainer";
 import GDPyramid3D from "./GDPyramid3D";
 import GDDetailsPanel, { GDLayerData } from "./GDDetailsPanel";
@@ -219,8 +218,6 @@ const GDSlide6ValuePyramid = ({
 }: SlideNarrationProps) => {
   const [activeLayerId, setActiveLayerId] = useState("FRAGMENTED");
   const [highlightedModule, setHighlightedModule] = useState<string | null>(null);
-  const [isAutoCycling, setIsAutoCycling] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -231,7 +228,6 @@ const GDSlide6ValuePyramid = ({
   useEffect(() => {
     if (narrationPlaying && narrationProgress > 0) {
       setIsNarrationControlled(true);
-      setIsAutoCycling(false);
       
       const currentTiming = [...stageTimings]
         .reverse()
@@ -245,41 +241,12 @@ const GDSlide6ValuePyramid = ({
     }
   }, [narrationPlaying, narrationProgress, activeLayerId, isNarrationControlled]);
 
-  // Auto-cycle through stages (only when not narration-controlled)
-  useEffect(() => {
-    if (!isAutoCycling || isNarrationControlled) {
-      setProgress(0);
-      return;
-    }
-
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + 2;
-      });
-    }, 80);
-
-    const cycleInterval = setInterval(() => {
-      setActiveLayerId((prev) => {
-        const currentIdx = layerOrder.indexOf(prev);
-        const nextIdx = (currentIdx + 1) % layerOrder.length;
-        return layerOrder[nextIdx];
-      });
-      setProgress(0);
-    }, 4000);
-
-    return () => {
-      clearInterval(progressInterval);
-      clearInterval(cycleInterval);
-    };
-  }, [isAutoCycling, isNarrationControlled]);
 
   const handleLayerClick = useCallback((level: number) => {
     const layer = layersData.find((l) => l.level === level);
     if (layer && layer.id !== activeLayerId) {
       setIsTransitioning(true);
       setHighlightedModule(null);
-      setIsAutoCycling(false);
       
       // After fade-out, switch content and fade-in
       setTimeout(() => {
@@ -296,14 +263,11 @@ const GDSlide6ValuePyramid = ({
       setActiveLayerId("MANAGED");
     }
     setHighlightedModule(module);
-    setIsAutoCycling(false);
     setTimeout(() => setHighlightedModule(null), 3000);
   }, []);
 
   const handleDotClick = (index: number) => {
     setActiveLayerId(layerOrder[index]);
-    setIsAutoCycling(false);
-    setProgress(0);
   };
 
   return (
@@ -364,50 +328,14 @@ const GDSlide6ValuePyramid = ({
                         : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                     }`}
                     aria-label={`Go to stage ${index + 1}`}
-                  >
-                    {index === currentIndex && isAutoCycling && (
-                      <span 
-                        className="absolute inset-0 rounded-full bg-primary/30 animate-ping"
-                        style={{ animationDuration: "2s" }}
-                      />
-                    )}
-                  </button>
+                  />
                 ))}
               </div>
-
-              {/* Progress bar */}
-              {isAutoCycling && (
-                <div className="flex-1 h-1 bg-muted/30 rounded-full overflow-hidden max-w-16">
-                  <div 
-                    className="h-full bg-primary/60 transition-all duration-100 ease-linear"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              )}
-
-              {/* Play/Pause button */}
-              <button
-                onClick={() => setIsAutoCycling(!isAutoCycling)}
-                className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={isAutoCycling ? "Pause auto-play" : "Resume auto-play"}
-              >
-                {isAutoCycling ? (
-                  <>
-                    <Pause className="w-2.5 h-2.5" />
-                    <span>Pause</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-2.5 h-2.5" />
-                    <span>Auto-play</span>
-                  </>
-                )}
-              </button>
             </div>
 
             {/* Stage label */}
             <p className="text-[9px] text-muted-foreground mt-1.5 text-center truncate">
-              Stage {activeLayer.level} of 5 · {isAutoCycling ? "Click pyramid or pause to explore" : "Click play to resume"}
+              Stage {activeLayer.level} of 5 · Click pyramid to explore
             </p>
           </div>
         </div>
