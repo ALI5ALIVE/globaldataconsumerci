@@ -87,13 +87,13 @@ const solutionCombos = [
   },
 ];
 
-// Narration sync timings
+// Narration sync timings - updated for precise highlighting
 const stepTimings = [
-  { index: 0, startPercent: 15 },
-  { index: 1, startPercent: 30 },
+  { index: 0, startPercent: 12 },
+  { index: 1, startPercent: 28 },
   { index: 2, startPercent: 45 },
-  { index: 3, startPercent: 60 },
-  { index: 4, startPercent: 75 },
+  { index: 3, startPercent: 62 },
+  { index: 4, startPercent: 78 },
 ];
 
 const GDSlide5ValueChain = ({

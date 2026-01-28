@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import { Layers, MessageSquareWarning, Clock, Zap, Database, CheckCircle2, ArrowRight, TrendingUp } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
@@ -25,15 +24,6 @@ const metrics = [
   { before: "Sprawl", after: "Unified", label: "Tool landscape", improvement: "30% lower TCO" },
 ];
 
-const stepTimings = [
-  { step: 'intro', startPercent: 0 },
-  { step: 'before', startPercent: 12 },
-  { step: 'after', startPercent: 45 },
-  { step: 'metrics', startPercent: 72 },
-];
-
-const stepOrder = ['intro', 'before', 'after', 'metrics'];
-
 const GDSlide3BeforeAfter = ({
   isPlaying = false,
   isLoading = false,
@@ -43,30 +33,6 @@ const GDSlide3BeforeAfter = ({
   onPause,
   onNextSlide,
 }: SlideNarrationProps) => {
-  const [activeStep, setActiveStep] = useState<string>('metrics');
-  const [isNarrationControlled, setIsNarrationControlled] = useState(false);
-
-  useEffect(() => {
-    if (isPlaying && progress > 0) {
-      setIsNarrationControlled(true);
-      const currentTiming = [...stepTimings].reverse().find(t => progress >= t.startPercent);
-      if (currentTiming) {
-        setActiveStep(currentTiming.step);
-      }
-    } else if (!isPlaying && isNarrationControlled && hasCompleted) {
-      setActiveStep('metrics');
-      setIsNarrationControlled(false);
-    } else if (!isPlaying && !isNarrationControlled) {
-      setActiveStep('metrics');
-    }
-  }, [isPlaying, progress, hasCompleted, isNarrationControlled]);
-
-  const isVisible = (step: string) => {
-    const activeIndex = stepOrder.indexOf(activeStep);
-    const stepIndex = stepOrder.indexOf(step);
-    return stepIndex <= activeIndex;
-  };
-
   return (
     <GDSlideContainer
       id="gd-slide-3"
@@ -85,9 +51,7 @@ const GDSlide3BeforeAfter = ({
         {/* Main Before/After Grid */}
         <div className="grid lg:grid-cols-2 gap-4 flex-1">
           {/* Before Column */}
-          <div className={`bg-card/30 border border-destructive/20 rounded-xl p-4 flex flex-col transition-all duration-500 ${
-            isVisible('before') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-          }`}>
+          <div className="bg-card/30 border border-destructive/20 rounded-xl p-4 flex flex-col">
             {/* Label inside card */}
             <div className="inline-flex self-start px-3 py-1 mb-2 bg-destructive/20 border border-destructive/30 rounded text-xs font-semibold text-destructive uppercase tracking-wider">
               Before: Fragmented Intelligence
@@ -127,18 +91,14 @@ const GDSlide3BeforeAfter = ({
           </div>
 
           {/* Transformation Arrow - Center */}
-          <div className={`hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-300 ${
-            isVisible('after') ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-          }`}>
+          <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
             <div className="w-10 h-10 rounded-full bg-primary border-2 border-sky-400 shadow-lg shadow-primary/30 flex items-center justify-center">
               <ArrowRight className="w-5 h-5 text-white" />
             </div>
           </div>
 
           {/* After Column */}
-          <div className={`bg-card/30 border border-primary/20 rounded-xl p-4 flex flex-col transition-all duration-500 ${
-            isVisible('after') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-          }`}>
+          <div className="bg-card/30 border border-primary/20 rounded-xl p-4 flex flex-col">
             {/* Label inside card */}
             <div className="inline-flex self-start px-3 py-1 mb-2 bg-primary/20 border border-primary/30 rounded text-xs font-semibold text-primary uppercase tracking-wider">
               After: Connected Intelligence
@@ -179,9 +139,7 @@ const GDSlide3BeforeAfter = ({
         </div>
 
         {/* Metrics Banner */}
-        <div className={`bg-card border border-border/50 rounded-xl p-3 transition-all duration-500 ${
-          isVisible('metrics') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div className="bg-card border border-border/50 rounded-xl p-3">
           <div className="grid grid-cols-3 gap-3">
             {metrics.map((metric, i) => (
               <div key={i} className="text-center">
