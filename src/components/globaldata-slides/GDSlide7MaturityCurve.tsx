@@ -1,9 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import GDSlideContainer from "./GDSlideContainer";
 import RoadmapStageDetails, { RoadmapStage } from "./RoadmapStageDetails";
 import GDMaturitySummaryBanner from "./GDMaturitySummaryBanner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { SlideNarrationProps } from "@/types/slideProps";
+import { getGlobalDataNarration } from "@/data/globalDataNarration";
+import { computeStageTimingsFromScript } from "@/utils/narrationTimingUtils";
+
+// Marker phrases for each stage in the narration script (slideId: 7)
+const STAGE_MARKERS = [
+  { stage: 1, phrase: "At stage one," },
+  { stage: 2, phrase: "At stage two," },
+  { stage: 3, phrase: "Stage three changes everything." },
+  { stage: 4, phrase: "Stage four embeds intelligence into action." },
+  { stage: 5, phrase: "And stage five—predictive." },
+];
+
+// Fallback timings if script parsing fails
+const FALLBACK_TIMINGS = [
+  { stage: 1, startPercent: 8 },
+  { stage: 2, startPercent: 20 },
+  { stage: 3, startPercent: 32 },
+  { stage: 4, startPercent: 45 },
+  { stage: 5, startPercent: 55 },
+];
 
 // New data structure focused on Ways of Working (actions, behaviors, use cases)
 const roadmapStagesData: RoadmapStage[] = [
@@ -107,14 +127,6 @@ const curveAnnotations: Record<number, string[]> = {
   4: ["Decisions in days, not weeks", "Prioritised interventions", "Faster decisions"],
   5: ["See disruption before it hits", "Human-in-loop control", "Continuous proof"],
 };
-// Timing markers for narration-synced stage changes
-const stageTimings = [
-  { stage: 1, startPercent: 8 },
-  { stage: 2, startPercent: 20 },
-  { stage: 3, startPercent: 32 },
-  { stage: 4, startPercent: 45 },
-  { stage: 5, startPercent: 55 },
-];
 
 const GDSlide7MaturityCurve = ({
   isPlaying = false,
@@ -129,6 +141,21 @@ const GDSlide7MaturityCurve = ({
   const [isNarrationControlled, setIsNarrationControlled] = useState(false);
   const isMobile = useIsMobile();
 
+  // Compute stage timings from script at runtime
+  const stageTimings = useMemo(() => {
+    const narration = getGlobalDataNarration(7);
+    if (!narration?.script) {
+      console.warn("[GDSlide7MaturityCurve] No narration script found, using fallback timings");
+      return FALLBACK_TIMINGS;
+    }
+    return computeStageTimingsFromScript(
+      narration.script,
+      STAGE_MARKERS,
+      1.5, // lag percent
+      FALLBACK_TIMINGS
+    );
+  }, []);
+
   // Curve is always visible - activeStage animation syncs with narration
 
   // Sync stage with narration progress
@@ -141,7 +168,7 @@ const GDSlide7MaturityCurve = ({
         .find(t => progress >= t.startPercent);
       
       if (currentTiming && currentTiming.stage !== activeStage) {
-        setActiveStage(currentTiming.stage);
+        setActiveStage(currentTiming.stage as number);
       }
     } else if (!isPlaying && isNarrationControlled) {
       // Narration stopped - keep current stage but release control
