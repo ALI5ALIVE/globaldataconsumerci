@@ -129,7 +129,13 @@ Stage four embeds intelligence into action. Automated alerts when share drops. D
 
 And stage five—predictive. Ava flags an emerging competitor launch six weeks before announcement. Recommends which products to defend, which to deprioritize. You validate in hours, not weeks. "Ava recommends pausing Product X investment based on weakening trend signal"—and you've already pivoted before competitors notice.
 
-The roadmap isn't just about maturity levels—it's about transforming how your teams actually work together. Each stage unlocks new capabilities, new speed, new ways of operating.`,
+But here's the hidden cost most executives miss—where your teams actually spend their time.
+
+At stage one, sixty percent of analyst time goes to reconciling conflicting data sources. Thirty percent to actual analysis. Just ten percent on strategic work. That's your most expensive people doing data janitoring instead of driving growth.
+
+By stage five, that ratio inverts completely. Only five percent on reconciliation—because there's one truth. Twenty percent on analysis. And seventy-five percent on strategic work that actually moves the business.
+
+The transformation isn't just about faster decisions. It's about liberating your teams to do the work that matters.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
