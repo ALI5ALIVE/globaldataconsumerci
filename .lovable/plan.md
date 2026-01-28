@@ -1,104 +1,81 @@
 
 
-# Make Slide 9 (The Return) Completely Static
+# Fix: Make Curve Visible Immediately on Slide 08 (Your Roadmap)
+
+## Problem
+When landing on Slide 08 ("Your Roadmap to Predictive Performance"), the hockey stick curve is invisible because visibility is gated by narration state:
+
+```tsx
+const isAnimated = isPlaying || progress > 0 || hasCompleted;
+```
+
+This causes `isAnimated = false` on initial load, and the curve/markers have `opacity-0` classes applied.
 
 ## Goal
-Remove all animation logic from "The Return" slide so that all content (3 ROI pillars, key message, and 5 stage bars) is visible immediately on load as static content.
-
----
-
-## Current State
-The slide has complex animation logic:
-- `computeTimingsFromScript()` function that derives animation timings from narration
-- `activeStep` and `highlightedStage` states controlling visibility
-- `useEffect` syncing animations to narration progress
-- `isVisible()` and `isPillarVisible()` helper functions
-- Conditional opacity/translate classes on pillars and key message
-- Stage bars with dynamic highlighting based on progress
+- **Curve visible immediately** when the slide loads
+- **Stage walk animation** still syncs to narration (activeStage advances as stages are mentioned)
 
 ---
 
 ## Changes Required
 
-### File: `src/components/globaldata-slides/GDSlide8ROI.tsx`
+### File: `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
 
-### 1. Remove Animation Logic
-Delete the following:
-- `computeTimingsFromScript()` function (lines 41-99)
-- `stepOrder` constant (line 101)
-- All state variables: `activeStep`, `highlightedStage`, `isNarrationControlled`, `hasEverPlayed` (lines 116-123)
-- The `useMemo` call for timings (line 113)
-- The entire `useEffect` block (lines 125-150)
-- `isVisible()` and `isPillarVisible()` helper functions (lines 152-158)
-- Import for `getGlobalDataNarration` (line 5)
-
-### 2. Update UI to Static Display
-
-**ROI Pillars (lines 180-184):**
-Change from:
+### 1. Remove the `isAnimated` gating variable
+Delete line 208:
 ```tsx
-className={`... ${isPillarVisible(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+const isAnimated = isPlaying || progress > 0 || hasCompleted;
+```
+
+### 2. Update curve path to always be visible
+Line 358 - Change from:
+```tsx
+className={`transition-all duration-1000 ${isAnimated ? "opacity-100" : "opacity-0"}`}
 ```
 To:
 ```tsx
-className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group flex flex-col"
+className="opacity-100"
 ```
 
-**Compounding Message (lines 219-221):**
-Change from:
+### 3. Update "Connected Intelligence" marker to always be visible
+Line 363 - Change from:
 ```tsx
-className={`... ${isVisible('compounding') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+<g className={`transition-opacity duration-700 delay-500 ${isAnimated ? "opacity-100" : "opacity-0"}`}>
 ```
 To:
 ```tsx
-className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-4"
+<g className="opacity-100">
 ```
 
-**Stage Bars (lines 238-260):**
-Change from dynamic highlighting logic to static graduated display:
+### 4. Update stage marker circles to always be visible
+Lines 385, 393, 403 - Remove `isAnimated` conditional and `transitionDelay`:
+
+Change from:
 ```tsx
-{[1, 2, 3, 4, 5].map((stage) => (
-  <div key={stage} className="flex flex-col items-center">
-    <div 
-      className="w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg"
-      style={{ 
-        height: `${16 + stage * 16}px`,
-        opacity: 0.4 + (stage * 0.12)
-      }}
-    />
-    <span className="text-[10px] mt-1.5 text-muted-foreground">
-      Stage {stage}
-    </span>
-  </div>
-))}
+className={`transition-all duration-300 ${isAnimated ? "opacity-100" : "opacity-0"}`}
+style={{ transitionDelay: `${index * 80}ms` }}
+```
+To:
+```tsx
+className="transition-all duration-300 opacity-100"
 ```
 
----
-
-## Simplified Component Structure
-
-After changes, the component will:
-1. Keep all visual elements (3 pillars, key message, 5 stage bars)
-2. Show everything immediately on load
-3. Pass narration props to container for play button functionality
-4. Have no internal animation state
+(Apply this to the outer circle, inner circle, and stage number text)
 
 ---
 
 ## What Stays the Same
-- The `roiPillars` data array with all benefits
-- The visual layout and styling
-- The key message content
-- The 5 stage bars in the compounding chart
-- Narration props passed to `GDSlideContainer` (play button still works)
+- `activeStage` state and its sync to narration progress via `useEffect`
+- Stage highlighting (active stage gets larger radius and glow)
+- Click-to-select stage functionality
+- Stage details panel updates based on `activeStage`
+- All other styling and layout
 
 ---
 
 ## Result
-Slide 9 (The Return) will display:
-- All 3 ROI pillars (Speed, Growth, Cost) with their metrics (70%, 2x, 30%)
-- The key message about ROI compounding
-- All 5 stage bars showing the maturity progression
-
-All content visible immediately as static elements - no animation, no progressive reveal.
+- **On load**: Full curve visible with all 5 stage markers, Stage 1 highlighted by default
+- **During narration**: `activeStage` advances to 2, 3, 4, 5 as narrator mentions each stage
+- **Active stage**: Gets visual emphasis (larger circle, glow, accent color on label)
+- **Click interaction**: User can still click any stage to view its details
 
