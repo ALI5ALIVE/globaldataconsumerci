@@ -1,147 +1,83 @@
 
 
-# Remove Animations from Slides 2-5 & Make Content Visible Immediately
-
-## What You Asked For
-1. Remove the progressive reveal animations from slides 2, 3, 4, and 5
-2. Show all content immediately when the slide loads (no blank screen)
-3. For slide 5, have the narration highlight each solution section while talking through them at a high level
-
----
+# Enhanced Narration Script for Slide 5: "Intelligence That Compounds Across the Value Chain"
 
 ## Current Problem
-All four slides currently use a "progressive reveal" animation pattern:
-- Content starts hidden (`opacity-0`, `translate-x/y`)
-- As narration progresses, each section fades/slides in
-- Without narration playing, you see a partial or blank screen initially
+The existing narration script (slideId: 5) is too generic and doesn't:
+1. **Name each solution directly** (Strategic, Market, Competitive, Innovation, Sales Intelligence)
+2. **Explain the value proposition** of each solution combination
+3. **Show how combinations resolve specific pains** and create new intelligence opportunities
+4. **Walk through the value chain** in a way that matches the visual highlighting
+
+## Current Script Analysis
+The current script mentions workflow stages but uses vague language like "Strategy and Portfolio" instead of naming the actual solutions (Strategic + Market Intelligence). It doesn't explain WHY the combinations matter.
 
 ---
 
-## Solution Summary
+## Revised Narration Script
 
-### Slides 2, 3, 4: Remove All Animation Logic
-- Remove the `isVisible()` function and step-based visibility
-- Remove all opacity/translate animation classes from elements
-- All content will be visible immediately when the slide loads
-- Narration will play over a fully-visible, static slide
+Here is the enhanced script that explicitly names each solution, its combination, and the value it creates:
 
-### Slide 5: Keep Highlighting, Show All Content
-- Remove opacity/visibility animations so all workflow stages are visible from the start
-- Keep the highlighting logic that emphasizes each stage as narration progresses
-- The narration already talks through the 5 value chain stages in order
-- Adjust timing to match when narration mentions each stage
+```
+Connected Intelligence works across the full value chain. Let me show you how each solution combines to create compounding value.
 
----
+Stage one: Trend and Strategy. Here, Strategic Intelligence and Market Intelligence work together—we call this combination "Where to Play." Market Intelligence quantifies the opportunity: how big is it, how fast is it growing, what's the trajectory. Strategic Intelligence translates that into priority actions: which forces are shaping this category, what should we do about it. Together, they resolve a critical pain—investment decisions built on assumptions instead of evidence—and create confident, future-proof portfolio choices.
 
-## Detailed Changes
+Stage two: White Space. Now Market, Innovation, and Competitive Intelligence combine for "Opportunity Discovery." Market Intelligence shows where growth is. Competitive Intelligence reveals where rivals aren't. Innovation Intelligence validates whether consumers actually want what you're considering. The pain resolved? Gut-feel NPD decisions that lead to forty percent launch failures. The opportunity created? A validated pipeline of whitespace opportunities before R&D commits a single pound.
 
-### Slide 2 - GDSlide2IntelligenceGap.tsx
+Stage three: Concept Screening. Here Innovation and Competitive Intelligence combine as "How to Win." Innovation Intelligence tests which concepts resonate with real consumers. Competitive Intelligence ensures your positioning exploits gaps competitors can't easily close. The pain resolved? Products that R&D develops but consumers don't actually want. The opportunity? Two times NPD success rate, with optimal claims validated before creative spend.
 
-**Remove:**
-- `stepTimings` array (lines 44-52)
-- `stepOrder` array (line 54)
-- `activeStep` state and `isNarrationControlled` state
-- `useEffect` that controls step visibility (lines 68-81)
-- `isVisible()`, `isCauseVisible()`, `isImpactVisible()` functions
+Stage four: Market Entry. Sales, Market, and Competitive Intelligence combine for "How to Execute." Sales Intelligence generates retailer-specific sell-in stories—different for Tesco, different for Carrefour. Market Intelligence provides the defensible TAM and growth facts buyers need. Competitive Intelligence shows exactly where you'll differentiate on shelf. The pain resolved? Generic pitches that don't resonate with buyers. The opportunity? Twenty-five percent higher listing success and premium placement.
 
-**Modify:**
-- Remove all conditional opacity/translate classes from:
-  - Definition box (line 108-109)
-  - Root cause cards (lines 128-129)
-  - Impact cards (lines 153-154)
-  - Bottom line box (lines 171-172)
+Stage five: Post-Launch. Sales, Competitive, and Market Intelligence combine for "Continuous Intelligence." Sales Intelligence tracks promo effectiveness and distribution performance. Competitive Intelligence monitors rival responses and pricing moves. Market Intelligence benchmarks share shifts against category dynamics. The pain resolved? Reacting to competitive threats after share is already lost. The opportunity? Thirty percent faster response to market changes, and continuous portfolio optimisation.
 
-**Result:** All content visible immediately, no animations
+The key insight? Each stage builds on the last. The intelligence you generate in Trend and Strategy flows into White Space. The concepts you validate in Screening inform your Market Entry story. And Post-Launch performance feeds back into next year's Strategy. Five stages. Five solution combinations. One connected system where intelligence compounds.
+```
 
 ---
 
-### Slide 3 - GDSlide3BeforeAfter.tsx
+## Technical Implementation
 
-**Remove:**
-- `stepTimings` array (lines 28-33)
-- `stepOrder` array (line 35)
-- `activeStep` state and `isNarrationControlled` state
-- `useEffect` that controls step visibility (lines 49-62)
-- `isVisible()` function
+### File to Modify
+`src/data/globalDataNarration.ts`
 
-**Modify:**
-- Remove all conditional opacity/translate classes from:
-  - Before column (lines 88-89)
-  - Transformation arrow (lines 130-131)
-  - After column (lines 139-140)
-  - Metrics banner (lines 182-183)
+### Changes Required
+Update the `slideId: 5` entry with the new script:
 
-**Result:** Both Before and After panels visible immediately, metrics visible
+| Line | Change |
+|------|--------|
+| 82-97 | Replace the existing script with the enhanced version above |
 
----
+### Timing Synchronization
+The visual highlighting in `GDSlide5ValueChain.tsx` already has these timings:
+- Stage 0 (Trend & Strategy): 12%
+- Stage 1 (White Space): 28%
+- Stage 2 (Concept Screening): 45%
+- Stage 3 (Market Entry): 62%
+- Stage 4 (Post-Launch): 78%
 
-### Slide 4 - GDSlide4Proposition.tsx
-
-**Remove:**
-- `stepTimings` array (lines 15-19)
-- `stepOrder` array (line 21)
-- `activeStep` state visibility logic
-- Step-based visibility from `useEffect`
-- `isVisible()` function
-
-**Modify:**
-- Remove all conditional opacity/translate/scale classes from:
-  - Central value proposition box (lines 95-96)
-  - Intelligence domains hub grid (lines 104-105)
-  - Bottom callout (lines 122-123)
-
-**Keep:**
-- `segmentTimings` for wheel segment highlighting during narration
-- `activeSegment` state for wheel interaction
-- User interaction handlers for wheel hover/click
-
-**Result:** Wheel and all content visible immediately, segments still highlight during narration
+The new script is structured to match this pacing. Each stage is clearly introduced so the visual highlight will sync with when the narrator says "Stage one...", "Stage two...", etc.
 
 ---
 
-### Slide 5 - GDSlide5ValueChain.tsx
+## Word Count and Timing
+- **New script**: ~400 words
+- **Estimated duration at 140 wpm**: ~2.9 minutes
+- **Current script**: ~95 words (~40 seconds)
 
-**Remove:**
-- Any opacity-based visibility animations
-
-**Keep and Enhance:**
-- `stepTimings` array for stage highlighting (lines 91-97)
-- `activeStage` state for highlighting which stage is being discussed
-- `isStageHighlighted()` function
-
-**Modify:**
-- Ensure all 5 workflow stage cards are always visible (full opacity)
-- The highlighting (border color, scale, shadow) still applies to show which stage narration is discussing
-- Update narration timing to match the script more precisely:
-
-**Narration Analysis for Slide 5:**
-| Stage | Narrator Says | Current % | Corrected % |
-|-------|--------------|-----------|-------------|
-| Stage 0 (Trend & Strategy) | "Strategy and Portfolio: Where to play..." | 15% | 12% |
-| Stage 1 (White Space) | "Innovation and Product: Trend discovery..." | 30% | 28% |
-| Stage 2 (Concept Screening) | "Brand, Pricing and Claims..." | 45% | 45% |
-| Stage 3 (Market Entry) | "Go-to-Market and Sales..." | 60% | 62% |
-| Stage 4 (Post-Launch) | "In-Market Performance..." | 75% | 78% |
-
-**Result:** All 5 stages visible from the start, active stage highlights as narrator discusses each
+This is a significant expansion, which gives proper time to highlight each stage and explain the value. If you want a shorter version, we can trim the "pain resolved / opportunity created" language, but I recommend keeping it for the executive audience.
 
 ---
 
-## Files to Modify
+## Summary of What the New Script Achieves
 
-| File | Changes |
-|------|---------|
-| `GDSlide2IntelligenceGap.tsx` | Remove all animation logic, make all content always visible |
-| `GDSlide3BeforeAfter.tsx` | Remove all animation logic, make all content always visible |
-| `GDSlide4Proposition.tsx` | Remove step animations, keep wheel segment highlighting |
-| `GDSlide5ValueChain.tsx` | Keep all content visible, maintain stage highlighting with corrected timings |
+| Stage | Solutions Named | Combination Name | Pain Resolved | Opportunity Created |
+|-------|-----------------|------------------|---------------|---------------------|
+| Trend & Strategy | Strategic + Market | Where to Play | Investment on assumptions | Confident portfolio choices |
+| White Space | Market + Innovation + Competitive | Opportunity Discovery | Gut-feel NPD failures | Validated pipeline |
+| Concept Screening | Innovation + Competitive | How to Win | Products consumers don't want | 2x NPD success |
+| Market Entry | Sales + Market + Competitive | How to Execute | Generic pitches | 25% higher listings |
+| Post-Launch | Sales + Competitive + Market | Continuous Intelligence | Reactive to threats | 30% faster response |
 
----
-
-## Expected Outcome
-
-After implementation:
-- **Slides 2, 3, 4:** All content visible immediately when slide loads - no blank screen, no progressive reveals
-- **Slide 5:** All 5 value chain stages visible from the start; as narration plays, each stage gets a highlight effect (border glow, slight scale) when the narrator discusses it
-- **User interaction still works:** Hover/click on wheel (slide 4) and stages (slide 5) still functional when not narration-controlled
+The script ends with a "compounding" message that reinforces the slide's core theme: intelligence generated at each stage flows into the next, creating exponential value.
 
