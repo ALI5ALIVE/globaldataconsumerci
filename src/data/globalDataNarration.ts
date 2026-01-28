@@ -116,24 +116,20 @@ Most organisations are at stage one or two. The question is: how fast can you cl
   },
   {
     slideId: 7,
-    title: "The Intelligence Maturity Roadmap",
-    script: `This is your roadmap—the measurable journey from fragmented insight to predictive performance. Let me walk you through each stage and what it takes to reach the top.
+    title: "Your Roadmap to Predictive Performance",
+    script: `This is your roadmap—the specific actions and ways of working that unlock each stage. Let me show you what actually changes as you climb.
 
-At stage one—Fragmented—you're at the bottom. Insights scattered, no shared taxonomy, decisions debated for weeks. High decision latency and missed windows. Most organisations start here.
+At stage one, teams request insights via email and wait weeks for responses. Brand, innovation, and commercial teams each maintain separate data sources. The question that wastes the most time? "Which data do we trust?" Decision cycles stretch to twelve weeks or more.
 
-By stage two—Managed—you've got structure within silos. Individual domains are working well, but intelligence is still disconnected. Cross-functional alignment remains elusive.
+At stage two, you've got structure within silos. Brand runs a health tracker. Innovation runs a pipeline tool. Competitive runs a monitor. They share quarterly reports, but work from different baselines. The example that defines this stage? "Here's the brand health update"—but the NPD team has completely different consumer segmentation. Six to eight weeks to decision.
 
-Stage three—Connected—is the platform shift. This is where everything changes. Market, consumer, commercial intelligence unified into one governed system. Shared taxonomy established. Reconciliation time drops sixty percent. This unified foundation is non-negotiable—without it, the next two stages remain out of reach.
+Stage three changes everything. One search across all data. Real-time dashboards shared cross-functionally. The debate about which data to trust disappears—because there's one truth. "Pull the integrated view for UK protein snacks"—done in ten minutes, not three days. Decision time drops to two to three weeks.
 
-Now, here's where the real transformation begins.
+Stage four embeds intelligence into action. Automated alerts when share drops. Decision recommendations surfaced proactively. What took a week now takes three to five days. The example? "Alert: Competitor launched at fifteen percent lower price—here's the recommended response." Same-day action, not same-month.
 
-Stage four—Optimised. This is where connected intelligence becomes operational intelligence. Intelligence embedded directly into decision workflows. AI augmentation with automated trend detection. Continuous improvement cycles across all functions. The outcome? Decisions in days, not weeks. Seventy percent faster decision cycles. But this is only possible because you built the connected foundation first.
+And stage five—predictive. Ava flags an emerging competitor launch six weeks before announcement. Recommends which products to defend, which to deprioritize. You validate in hours, not weeks. "Ava recommends pausing Product X investment based on weakening trend signal"—and you've already pivoted before competitors notice.
 
-And stage five—Predictive. The aspiration state. AI anticipates market shifts before they surface. Proactive positioning recommendations generated automatically. Decisions made before competitors can react. The outcome? Two times higher launch success. Thirty percent lower total cost of ownership. Category performance through speed and foresight. This is the key to unlocking sustainable category leadership—but it requires every stage that came before it.
-
-The critical insight? Stages four and five—Optimised and Predictive—are not just higher levels. They represent entirely new capabilities that are impossible without a unified foundation. You cannot optimise what is disconnected. You cannot predict with fragmented data. Connected intelligence is the gateway.
-
-The sooner you start climbing, the faster value compounds. And the returns at the top? They're transformational.`,
+The roadmap isn't just about maturity levels—it's about transforming how your teams actually work together. Each stage unlocks new capabilities, new speed, new ways of operating.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
