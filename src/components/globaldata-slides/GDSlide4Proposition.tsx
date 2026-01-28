@@ -14,8 +14,8 @@ const segmentTimings = [
 
 const stepTimings = [
   { step: 'intro', startPercent: 0 },
-  { step: 'wheel', startPercent: 20 },
-  { step: 'callout', startPercent: 80 },
+  { step: 'wheel', startPercent: 28 },
+  { step: 'callout', startPercent: 78 },
 ];
 
 const stepOrder = ['intro', 'wheel', 'callout'];
