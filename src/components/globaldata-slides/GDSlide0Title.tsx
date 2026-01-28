@@ -144,7 +144,7 @@ const GDSlide0Title = ({
 
       {/* Slide number - aligned with content */}
       <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 max-w-5xl">
-        <span className="text-sm font-medium text-muted-foreground">00</span>
+        <span className="text-sm font-medium text-muted-foreground">01</span>
       </div>
     </section>
   );
