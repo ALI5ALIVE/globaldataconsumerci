@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BarChart3, ShoppingCart, TrendingUp, MessageCircle, FileSpreadsheet, Table2, PieChart, LayoutDashboard } from "lucide-react";
 
 interface GDFragmentationIllustrationProps {
@@ -29,15 +29,6 @@ const brokenConnections = [
 
 const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustrationProps) => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [warningPulse, setWarningPulse] = useState(0);
-
-  // Animate warning pulse
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWarningPulse(prev => (prev + 1) % 100);
-    }, 50);
-    return () => clearInterval(interval);
-  }, []);
 
   // Larger radius for full width display
   const nodeRadius = 35;
@@ -131,7 +122,7 @@ const GDFragmentationIllustration = ({ onNodeClick }: GDFragmentationIllustratio
 
         {/* Warning indicators with ≠ symbol - positioned above some nodes */}
         {[{ x: 175, y: 32 }, { x: 350, y: 28 }, { x: 525, y: 30 }].map((pos, index) => {
-          const pulseOpacity = 0.4 + 0.3 * Math.sin((warningPulse + index * 50) * 0.1);
+          const pulseOpacity = 0.7;
           
           return (
             <g key={`warning-${index}`} style={{ filter: "url(#gdWarningPulse)" }}>

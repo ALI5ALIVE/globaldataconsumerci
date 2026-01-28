@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface GDBeforeSilosIllustrationProps {
   onNodeClick?: (node: string) => void;
@@ -28,14 +28,6 @@ const brokenConnections = [
 
 const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationProps) => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  const [warningPulse, setWarningPulse] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWarningPulse((prev) => !prev);
-    }, 800);
-    return () => clearInterval(interval);
-  }, []);
 
   const nodeRadius = 32;
 
@@ -215,10 +207,10 @@ const GDBeforeSilosIllustration = ({ onNodeClick }: GDBeforeSilosIllustrationPro
           <circle
             cx={pos.x}
             cy={pos.y}
-            r={warningPulse ? 7 : 6}
+            r={6}
             fill="hsl(30, 90%, 55%)"
             style={{ filter: "url(#beforeWarningPulse)" }}
-            opacity={warningPulse ? 0.9 : 0.7}
+            opacity={0.85}
           />
           <text
             x={pos.x}
