@@ -109,11 +109,11 @@ const curveAnnotations: Record<number, string[]> = {
 };
 // Timing markers for narration-synced stage changes
 const stageTimings = [
-  { stage: 1, startPercent: 12 },
-  { stage: 2, startPercent: 28 },
-  { stage: 3, startPercent: 45 },
-  { stage: 4, startPercent: 62 },
-  { stage: 5, startPercent: 78 },
+  { stage: 1, startPercent: 8 },
+  { stage: 2, startPercent: 20 },
+  { stage: 3, startPercent: 32 },
+  { stage: 4, startPercent: 45 },
+  { stage: 5, startPercent: 55 },
 ];
 
 const GDSlide7MaturityCurve = ({
