@@ -1,62 +1,56 @@
 
+## What’s happening (root cause)
+On Slide 9, the “bars” are technically being rendered with a height, but their **background style is invalid**, so they appear invisible and you only see the stage names.
 
-# Plan: Fix Stage Color Bars Not Rendering on Slide 9
+In `GDSlide8ROI.tsx`, the bar background is currently set like this:
 
-## Issue
+- `background: linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
 
-The maturity stage bars (Fragmented, Managed, Connected, Optimised, Predictive) are showing only the stage names without the colored bars. The bars have a `height` set correctly but the `background` color is not rendering.
+This worked when `stage.color` was a hex color (e.g. `#0066ff`), because `#0066ffcc` is valid hex-with-alpha.
 
-## Root Cause
+But now `stage.color` is an HSL string (e.g. `hsl(0, 70%, 50%)`), and appending `cc` produces:
+- `hsl(0, 70%, 50%)cc` which is **not valid CSS**, so the browser drops the background and the bar looks empty.
 
-The HSL color values in `stageConfig` use the modern CSS Color Level 4 space-separated format:
-```javascript
-{ name: "Fragmented", color: "hsl(0 70% 50%)" }
-```
+## Fix approach (safe + consistent)
+We’ll stop trying to append `cc` and instead define bar colors using **HSLA** (HSL + alpha), which is valid and cross-browser reliable.
 
-When used in inline styles with template literals for `linear-gradient`, browser compatibility can be inconsistent. The comma-separated HSL format has better cross-browser support:
-```javascript
-{ name: "Fragmented", color: "hsl(0, 70%, 50%)" }
-```
+### 1) Update `stageConfig` to include two colors per stage
+Instead of only `color`, we’ll store:
+- `barFrom`: opaque color (alpha 1)
+- `barTo`: same color but translucent (alpha ~0.25–0.35)
+- keep a `labelColor` (or just reuse `barFrom`) for text
 
-## Solution
+Example:
+- Fragmented:
+  - `barFrom: "hsla(0, 70%, 50%, 1)"`
+  - `barTo: "hsla(0, 70%, 50%, 0.3)"`
 
-Update all HSL color values in the `stageConfig` array to use the comma-separated format for maximum browser compatibility.
+### 2) Update the bar style to use the valid gradient
+Replace:
+- `linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
 
-### File: `src/components/globaldata-slides/GDSlide8ROI.tsx`
+With:
+- `linear-gradient(to top, ${stage.barFrom}, ${stage.barTo})`
 
-**Lines 38-44 - Update `stageConfig` colors:**
+### 3) Keep the “value increases with maturity” behavior
+We’ll preserve the increasing height logic:
+- Stage 1 shortest → Stage 5 tallest  
+So the chart visually communicates “more maturity = more value unlocked”.
 
-| Current | Fixed |
-|---------|-------|
-| `hsl(0 70% 50%)` | `hsl(0, 70%, 50%)` |
-| `hsl(199 89% 48%)` | `hsl(199, 89%, 48%)` |
-| `hsl(173 80% 40%)` | `hsl(173, 80%, 40%)` |
-| `hsl(280 65% 55%)` | `hsl(280, 65%, 55%)` |
-| `hsl(45 93% 58%)` | `hsl(45, 93%, 58%)` |
+### 4) Quick visual verification checklist (after implementation)
+On Slide 9:
+- You should see 5 colored bars (red, sky, teal, purple, gold)
+- Each bar gets taller left → right
+- Labels appear in the matching stage color
+- The CTA stays in place above the chart
 
-## Technical Details
+## Files to change
+- `src/components/globaldata-slides/GDSlide8ROI.tsx`
 
-The fix simply adds commas between the HSL values:
+## Technical notes (implementation detail)
+- This fix is purely front-end styling (no backend work).
+- HSLA is widely supported and avoids “hex alpha vs hsl alpha” pitfalls.
+- This change also makes future palette adjustments safer (no string concatenation tricks).
 
-```javascript
-const stageConfig = [
-  { name: "Fragmented", color: "hsl(0, 70%, 50%)" },
-  { name: "Managed", color: "hsl(199, 89%, 48%)" },
-  { name: "Connected", color: "hsl(173, 80%, 40%)" },
-  { name: "Optimised", color: "hsl(280, 65%, 55%)" },
-  { name: "Predictive", color: "hsl(45, 93%, 58%)" },
-];
-```
-
-## Files Changed
-
-| File | Lines | Change |
-|------|-------|--------|
-| `src/components/globaldata-slides/GDSlide8ROI.tsx` | 38-44 | Add commas to HSL color values for browser compatibility |
-
-## Outcome
-
-- All five stage bars will render with their correct colors (red, sky blue, teal, purple, gold)
-- Bar heights will correctly increase from Fragmented (shortest) to Predictive (tallest)
-- Stage name labels will display in their matching colors below each bar
-
+## Estimated effort
+- 5–10 minutes to implement + verify in preview
