@@ -8,11 +8,11 @@ import { computeStageTimingsFromScript } from "@/utils/narrationTimingUtils";
 
 // Marker phrases for each stage in the narration script (slideId: 6)
 const STAGE_MARKERS = [
-  { stage: "FRAGMENTED", phrase: "At the base:" },
-  { stage: "MANAGED", phrase: "Stage two:" },
-  { stage: "CONNECTED", phrase: "Stage three:" },
-  { stage: "OPTIMISED", phrase: "Stage four:" },
-  { stage: "PREDICTIVE", phrase: "And at the apex:" },
+  { stage: "FRAGMENTED", phrase: "At the base: Fragmented and Reactive." },
+  { stage: "MANAGED", phrase: "Stage two: Managed but Siloed." },
+  { stage: "CONNECTED", phrase: "Stage three: Connected and Governed." },
+  { stage: "OPTIMISED", phrase: "Stage four: Operational Intelligence." },
+  { stage: "PREDICTIVE", phrase: "And at the apex: Predictive and Adaptive." },
 ];
 
 // Fallback timings if script parsing fails
@@ -32,11 +32,11 @@ const layersData: GDLayerData[] = [
     headline: "Predictive & Adaptive Category Performance",
     sublabel: "AI-Driven Foresight",
     whatItLooksLike: [
-      "AI-driven market predictions integrated into strategic planning cycles",
-      "Real-time intelligence embedded across all functions",
+      "Ava anticipates market shifts across all five intelligence domains simultaneously",
+      "AI recommends which products to defend, which opportunities to pursue, which threats to monitor",
       "Self-learning systems that auto-detect emerging trends, risks, and opportunities",
       "Category intelligence as a core board-level capability",
-      "Ava anticipates market shifts before competitors can react",
+      "Every insight builds on every other—value compounds exponentially",
     ],
     result: [
       "Data-led category performance, outpacing competition",
@@ -45,7 +45,7 @@ const layersData: GDLayerData[] = [
       "First-mover advantage becomes systematic",
     ],
     whyItMatters:
-      "The aspiration for every consumer brand: AI anticipates while humans control. This level of predictive, agentic capability is only possible with connected foundations—and replicating it internally would take years. Intelligence becomes an unassailable competitive moat.",
+      "The intelligence value compounds exponentially. Ava anticipates across all five domains simultaneously—unlocking value that's impossible at lower stages. This is the capability that defines future category leaders.",
     colorClass: "bg-gradient-to-b from-pyramid-transformational to-pyramid-transformational/80",
     accentColor: "hsl(45 93% 58%)",
     behavioralShift: {
@@ -69,10 +69,10 @@ const layersData: GDLayerData[] = [
     headline: "Optimised Intelligence",
     sublabel: "Intelligence in Action",
     whatItLooksLike: [
-      "Intelligence embedded directly into decision workflows",
-      "Consumer, category, and commercial insights connected in unified models",
-      "AI augmentation: automated trend detection, decision recommendations",
-      "Category insights embedded into key commercial and innovation decisions",
+      "AI is no longer siloed—it's orchestrating across all five intelligence domains",
+      "Automated alerts when market conditions shift",
+      "Proactive recommendations across all five domains",
+      "The intelligence system doesn't wait to be asked—it surfaces what matters",
     ],
     result: [
       "Decisions in days, not weeks",
@@ -80,7 +80,7 @@ const layersData: GDLayerData[] = [
       "Measurable performance improvement across KPIs",
     ],
     whyItMatters:
-      "Connected intelligence becomes operational intelligence. Decisions in days, not weeks—only possible because you built the connected foundation first.",
+      "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected system. New ways of working become possible.",
     colorClass: "bg-gradient-to-b from-pyramid-commercial to-pyramid-commercial/80",
     accentColor: "hsl(280 65% 55%)",
     behavioralShift: {
@@ -104,19 +104,19 @@ const layersData: GDLayerData[] = [
     headline: "Connected & Governed Intelligence",
     sublabel: "Unified Platform",
     whatItLooksLike: [
-      "Unified taxonomy, governance, and KPIs across all data types and markets",
-      "Democratized, self-service access to insights",
-      "Consistent brand safety, compliance, and usage policies globally",
-      "Market, Consumer, Commercial intelligence unified into one governed system",
+      "Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy",
+      "The depth and quality of intelligence, not just the connection",
+      "AI can finally learn across functions—enabling truly aligned AI strategy",
+      "Democratized, self-service access to insights with proper governance",
     ],
     result: [
-      "Speed-to-insight improves; dependency on specialists reduced",
-      "Improved governance and confidence, foundation for optimization",
-      "Reconciliation time drops 60%",
+      "Reconciliation time drops 60%—because there's one truth",
       "Foundation for AI-powered optimization and prediction",
+      "Speed-to-insight improves; dependency on specialists reduced",
+      "Improved governance and confidence",
     ],
     whyItMatters:
-      "This is the platform shift that unlocks new ways of working. Without connected, governed data, true agentic and predictive capabilities remain impossible—and building this foundation internally takes 3-5 years. Buy vs build: the gap widens every quarter you delay.",
+      "This is where AI becomes truly valuable. Five best-in-class solutions sharing one taxonomy means AI can learn across your entire intelligence landscape—not just automate individual tools. This is the foundation for a truly aligned AI strategy.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
     behavioralShift: {
@@ -140,18 +140,18 @@ const layersData: GDLayerData[] = [
     headline: "Managed but Siloed Intelligence",
     sublabel: "Silo Optimisation",
     whatItLooksLike: [
-      "Multiple data sources and visualization tools in use",
+      "AI may exist within individual tools—but it's siloed",
+      "It automates what you already have, not enabling new ways of working",
+      "Strong tools within market, innovation, consumer, competitive domains—but fragmented",
       "Data ownership exists but is fragmented by function or region",
-      "Reporting is regular, but mostly backward-looking",
-      "Strong tools within market, innovation, consumer, competitive domains",
     ],
     result: [
       "Partial efficiency gains—but still limited strategic leverage",
-      "Intelligence is trusted but not connected — progress is incremental",
+      "Intelligence is trusted but not connected—progress is incremental",
       "No shared view of demand across the organization",
     ],
     whyItMatters:
-      "Silos prevent AI from learning across the organization. Progress stops here without unification.",
+      "AI at this stage just automates silos—it can't learn across the organisation. You're optimising fragments while competitors build connected advantages.",
     colorClass: "bg-gradient-to-b from-pyramid-foundation to-pyramid-foundation/80",
     accentColor: "hsl(199 89% 48%)",
     behavioralShift: {
@@ -187,7 +187,7 @@ const layersData: GDLayerData[] = [
       "Launches fail due to incomplete intelligence",
     ],
     whyItMatters:
-      "AI cannot function on fragmented data—organizations here are locked out of the AI advantage. This is where most organizations start.",
+      "AI cannot function on fragmented data—you're locked out of the intelligence advantage entirely. This is where most organisations start, but staying here guarantees falling behind.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
     behavioralShift: {
@@ -299,8 +299,8 @@ const GDSlide6ValuePyramid = ({
   return (
     <GDSlideContainer
       id="slide-6"
-      title="Where Is Your Organisation Today?"
-      subtitle="Five stages of intelligence maturity—and why Stage 3 unlocks new ways of working"
+      title="The Intelligence Maturity Ladder: Where Are You?"
+      subtitle="The higher you climb, the more your intelligence compounds—critical for future success."
       slideNumber={7}
       isPlaying={narrationPlaying}
       isLoading={narrationLoading}

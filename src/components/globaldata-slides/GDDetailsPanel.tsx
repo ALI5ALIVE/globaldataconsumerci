@@ -7,28 +7,44 @@ import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
 // Level 3 (CONNECTED) = AI Enabled  
 // Level 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
 const AIReadinessIndicator = ({ level }: { level: number }) => {
-  if (level <= 2) {
-    // Stages 1-2 (FRAGMENTED/MANAGED) = AI Blocked
+  if (level === 1) {
+    // Stage 1 (FRAGMENTED) = AI Blocked
     return (
       <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-red-500/15 border border-red-500/30">
         <Lock className="w-3 h-3 text-red-400" />
         <span className="text-[9px] font-semibold text-red-400 uppercase tracking-wider">AI Blocked</span>
       </div>
     );
+  } else if (level === 2) {
+    // Stage 2 (MANAGED) = AI Siloed
+    return (
+      <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-orange-500/15 border border-orange-500/30">
+        <Lock className="w-3 h-3 text-orange-400" />
+        <span className="text-[9px] font-semibold text-orange-400 uppercase tracking-wider">AI Siloed</span>
+      </div>
+    );
   } else if (level === 3) {
-    // Stage 3 (CONNECTED) = AI Enabled
+    // Stage 3 (CONNECTED) = AI Aligned
     return (
       <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/30">
         <Cpu className="w-3 h-3 text-emerald-400" />
-        <span className="text-[9px] font-semibold text-emerald-400 uppercase tracking-wider">AI Enabled</span>
+        <span className="text-[9px] font-semibold text-emerald-400 uppercase tracking-wider">AI Aligned</span>
+      </div>
+    );
+  } else if (level === 4) {
+    // Stage 4 (OPTIMISED) = AI Operational
+    return (
+      <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/30">
+        <Cpu className="w-3 h-3 text-amber-400" />
+        <span className="text-[9px] font-semibold text-amber-400 uppercase tracking-wider">AI Operational</span>
       </div>
     );
   } else {
-    // Stages 4-5 (OPERATIONAL/PREDICTIVE) = AI Optimized
+    // Stage 5 (PREDICTIVE) = AI Agentic
     return (
       <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-amber-500/15 border border-amber-500/30">
         <Sparkles className="w-3 h-3 text-amber-400" />
-        <span className="text-[9px] font-semibold text-amber-400 uppercase tracking-wider">AI Optimized</span>
+        <span className="text-[9px] font-semibold text-amber-400 uppercase tracking-wider">AI Agentic</span>
       </div>
     );
   }

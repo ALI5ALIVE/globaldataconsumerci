@@ -99,19 +99,19 @@ The key insight? Each stage builds on the last. The intelligence you generate in
   {
     slideId: 6,
     title: "Intelligence Maturity Ladder",
-    script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—from fragmented point solutions to connected intelligence that drives category performance.
+    script: `Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—and here's the critical insight: the higher you climb, the more your intelligence compounds. Not just faster decisions—fundamentally different capability.
 
-At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. High vendor spend, low self-service, missed windows.
+At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. At this stage, AI simply can't help you—there's no connected data for it to learn from. You're locked out of the intelligence advantage entirely.
 
-Stage two: Managed but Siloed. Strong systems in specific domains, but fragmented by function. Reporting is regular but backward-looking. Structured intelligence, but limited cross-functional value.
+Stage two: Managed but Siloed. You've got strong systems in specific domains. Brand has a tracker. Innovation has a pipeline tool. Competitive has a monitor. And yes—AI may exist within each of these tools. But here's the limitation: it's siloed. AI at this stage just automates what you already have. It can't learn across functions. It can't enable new ways of working. You're optimising fragments while competitors are building connected advantages.
 
-Stage three: Connected and Governed. Unified taxonomy and governance. Self-service access with proper governance. This is the platform shift—reconciliation time drops sixty percent.
+Stage three: Connected and Governed. This is where everything changes. Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy. It's not just the connection that matters. It's the depth and quality of intelligence, governed and aligned. AI can finally learn across your entire organisation. This is where a truly aligned AI strategy becomes possible. Reconciliation time drops sixty percent—because there's one truth.
 
-Stage four: Operational Intelligence. Analytics embedded in daily workflows. AI augmentation with automated trend detection. Decisions in days, not weeks.
+Stage four: Operational Intelligence. Now AI isn't just informed—it's embedded in your workflows. Automated alerts when market conditions shift. Proactive recommendations across all five domains. The intelligence system doesn't wait to be asked—it surfaces what matters. Decisions in days, not weeks.
 
-And at the apex: Predictive and Adaptive. AI anticipates market shifts before competitors react. Category performance through speed and foresight.
+And at the apex: Predictive and Adaptive. Ava anticipates market shifts across all five intelligence domains simultaneously. It recommends which products to defend, which opportunities to pursue, which threats to monitor. The value compounds exponentially—because every insight builds on every other. This is the capability that will define future category leaders.
 
-Most organisations are at stage one or two. The question is: how fast can you climb?`,
+Most organisations are at stage one or two. The question isn't whether AI exists in your tools—it probably does. The question is: how fast can you climb to where AI truly compounds your intelligence?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
