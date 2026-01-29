@@ -56,7 +56,7 @@ const GDSlide4Proposition = ({
     <GDSlideContainer
       id="gd-slide-4"
       title="The Answer: Connected Intelligence"
-      subtitle="One system that moves faster, aligns better, and acts with confidence"
+      subtitle="One solution that moves faster, aligns better, and acts with confidence"
       slideNumber={5}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -70,7 +70,7 @@ const GDSlide4Proposition = ({
         {/* Central Value Proposition */}
         <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-2">
           <p className="text-[13px] md:text-sm font-medium text-foreground leading-snug text-center">
-            A unified solution that connects <span className="text-primary font-bold">market, consumer, competitor, innovation, and commercial intelligence</span> into one trusted system—so organisations <span className="text-primary font-bold">move faster, align better, and act with confidence</span>.
+            A unified solution that connects <span className="text-primary font-bold">market, consumer, competitor, innovation, and commercial intelligence</span> into one trusted solution—so organisations <span className="text-primary font-bold">move faster, align better, and act with confidence</span>.
           </p>
         </div>
 

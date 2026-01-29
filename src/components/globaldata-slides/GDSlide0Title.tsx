@@ -6,7 +6,7 @@ const agendaItems = [
   { num: 1, label: "Market Pressure", summary: "Speed rewarded, hesitation punished" },
   { num: 2, label: "Intelligence Gap", summary: "Where growth and performance are lost" },
   { num: 3, label: "Transformation", summary: "From fragmented to connected" },
-  { num: 4, label: "The Answer", summary: "One system, faster, aligned, confident" },
+  { num: 4, label: "The Answer", summary: "One solution, faster, aligned, confident" },
   { num: 5, label: "Value Chain", summary: "Trend to shelf—compounding intelligence" },
   { num: 6, label: "Your Position", summary: "Five stages—Stage 3 changes everything" },
   { num: 7, label: "Your Roadmap", summary: "Reactive to first-mover" },

@@ -102,7 +102,7 @@ const GDSlide9WhyGlobalData = ({
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-4">
             <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-2">Performance Imperative</p>
             <p className="text-sm text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of consumer brand leaders</span>.
+              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected solution will define the <span className="font-bold text-primary">next generation of consumer brand leaders</span>.
             </p>
           </div>
 
