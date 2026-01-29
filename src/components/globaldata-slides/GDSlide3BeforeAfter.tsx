@@ -12,7 +12,7 @@ const beforeItems = [
 ];
 
 const afterItems = [
-  { icon: Database, label: "Unified system", desc: "One connected platform" },
+  { icon: Database, label: "Unified solution", desc: "One connected platform" },
   { icon: CheckCircle2, label: "Shared truth", desc: "Single taxonomy" },
   { icon: Zap, label: "Embedded workflows", desc: "Automated orchestration" },
   { icon: TrendingUp, label: "Confident, fast action", desc: "Aligned decisions" },

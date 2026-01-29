@@ -62,7 +62,7 @@ const layersData: GDLayerData[] = [
       "AI is no longer siloed—it's orchestrating across all five intelligence domains",
       "Automated alerts when market conditions shift",
       "Proactive recommendations across all five domains",
-      "The intelligence system doesn't wait to be asked—it surfaces what matters",
+      "The intelligence solution doesn't wait to be asked—it surfaces what matters",
     ],
     result: [
       "Decisions in days, not weeks",
@@ -70,7 +70,7 @@ const layersData: GDLayerData[] = [
       "Measurable performance improvement across KPIs",
     ],
     whyItMatters:
-      "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected system. New ways of working become possible.",
+      "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected solution. New ways of working become possible.",
     colorClass: "bg-gradient-to-b from-pyramid-commercial to-pyramid-commercial/80",
     accentColor: "hsl(280 65% 55%)",
     valueProof: {

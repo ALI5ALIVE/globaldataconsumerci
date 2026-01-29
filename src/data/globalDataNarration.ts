@@ -61,7 +61,7 @@ This gap is where growth stalls, relevance erodes, and performance suffers.`,
 
 Look at the left side—this is where most organisations are today. Siloed insights fragmented across tools. Different taxonomies with no common language. Manual reconciliation. Slow, debated decisions. Twelve-plus weeks to decision, three to five sources to reconcile.
 
-Now look at the right side. A unified system on one connected platform. Shared truth through a single taxonomy. Embedded workflows with automated orchestration. Confident, fast action with aligned decisions. Days to decision, one source of truth.
+Now look at the right side. A unified solution on one connected platform. Shared truth through a single taxonomy. Embedded workflows with automated orchestration. Confident, fast action with aligned decisions. Days to decision, one source of truth.
 
 The transformation: Decision cycles seventy percent faster. Launch approach shifts from reactive to proactive with two times higher success. Tool landscape moves from sprawl to unified with thirty percent lower total cost of ownership.`,
     voiceId: DEFAULT_VOICE_ID,
@@ -71,7 +71,7 @@ The transformation: Decision cycles seventy percent faster. Launch approach shif
     title: "Connected Intelligence for Consumer Brands",
     script: `This is Connected Intelligence for Consumer Brands. It closes the Intelligence Gap.
 
-A unified solution that connects market, consumer, competitor, innovation, and commercial intelligence into one trusted system—so organisations move faster, align better, and act with confidence.
+A unified solution that connects market, consumer, competitor, innovation, and commercial intelligence into one trusted solution—so organisations move faster, align better, and act with confidence.
 
 Hover over each segment of the wheel to explore. You'll see the specific jobs each solution does, the pains it solves, and real examples from consumer brands like yours.
 
@@ -93,7 +93,7 @@ Stage four: Market Entry. Sales, Market, and Competitive Intelligence combine fo
 
 Stage five: Post-Launch. Sales, Competitive, and Market Intelligence combine for "Continuous Intelligence." Sales Intelligence tracks promo effectiveness and distribution performance. Competitive Intelligence monitors rival responses and pricing moves. Market Intelligence benchmarks share shifts against category dynamics. The pain resolved? Reacting to competitive threats after share is already lost. The opportunity? Thirty percent faster response to market changes, and continuous portfolio optimisation.
 
-The key insight? Each stage builds on the last. The intelligence you generate in Trend and Strategy flows into White Space. The concepts you validate in Screening inform your Market Entry story. And Post-Launch performance feeds back into next year's Strategy. Five stages. Five solution combinations. One connected system where intelligence compounds.`,
+The key insight? Each stage builds on the last. The intelligence you generate in Trend and Strategy flows into White Space. The concepts you validate in Screening inform your Market Entry story. And Post-Launch performance feeds back into next year's Strategy. Five stages. Five solution combinations. One connected solution where intelligence compounds.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -107,7 +107,7 @@ Stage two: Managed but Siloed. You've got strong systems in specific domains. Br
 
 Stage three: Connected and Governed. This is where everything changes. Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy. It's not just the connection that matters. It's the depth and quality of intelligence, governed and aligned. AI can finally learn across your entire organisation. This is where a truly aligned AI strategy becomes possible. Reconciliation time drops sixty percent—because there's one truth.
 
-Stage four: Operational Intelligence. Now AI isn't just informed—it's embedded in your workflows. Automated alerts when market conditions shift. Proactive recommendations across all five domains. The intelligence system doesn't wait to be asked—it surfaces what matters. Decisions in days, not weeks.
+Stage four: Operational Intelligence. Now AI isn't just informed—it's embedded in your workflows. Automated alerts when market conditions shift. Proactive recommendations across all five domains. The intelligence solution doesn't wait to be asked—it surfaces what matters. Decisions in days, not weeks.
 
 And at the apex: Predictive and Adaptive. Ava anticipates market shifts across all five intelligence domains simultaneously. It recommends which products to defend, which opportunities to pursue, which threats to monitor. The value compounds exponentially—because every insight builds on every other. This is the capability that will define future category leaders.
 
@@ -169,7 +169,7 @@ These three elements power our connected intelligence platform—moving your tea
 
 The result? Faster time to market. Stronger consumer connection. And consistent category gains.
 
-The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of consumer brand leaders.
+The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected solution will define the next generation of consumer brand leaders.
 
 The future belongs to brands that turn change into decisions—earlier, together, and with conviction.`,
     voiceId: DEFAULT_VOICE_ID,
