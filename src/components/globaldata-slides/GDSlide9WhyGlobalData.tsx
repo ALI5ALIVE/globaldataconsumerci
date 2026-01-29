@@ -6,30 +6,30 @@ const differentiators = [
   { 
     icon: Database, 
     title: "High-Impact Data", 
-    tagline: "Real-time, trusted, actionable",
-    desc: "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust.",
+    tagline: "Category, consumer, and competitive signals in one view",
+    desc: "Deep coverage across categories, brands, and consumer behaviour—analyst-validated and unified into one taxonomy. Earlier signals on trends, preferences, and competitive moves.",
     color: "from-primary to-sky-400"
   },
   { 
     icon: Sparkles, 
     title: "AI & Technology", 
-    tagline: "AI that accelerates execution",
-    desc: "Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most.",
+    tagline: "AI that accelerates insight to action",
+    desc: "Agentic AI that surfaces opportunities, predicts shifts, and guides teams to act—turning weeks of analysis into minutes of clarity.",
     color: "from-sky-400 to-cyan-400"
   },
   { 
     icon: Users, 
     title: "Human Expertise", 
-    tagline: "Domain experts who turn insight into impact",
-    desc: "Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.",
+    tagline: "Consumer specialists who translate insight into action",
+    desc: "Category analysts, consumer researchers, and strategic advisors embedded in your workflows—decoding consumer behaviour and translating intelligence into confident brand decisions.",
     color: "from-cyan-400 to-teal-400"
   },
 ];
 
 const closingTruths = [
-  { text: "Faster decision velocity", icon: Zap },
-  { text: "Stronger market attainment", icon: TrendingUp },
-  { text: "Consistent high-value wins", icon: Trophy },
+  { text: "Faster time to market", icon: Zap },
+  { text: "Stronger consumer connection", icon: TrendingUp },
+  { text: "Consistent category gains", icon: Trophy },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -90,7 +90,7 @@ const GDSlide9WhyGlobalData = ({
                 </span>
               </div>
               <p className="text-xs text-muted-foreground">
-                AI-powered research analyst that amplifies human expertise — accelerating insight discovery, pattern recognition, and decision support across all intelligence domains.
+                AI-powered research analyst that amplifies your teams — accelerating trend discovery, consumer pattern recognition, and decision support across brand, innovation, and category intelligence.
               </p>
             </div>
           </div>
@@ -102,7 +102,7 @@ const GDSlide9WhyGlobalData = ({
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-4">
             <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-2">Performance Imperative</p>
             <p className="text-sm text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of category performers</span>.
+              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected system will define the <span className="font-bold text-primary">next generation of consumer brand leaders</span>.
             </p>
           </div>
 
@@ -127,7 +127,7 @@ const GDSlide9WhyGlobalData = ({
         <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-5 text-center">
           <p className="text-[10px] font-semibold text-white/80 uppercase tracking-wider mb-1">The Result</p>
           <p className="text-base font-bold text-white leading-relaxed">
-            Faster decision velocity, stronger market attainment, and consistent high-value wins.
+            Faster time to market, stronger consumer connection, and consistent category gains.
           </p>
         </div>
       </div>
