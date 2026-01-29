@@ -155,23 +155,23 @@ Here's the key message: ROI compounds as organisations move up the maturity curv
   {
     slideId: 9,
     title: "Built for Connected Intelligence at Scale",
-    script: `Why GlobalData? Let me show you exactly how we deliver connected intelligence at scale.
+    script: `Why GlobalData? Let me show you exactly how we deliver connected intelligence built for consumer brands.
 
 Our platform brings together three essential elements.
 
-First: High-Impact Data. Real-time, trusted, actionable. Coverage of ninety-five percent of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust.
+First: High-Impact Data. Category, consumer, and competitive signals unified in one view. Deep coverage across categories, brands, and consumer behaviour—analyst-validated and structured into a single taxonomy. Earlier signals on trends, preferences, and competitive moves that matter to your business.
 
-Second: AI and Technology that accelerates execution. This is Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding your teams to act when timing matters most.
+Second: AI and Technology that accelerates insight to action. This is Agentic AI that surfaces opportunities, predicts consumer shifts, and guides your teams to act—turning weeks of analysis into minutes of clarity.
 
-Third: Human Expertise. Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.
+Third: Human Expertise. Category analysts, consumer researchers, and strategic advisors embedded in your workflows—decoding consumer behaviour and translating intelligence into confident brand decisions.
 
 These three elements power our connected intelligence platform—moving your teams from reactive to precision execution.
 
-The result? Faster decision velocity. Stronger market attainment. And consistent high-value wins.
+The result? Faster time to market. Stronger consumer connection. And consistent category gains.
 
-The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category performers.
+The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of consumer brand leaders.
 
-The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.`,
+The future belongs to brands that turn change into decisions—earlier, together, and with conviction.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
