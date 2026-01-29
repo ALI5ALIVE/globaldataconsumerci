@@ -1,156 +1,150 @@
 
 
-# Plan: Enrich Slide 10 ("Why GlobalData") with Three-Pillar Delivery Model
+# Plan: Remove Animations & Improve Value Chain Narration Sync
 
-## Current State vs Reference Image
+## Overview
 
-| Aspect | Current Slide 10 | Reference Image (Target) |
-|--------|------------------|--------------------------|
-| **Pillar 1** | "Unmatched Proprietary Data" - 40+ years, 200+ markets | **"High-Impact Data"** - Real-time, trusted, actionable. 95% global GDP. Unified taxonomy. |
-| **Pillar 2** | "Human + AI at Scale" - 1,000+ analysts + Ava | **"AI & Technology"** - Agentic AI that acts, not reports. Forecasting, surfacing answers in seconds. |
-| **Pillar 3** | "Unified Taxonomy" - Single classification system | **"Human Expertise"** - Industry specialists, journalists, advisors embedded in workflows. |
-| **Title** | "Built for Connected Intelligence at Scale" | Aligns well - keep |
-| **Subtitle** | "Why GlobalData is uniquely positioned..." | Update to match delivery message |
+This plan addresses two slides:
+1. **Slide 2 ("The Market Rewards Speed and Punishes Delay")** - Remove progressive reveal animations
+2. **Slide 6 ("Intelligence That Compounds Across the Value Chain")** - Remove animations, ensure Trend & Strategy card shows on load, link combo pills to stages, and sync narration perfectly
 
-## Key Language Changes from Reference Image
+---
 
-### Three Pillars (New Content)
+## Changes for Slide 2
 
-| Pillar | Title | Tagline | Description |
-|--------|-------|---------|-------------|
-| **Data** | High-Impact Data | Real-time, trusted, actionable | Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust. |
-| **AI** | AI & Technology | AI that accelerates execution | Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most. |
-| **Expertise** | Human Expertise | Domain experts who turn insight into impact | Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action. |
+### File: `src/components/globaldata-slides/GDSlide1GrowthReality.tsx`
 
-### Core Value Statement (From Reference)
-"Our connected intelligence platform unites high-impact data, AI, and human expertise to move teams from reactive to precision execution."
+**Current Behavior:**
+- Content progressively reveals as narration plays (uses `isVisible()` function)
+- Pain points, paradox, and callout sections animate in with opacity/translate
 
-### Result Statement (From Reference)
-"The result: Faster decision velocity, stronger market attainment, and consistent high-value wins."
+**New Behavior:**
+- All content visible immediately when slide loads
+- Remove the conditional visibility logic based on narration progress
+- Keep the narration sync logic for future highlighting if needed, but all content is always visible
 
-## Files to Modify
+**Changes:**
+1. Remove the `isVisible(stepKey)` conditional classes on all elements
+2. Remove the `opacity-0 translate-y-4` and `opacity-0 -translate-x-4` animation states
+3. All cards render with full opacity and no transform animations
 
-### 1. `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx`
+---
 
-**Update `differentiators` array:**
+## Changes for Slide 6 (Value Chain)
 
+### File: `src/components/globaldata-slides/GDSlide5ValueChain.tsx`
+
+**Current Behavior:**
+- Defaults to stage 0 (Trend & Strategy) on load - this is correct
+- Uses `animate-fade-in` on the detail panel
+- Combo pills highlight multiple stages but don't show detailed content
+
+**New Behavior:**
+1. **Remove `animate-fade-in`** from the detail panel
+2. **Ensure Stage 1 (Trend & Strategy) card is always the default** when user navigates to slide
+3. **Update combo pill behavior** to show the first associated stage's full details when clicked:
+   - "Where to Play" → Shows Trend & Strategy (stage 0) details
+   - "How to Win" → Shows Concept Screening (stage 2) details
+   - "How to Execute" → Shows Market Entry (stage 3) details
+
+4. **Update narration sync timings** to match the exact phrases in the script:
+   - The script mentions each stage explicitly, so we align animations to those phrases
+
+### Updated Stage Timings (based on narration script)
+
+The narration script for slideId: 5 has these key phrases:
+
+| Stage | Phrase | Approximate % |
+|-------|--------|---------------|
+| 0 - Trend & Strategy | "Stage one: Trend and Strategy" | 8% |
+| 1 - White Space | "Stage two: White Space" | 25% |
+| 2 - Concept Screening | "Stage three: Concept Screening" | 40% |
+| 3 - Market Entry | "Stage four: Market Entry" | 55% |
+| 4 - Post-Launch | "Stage five: Post-Launch" | 70% |
+
+**Updated `stepTimings` array:**
 ```typescript
-const differentiators = [
-  { 
-    icon: Database, 
-    title: "High-Impact Data", 
-    tagline: "Real-time, trusted, actionable",
-    desc: "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust.",
-    color: "from-primary to-sky-400"
-  },
-  { 
-    icon: Sparkles, // Changed from Users
-    title: "AI & Technology", 
-    tagline: "AI that accelerates execution",
-    desc: "Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most.",
-    color: "from-sky-400 to-cyan-400"
-  },
-  { 
-    icon: Users, // Changed from Layers
-    title: "Human Expertise", 
-    tagline: "Domain experts who turn insight into impact",
-    desc: "Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.",
-    color: "from-cyan-400 to-teal-400"
-  },
+const stepTimings = [
+  { index: 0, startPercent: 8 },   // Stage one: Trend and Strategy
+  { index: 1, startPercent: 25 },  // Stage two: White Space
+  { index: 2, startPercent: 40 },  // Stage three: Concept Screening
+  { index: 3, startPercent: 55 },  // Stage four: Market Entry
+  { index: 4, startPercent: 70 },  // Stage five: Post-Launch
 ];
 ```
 
-**Update subtitle:**
-- From: "Why GlobalData is uniquely positioned to close the Intelligence Gap"
-- To: "High-impact data, AI, and human expertise—moving you from reactive to precision execution"
+### Combo Pill Mapping
 
-**Update closing truths:**
+Update the combo pills to show detailed content for the primary stage:
+
+| Combo | Primary Stage to Show |
+|-------|----------------------|
+| "Where to Play" | Trend & Strategy (index 0) |
+| "How to Win" | Concept Screening (index 2) |
+| "How to Execute" | Market Entry (index 3) |
+
+**Changes to `handleComboHover` function:**
 ```typescript
-const closingTruths = [
-  { text: "Faster decision velocity", icon: Zap },
-  { text: "Stronger market attainment", icon: TrendingUp },
-  { text: "Consistent high-value wins", icon: Trophy },
-];
+const handleComboHover = (index: number | null) => {
+  if (!isNarrationControlled) {
+    setActiveCombo(index);
+    if (index !== null) {
+      // Set active stage to the primary stage for this combo
+      const primaryStageMap: Record<number, number> = {
+        0: 0,  // "Where to Play" → Trend & Strategy
+        1: 2,  // "How to Win" → Concept Screening
+        2: 3,  // "How to Execute" → Market Entry
+      };
+      setActiveStage(primaryStageMap[index]);
+    }
+  }
+};
 ```
 
-**Update Final Takeaway:**
-- From: "The future belongs to organisations that turn change into decisions..."
-- To: "The result: Faster decision velocity, stronger market attainment, and consistent high-value wins."
+---
 
-### 2. `src/data/globalDataNarration.ts` (slideId: 9)
+## Summary of Code Changes
 
-**Revised Narration Script:**
+| File | Change |
+|------|--------|
+| `GDSlide1GrowthReality.tsx` | Remove `isVisible()` conditional classes; all content renders at full opacity with no animation delays |
+| `GDSlide5ValueChain.tsx` | Remove `animate-fade-in` from detail panel; update `stepTimings` for precise narration sync; update `handleComboHover` to show primary stage details when combo is selected |
 
-```text
-Why GlobalData? Let me show you exactly how we deliver connected intelligence at scale.
+---
 
-Our platform brings together three essential elements.
+## Technical Details
 
-First: High-Impact Data. Real-time, trusted, actionable. Coverage of ninety-five percent of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust.
+### GDSlide1GrowthReality.tsx - Lines to modify
 
-Second: AI and Technology that accelerates execution. This is Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding your teams to act when timing matters most.
+**Lines 92-99** (Pain point cards):
+Remove: `${isVisible(stepKey) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`
 
-Third: Human Expertise. Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.
+**Lines 121-122** (Paradox card):
+Remove: `${isVisible('paradox') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`
 
-These three elements power our connected intelligence platform—moving your teams from reactive to precision execution.
+**Lines 136-137** (Real Problem card):
+Remove: `${isVisible('realProblem') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`
 
-The result? Faster decision velocity. Stronger market attainment. And consistent high-value wins.
+**Lines 153-154** (Bottom callout):
+Remove: `${isVisible('callout') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`
 
-The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category performers.
+### GDSlide5ValueChain.tsx - Lines to modify
 
-The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.
-```
+**Line 275** (Detail panel):
+Remove: `animate-fade-in` class
 
-## Updated Layout Structure
+**Lines 91-97** (stepTimings):
+Update percentages to match narration phrases more precisely
 
-```text
-+------------------------------------------------------------------+
-| Built for Connected Intelligence at Scale                          |
-| High-impact data, AI, and human expertise—moving you from          |
-| reactive to precision execution                                    |
-+------------------------------------------------------------------+
-|                                                                    |
-|  +------------------+  +------------------+  +------------------+  |
-|  | HIGH-IMPACT DATA |  | AI & TECHNOLOGY  |  | HUMAN EXPERTISE  |  |
-|  | Real-time,       |  | AI that          |  | Domain experts   |  |
-|  | trusted,         |  | accelerates      |  | who turn insight |  |
-|  | actionable       |  | execution        |  | into impact      |  |
-|  |                  |  |                  |  |                  |  |
-|  | 95% global GDP   |  | Agentic AI that  |  | Specialists,     |  |
-|  | coverage...      |  | acts, not just   |  | journalists,     |  |
-|  |                  |  | reports...       |  | advisors...      |  |
-|  +------------------+  +------------------+  +------------------+  |
-|                                                                    |
-+------------------------------------------------------------------+
-|  [Ava Highlight - Enterprise AI Analyst]                          |
-+------------------------------------------------------------------+
-|  Performance Imperative        | Results:                         |
-|  Close the Intelligence Gap    | • Faster decision velocity       |
-|  → Next-gen performers         | • Stronger market attainment     |
-|                                | • Consistent high-value wins     |
-+------------------------------------------------------------------+
-|  THE RESULT: Faster decision velocity, stronger market             |
-|  attainment, and consistent high-value wins.                       |
-+------------------------------------------------------------------+
-```
+**Lines 138-143** (handleComboHover):
+Update to set activeStage to the primary stage for the selected combo
 
-## Summary of Changes
+---
 
-| File | Changes |
-|------|---------|
-| `GDSlide9WhyGlobalData.tsx` | Update `differentiators` with new 3-pillar content (Data, AI, Expertise), add taglines, update subtitle, update closing truths, update final takeaway |
-| `globalDataNarration.ts` | Revise slideId: 9 script to match new 3-pillar structure and language |
+## Result
 
-## Alignment with Deck Narrative
-
-This ensures Slide 10 answers "How does GlobalData deliver?" with:
-1. **High-Impact Data** - The foundation of trust
-2. **AI & Technology** - The acceleration layer  
-3. **Human Expertise** - The interpretation layer
-
-This complements:
-- Slide 7 (Maturity Ladder): "Where are you now?" — diagnosis
-- Slide 8 (Maturity Curve): "How does work change?" — transformation
-- Slide 9 (ROI): "What's the return?" — metrics
-- **Slide 10**: "How does GlobalData deliver it?" — the three pillars
-
+After these changes:
+1. Slide 2 will show all content immediately with no progressive reveal
+2. Slide 6 will show the Trend & Strategy card by default when user arrives
+3. Clicking combo pills will show the appropriate stage's full details (JTBD, Pain to Outcome, Real Example)
+4. Narration will sync precisely with stage transitions, highlighting each stage as it's mentioned
