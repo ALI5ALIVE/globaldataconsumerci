@@ -1,55 +1,114 @@
 
 
-# Plan: Replace "Dashboards" with "Intelligence-Driven Decision" Language
+# Plan: Refine Slide 10 for Consumer Brand Focus
 
 ## Overview
 
-Update Slide 7 (Pyramid) and Slide 8 (Maturity Curve) copy and narration to replace "dashboards" terminology with language that emphasizes intelligence driving decisions. This aligns with the core positioning that GlobalData provides actionable intelligence, not just data visualization.
+Update Slide 10 ("Built for Connected Intelligence at Scale") to use consumer-specific terminology, domain expertise examples, and language that resonates with consumer goods brands without being retail-specific. The three-pillar structure (Data, AI, Human Expertise) remains intact, but the content will speak directly to consumer brand challenges.
 
-## Current References Found
+## Current State Analysis
 
-| Location | Line | Current Text |
-|----------|------|--------------|
-| `GDSlide7MaturityCurve.tsx` | 58 | "Maintain domain-specific **dashboards** and workflows" |
-| `GDSlide7MaturityCurve.tsx` | 76 | "Share **dashboards** cross-functionally in real-time" |
-| `globalDataNarration.ts` | 126 | "Real-time **dashboards** shared cross-functionally" |
-
-Note: Slide 7 (GDSlide6ValuePyramid.tsx) does not contain any "dashboard" references.
+The current copy is generic/enterprise-focused:
+- "95% of global GDP" — impressive but not consumer-relevant
+- "Industry specialists, journalists, and advisors" — vague domain expertise
+- "Market attainment" — enterprise language, not consumer vernacular
+- Missing consumer-specific data types and use cases
 
 ## Proposed Changes
 
-### File 1: `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
+### File 1: `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx`
 
-**Stage 2 Key Actions (Line 58):**
+#### Three Pillars Update
+
+| Pillar | Current | Proposed (Consumer-Focused) |
+|--------|---------|----------------------------|
+| **High-Impact Data** | | |
+| Tagline | "Real-time, trusted, actionable" | "Category, consumer, and competitive signals in one view" |
+| Description | "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust." | "Deep coverage across categories, brands, and consumer behaviour—analyst-validated and unified into one taxonomy. Earlier signals on trends, preferences, and competitive moves." |
+| **AI & Technology** | | |
+| Tagline | "AI that accelerates execution" | "AI that accelerates insight to action" |
+| Description | "Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most." | "Agentic AI that surfaces opportunities, predicts shifts, and guides teams to act—turning weeks of analysis into minutes of clarity." |
+| **Human Expertise** | | |
+| Tagline | "Domain experts who turn insight into impact" | "Consumer specialists who translate insight into action" |
+| Description | "Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action." | "Category analysts, consumer researchers, and strategic advisors embedded in your workflows—decoding consumer behaviour and translating intelligence into confident brand decisions." |
+
+#### Closing Truths Update
+
 | Current | Proposed |
 |---------|----------|
-| "Maintain domain-specific dashboards and workflows" | "Maintain domain-specific intelligence tools and workflows" |
+| "Faster decision velocity" | "Faster time to market" |
+| "Stronger market attainment" | "Stronger consumer connection" |
+| "Consistent high-value wins" | "Consistent category gains" |
 
-**Stage 3 Key Actions (Line 76):**
+#### Performance Imperative Update
+
 | Current | Proposed |
 |---------|----------|
-| "Share dashboards cross-functionally in real-time" | "Share decision-ready intelligence cross-functionally in real-time" |
+| "...will define the next generation of category performers" | "...will define the next generation of consumer brand leaders" |
 
-### File 2: `src/data/globalDataNarration.ts`
+#### Final Takeaway Update
 
-**Slide 8 Narration Script (slideId: 7, Line 126):**
 | Current | Proposed |
 |---------|----------|
-| "Real-time dashboards shared cross-functionally" | "Real-time intelligence shared cross-functionally" |
+| "Faster decision velocity, stronger market attainment, and consistent high-value wins." | "Faster time to market, stronger consumer connection, and consistent category gains." |
 
-## Rationale
+#### Ava Description Update
 
-The word "dashboards" implies passive data visualization—something you look at. The replacement language emphasizes:
+| Current | Proposed |
+|---------|----------|
+| "AI-powered research analyst that amplifies human expertise — accelerating insight discovery, pattern recognition, and decision support across all intelligence domains." | "AI-powered research analyst that amplifies your teams — accelerating trend discovery, consumer pattern recognition, and decision support across brand, innovation, and category intelligence." |
 
-- **Stage 2**: "Intelligence tools" acknowledges structured systems exist but positions them as active components, not passive displays
-- **Stage 3**: "Decision-ready intelligence" reinforces that the platform delivers actionable insights, not just data views—intelligence that drives decisions
+### File 2: `src/data/globalDataNarration.ts` (Slide 10 narration, slideId: 9)
 
-This shift aligns with the core messaging: Connected Intelligence drives decisions, not just displays data.
+Update the narration script to match the consumer-focused copy:
+
+**Proposed Script:**
+
+```
+Why GlobalData? Let me show you exactly how we deliver connected intelligence built for consumer brands.
+
+Our platform brings together three essential elements.
+
+First: High-Impact Data. Category, consumer, and competitive signals unified in one view. Deep coverage across categories, brands, and consumer behaviour—analyst-validated and structured into a single taxonomy. Earlier signals on trends, preferences, and competitive moves that matter to your business.
+
+Second: AI and Technology that accelerates insight to action. This is Agentic AI that surfaces opportunities, predicts consumer shifts, and guides your teams to act—turning weeks of analysis into minutes of clarity.
+
+Third: Human Expertise. Category analysts, consumer researchers, and strategic advisors embedded in your workflows—decoding consumer behaviour and translating intelligence into confident brand decisions.
+
+These three elements power our connected intelligence platform—moving your teams from reactive to precision execution.
+
+The result? Faster time to market. Stronger consumer connection. And consistent category gains.
+
+The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of consumer brand leaders.
+
+The future belongs to brands that turn change into decisions—earlier, together, and with conviction.
+```
+
+## Summary of Terminology Shifts
+
+| Generic/Enterprise | Consumer-Focused |
+|-------------------|------------------|
+| Global GDP coverage | Category, brand, and consumer coverage |
+| Industry specialists | Category analysts, consumer researchers |
+| Market attainment | Consumer connection |
+| High-value wins | Category gains |
+| Decision velocity | Time to market |
+| Category performers | Consumer brand leaders |
+| Intelligence domains | Brand, innovation, and category intelligence |
 
 ## Files Changed Summary
 
 | File | Lines | Change |
 |------|-------|--------|
-| `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx` | 58, 76 | Replace dashboard references in Stage 2 and Stage 3 key actions |
-| `src/data/globalDataNarration.ts` | 126 | Update narration to match copy changes |
+| `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx` | 5-33, 92-93, 104-105, 129-130 | Update all three pillars, Ava description, closing truths, performance imperative, and final takeaway |
+| `src/data/globalDataNarration.ts` | 158-174 | Update full narration script for consumer brand focus |
+
+## Outcome
+
+The slide will:
+- Speak directly to consumer brand professionals using their language
+- Highlight domain expertise specific to categories, consumers, and competitive dynamics
+- Maintain the powerful three-pillar structure and visual impact
+- Avoid retail-specific terminology (no shelf, shopper, store references)
+- Strengthen resonance with the target audience throughout the deck's closing sequence
 
