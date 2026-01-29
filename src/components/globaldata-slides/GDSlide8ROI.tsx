@@ -36,11 +36,11 @@ const roiPillars = [
 ];
 
 const stageConfig = [
-  { name: "Fragmented", color: "hsl(0, 70%, 50%)" },
-  { name: "Managed", color: "hsl(199, 89%, 48%)" },
-  { name: "Connected", color: "hsl(173, 80%, 40%)" },
-  { name: "Optimised", color: "hsl(280, 65%, 55%)" },
-  { name: "Predictive", color: "hsl(45, 93%, 58%)" },
+  { name: "Fragmented", barFrom: "hsla(0, 70%, 50%, 1)", barTo: "hsla(0, 70%, 50%, 0.3)", labelColor: "hsl(0, 70%, 50%)" },
+  { name: "Managed", barFrom: "hsla(199, 89%, 48%, 1)", barTo: "hsla(199, 89%, 48%, 0.3)", labelColor: "hsl(199, 89%, 48%)" },
+  { name: "Connected", barFrom: "hsla(173, 80%, 40%, 1)", barTo: "hsla(173, 80%, 40%, 0.3)", labelColor: "hsl(173, 80%, 40%)" },
+  { name: "Optimised", barFrom: "hsla(280, 65%, 55%, 1)", barTo: "hsla(280, 65%, 55%, 0.3)", labelColor: "hsl(280, 65%, 55%)" },
+  { name: "Predictive", barFrom: "hsla(45, 93%, 58%, 1)", barTo: "hsla(45, 93%, 58%, 0.3)", labelColor: "hsl(45, 93%, 58%)" },
 ];
 
 const GDSlide8ROI = ({
@@ -145,12 +145,12 @@ const GDSlide8ROI = ({
                   className="w-14 rounded-t-lg"
                   style={{ 
                     height: `${16 + (index + 1) * 16}px`,
-                    background: `linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
+                    background: `linear-gradient(to top, ${stage.barFrom}, ${stage.barTo})`
                   }}
                 />
                 <span 
                   className="text-[9px] mt-1.5 font-medium"
-                  style={{ color: stage.color }}
+                  style={{ color: stage.labelColor }}
                 >
                   {stage.name}
                 </span>
