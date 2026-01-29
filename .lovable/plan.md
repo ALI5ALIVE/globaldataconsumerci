@@ -1,106 +1,145 @@
 
-## Goal
-Fix narration-to-animation synchronization so that when the narration begins describing the next stage, the visual (curve/pyramid) advances at that moment (no longer ~20% ahead).
 
-## What’s happening now (root cause)
-- The stage switching logic uses `progress` which is time-based (`currentTime / duration * 100`) from the audio player.
-- The current `stageTimings` values were derived from rough script-position estimates (character-based), not from time pacing.
-- Text-to-speech introduces variable pacing (pauses at line breaks, punctuation, emphasis), so “percent of script text” ≠ “percent of spoken audio time”.
-- Result: the UI switches stages earlier than the narration reaches that stage.
+# Revised Plan: Slide 7 - "The Intelligence Maturity Ladder"
 
-## Solution approach (robust, “spot on”)
-Replace hardcoded `stageTimings` with **script-derived timing markers** computed at runtime using:
-1) The actual narration script for that slide (already available via `getGlobalDataNarration(slideId)`).
-2) A set of stage “marker phrases” (the exact substrings that introduce each stage).
-3) A **weighted-duration estimator** that better approximates spoken time by assigning extra weight to pauses (newlines, periods, em dashes, etc.).
-4) A small configurable “safety lag” (optional, ~1–2%) so the animation triggers just as the phrase begins (not before).
+## Strategic Positioning
 
-This makes timings automatically adjust whenever the script changes, preventing future drift.
+The key insight from your feedback: **AI is available at all stages 2-5, but its value is fundamentally different.**
 
----
+| Stage | AI Status | The Reality |
+|-------|-----------|-------------|
+| **1 - Fragmented** | AI Blocked | Can't use AI - no connected data to learn from |
+| **2 - Managed** | AI Siloed | AI automates individual tools but can't learn across functions |
+| **3 - Connected** | AI Aligned | AI works across 5 best-in-class solutions with one taxonomy |
+| **4 - Optimised** | AI Operational | AI embedded in workflows, recommending actions |
+| **5 - Predictive** | AI Agentic | AI anticipates and acts proactively |
 
-## Files to update
-### 1) `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx` (Slide 8 UI)
-#### Changes
-- Import the script:
-  - `import { getGlobalDataNarration } from "@/data/globalDataNarration";`
-- Replace the hardcoded `stageTimings` constant with a computed one:
-  - Get script from `getGlobalDataNarration(7)` (this slide’s narration id is 7).
-  - Define marker phrases for each stage in order, matching the script exactly:
-    - Stage 1: `"At stage one,"`
-    - Stage 2: `"At stage two,"`
-    - Stage 3: `"Stage three changes everything."`
-    - Stage 4: `"Stage four embeds intelligence into action."`
-    - Stage 5: `"And stage five—predictive."`
-  - Compute `startPercent` for each marker using a weighted estimator.
-  - Apply a slight lag (example: `+1.5%`) to stage 2–5 to ensure the switch happens as the narration starts the line (not ahead). Stage 1 typically stays near the beginning and may not need lag.
-
-#### Implementation detail (estimator)
-Add a small helper inside the file (or extracted to a shared util if preferred later):
-- `computeWeightedProgressIndex(script: string, index: number): number`
-- `computeStageTimingsFromScript(script: string, markers: {stage:number, phrase:string}[]): {stage:number, startPercent:number}[]`
-
-Weighting proposal (tunable, but a strong starting point):
-- Base weight per character: `1`
-- Additional pause weights:
-  - `\n` newline: `+35` (big pause)
-  - `.` `!` `?`: `+18`
-  - `,` `;` `:`: `+8`
-  - em dash `—` / dash `-`: `+10`
-This doesn’t need to be perfect; it just needs to correlate better with TTS pacing than raw character count.
-
-Fallback behavior:
-- If any marker phrase can’t be found (script edited), fall back to the last known-good hardcoded timings, and log a warning in dev console.
+The core message: **As you climb, the value of your intelligence compounds. Not just faster—fundamentally different capability.**
 
 ---
 
-### 2) `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` (Slide 7 Pyramid UI)
-The user mentioned “pyramid” as well, so we should apply the same fix to prevent drift there too.
+## Distinct Objectives: Slide 7 vs Slide 8
 
-#### Changes
-- Import `getGlobalDataNarration` and compute `stageTimings` for slideId `6` (the pyramid narration).
-- Marker phrases for each stage in that script:
-  - Stage 1: `"At the base:"`
-  - Stage 2: `"Stage two:"`
-  - Stage 3: `"Stage three:"`
-  - Stage 4: `"Stage four:"`
-  - Stage 5: `"And at the apex:"`
-- Use the same weighted estimator and same small lag (stage 2–5).
-
-This ensures both:
-- Slide 7 pyramid advances exactly when each stage starts being described.
-- Slide 8 curve advances exactly when each stage starts being described.
+| Aspect | Slide 7 (Pyramid) | Slide 8 (Curve) |
+|--------|-------------------|-----------------|
+| **Question** | "Where are you now?" | "How does work change as you climb?" |
+| **Focus** | Position & capability diagnosis | Operational transformation journey |
+| **AI Message** | AI exists at 2-5 but value is siloed until Stage 3 | How AI changes daily workflows at each stage |
+| **Key Insight** | Stage 3 = 5 best-in-class solutions, one taxonomy | Time allocation shift (60% reconciliation → 75% strategy) |
 
 ---
 
-## Optional polish (recommended)
-### A) Make “Optimised/Optimized” consistent with the narration
-- The narration uses “Operational Intelligence” / “Optimised” conventions elsewhere.
-- In `GDSlide7MaturityCurve.tsx`, the labels currently show “Optimized”.
-- We can adjust the stage 4 label to “Optimised” (UK spelling) to match the rest of the deck conventions, without changing any logic.
+## Files to Modify
 
-### B) Debug overlay (temporary, dev-only)
-Add a small dev-only overlay on Slide 8 that shows:
-- Current `progress`
-- Current computed `startPercent` thresholds
-- Active stage
-This makes future fine-tuning fast. (Can be removed after validation.)
+### 1. `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+
+**Title & Subtitle Changes:**
+- **Title:** `"The Intelligence Maturity Ladder: Where Are You?"`
+- **Subtitle:** `"The higher you climb, the more your intelligence compounds—critical for future success."`
+
+**layersData Updates:**
+
+**Stage 1 (FRAGMENTED):**
+- `whyItMatters`: "AI cannot function on fragmented data—you're locked out of the intelligence advantage entirely. This is where most organisations start, but staying here guarantees falling behind."
+
+**Stage 2 (MANAGED):**
+- Add AI context to `whatItLooksLike`: "AI may exist within individual tools—but it's siloed. It automates what you already have, not enabling new ways of working."
+- `whyItMatters`: "AI at this stage just automates silos—it can't learn across the organisation. You're optimising fragments while competitors build connected advantages."
+
+**Stage 3 (CONNECTED):**
+- Emphasize the 5 solutions + taxonomy in `whatItLooksLike`:
+  - "Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy"
+  - "The depth and quality of intelligence, not just the connection"
+  - "AI can finally learn across functions—enabling truly aligned AI strategy"
+- `whyItMatters`: "This is where AI becomes truly valuable. Five best-in-class solutions sharing one taxonomy means AI can learn across your entire intelligence landscape—not just automate individual tools. This is the foundation for a truly aligned AI strategy."
+
+**Stage 4 (OPTIMISED):**
+- `whatItLooksLike`: Add "AI is no longer siloed—it's orchestrating across all five intelligence domains"
+- `whyItMatters`: "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected system. New ways of working become possible."
+
+**Stage 5 (PREDICTIVE):**
+- `whyItMatters`: "The intelligence value compounds exponentially. Ava anticipates across all five domains simultaneously—unlocking value that's impossible at lower stages. This is the capability that defines future category leaders."
 
 ---
 
-## Validation steps (what you’ll test)
-1) Go to Slide 7 (pyramid) and play narration:
-   - Confirm the pyramid changes stage exactly as the narration transitions: “At the base…”, “Stage two…”, etc.
-2) Go to Slide 8 (curve) and play narration:
-   - Confirm stage changes happen exactly as the narration says: “At stage one…”, “At stage two…”, etc.
-   - Confirm the animation stays on Stage 5 during the “hidden cost / where teams spend time” section (since that’s a conclusion, not a new stage).
-3) If any stage still feels early/late:
-   - Adjust only the small lag constant (e.g., from `1.5%` to `2.5%`) rather than editing five separate numbers again.
+### 2. `src/components/globaldata-slides/GDDetailsPanel.tsx`
+
+**Update AI Readiness Badges:**
+
+Current labels are too binary (Blocked/Enabled/Optimized). Update to reflect the nuance:
+
+| Level | Current Badge | New Badge | Color |
+|-------|--------------|-----------|-------|
+| 1 | AI Blocked | AI Blocked | Red |
+| 2 | AI Blocked | AI Siloed | Orange |
+| 3 | AI Enabled | AI Aligned | Green |
+| 4 | AI Optimized | AI Operational | Gold |
+| 5 | AI Optimized | AI Agentic | Gold |
+
+This communicates that AI exists at Stage 2 but is siloed—matching your feedback.
 
 ---
 
-## Why this will fix the “20% ahead” issue
-- The mismatch is caused by TTS timing (pauses and emphasis) not matching raw script length.
-- Weighting newlines and punctuation pulls the computed thresholds later (where the spoken audio actually is).
-- Using marker phrases means the visual changes at the exact conceptual transition points in the narration, and remains stable as you continue iterating the script.
+### 3. `src/data/globalDataNarration.ts` (slideId: 6)
+
+**Revised Narration Script:**
+
+```text
+Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—and here's the critical insight: the higher you climb, the more your intelligence compounds. Not just faster decisions—fundamentally different capability.
+
+At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. At this stage, AI simply can't help you—there's no connected data for it to learn from. You're locked out of the intelligence advantage entirely.
+
+Stage two: Managed but Siloed. You've got strong systems in specific domains. Brand has a tracker. Innovation has a pipeline tool. Competitive has a monitor. And yes—AI may exist within each of these tools. But here's the limitation: it's siloed. AI at this stage just automates what you already have. It can't learn across functions. It can't enable new ways of working. You're optimising fragments while competitors are building connected advantages.
+
+Stage three: Connected and Governed. This is where everything changes. Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy. It's not just the connection that matters. It's the depth and quality of intelligence, governed and aligned. AI can finally learn across your entire organisation. This is where a truly aligned AI strategy becomes possible. Reconciliation time drops sixty percent—because there's one truth.
+
+Stage four: Operational Intelligence. Now AI isn't just informed—it's embedded in your workflows. Automated alerts when market conditions shift. Proactive recommendations across all five domains. The intelligence system doesn't wait to be asked—it surfaces what matters. Decisions in days, not weeks.
+
+And at the apex: Predictive and Adaptive. Ava anticipates market shifts across all five intelligence domains simultaneously. It recommends which products to defend, which opportunities to pursue, which threats to monitor. The value compounds exponentially—because every insight builds on every other. This is the capability that will define future category leaders.
+
+Most organisations are at stage one or two. The question isn't whether AI exists in your tools—it probably does. The question is: how fast can you climb to where AI truly compounds your intelligence?
+```
+
+---
+
+### 4. Update STAGE_MARKERS for Narration Sync
+
+Update marker phrases in `GDSlide6ValuePyramid.tsx` to match the new script:
+
+```typescript
+const STAGE_MARKERS = [
+  { stage: "FRAGMENTED", phrase: "At the base: Fragmented and Reactive." },
+  { stage: "MANAGED", phrase: "Stage two: Managed but Siloed." },
+  { stage: "CONNECTED", phrase: "Stage three: Connected and Governed." },
+  { stage: "OPTIMISED", phrase: "Stage four: Operational Intelligence." },
+  { stage: "PREDICTIVE", phrase: "And at the apex: Predictive and Adaptive." },
+];
+```
+
+---
+
+## Key Messaging Summary
+
+### Slide 7 Core Messages:
+1. **AI exists at stages 2-5** — but its value is siloed until Stage 3
+2. **Stage 3 is the unlock** — 5 best-in-class solutions, one taxonomy, depth + quality
+3. **Intelligence value compounds as you climb** — critical for future success
+4. **The question isn't "do you have AI?"** — it's "how fast can you climb to where AI truly compounds?"
+
+### What Makes This a Key Reference Point:
+- Memorable name: "The Intelligence Maturity Ladder"
+- Self-assessment hook: "Where are you now?"
+- Urgency: "competitors are building connected advantages"
+- Future-proof: "critical for future success"
+- Referenceable: Can return to this slide throughout sales conversations
+
+---
+
+## Summary of Changes
+
+| File | Changes |
+|------|---------|
+| `GDSlide6ValuePyramid.tsx` | Update title, subtitle, `layersData` (especially stages 2, 3, 4, 5 with AI nuance), update `STAGE_MARKERS` |
+| `GDDetailsPanel.tsx` | Update `AIReadinessIndicator` with new labels: Blocked → Siloed → Aligned → Operational → Agentic |
+| `globalDataNarration.ts` | Replace slideId: 6 script with revised version emphasizing AI value progression and Stage 3's 5 solutions + taxonomy |
 
