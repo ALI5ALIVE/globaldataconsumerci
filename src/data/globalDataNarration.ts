@@ -149,7 +149,11 @@ Second, better growth outcomes. Higher-quality bets, fewer failed launches. Two 
 
 Third, lower cost of intelligence. Less duplication, fewer tools, less manual reconciliation. Thirty percent lower total cost of ownership.
 
-Here's the key message: ROI compounds as organisations move up the maturity curve. The sooner you start, the faster value accumulates.`,
+Look at the chart below. You can see exactly how value compounds as you move from Fragmented through to Predictive. Each stage unlocks exponentially more return.
+
+Here's the key message: ROI compounds as organisations move up the maturity curve. The sooner you start, the faster value accumulates.
+
+Want to see exactly what you could unlock? Try our Maturity Assessment to benchmark where you are today—or use the Value Calculator to quantify the returns at each stage for your organisation. Both tools will give you a clear, personalised picture of what's possible.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
