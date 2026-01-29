@@ -1,35 +1,36 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Database, Users, Brain, Sparkles, Zap, TrendingUp, Trophy } from "lucide-react";
+import ThreePillarDiagram from "./ThreePillarDiagram";
+import { Zap, TrendingUp, Trophy, Database, Sparkles, Users } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
-const differentiators = [
-  { 
-    icon: Database, 
-    title: "High-Impact Data", 
-    tagline: "Category, consumer, and competitive signals in one view",
-    desc: "Deep coverage across categories, brands, and consumer behaviour—analyst-validated and unified into one taxonomy. Earlier signals on trends, preferences, and competitive moves.",
-    color: "from-primary to-sky-400"
-  },
-  { 
-    icon: Sparkles, 
-    title: "AI & Technology", 
-    tagline: "AI that accelerates insight to action",
-    desc: "Agentic AI that surfaces opportunities, predicts shifts, and guides teams to act—turning weeks of analysis into minutes of clarity.",
-    color: "from-sky-400 to-cyan-400"
-  },
-  { 
-    icon: Users, 
-    title: "Human Expertise", 
-    tagline: "Consumer specialists who translate insight into action",
-    desc: "Category analysts, consumer researchers, and strategic advisors embedded in your workflows—decoding consumer behaviour and translating intelligence into confident brand decisions.",
-    color: "from-cyan-400 to-teal-400"
-  },
-];
-
-const closingTruths = [
+const resultItems = [
   { text: "Faster time to market", icon: Zap },
   { text: "Stronger consumer connection", icon: TrendingUp },
   { text: "Consistent category gains", icon: Trophy },
+];
+
+const callouts = [
+  {
+    icon: Database,
+    title: "High-impact data — real-time, trusted, actionable",
+    desc: "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust.",
+    position: "top",
+    color: "from-primary to-sky-400",
+  },
+  {
+    icon: Sparkles,
+    title: "AI that accelerates execution",
+    desc: "Agentic AI that acts, not just reports — forecasting moves, surfacing answers in seconds, and guiding your teams to act when timing matters most.",
+    position: "bottom-left",
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    icon: Users,
+    title: "Domain experts who turn insight into impact",
+    desc: "Industry specialists, journalists, and advisors embedded in your workflows — decoding complexity and transforming intelligence into confident action.",
+    position: "bottom-right",
+    color: "from-teal-500 to-cyan-500",
+  },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -44,8 +45,7 @@ const GDSlide9WhyGlobalData = ({
   return (
     <GDSlideContainer
       id="gd-slide-9"
-      title="Built for Connected Intelligence at Scale"
-      subtitle="High-impact data, AI, and human expertise—moving you from reactive to precision execution"
+      title="Consumer intelligence that turns strategy into performance"
       slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -55,80 +55,71 @@ const GDSlide9WhyGlobalData = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
-        {/* Three Pillars */}
-        <div className="grid md:grid-cols-3 gap-3">
-          {differentiators.map((diff, i) => {
-            const Icon = diff.icon;
-            return (
-              <div 
-                key={i}
-                className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group"
-              >
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${diff.color} flex items-center justify-center mb-2`}>
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-xs font-bold text-foreground mb-0.5">{diff.title}</h3>
-                <p className="text-[10px] text-primary font-medium mb-1.5">{diff.tagline}</p>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{diff.desc}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Ava Highlight */}
-        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/5 border border-purple-500/30 rounded-xl p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h4 className="text-sm font-bold text-foreground">Ava</h4>
-                <span className="px-1.5 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-[9px] text-purple-400 font-semibold uppercase">
-                  Enterprise AI Analyst
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                AI-powered research analyst that amplifies your teams — accelerating trend discovery, consumer pattern recognition, and decision support across brand, innovation, and category intelligence.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Executive Close Section */}
-        <div className="grid lg:grid-cols-2 gap-2 items-center">
-          {/* Leadership Imperative */}
-          <div className="bg-primary/10 border border-primary/30 rounded-xl p-4">
-            <p className="text-[10px] font-semibold text-primary uppercase tracking-wider mb-2">Performance Imperative</p>
-            <p className="text-sm text-foreground leading-relaxed">
-              Organisations that <span className="font-bold text-primary">close the Intelligence Gap</span> and operate intelligence as a connected solution will define the <span className="font-bold text-primary">next generation of consumer brand leaders</span>.
-            </p>
-          </div>
-
-          {/* Three Results */}
-          <div className="space-y-1.5">
-            {closingTruths.map((truth, i) => {
-              const Icon = truth.icon;
-              return (
-                <div 
-                  key={i}
-                  className="flex items-center gap-2 bg-card/50 border border-border/50 rounded-lg p-2"
-                >
-                  <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
-                  <span className="text-xs text-foreground">{truth.text}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Final Takeaway */}
-        <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-5 text-center">
-          <p className="text-[10px] font-semibold text-white/80 uppercase tracking-wider mb-1">The Result</p>
-          <p className="text-base font-bold text-white leading-relaxed">
-            Faster time to market, stronger consumer connection, and consistent category gains.
+      <div className="grid lg:grid-cols-[40%_60%] gap-6 h-full max-h-full items-start">
+        {/* Left Column - Text Content */}
+        <div className="flex flex-col gap-4">
+          {/* Intro Paragraph */}
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Our connected intelligence platform unites high-impact data, AI, and human expertise to move consumer teams from reactive to precision execution.
           </p>
+          
+          {/* The Result Section */}
+          <div className="bg-primary/10 border border-primary/30 rounded-xl p-4">
+            <p className="text-[11px] font-semibold text-primary uppercase tracking-wider mb-3">
+              The result
+            </p>
+            <div className="space-y-2">
+              {resultItems.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div key={i} className="flex items-center gap-2">
+                    <Icon className="w-4 h-4 text-primary shrink-0" />
+                    <span className="text-sm text-foreground font-medium">{item.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Diagram + Callouts */}
+        <div className="relative flex flex-col gap-3">
+          {/* Top Callout */}
+          <div className="bg-card/50 border border-border/50 rounded-lg p-3 flex items-start gap-3">
+            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${callouts[0].color} flex items-center justify-center shrink-0`}>
+              <Database className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-xs font-bold text-foreground mb-0.5">{callouts[0].title}</h4>
+              <p className="text-[10px] text-muted-foreground leading-relaxed">{callouts[0].desc}</p>
+            </div>
+          </div>
+
+          {/* Diagram */}
+          <div className="flex justify-center">
+            <ThreePillarDiagram />
+          </div>
+
+          {/* Bottom Callouts - Side by Side */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* AI Callout */}
+            <div className="bg-card/50 border border-border/50 rounded-lg p-3">
+              <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${callouts[1].color} flex items-center justify-center mb-2`}>
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground mb-0.5">{callouts[1].title}</h4>
+              <p className="text-[10px] text-muted-foreground leading-relaxed">{callouts[1].desc}</p>
+            </div>
+
+            {/* Human Expertise Callout */}
+            <div className="bg-card/50 border border-border/50 rounded-lg p-3">
+              <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${callouts[2].color} flex items-center justify-center mb-2`}>
+                <Users className="w-4 h-4 text-white" />
+              </div>
+              <h4 className="text-xs font-bold text-foreground mb-0.5">{callouts[2].title}</h4>
+              <p className="text-[10px] text-muted-foreground leading-relaxed">{callouts[2].desc}</p>
+            </div>
+          </div>
         </div>
       </div>
     </GDSlideContainer>
