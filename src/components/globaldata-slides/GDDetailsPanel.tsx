@@ -1,6 +1,4 @@
 import { CheckCircle, Eye, Target, TrendingUp, ArrowRight, Cpu, Lock, Sparkles } from "lucide-react";
-import GDBehaviorShiftCard, { GDBehavioralShift } from "./GDBehaviorShiftCard";
-import GDTimeAllocationBar, { GDTimeAllocation } from "./GDTimeAllocationBar";
 
 // AI Readiness indicator component
 // Level 1-2 (FRAGMENTED/MANAGED) = AI Blocked
@@ -65,8 +63,6 @@ export interface GDLayerData {
   whyItMatters: string;
   colorClass: string;
   accentColor: string;
-  behavioralShift: GDBehavioralShift;
-  timeAllocation: GDTimeAllocation;
   valueProof: GDValueProof;
 }
 
@@ -188,19 +184,6 @@ const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
           "{layer.valueProof.roiStatement}"
         </p>
       </div>
-
-      {/* Behavioral Shift */}
-      <GDBehaviorShiftCard
-        behavioralShift={layer.behavioralShift}
-        accentColor={layer.accentColor}
-        level={layer.level}
-      />
-
-      {/* Time Allocation */}
-      <GDTimeAllocationBar
-        timeAllocation={layer.timeAllocation}
-        accentColor={layer.accentColor}
-      />
     </div>
   );
 };
