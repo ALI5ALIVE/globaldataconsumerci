@@ -39,17 +39,19 @@ Category performers don't just have better data—they have connected intelligen
     title: "Where Growth and Performance Are Lost",
     script: `So where exactly does growth get lost? The Intelligence Gap is the delay between real-world change and enterprise action.
 
-Why does it exist? Four reasons.
+Why does it exist?
 
-First, signals fragment. Across tools, teams, and vendors. No single source of truth.
+Signals fragment across tools, teams, and vendors—no single source of truth.
+The impact: three to five conflicting data sources per decision.
 
-Then, leaders debate. Data instead of committing to direction. Analysis paralysis sets in.
+Leaders debate data instead of committing to direction—analysis paralysis.
+The impact: forty percent of launches miss optimal windows.
 
-Third, decisions arrive late. Too late to matter. Missed windows.
+Decisions arrive late—too late to matter, missed windows.
+The impact: twelve-plus weeks average decision latency.
 
-Finally, decisions lack conviction. Teams hedge instead of committing. Action gets diluted.
-
-The quantified impact? Twelve-plus weeks average decision latency. Three to five conflicting data sources per decision. Forty percent of launches miss optimal windows. And sixty-eight percent of teams lack the confidence to act decisively.
+Decisions lack conviction—teams hedge instead of committing.
+The impact: sixty-eight percent of teams lack the confidence to act decisively.
 
 This gap is where growth stalls, relevance erodes, and performance suffers.`,
     voiceId: DEFAULT_VOICE_ID,
