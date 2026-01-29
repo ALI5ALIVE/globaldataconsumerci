@@ -1,98 +1,63 @@
 
 
-# Plan: Reduce Vertical Height and Center Details Panel on Pyramid Slide
+# Plan: Update Copy Box Headlines to Action-Oriented Style
 
-## Problem
+## Overview
 
-The details panel (copy box) on the **Intelligence Maturity Ladder** slide (Slide 7) is:
-1. **Too long vertically** - stretches to fill available height
-2. **Disproportionate** - taller than needed relative to the pyramid
+Update the **details panel copy** (not the graph labels) on Slide 8 ("Transforming How Teams Work") to use action-oriented headlines that focus on team behavior.
 
-## Solution
+## Changes
 
-Adjust the layout to:
-1. **Constrain the vertical height** of the details panel with a maximum height
-2. **Center both the pyramid and panel vertically** for visual balance
-3. **Maintain current width** (the width is fine as-is)
+### File: `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`
 
-## Technical Changes
+Update the `roadmapStagesData` array (lines 29-120) with new `headline` and `sublabel` values:
 
-### File: `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+| Stage | Current Headline | New Headline | Current Sublabel | New Sublabel |
+|-------|-----------------|--------------|------------------|--------------|
+| 1 | Fragmented & Reactive | **Hunting for Answers** | Manual / Reactive | **Data Everywhere, Insight Nowhere** |
+| 2 | Managed (Siloed) | **Working in Parallel** | Silo Optimisation | **Good Alone, Misaligned Together** |
+| 3 | Connected Intelligence | **Working from One Truth** | Platform Shift | **Platform-Enabled Collaboration** |
+| 4 | Optimized Operations | **Deciding in Days** | Intelligent Ops | **AI-Powered Operations** |
+| 5 | Predictive & Proactive | **Anticipating the Market** | AI-Driven Foresight | **Proactive Strategy** |
 
-**Current Main Container (Line 263):**
-```tsx
-<div className="grid lg:grid-cols-[3fr_2fr] gap-3 lg:gap-4 items-stretch h-full max-h-full overflow-hidden">
+## What Stays the Same
+
+- **Graph X-axis labels**: "Fragmented", "Managed", "Connected", "Optimized", "Predictive" (defined in `shortLabels` on lines 359-365)
+- **Curve annotations**: The popup annotations that appear on the graph
+- **All other content**: Key Actions, Team Behavior, Example Use Case, Time to Decision
+
+## Visual Result
+
+**Details Panel Header (Before):**
+```
+┌──────────────────────────────────┐
+│ [1] Fragmented & Reactive        │
+│     Manual / Reactive            │
+└──────────────────────────────────┘
 ```
 
-**New Main Container:**
-```tsx
-<div className="grid lg:grid-cols-[3fr_2fr] gap-3 lg:gap-4 items-center h-full max-h-full overflow-hidden">
+**Details Panel Header (After):**
 ```
-- Change `items-stretch` to `items-center` to vertically center both elements
-
-**Current Details Panel (Lines 283-285):**
-```tsx
-<div className="h-full overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
+┌──────────────────────────────────┐
+│ [1] Hunting for Answers          │
+│     Data Everywhere, Insight Nowhere │
+└──────────────────────────────────┘
 ```
 
-**New Details Panel:**
-```tsx
-<div className="max-h-[380px] overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
-```
-- Remove `h-full` (which stretches to fill container)
-- Add `max-h-[380px]` to cap the vertical height
+## Technical Details
 
-## Layout Comparison
+Lines to modify in `src/components/globaldata-slides/GDSlide7MaturityCurve.tsx`:
 
-**Before (Too Long Vertically):**
-```
-┌──────────────────────────────────────────────────────────────┐
-│  ┌─────────────────────────────┐  ┌────────────────────────┐ │
-│  │                             │  │                        │ │
-│  │                             │  │   DETAILS PANEL        │ │
-│  │         PYRAMID             │  │   (stretches full      │ │
-│  │                             │  │    height - too long)  │ │
-│  │                             │  │                        │ │
-│  │                             │  │                        │ │
-│  │                             │  │                        │ │
-│  └─────────────────────────────┘  └────────────────────────┘ │
-└──────────────────────────────────────────────────────────────┘
-```
-
-**After (Constrained & Centered):**
-```
-┌──────────────────────────────────────────────────────────────┐
-│                                                              │
-│  ┌─────────────────────────────┐  ┌────────────────────────┐ │
-│  │                             │  │   DETAILS PANEL        │ │
-│  │         PYRAMID             │  │   (max-height: 380px)  │ │
-│  │                             │  │   CENTERED             │ │
-│  │                             │  └────────────────────────┘ │
-│  │                             │                             │
-│  └─────────────────────────────┘                             │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
-```
-
-## Specific Code Changes
-
-| Line | Current | New |
-|------|---------|-----|
-| 263 | `items-stretch` | `items-center` |
-| 283 | `h-full overflow-y-auto` | `max-h-[380px] overflow-y-auto` |
-
-## Summary
-
-| Change | Purpose |
-|--------|---------|
-| `items-stretch` → `items-center` | Vertically center both pyramid and panel |
-| `h-full` → `max-h-[380px]` | Cap vertical height to ~380px instead of stretching |
-
-## Result
-
-After these changes:
-- The details panel will have a **maximum vertical height of 380px**
-- Content will scroll if it exceeds this height (overflow-y-auto preserved)
-- Both pyramid and panel will be **vertically centered** together
-- Width remains unchanged as requested
+| Line | Property | Current Value | New Value |
+|------|----------|---------------|-----------|
+| 33 | `headline` | `"Fragmented & Reactive"` | `"Hunting for Answers"` |
+| 34 | `sublabel` | `"Manual / Reactive"` | `"Data Everywhere, Insight Nowhere"` |
+| 51 | `headline` | `"Managed (Siloed)"` | `"Working in Parallel"` |
+| 52 | `sublabel` | `"Silo Optimisation"` | `"Good Alone, Misaligned Together"` |
+| 69 | `headline` | `"Connected Intelligence"` | `"Working from One Truth"` |
+| 70 | `sublabel` | `"Platform Shift"` | `"Platform-Enabled Collaboration"` |
+| 87 | `headline` | `"Optimized Operations"` | `"Deciding in Days"` |
+| 88 | `sublabel` | `"Intelligent Ops"` | `"AI-Powered Operations"` |
+| 105 | `headline` | `"Predictive & Proactive"` | `"Anticipating the Market"` |
+| 106 | `sublabel` | `"AI-Driven Foresight"` | `"Proactive Strategy"` |
 
