@@ -48,16 +48,6 @@ const layersData: GDLayerData[] = [
       "The intelligence value compounds exponentially. Ava anticipates across all five domains simultaneously—unlocking value that's impossible at lower stages. This is the capability that defines future category leaders.",
     colorClass: "bg-gradient-to-b from-pyramid-transformational to-pyramid-transformational/80",
     accentColor: "hsl(45 93% 58%)",
-    behavioralShift: {
-      from: "Reactive analysis and reporting",
-      to: "Proactive intelligence and strategic action",
-      culturalMarker: "We see what's coming before it arrives",
-    },
-    timeAllocation: {
-      reconciliation: 5,
-      analysis: 20,
-      strategic: 75,
-    },
     valueProof: {
       metrics: ["Decision speed ↑ 70%", "Launch success 2x", "TCO ↓ 30%", "First-mover systematic"],
       roiStatement: "See disruption before it hits. 2x launch success, 30% lower TCO.",
@@ -83,16 +73,6 @@ const layersData: GDLayerData[] = [
       "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected system. New ways of working become possible.",
     colorClass: "bg-gradient-to-b from-pyramid-commercial to-pyramid-commercial/80",
     accentColor: "hsl(280 65% 55%)",
-    behavioralShift: {
-      from: "Manual insight synthesis and presentation",
-      to: "Ava-augmented decisions with embedded intelligence",
-      culturalMarker: "Insights drive real change, not just reports",
-    },
-    timeAllocation: {
-      reconciliation: 10,
-      analysis: 30,
-      strategic: 60,
-    },
     valueProof: {
       metrics: ["Decision speed ↑ 70%", "ROMI +25%", "Launch success ↑", "NPD hit rate ↑"],
       roiStatement: "Decisions in days, not weeks. 70% faster decision cycles.",
@@ -119,16 +99,6 @@ const layersData: GDLayerData[] = [
       "This is where AI becomes truly valuable. Five best-in-class solutions sharing one taxonomy means AI can learn across your entire intelligence landscape—not just automate individual tools. This is the foundation for a truly aligned AI strategy.",
     colorClass: "bg-gradient-to-b from-pyramid-operational to-pyramid-operational/80",
     accentColor: "hsl(173 80% 40%)",
-    behavioralShift: {
-      from: "Debating whose data is right",
-      to: "Acting on one shared truth",
-      culturalMarker: "We can see what's happening across the market",
-    },
-    timeAllocation: {
-      reconciliation: 20,
-      analysis: 40,
-      strategic: 40,
-    },
     valueProof: {
       metrics: ["70% self-service", "Data prep -50%", "Reconciliation ↓60%", "Audit-ready"],
       roiStatement: "One truth means 60% less time reconciling—more time winning.",
@@ -154,16 +124,6 @@ const layersData: GDLayerData[] = [
       "AI at this stage just automates silos—it can't learn across the organisation. You're optimising fragments while competitors build connected advantages.",
     colorClass: "bg-gradient-to-b from-pyramid-foundation to-pyramid-foundation/80",
     accentColor: "hsl(199 89% 48%)",
-    behavioralShift: {
-      from: "Insight overload with limited synthesis",
-      to: "Structured processes within each silo",
-      culturalMarker: "We're informed, but not aligned",
-    },
-    timeAllocation: {
-      reconciliation: 40,
-      analysis: 40,
-      strategic: 20,
-    },
     valueProof: {
       metrics: ["Reporting cycle -30%", "Dept intelligence ↑", "Cross-func limited", "Silo ROI only"],
       roiStatement: "Structured intelligence, but limited cross-functional value.",
@@ -190,16 +150,6 @@ const layersData: GDLayerData[] = [
       "AI cannot function on fragmented data—you're locked out of the intelligence advantage entirely. This is where most organisations start, but staying here guarantees falling behind.",
     colorClass: "bg-gradient-to-b from-pyramid-fragmentation to-pyramid-fragmentation/80",
     accentColor: "hsl(0 70% 50%)",
-    behavioralShift: {
-      from: "Reconciling conflicting data across providers",
-      to: "Reactive decisions just to keep up",
-      culturalMarker: "We have data, but no confidence",
-    },
-    timeAllocation: {
-      reconciliation: 60,
-      analysis: 30,
-      strategic: 10,
-    },
     valueProof: {
       metrics: ["High vendor spend", "Low self-service", "Missed windows ↑", "Decision latency 12+ wks"],
       roiStatement: "Hidden costs: reconciliation, late validation, opportunities lost.",
