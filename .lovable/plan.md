@@ -1,150 +1,127 @@
 
 
-# Plan: Remove Animations & Improve Value Chain Narration Sync
+# Plan: Remove Duplicated "How Work Changes" Cards from Pyramid Slide
 
 ## Overview
 
-This plan addresses two slides:
-1. **Slide 2 ("The Market Rewards Speed and Punishes Delay")** - Remove progressive reveal animations
-2. **Slide 6 ("Intelligence That Compounds Across the Value Chain")** - Remove animations, ensure Trend & Strategy card shows on load, link combo pills to stages, and sync narration perfectly
+Remove the **"How Work Changes"** behavioral shift card and **"Where Teams Spend Time"** time allocation bar from the **Intelligence Maturity Ladder** (Slide 7/Pyramid slide) because this content is duplicated in the following **"Transforming How Teams Work"** slide (Slide 8/Maturity Curve).
 
----
+## Content Being Removed
 
-## Changes for Slide 2
+| Element | Content Examples | Reason |
+|---------|------------------|--------|
+| **"How Work Changes" card** | "Reconciling conflicting data across providers" → "Reactive decisions just to keep up" + "We have data, but no confidence" | Shown in Slide 8 |
+| **"Where Teams Spend Time" bar** | 60% Reconcile / 30% Analysis / 10% Strategic breakdown for each stage | Shown in Slide 8 |
 
-### File: `src/components/globaldata-slides/GDSlide1GrowthReality.tsx`
+## Files to Modify
 
-**Current Behavior:**
-- Content progressively reveals as narration plays (uses `isVisible()` function)
-- Pain points, paradox, and callout sections animate in with opacity/translate
-
-**New Behavior:**
-- All content visible immediately when slide loads
-- Remove the conditional visibility logic based on narration progress
-- Keep the narration sync logic for future highlighting if needed, but all content is always visible
+### 1. `src/components/globaldata-slides/GDDetailsPanel.tsx`
 
 **Changes:**
-1. Remove the `isVisible(stepKey)` conditional classes on all elements
-2. Remove the `opacity-0 translate-y-4` and `opacity-0 -translate-x-4` animation states
-3. All cards render with full opacity and no transform animations
+- Remove the import of `GDBehaviorShiftCard` and `GDTimeAllocationBar`
+- Remove the `<GDBehaviorShiftCard />` component call (line 193-197)
+- Remove the `<GDTimeAllocationBar />` component call (line 199-203)
 
----
+### 2. `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` (Optional Cleanup)
 
-## Changes for Slide 6 (Value Chain)
+**Changes:**
+- Remove `behavioralShift` and `timeAllocation` properties from each layer in `layersData` array
+- This is optional but keeps the data model clean since these properties are no longer displayed
 
-### File: `src/components/globaldata-slides/GDSlide5ValueChain.tsx`
+## Before/After Comparison
 
-**Current Behavior:**
-- Defaults to stage 0 (Trend & Strategy) on load - this is correct
-- Uses `animate-fade-in` on the detail panel
-- Combo pills highlight multiple stages but don't show detailed content
-
-**New Behavior:**
-1. **Remove `animate-fade-in`** from the detail panel
-2. **Ensure Stage 1 (Trend & Strategy) card is always the default** when user navigates to slide
-3. **Update combo pill behavior** to show the first associated stage's full details when clicked:
-   - "Where to Play" → Shows Trend & Strategy (stage 0) details
-   - "How to Win" → Shows Concept Screening (stage 2) details
-   - "How to Execute" → Shows Market Entry (stage 3) details
-
-4. **Update narration sync timings** to match the exact phrases in the script:
-   - The script mentions each stage explicitly, so we align animations to those phrases
-
-### Updated Stage Timings (based on narration script)
-
-The narration script for slideId: 5 has these key phrases:
-
-| Stage | Phrase | Approximate % |
-|-------|--------|---------------|
-| 0 - Trend & Strategy | "Stage one: Trend and Strategy" | 8% |
-| 1 - White Space | "Stage two: White Space" | 25% |
-| 2 - Concept Screening | "Stage three: Concept Screening" | 40% |
-| 3 - Market Entry | "Stage four: Market Entry" | 55% |
-| 4 - Post-Launch | "Stage five: Post-Launch" | 70% |
-
-**Updated `stepTimings` array:**
-```typescript
-const stepTimings = [
-  { index: 0, startPercent: 8 },   // Stage one: Trend and Strategy
-  { index: 1, startPercent: 25 },  // Stage two: White Space
-  { index: 2, startPercent: 40 },  // Stage three: Concept Screening
-  { index: 3, startPercent: 55 },  // Stage four: Market Entry
-  { index: 4, startPercent: 70 },  // Stage five: Post-Launch
-];
+**Before (Slide 7 Details Panel):**
+```
+┌─────────────────────────────────────┐
+│ [1] Starting Point                  │
+│     Fragmented & Reactive Intelligence │
+├─────────────────────────────────────┤
+│ WHAT IT LOOKS LIKE                  │
+│ • Insight requests handled ad hoc   │
+│ • Multiple disconnected tools       │
+│ • Decisions made with incomplete data│
+├─────────────────────────────────────┤
+│ RESULT                              │
+│ → High dependency on vendors        │
+│ → High decision latency             │
+├─────────────────────────────────────┤
+│ VALUE PROOF                         │
+│ [High vendor spend] [Low self-service] │
+├─────────────────────────────────────┤
+│ HOW WORK CHANGES     ← REMOVE       │
+│ [From] → [To]        ← REMOVE       │
+│ "Cultural marker"    ← REMOVE       │
+├─────────────────────────────────────┤
+│ WHERE TEAMS SPEND TIME  ← REMOVE    │
+│ [60%][30%][10%]         ← REMOVE    │
+└─────────────────────────────────────┘
 ```
 
-### Combo Pill Mapping
+**After (Slide 7 Details Panel):**
+```
+┌─────────────────────────────────────┐
+│ [1] Starting Point                  │
+│     Fragmented & Reactive Intelligence │
+├─────────────────────────────────────┤
+│ WHAT IT LOOKS LIKE                  │
+│ • Insight requests handled ad hoc   │
+│ • Multiple disconnected tools       │
+│ • Decisions made with incomplete data│
+├─────────────────────────────────────┤
+│ RESULT                              │
+│ → High dependency on vendors        │
+│ → High decision latency             │
+├─────────────────────────────────────┤
+│ VALUE PROOF                         │
+│ [High vendor spend] [Low self-service] │
+└─────────────────────────────────────┘
+```
 
-Update the combo pills to show detailed content for the primary stage:
+## Content Differentiation
 
-| Combo | Primary Stage to Show |
-|-------|----------------------|
-| "Where to Play" | Trend & Strategy (index 0) |
-| "How to Win" | Concept Screening (index 2) |
-| "How to Execute" | Market Entry (index 3) |
+This change ensures clear content separation between slides:
 
-**Changes to `handleComboHover` function:**
-```typescript
-const handleComboHover = (index: number | null) => {
-  if (!isNarrationControlled) {
-    setActiveCombo(index);
-    if (index !== null) {
-      // Set active stage to the primary stage for this combo
-      const primaryStageMap: Record<number, number> = {
-        0: 0,  // "Where to Play" → Trend & Strategy
-        1: 2,  // "How to Win" → Concept Screening
-        2: 3,  // "How to Execute" → Market Entry
-      };
-      setActiveStage(primaryStageMap[index]);
-    }
-  }
+| Slide | Focus | Content |
+|-------|-------|---------|
+| **Slide 7 (Pyramid)** | Diagnostic / "Where Are You?" | What It Looks Like, Result, Value Proof (assessment focus) |
+| **Slide 8 (Curve)** | Operational / "How Work Changes" | Key Actions, Team Behavior, Real Example, Time Allocation (transformation focus) |
+
+## Technical Implementation
+
+### GDDetailsPanel.tsx Changes
+
+**Lines to remove:**
+- Line 2: Remove `GDBehaviorShiftCard` and `GDTimeAllocationBar` imports
+- Lines 193-203: Remove both component calls
+
+**Updated component structure:**
+```tsx
+const GDDetailsPanel = ({ layer, highlightedModule }: GDDetailsPanelProps) => {
+  return (
+    <div className="h-full flex flex-col gap-2.5 text-left">
+      {/* Header with AI Readiness */}
+      {/* ... keep ... */}
+      
+      {/* What It Looks Like */}
+      {/* ... keep ... */}
+      
+      {/* Result */}
+      {/* ... keep ... */}
+      
+      {/* Value Proof */}
+      {/* ... keep ... */}
+      
+      {/* REMOVED: Behavioral Shift card */}
+      {/* REMOVED: Time Allocation bar */}
+    </div>
+  );
 };
 ```
 
----
-
-## Summary of Code Changes
+## Summary
 
 | File | Change |
 |------|--------|
-| `GDSlide1GrowthReality.tsx` | Remove `isVisible()` conditional classes; all content renders at full opacity with no animation delays |
-| `GDSlide5ValueChain.tsx` | Remove `animate-fade-in` from detail panel; update `stepTimings` for precise narration sync; update `handleComboHover` to show primary stage details when combo is selected |
+| `GDDetailsPanel.tsx` | Remove `GDBehaviorShiftCard` and `GDTimeAllocationBar` imports and component usage |
+| `GDSlide6ValuePyramid.tsx` | (Optional) Clean up unused `behavioralShift` and `timeAllocation` data properties |
 
----
-
-## Technical Details
-
-### GDSlide1GrowthReality.tsx - Lines to modify
-
-**Lines 92-99** (Pain point cards):
-Remove: `${isVisible(stepKey) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`
-
-**Lines 121-122** (Paradox card):
-Remove: `${isVisible('paradox') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`
-
-**Lines 136-137** (Real Problem card):
-Remove: `${isVisible('realProblem') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`
-
-**Lines 153-154** (Bottom callout):
-Remove: `${isVisible('callout') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`
-
-### GDSlide5ValueChain.tsx - Lines to modify
-
-**Line 275** (Detail panel):
-Remove: `animate-fade-in` class
-
-**Lines 91-97** (stepTimings):
-Update percentages to match narration phrases more precisely
-
-**Lines 138-143** (handleComboHover):
-Update to set activeStage to the primary stage for the selected combo
-
----
-
-## Result
-
-After these changes:
-1. Slide 2 will show all content immediately with no progressive reveal
-2. Slide 6 will show the Trend & Strategy card by default when user arrives
-3. Clicking combo pills will show the appropriate stage's full details (JTBD, Pain to Outcome, Real Example)
-4. Narration will sync precisely with stage transitions, highlighting each stage as it's mentioned
