@@ -1,145 +1,156 @@
 
 
-# Revised Plan: Slide 7 - "The Intelligence Maturity Ladder"
+# Plan: Enrich Slide 10 ("Why GlobalData") with Three-Pillar Delivery Model
 
-## Strategic Positioning
+## Current State vs Reference Image
 
-The key insight from your feedback: **AI is available at all stages 2-5, but its value is fundamentally different.**
+| Aspect | Current Slide 10 | Reference Image (Target) |
+|--------|------------------|--------------------------|
+| **Pillar 1** | "Unmatched Proprietary Data" - 40+ years, 200+ markets | **"High-Impact Data"** - Real-time, trusted, actionable. 95% global GDP. Unified taxonomy. |
+| **Pillar 2** | "Human + AI at Scale" - 1,000+ analysts + Ava | **"AI & Technology"** - Agentic AI that acts, not reports. Forecasting, surfacing answers in seconds. |
+| **Pillar 3** | "Unified Taxonomy" - Single classification system | **"Human Expertise"** - Industry specialists, journalists, advisors embedded in workflows. |
+| **Title** | "Built for Connected Intelligence at Scale" | Aligns well - keep |
+| **Subtitle** | "Why GlobalData is uniquely positioned..." | Update to match delivery message |
 
-| Stage | AI Status | The Reality |
-|-------|-----------|-------------|
-| **1 - Fragmented** | AI Blocked | Can't use AI - no connected data to learn from |
-| **2 - Managed** | AI Siloed | AI automates individual tools but can't learn across functions |
-| **3 - Connected** | AI Aligned | AI works across 5 best-in-class solutions with one taxonomy |
-| **4 - Optimised** | AI Operational | AI embedded in workflows, recommending actions |
-| **5 - Predictive** | AI Agentic | AI anticipates and acts proactively |
+## Key Language Changes from Reference Image
 
-The core message: **As you climb, the value of your intelligence compounds. Not just faster—fundamentally different capability.**
+### Three Pillars (New Content)
 
----
+| Pillar | Title | Tagline | Description |
+|--------|-------|---------|-------------|
+| **Data** | High-Impact Data | Real-time, trusted, actionable | Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust. |
+| **AI** | AI & Technology | AI that accelerates execution | Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most. |
+| **Expertise** | Human Expertise | Domain experts who turn insight into impact | Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action. |
 
-## Distinct Objectives: Slide 7 vs Slide 8
+### Core Value Statement (From Reference)
+"Our connected intelligence platform unites high-impact data, AI, and human expertise to move teams from reactive to precision execution."
 
-| Aspect | Slide 7 (Pyramid) | Slide 8 (Curve) |
-|--------|-------------------|-----------------|
-| **Question** | "Where are you now?" | "How does work change as you climb?" |
-| **Focus** | Position & capability diagnosis | Operational transformation journey |
-| **AI Message** | AI exists at 2-5 but value is siloed until Stage 3 | How AI changes daily workflows at each stage |
-| **Key Insight** | Stage 3 = 5 best-in-class solutions, one taxonomy | Time allocation shift (60% reconciliation → 75% strategy) |
-
----
+### Result Statement (From Reference)
+"The result: Faster decision velocity, stronger market attainment, and consistent high-value wins."
 
 ## Files to Modify
 
-### 1. `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx`
+### 1. `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx`
 
-**Title & Subtitle Changes:**
-- **Title:** `"The Intelligence Maturity Ladder: Where Are You?"`
-- **Subtitle:** `"The higher you climb, the more your intelligence compounds—critical for future success."`
+**Update `differentiators` array:**
 
-**layersData Updates:**
+```typescript
+const differentiators = [
+  { 
+    icon: Database, 
+    title: "High-Impact Data", 
+    tagline: "Real-time, trusted, actionable",
+    desc: "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust.",
+    color: "from-primary to-sky-400"
+  },
+  { 
+    icon: Sparkles, // Changed from Users
+    title: "AI & Technology", 
+    tagline: "AI that accelerates execution",
+    desc: "Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most.",
+    color: "from-sky-400 to-cyan-400"
+  },
+  { 
+    icon: Users, // Changed from Layers
+    title: "Human Expertise", 
+    tagline: "Domain experts who turn insight into impact",
+    desc: "Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.",
+    color: "from-cyan-400 to-teal-400"
+  },
+];
+```
 
-**Stage 1 (FRAGMENTED):**
-- `whyItMatters`: "AI cannot function on fragmented data—you're locked out of the intelligence advantage entirely. This is where most organisations start, but staying here guarantees falling behind."
+**Update subtitle:**
+- From: "Why GlobalData is uniquely positioned to close the Intelligence Gap"
+- To: "High-impact data, AI, and human expertise—moving you from reactive to precision execution"
 
-**Stage 2 (MANAGED):**
-- Add AI context to `whatItLooksLike`: "AI may exist within individual tools—but it's siloed. It automates what you already have, not enabling new ways of working."
-- `whyItMatters`: "AI at this stage just automates silos—it can't learn across the organisation. You're optimising fragments while competitors build connected advantages."
+**Update closing truths:**
+```typescript
+const closingTruths = [
+  { text: "Faster decision velocity", icon: Zap },
+  { text: "Stronger market attainment", icon: TrendingUp },
+  { text: "Consistent high-value wins", icon: Trophy },
+];
+```
 
-**Stage 3 (CONNECTED):**
-- Emphasize the 5 solutions + taxonomy in `whatItLooksLike`:
-  - "Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy"
-  - "The depth and quality of intelligence, not just the connection"
-  - "AI can finally learn across functions—enabling truly aligned AI strategy"
-- `whyItMatters`: "This is where AI becomes truly valuable. Five best-in-class solutions sharing one taxonomy means AI can learn across your entire intelligence landscape—not just automate individual tools. This is the foundation for a truly aligned AI strategy."
+**Update Final Takeaway:**
+- From: "The future belongs to organisations that turn change into decisions..."
+- To: "The result: Faster decision velocity, stronger market attainment, and consistent high-value wins."
 
-**Stage 4 (OPTIMISED):**
-- `whatItLooksLike`: Add "AI is no longer siloed—it's orchestrating across all five intelligence domains"
-- `whyItMatters`: "Intelligence becomes operational. AI doesn't just surface insights—it recommends actions across the connected system. New ways of working become possible."
-
-**Stage 5 (PREDICTIVE):**
-- `whyItMatters`: "The intelligence value compounds exponentially. Ava anticipates across all five domains simultaneously—unlocking value that's impossible at lower stages. This is the capability that defines future category leaders."
-
----
-
-### 2. `src/components/globaldata-slides/GDDetailsPanel.tsx`
-
-**Update AI Readiness Badges:**
-
-Current labels are too binary (Blocked/Enabled/Optimized). Update to reflect the nuance:
-
-| Level | Current Badge | New Badge | Color |
-|-------|--------------|-----------|-------|
-| 1 | AI Blocked | AI Blocked | Red |
-| 2 | AI Blocked | AI Siloed | Orange |
-| 3 | AI Enabled | AI Aligned | Green |
-| 4 | AI Optimized | AI Operational | Gold |
-| 5 | AI Optimized | AI Agentic | Gold |
-
-This communicates that AI exists at Stage 2 but is siloed—matching your feedback.
-
----
-
-### 3. `src/data/globalDataNarration.ts` (slideId: 6)
+### 2. `src/data/globalDataNarration.ts` (slideId: 9)
 
 **Revised Narration Script:**
 
 ```text
-Now let's assess where your organisation actually is. This is the Intelligence Maturity Ladder—and here's the critical insight: the higher you climb, the more your intelligence compounds. Not just faster decisions—fundamentally different capability.
+Why GlobalData? Let me show you exactly how we deliver connected intelligence at scale.
 
-At the base: Fragmented and Reactive. Insight requests handled ad hoc. Multiple disconnected tools. Decisions made with incomplete data. At this stage, AI simply can't help you—there's no connected data for it to learn from. You're locked out of the intelligence advantage entirely.
+Our platform brings together three essential elements.
 
-Stage two: Managed but Siloed. You've got strong systems in specific domains. Brand has a tracker. Innovation has a pipeline tool. Competitive has a monitor. And yes—AI may exist within each of these tools. But here's the limitation: it's siloed. AI at this stage just automates what you already have. It can't learn across functions. It can't enable new ways of working. You're optimising fragments while competitors are building connected advantages.
+First: High-Impact Data. Real-time, trusted, actionable. Coverage of ninety-five percent of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust.
 
-Stage three: Connected and Governed. This is where everything changes. Five best-in-class intelligence solutions—Market, Consumer, Competitive, Innovation, Commercial—unified under one taxonomy. It's not just the connection that matters. It's the depth and quality of intelligence, governed and aligned. AI can finally learn across your entire organisation. This is where a truly aligned AI strategy becomes possible. Reconciliation time drops sixty percent—because there's one truth.
+Second: AI and Technology that accelerates execution. This is Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding your teams to act when timing matters most.
 
-Stage four: Operational Intelligence. Now AI isn't just informed—it's embedded in your workflows. Automated alerts when market conditions shift. Proactive recommendations across all five domains. The intelligence system doesn't wait to be asked—it surfaces what matters. Decisions in days, not weeks.
+Third: Human Expertise. Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.
 
-And at the apex: Predictive and Adaptive. Ava anticipates market shifts across all five intelligence domains simultaneously. It recommends which products to defend, which opportunities to pursue, which threats to monitor. The value compounds exponentially—because every insight builds on every other. This is the capability that will define future category leaders.
+These three elements power our connected intelligence platform—moving your teams from reactive to precision execution.
 
-Most organisations are at stage one or two. The question isn't whether AI exists in your tools—it probably does. The question is: how fast can you climb to where AI truly compounds your intelligence?
+The result? Faster decision velocity. Stronger market attainment. And consistent high-value wins.
+
+The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category performers.
+
+The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.
 ```
 
----
+## Updated Layout Structure
 
-### 4. Update STAGE_MARKERS for Narration Sync
-
-Update marker phrases in `GDSlide6ValuePyramid.tsx` to match the new script:
-
-```typescript
-const STAGE_MARKERS = [
-  { stage: "FRAGMENTED", phrase: "At the base: Fragmented and Reactive." },
-  { stage: "MANAGED", phrase: "Stage two: Managed but Siloed." },
-  { stage: "CONNECTED", phrase: "Stage three: Connected and Governed." },
-  { stage: "OPTIMISED", phrase: "Stage four: Operational Intelligence." },
-  { stage: "PREDICTIVE", phrase: "And at the apex: Predictive and Adaptive." },
-];
+```text
++------------------------------------------------------------------+
+| Built for Connected Intelligence at Scale                          |
+| High-impact data, AI, and human expertise—moving you from          |
+| reactive to precision execution                                    |
++------------------------------------------------------------------+
+|                                                                    |
+|  +------------------+  +------------------+  +------------------+  |
+|  | HIGH-IMPACT DATA |  | AI & TECHNOLOGY  |  | HUMAN EXPERTISE  |  |
+|  | Real-time,       |  | AI that          |  | Domain experts   |  |
+|  | trusted,         |  | accelerates      |  | who turn insight |  |
+|  | actionable       |  | execution        |  | into impact      |  |
+|  |                  |  |                  |  |                  |  |
+|  | 95% global GDP   |  | Agentic AI that  |  | Specialists,     |  |
+|  | coverage...      |  | acts, not just   |  | journalists,     |  |
+|  |                  |  | reports...       |  | advisors...      |  |
+|  +------------------+  +------------------+  +------------------+  |
+|                                                                    |
++------------------------------------------------------------------+
+|  [Ava Highlight - Enterprise AI Analyst]                          |
++------------------------------------------------------------------+
+|  Performance Imperative        | Results:                         |
+|  Close the Intelligence Gap    | • Faster decision velocity       |
+|  → Next-gen performers         | • Stronger market attainment     |
+|                                | • Consistent high-value wins     |
++------------------------------------------------------------------+
+|  THE RESULT: Faster decision velocity, stronger market             |
+|  attainment, and consistent high-value wins.                       |
++------------------------------------------------------------------+
 ```
-
----
-
-## Key Messaging Summary
-
-### Slide 7 Core Messages:
-1. **AI exists at stages 2-5** — but its value is siloed until Stage 3
-2. **Stage 3 is the unlock** — 5 best-in-class solutions, one taxonomy, depth + quality
-3. **Intelligence value compounds as you climb** — critical for future success
-4. **The question isn't "do you have AI?"** — it's "how fast can you climb to where AI truly compounds?"
-
-### What Makes This a Key Reference Point:
-- Memorable name: "The Intelligence Maturity Ladder"
-- Self-assessment hook: "Where are you now?"
-- Urgency: "competitors are building connected advantages"
-- Future-proof: "critical for future success"
-- Referenceable: Can return to this slide throughout sales conversations
-
----
 
 ## Summary of Changes
 
 | File | Changes |
 |------|---------|
-| `GDSlide6ValuePyramid.tsx` | Update title, subtitle, `layersData` (especially stages 2, 3, 4, 5 with AI nuance), update `STAGE_MARKERS` |
-| `GDDetailsPanel.tsx` | Update `AIReadinessIndicator` with new labels: Blocked → Siloed → Aligned → Operational → Agentic |
-| `globalDataNarration.ts` | Replace slideId: 6 script with revised version emphasizing AI value progression and Stage 3's 5 solutions + taxonomy |
+| `GDSlide9WhyGlobalData.tsx` | Update `differentiators` with new 3-pillar content (Data, AI, Expertise), add taglines, update subtitle, update closing truths, update final takeaway |
+| `globalDataNarration.ts` | Revise slideId: 9 script to match new 3-pillar structure and language |
+
+## Alignment with Deck Narrative
+
+This ensures Slide 10 answers "How does GlobalData deliver?" with:
+1. **High-Impact Data** - The foundation of trust
+2. **AI & Technology** - The acceleration layer  
+3. **Human Expertise** - The interpretation layer
+
+This complements:
+- Slide 7 (Maturity Ladder): "Where are you now?" — diagnosis
+- Slide 8 (Maturity Curve): "How does work change?" — transformation
+- Slide 9 (ROI): "What's the return?" — metrics
+- **Slide 10**: "How does GlobalData deliver it?" — the three pillars
 
