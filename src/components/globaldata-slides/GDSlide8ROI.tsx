@@ -36,11 +36,11 @@ const roiPillars = [
 ];
 
 const stageConfig = [
-  { name: "Fragmented", color: "hsl(0 70% 50%)" },
-  { name: "Managed", color: "hsl(199 89% 48%)" },
-  { name: "Connected", color: "hsl(173 80% 40%)" },
-  { name: "Optimised", color: "hsl(280 65% 55%)" },
-  { name: "Predictive", color: "hsl(45 93% 58%)" },
+  { name: "Fragmented", color: "hsl(0, 70%, 50%)" },
+  { name: "Managed", color: "hsl(199, 89%, 48%)" },
+  { name: "Connected", color: "hsl(173, 80%, 40%)" },
+  { name: "Optimised", color: "hsl(280, 65%, 55%)" },
+  { name: "Predictive", color: "hsl(45, 93%, 58%)" },
 ];
 
 const GDSlide8ROI = ({
