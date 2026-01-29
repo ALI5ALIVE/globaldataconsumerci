@@ -123,7 +123,7 @@ At stage one, teams request insights via email and wait weeks for responses. Bra
 
 At stage two, you've got structure within silos. Brand runs a health tracker. Innovation runs a pipeline tool. Competitive runs a monitor. They share quarterly reports, but work from different baselines. The example that defines this stage? "Here's the brand health update"—but the NPD team has completely different consumer segmentation. Six to eight weeks to decision.
 
-Stage three changes everything. One search across all data. Real-time dashboards shared cross-functionally. The debate about which data to trust disappears—because there's one truth. "Pull the integrated view for UK protein snacks"—done in ten minutes, not three days. Decision time drops to two to three weeks.
+Stage three changes everything. One search across all data. Real-time intelligence shared cross-functionally. The debate about which data to trust disappears—because there's one truth. "Pull the integrated view for UK protein snacks"—done in ten minutes, not three days. Decision time drops to two to three weeks.
 
 Stage four embeds intelligence into action. Automated alerts when share drops. Decision recommendations surfaced proactively. What took a week now takes three to five days. The example? "Alert: Competitor launched at fifteen percent lower price—here's the recommended response." Same-day action, not same-month.
 

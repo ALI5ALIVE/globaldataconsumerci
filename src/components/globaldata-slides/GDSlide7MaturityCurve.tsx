@@ -55,7 +55,7 @@ const roadmapStagesData: RoadmapStage[] = [
       keyActions: [
         "Run separate brand tracker, innovation pipeline, competitive monitor",
         "Share quarterly reports across functions",
-        "Maintain domain-specific dashboards and workflows",
+        "Maintain domain-specific intelligence tools and workflows",
       ],
       teamBehavior: "Teams have their own tools that work well internally, but alignment happens only in big meetings",
       exampleUseCase: "Here's the brand health update — but NPD has completely different consumer segmentation",
@@ -73,7 +73,7 @@ const roadmapStagesData: RoadmapStage[] = [
       keyActions: [
         "Query any data source with one search",
         "Export to any workflow from unified platform",
-        "Share dashboards cross-functionally in real-time",
+        "Share decision-ready intelligence cross-functionally in real-time",
       ],
       teamBehavior: "Real-time access to same truth; async collaboration replaces alignment meetings",
       exampleUseCase: "Pull the integrated view for UK protein snacks — done in 10 minutes",
