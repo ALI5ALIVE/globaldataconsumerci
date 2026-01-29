@@ -1,35 +1,35 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Database, Users, Layers, Brain, CheckCircle2, Sparkles } from "lucide-react";
+import { Database, Users, Brain, Sparkles, Zap, TrendingUp, Trophy } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const differentiators = [
   { 
     icon: Database, 
-    title: "Unmatched Proprietary Data", 
-    desc: "40+ years of consumer behaviour data across 200+ markets",
-    proof: "Data no competitor can replicate",
+    title: "High-Impact Data", 
+    tagline: "Real-time, trusted, actionable",
+    desc: "Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, decisions you can trust.",
     color: "from-primary to-sky-400"
   },
   { 
-    icon: Users, 
-    title: "Human + AI at Scale", 
-    desc: "1,000+ analysts globally, amplified by Ava enterprise AI",
-    proof: "Insights your team would take months to find",
+    icon: Sparkles, 
+    title: "AI & Technology", 
+    tagline: "AI that accelerates execution",
+    desc: "Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding teams to act when timing matters most.",
     color: "from-sky-400 to-cyan-400"
   },
   { 
-    icon: Layers, 
-    title: "Unified Taxonomy", 
-    desc: "Single classification system across all intelligence domains",
-    proof: "One truth, not five conflicting ones",
+    icon: Users, 
+    title: "Human Expertise", 
+    tagline: "Domain experts who turn insight into impact",
+    desc: "Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.",
     color: "from-cyan-400 to-teal-400"
   },
 ];
 
 const closingTruths = [
-  { text: "Insight alone does not create advantage", icon: Database },
-  { text: "Speed without confidence creates risk", icon: Sparkles },
-  { text: "Connected Intelligence drives category performance", icon: CheckCircle2 },
+  { text: "Faster decision velocity", icon: Zap },
+  { text: "Stronger market attainment", icon: TrendingUp },
+  { text: "Consistent high-value wins", icon: Trophy },
 ];
 
 const GDSlide9WhyGlobalData = ({
@@ -45,7 +45,7 @@ const GDSlide9WhyGlobalData = ({
     <GDSlideContainer
       id="gd-slide-9"
       title="Built for Connected Intelligence at Scale"
-      subtitle="Why GlobalData is uniquely positioned to close the Intelligence Gap"
+      subtitle="High-impact data, AI, and human expertise—moving you from reactive to precision execution"
       slideNumber={10}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -56,7 +56,7 @@ const GDSlide9WhyGlobalData = ({
       onNextSlide={onNextSlide}
     >
       <div className="flex flex-col gap-2 h-full max-h-full overflow-hidden">
-        {/* Three Differentiators */}
+        {/* Three Pillars */}
         <div className="grid md:grid-cols-3 gap-3">
           {differentiators.map((diff, i) => {
             const Icon = diff.icon;
@@ -65,15 +65,12 @@ const GDSlide9WhyGlobalData = ({
                 key={i}
                 className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all group"
               >
-                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${diff.color} flex items-center justify-center mb-3`}>
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${diff.color} flex items-center justify-center mb-2`}>
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xs font-bold text-foreground mb-1">{diff.title}</h3>
-                <p className="text-[11px] text-muted-foreground mb-2">{diff.desc}</p>
-                <div className="flex items-center gap-2 pt-2 border-t border-border/30">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-                  <span className="text-[11px] text-primary font-medium">{diff.proof}</span>
-                </div>
+                <h3 className="text-xs font-bold text-foreground mb-0.5">{diff.title}</h3>
+                <p className="text-[10px] text-primary font-medium mb-1.5">{diff.tagline}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">{diff.desc}</p>
               </div>
             );
           })}
@@ -109,7 +106,7 @@ const GDSlide9WhyGlobalData = ({
             </p>
           </div>
 
-          {/* Three Truths */}
+          {/* Three Results */}
           <div className="space-y-1.5">
             {closingTruths.map((truth, i) => {
               const Icon = truth.icon;
@@ -128,9 +125,9 @@ const GDSlide9WhyGlobalData = ({
 
         {/* Final Takeaway */}
         <div className="bg-gradient-to-r from-primary to-sky-500 rounded-xl p-5 text-center">
-          <p className="text-[10px] font-semibold text-white/80 uppercase tracking-wider mb-1">Final Takeaway</p>
+          <p className="text-[10px] font-semibold text-white/80 uppercase tracking-wider mb-1">The Result</p>
           <p className="text-base font-bold text-white leading-relaxed">
-            The future belongs to organisations that turn change into decisions — <span className="underline decoration-2">earlier</span>, <span className="underline decoration-2">together</span>, and with <span className="underline decoration-2">conviction</span>.
+            Faster decision velocity, stronger market attainment, and consistent high-value wins.
           </p>
         </div>
       </div>
