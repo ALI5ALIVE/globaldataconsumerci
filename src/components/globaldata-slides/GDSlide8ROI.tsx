@@ -1,5 +1,5 @@
 import GDSlideContainer from "./GDSlideContainer";
-import { Clock, TrendingUp, DollarSign, ArrowRight, Zap } from "lucide-react";
+import { Clock, TrendingUp, DollarSign, ArrowRight, Zap, Calculator } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const roiPillars = [
@@ -33,6 +33,14 @@ const roiPillars = [
     desc: "Less duplication, fewer tools, less manual reconciliation",
     color: "from-cyan-400 to-teal-400"
   },
+];
+
+const stageConfig = [
+  { name: "Fragmented", color: "hsl(0 70% 50%)" },
+  { name: "Managed", color: "hsl(199 89% 48%)" },
+  { name: "Connected", color: "hsl(173 80% 40%)" },
+  { name: "Optimised", color: "hsl(280 65% 55%)" },
+  { name: "Predictive", color: "hsl(45 93% 58%)" },
 ];
 
 const GDSlide8ROI = ({
@@ -115,20 +123,36 @@ const GDSlide8ROI = ({
           </div>
         </div>
 
-        {/* Visual Compounding Chart - Static graduated display */}
+        {/* CTA - Maturity Assessment / Value Calculator */}
+        <button className="w-full bg-gradient-to-r from-primary/10 to-sky-500/10 border border-primary/40 rounded-xl p-3 hover:border-primary/60 hover:from-primary/15 hover:to-sky-500/15 transition-all group cursor-pointer">
+          <div className="flex items-center justify-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+              <Calculator className="w-4 h-4 text-primary" />
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-semibold text-foreground">Try the Maturity Assessment or Value Calculator</p>
+              <p className="text-[10px] text-muted-foreground">See what you can unlock at each stage</p>
+            </div>
+          </div>
+        </button>
+
+        {/* Visual Compounding Chart - Static graduated display with stage colors */}
         <div className="bg-card border border-border/50 rounded-xl p-3">
           <div className="flex items-center justify-between">
-            {[1, 2, 3, 4, 5].map((stage) => (
-              <div key={stage} className="flex flex-col items-center">
+            {stageConfig.map((stage, index) => (
+              <div key={index} className="flex flex-col items-center">
                 <div 
-                  className="w-14 bg-gradient-to-t from-primary to-sky-400 rounded-t-lg"
+                  className="w-14 rounded-t-lg"
                   style={{ 
-                    height: `${16 + stage * 16}px`,
-                    opacity: 0.4 + (stage * 0.12)
+                    height: `${16 + (index + 1) * 16}px`,
+                    background: `linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
                   }}
                 />
-                <span className="text-[10px] mt-1.5 text-muted-foreground">
-                  Stage {stage}
+                <span 
+                  className="text-[9px] mt-1.5 font-medium"
+                  style={{ color: stage.color }}
+                >
+                  {stage.name}
                 </span>
               </div>
             ))}
