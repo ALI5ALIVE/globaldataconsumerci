@@ -1,75 +1,76 @@
 
 
-# Plan: Move Play Button to Top Right Corner
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Overview
+## Problem
 
-Relocate the narration play/pause button from the center of the slide to the top right corner so it doesn't obstruct the visual content on any slide.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Current State
+## Current Vertical Budget Analysis
 
-- The play button is positioned at **center of viewport** using:
-  ```
-  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-  ```
-- This places an 80x80px button directly over the slide content
-- The "Next slide" button appears below it after narration completes
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## Proposed Position
+## Proposed Reductions
 
-Move the button to the **top right corner**, aligned with the slide content container:
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Position | Center of viewport | Top right corner |
-| CSS Classes | `left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2` | `top-6 right-6 sm:top-8 sm:right-10` |
-| Button Size | 80x80px (w-20 h-20) | 56x56px (w-14 h-14) - slightly smaller for corner placement |
-| Icon Size | 32x32px (w-8 h-8) | 24x24px (w-6 h-6) |
-| Next Slide Button | Below play button | To the left of play button |
+**Estimated Total Savings: ~80-100px vertical space**
 
-## Visual Layout
+## File to Modify
 
-```text
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                     [Next] [▶️]     │  ← Top right
-│  Title                                                              │
-│  Subtitle                                                           │
-│                                                                     │
-│                                                                     │
-│            [SLIDE CONTENT - NOW UNOBSTRUCTED]                       │
-│                                                                     │
-│                                                                     │
-│  Footer                                                  Slide #    │
-└─────────────────────────────────────────────────────────────────────┘
-```
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-## Technical Changes
+## Specific Changes
 
-### File: `src/components/SlidePlayButton.tsx`
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-1. **Update container positioning**:
-   - Change from centered to top-right corner
-   - Adjust flex direction for horizontal layout (play + next side-by-side)
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-2. **Reduce button size for corner placement**:
-   - Main button: `w-14 h-14` (from `w-20 h-20`)
-   - SVG progress ring: viewBox adjusted to 56x56
-   - Icon size: `w-6 h-6` (from `w-8 h-8`)
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-3. **Update "Next slide" button layout**:
-   - Display inline to the left of the play button
-   - Adjust flex direction to `flex-row-reverse` for natural tab order
-
-## Files to Modify
-
-| File | Change |
-|------|--------|
-| `src/components/SlidePlayButton.tsx` | Reposition to top right, resize button, horizontal layout |
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
 
 ## Outcome
 
-- Play button positioned unobtrusively in the top right corner of all slides
-- Full slide content visible without any central obstruction
-- Consistent placement across both GlobalData and Comply365 decks
-- Smaller button size appropriate for corner UI element
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
