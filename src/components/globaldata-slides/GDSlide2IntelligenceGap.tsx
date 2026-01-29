@@ -2,6 +2,13 @@ import GDSlideContainer from "./GDSlideContainer";
 import { Layers, MessageSquareWarning, Clock, ShieldAlert, AlertOctagon } from "lucide-react";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
+const swimLaneColors = [
+  { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-500", gradient: "from-amber-500/10" },
+  { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-500", gradient: "from-purple-500/10" },
+  { bg: "bg-cyan-500/10", border: "border-cyan-500/30", text: "text-cyan-500", gradient: "from-cyan-500/10" },
+  { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-500", gradient: "from-red-500/10" },
+];
+
 const rootCauses = [
   { 
     icon: Layers, 
@@ -80,38 +87,44 @@ const GDSlide2IntelligenceGap = ({
           {/* Left: Why It Exists */}
           <div className="flex flex-col gap-1.5 h-full">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Why It Exists</p>
-            {rootCauses.map((cause, i) => (
-              <div 
-                key={i}
-                className="flex flex-col items-center justify-center text-center bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all duration-300 h-full"
-              >
-                <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center mb-2">
-                  <cause.icon className="w-4 h-4 text-destructive" />
+            {rootCauses.map((cause, i) => {
+              const colors = swimLaneColors[i];
+              return (
+                <div 
+                  key={i}
+                  className={`flex flex-col items-center justify-center text-center ${colors.bg} border ${colors.border} rounded-lg p-3 group hover:border-opacity-50 transition-all duration-300 h-full`}
+                >
+                  <div className={`w-8 h-8 rounded-lg ${colors.bg} border ${colors.border} flex items-center justify-center mb-2`}>
+                    <cause.icon className={`w-4 h-4 ${colors.text}`} />
+                  </div>
+                  <span className={`text-[9px] font-bold ${colors.text} ${colors.bg} px-1.5 py-0.5 rounded uppercase tracking-wider mb-1`}>{cause.badge}</span>
+                  <h4 className="text-sm font-semibold text-foreground leading-tight">{cause.title}</h4>
+                  <p className="text-xs text-muted-foreground leading-tight mt-1">{cause.desc}</p>
+                  <p className={`text-xs ${colors.text} mt-1`}>{cause.detail}</p>
                 </div>
-                <span className="text-[9px] font-bold text-destructive bg-destructive/10 px-1.5 py-0.5 rounded uppercase tracking-wider mb-1">{cause.badge}</span>
-                <h4 className="text-sm font-semibold text-foreground leading-tight">{cause.title}</h4>
-                <p className="text-xs text-muted-foreground leading-tight mt-1">{cause.desc}</p>
-                <p className="text-xs text-destructive mt-1">{cause.detail}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Right: Quantified Impact */}
           <div className="flex flex-col gap-1.5 h-full">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Quantified Impact</p>
-            {impacts.map((impact, i) => (
-              <div 
-                key={i}
-                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full"
-              >
-                <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">{impact.dimension}</p>
-                <div className="flex items-baseline justify-center">
-                  <span className="text-xl font-bold text-destructive">{impact.value}</span>
-                  <span className="text-xs text-destructive ml-1">{impact.label}</span>
+            {impacts.map((impact, i) => {
+              const colors = swimLaneColors[i];
+              return (
+                <div 
+                  key={i}
+                  className={`bg-gradient-to-r ${colors.gradient} to-transparent border ${colors.border} rounded-lg p-3 flex flex-col items-center justify-center text-center h-full`}
+                >
+                  <p className={`text-[9px] ${colors.text} uppercase tracking-wider mb-1`}>{impact.dimension}</p>
+                  <div className="flex items-baseline justify-center">
+                    <span className={`text-xl font-bold ${colors.text}`}>{impact.value}</span>
+                    <span className={`text-xs ${colors.text} ml-1`}>{impact.label}</span>
+                  </div>
+                  <p className="text-xs text-foreground leading-tight mt-1">{impact.desc}</p>
                 </div>
-                <p className="text-xs text-foreground leading-tight mt-1">{impact.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
