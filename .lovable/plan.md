@@ -1,54 +1,110 @@
 
 
-# Plan: Replace "System" with "Solution" Across GlobalData Slides
+# Plan: Enhance Slide 9 ROI with Stage Names, Matched Colors, and Maturity Assessment/Value Calculator CTA
 
 ## Overview
 
-Update all references to "system" (when referring to GlobalData's Connected Intelligence) to "solution" across the slide deck and narration. This terminology shift reinforces that GlobalData provides a unified **solution** rather than a technical "system"—a more value-oriented framing for executive audiences.
+Update Slide 9 ("The Return: Speed, Success, Savings") to reference the actual maturity stage names (Fragmented, Managed, Connected, Optimized, Predictive), apply the same color scheme used in the Maturity Curve, and add a prominent CTA inviting users to try either a "Maturity Assessment" or "Value Calculator" to see what value they can unlock.
 
-## References to Change
+## Current State Analysis
 
-| Location | Line | Current Text | Proposed Text |
-|----------|------|--------------|---------------|
-| **Slide Components** | | | |
-| `GDSlide0Title.tsx` | 9 | "One system, faster, aligned, confident" | "One solution, faster, aligned, confident" |
-| `GDSlide3BeforeAfter.tsx` | 15 | "Unified system" (label) | "Unified solution" |
-| `GDSlide4Proposition.tsx` | 59 | "One system that moves faster, aligns better, and acts with confidence" (subtitle) | "One solution that moves faster, aligns better, and acts with confidence" |
-| `GDSlide4Proposition.tsx` | 73 | "into one trusted system—so organisations" | "into one trusted solution—so organisations" |
-| `GDSlide6ValuePyramid.tsx` | 65 | "The intelligence system doesn't wait to be asked" | "The intelligence solution doesn't wait to be asked" |
-| `GDSlide6ValuePyramid.tsx` | 73 | "across the connected system" | "across the connected solution" |
-| `GDSlide9WhyGlobalData.tsx` | 105 | "operate intelligence as a connected system" | "operate intelligence as a connected solution" |
-| **Narration** | | | |
-| `globalDataNarration.ts` | 64 | "A unified system on one connected platform" | "A unified solution on one connected platform" |
-| `globalDataNarration.ts` | 74 | "into one trusted system—so organisations" | "into one trusted solution—so organisations" |
-| `globalDataNarration.ts` | 96 | "One connected system where intelligence compounds" | "One connected solution where intelligence compounds" |
-| `globalDataNarration.ts` | 110 | "The intelligence system doesn't wait to be asked" | "The intelligence solution doesn't wait to be asked" |
-| `globalDataNarration.ts` | 172 | "operate intelligence as a connected system" | "operate intelligence as a connected solution" |
+The ROI slide currently shows:
+- Generic "Stage 1", "Stage 2", etc. labels
+- A single gradient color for all stage bars
+- No call-to-action or interactive element
+- Bar heights correctly increase with stage (32px to 96px) showing value compounding
 
-## References NOT to Change
+## Proposed Changes
 
-The following use "system" in a different context (describing customer's existing tools/siloed state) and should remain unchanged:
+### File: `src/components/globaldata-slides/GDSlide8ROI.tsx`
 
-| Location | Context | Reason to Keep |
-|----------|---------|----------------|
-| `globalDataNarration.ts` line 106 | "You've got strong systems in specific domains" | Refers to customer's existing siloed tools, not GlobalData |
+#### 1. Add Stage Names and Colors Data
 
-## Files Changed Summary
+Add a stage configuration array matching the Maturity Curve:
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide0Title.tsx` | 9 | Update agenda item summary |
-| `src/components/globaldata-slides/GDSlide3BeforeAfter.tsx` | 15 | Update "After" item label |
-| `src/components/globaldata-slides/GDSlide4Proposition.tsx` | 59, 73 | Update subtitle and value proposition |
-| `src/components/globaldata-slides/GDSlide6ValuePyramid.tsx` | 65, 73 | Update pyramid stage 4 description |
-| `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx` | 105 | Update Performance Imperative text |
-| `src/data/globalDataNarration.ts` | 64, 74, 96, 110, 172 | Update narration scripts (5 occurrences) |
+| Stage | Name | Color |
+|-------|------|-------|
+| 1 | Fragmented | `hsl(0 70% 50%)` (red) |
+| 2 | Managed | `hsl(199 89% 48%)` (sky blue) |
+| 3 | Connected | `hsl(173 80% 40%)` (teal) |
+| 4 | Optimized | `hsl(280 65% 55%)` (purple) |
+| 5 | Predictive | `hsl(45 93% 58%)` (gold) |
+
+#### 2. Update Visual Compounding Chart
+
+**Current:**
+- Generic "Stage 1", "Stage 2" labels
+- Single gradient color for all bars
+
+**Proposed:**
+- Display stage names (e.g., "Fragmented", "Managed") instead of "Stage 1"
+- Apply individual stage colors to each bar
+- Keep existing bar height progression (already correctly shows value increasing)
+
+#### 3. Add Maturity Assessment / Value Calculator CTA
+
+Add a prominent call-to-action below the "Key Message" box:
+
+**Visual Design:**
+- Gradient border button with hover effect
+- Icon: Calculator or diagnostic icon
+- Text: "Try the Maturity Assessment or Value Calculator"
+- Subtext: "See what you can unlock at each stage"
+- Action: Placeholder for future functionality
+
+**Placement:** Between the "Key Message" box and the visual compounding chart
+
+## Visual Mockup (Corrected)
+
+```text
++---------------------------------------------------------------------+
+|  [Three ROI Pillar Cards - Speed, Success, Savings]                 |
++---------------------------------------------------------------------+
+|  Zap Key Message: ROI compounds as organisations move up...         |
++---------------------------------------------------------------------+
+|  +---------------------------------------------------------------+  |
+|  |  Calculator  Try the Maturity Assessment or Value Calculator  |  |
+|  |              See what you can unlock at each stage            |  |
+|  +---------------------------------------------------------------+  |
++---------------------------------------------------------------------+
+|  [Visual Compounding Chart - Value INCREASES with Maturity]         |
+|                                                                     |
+|                                                  +----+             |
+|                                       +----+     | ## | (gold)      |
+|                            +----+     | ## |     | ## |             |
+|                 +----+     | ## |     | ## |     | ## | (purple)    |
+|      +----+     | ## |     | ## |     | ## |     | ## |             |
+|      | ## |     | ## |     | ## |     | ## |     | ## | (teal)      |
+|      | ## |     | ## |     | ## |     | ## |     | ## |             |
+|      +----+     +----+     +----+     +----+     +----+ (sky)       |
+|      (red)                                                          |
+|     ---------------------------------------------------------------  |
+|     Frag      Managed    Connected   Optimised  Predictive          |
+|                                                                     |
+|  Arrow  Value compounds exponentially as maturity increases         |
++---------------------------------------------------------------------+
+```
+
+## Code Changes Summary
+
+| Section | Change |
+|---------|--------|
+| Stage data | Add `stageConfig` array with names and colors |
+| Bar rendering | Apply individual stage colors from `stageConfig` |
+| Labels | Display stage names instead of "Stage X" |
+| CTA | Add button offering "Maturity Assessment or Value Calculator" |
+
+## Files Changed
+
+| File | Lines | Change |
+|------|-------|--------|
+| `src/components/globaldata-slides/GDSlide8ROI.tsx` | 2-4, 37-42, 116-125, 130-132 | Import Calculator icon, add stage config array, add CTA button between key message and chart, update chart to use stage names and colors |
 
 ## Outcome
 
-After these changes:
-- All references to GlobalData's Connected Intelligence will use "solution" terminology
-- Customer's existing siloed "systems" remain described as such (correct usage for contrast)
-- The messaging reinforces the value-oriented, outcome-focused positioning
-- Narration audio will regenerate with the updated terminology
+- Stage names visible: "Fragmented, Managed, Connected, Optimised, Predictive"
+- Colors match the Maturity Curve exactly for visual consistency
+- CTA button invites users to engage with either a Maturity Assessment or Value Calculator
+- Visual chart clearly shows value increasing as maturity increases (taller bars = more value)
+- Reinforces the progression narrative across both slides
 
