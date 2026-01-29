@@ -1,56 +1,64 @@
 
-## What’s happening (root cause)
-On Slide 9, the “bars” are technically being rendered with a height, but their **background style is invalid**, so they appear invisible and you only see the stage names.
 
-In `GDSlide8ROI.tsx`, the bar background is currently set like this:
+# Plan: Update Slide 9 Narration to Reference Maturity Assessment / Value Calculator
 
-- `background: linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
+## Overview
 
-This worked when `stage.color` was a hex color (e.g. `#0066ff`), because `#0066ffcc` is valid hex-with-alpha.
+Update the narration script for Slide 9 (ROI slide) to explicitly mention the "Maturity Assessment" and "Value Calculator" CTA, inviting viewers to explore these tools to see the value they can unlock at each stage.
 
-But now `stage.color` is an HSL string (e.g. `hsl(0, 70%, 50%)`), and appending `cc` produces:
-- `hsl(0, 70%, 50%)cc` which is **not valid CSS**, so the browser drops the background and the bar looks empty.
+## Current State
 
-## Fix approach (safe + consistent)
-We’ll stop trying to append `cc` and instead define bar colors using **HSLA** (HSL + alpha), which is valid and cross-browser reliable.
+The current script for slideId 8 (Slide 9 - "ROI Shows Up in Three Places") is:
 
-### 1) Update `stageConfig` to include two colors per stage
-Instead of only `color`, we’ll store:
-- `barFrom`: opaque color (alpha 1)
-- `barTo`: same color but translucent (alpha ~0.25–0.35)
-- keep a `labelColor` (or just reuse `barFrom`) for text
+> ROI shows up in three places—measurable returns that compound as maturity increases.
+>
+> First, speed to decision. Decision cycles shrink from weeks to days. Seventy percent faster.
+>
+> Second, better growth outcomes. Higher-quality bets, fewer failed launches. Two times higher launch success.
+>
+> Third, lower cost of intelligence. Less duplication, fewer tools, less manual reconciliation. Thirty percent lower total cost of ownership.
+>
+> Here's the key message: ROI compounds as organisations move up the maturity curve. The sooner you start, the faster value accumulates.
 
-Example:
-- Fragmented:
-  - `barFrom: "hsla(0, 70%, 50%, 1)"`
-  - `barTo: "hsla(0, 70%, 50%, 0.3)"`
+The script mentions the maturity curve but does not reference the new CTA button for the Maturity Assessment or Value Calculator.
 
-### 2) Update the bar style to use the valid gradient
-Replace:
-- `linear-gradient(to top, ${stage.color}, ${stage.color}cc)`
+## Proposed Script Update
 
-With:
-- `linear-gradient(to top, ${stage.barFrom}, ${stage.barTo})`
+Add a new paragraph after the "key message" to explicitly invite viewers to use the assessment/calculator tools:
 
-### 3) Keep the “value increases with maturity” behavior
-We’ll preserve the increasing height logic:
-- Stage 1 shortest → Stage 5 tallest  
-So the chart visually communicates “more maturity = more value unlocked”.
+### Updated Script
 
-### 4) Quick visual verification checklist (after implementation)
-On Slide 9:
-- You should see 5 colored bars (red, sky, teal, purple, gold)
-- Each bar gets taller left → right
-- Labels appear in the matching stage color
-- The CTA stays in place above the chart
+> ROI shows up in three places—measurable returns that compound as maturity increases.
+>
+> First, speed to decision. Decision cycles shrink from weeks to days. Seventy percent faster.
+>
+> Second, better growth outcomes. Higher-quality bets, fewer failed launches. Two times higher launch success.
+>
+> Third, lower cost of intelligence. Less duplication, fewer tools, less manual reconciliation. Thirty percent lower total cost of ownership.
+>
+> Look at the chart below. You can see exactly how value compounds as you move from Fragmented through to Predictive. Each stage unlocks exponentially more return.
+>
+> Here's the key message: ROI compounds as organisations move up the maturity curve. The sooner you start, the faster value accumulates.
+>
+> **Want to see exactly what you could unlock? Try our Maturity Assessment to benchmark where you are today—or use the Value Calculator to quantify the returns at each stage for your organisation. Both tools will give you a clear, personalised picture of what's possible.**
 
-## Files to change
-- `src/components/globaldata-slides/GDSlide8ROI.tsx`
+## Changes Summary
 
-## Technical notes (implementation detail)
-- This fix is purely front-end styling (no backend work).
-- HSLA is widely supported and avoids “hex alpha vs hsl alpha” pitfalls.
-- This change also makes future palette adjustments safer (no string concatenation tricks).
+| Section | Current | Proposed |
+|---------|---------|----------|
+| Chart reference | None | Added reference to the visual compounding chart with stage names |
+| CTA mention | None | Added paragraph inviting viewers to try the Maturity Assessment or Value Calculator |
 
-## Estimated effort
-- 5–10 minutes to implement + verify in preview
+## File to Change
+
+| File | Lines | Change |
+|------|-------|--------|
+| `src/data/globalDataNarration.ts` | 141-154 | Update script for slideId 8 to reference the stage names in the chart and mention the Maturity Assessment / Value Calculator CTA |
+
+## Outcome
+
+- Narration explicitly mentions the visual chart showing value compounding across stages (Fragmented to Predictive)
+- Viewers are invited to try the Maturity Assessment or Value Calculator
+- Creates a natural call-to-action within the narration that aligns with the on-screen CTA button
+- Maintains the professional, advisory tone consistent with the rest of the deck
+
