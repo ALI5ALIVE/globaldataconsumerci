@@ -55,7 +55,7 @@ const GDSlide4Proposition = ({
   return (
     <GDSlideContainer
       id="gd-slide-4"
-      title="The Answer: Connected Intelligence"
+      title="Connected Consumer Intelligence"
       subtitle="One solution that moves faster, aligns better, and acts with confidence"
       slideNumber={5}
       isPlaying={isPlaying}

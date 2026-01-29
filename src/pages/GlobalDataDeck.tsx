@@ -19,7 +19,7 @@ const slides = [
   { id: "gd-slide-1", label: "Market Pressure" },
   { id: "gd-slide-2", label: "Intelligence Gap" },
   { id: "gd-slide-3", label: "Transformation" },
-  { id: "gd-slide-4", label: "The Answer" },
+  { id: "gd-slide-4", label: "Connected Intelligence" },
   { id: "gd-slide-5", label: "Value Chain" },
   { id: "gd-slide-6", label: "Your Position" },
   { id: "gd-slide-7", label: "Your Roadmap" },
