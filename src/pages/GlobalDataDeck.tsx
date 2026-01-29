@@ -11,6 +11,7 @@ import GDSlide6ValuePyramid from "@/components/globaldata-slides/GDSlide6ValuePy
 import GDSlide7MaturityCurve from "@/components/globaldata-slides/GDSlide7MaturityCurve";
 import GDSlide8ROI from "@/components/globaldata-slides/GDSlide8ROI";
 import GDSlide9WhyGlobalData from "@/components/globaldata-slides/GDSlide9WhyGlobalData";
+import GDSlide10CTA from "@/components/globaldata-slides/GDSlide10CTA";
 
 
 const slides = [
@@ -24,6 +25,7 @@ const slides = [
   { id: "gd-slide-7", label: "Your Roadmap" },
   { id: "gd-slide-8", label: "The Return" },
   { id: "gd-slide-9", label: "Why GlobalData" },
+  { id: "gd-slide-10", label: "Next Steps" },
 ];
 
 const GlobalDataDeck = () => {
@@ -197,7 +199,7 @@ const GlobalDataDeck = () => {
         <GDSlide7MaturityCurve {...getNarrationProps(7)} />
         <GDSlide8ROI {...getNarrationProps(8)} />
         <GDSlide9WhyGlobalData {...getNarrationProps(9)} />
-        
+        <GDSlide10CTA {...getNarrationProps(10)} />
       </div>
     </div>
   );
