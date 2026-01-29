@@ -260,7 +260,7 @@ const GDSlide6ValuePyramid = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="grid lg:grid-cols-[3fr_2fr] gap-3 lg:gap-4 items-stretch h-full max-h-full overflow-hidden">
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-3 lg:gap-4 items-center h-full max-h-full overflow-hidden">
         {/* LEFT: Pyramid Visual */}
         <div className="w-full min-h-0 max-h-[420px] flex items-center justify-center">
           <GDPyramid3D
@@ -280,7 +280,7 @@ const GDSlide6ValuePyramid = ({
         </div>
 
         {/* RIGHT: Details Panel */}
-        <div className="h-full overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
+        <div className="max-h-[380px] overflow-y-auto bg-card/30 rounded-lg p-4 border border-border/30 flex flex-col">
           <div className={`flex-1 transition-all duration-200 ${
             isTransitioning 
               ? 'opacity-0 translate-x-4' 
