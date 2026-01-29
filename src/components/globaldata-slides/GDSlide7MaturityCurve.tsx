@@ -30,8 +30,8 @@ const roadmapStagesData: RoadmapStage[] = [
   {
     id: "FRAGMENTED",
     stage: 1,
-    headline: "Fragmented & Reactive",
-    sublabel: "Manual / Reactive",
+    headline: "Hunting for Answers",
+    sublabel: "Data Everywhere, Insight Nowhere",
     accentColor: "hsl(0 70% 50%)",
     waysOfWorking: {
       keyActions: [
@@ -48,8 +48,8 @@ const roadmapStagesData: RoadmapStage[] = [
   {
     id: "MANAGED",
     stage: 2,
-    headline: "Managed (Siloed)",
-    sublabel: "Silo Optimisation",
+    headline: "Working in Parallel",
+    sublabel: "Good Alone, Misaligned Together",
     accentColor: "hsl(199 89% 48%)",
     waysOfWorking: {
       keyActions: [
@@ -66,8 +66,8 @@ const roadmapStagesData: RoadmapStage[] = [
   {
     id: "CONNECTED",
     stage: 3,
-    headline: "Connected Intelligence",
-    sublabel: "Platform Shift",
+    headline: "Working from One Truth",
+    sublabel: "Platform-Enabled Collaboration",
     accentColor: "hsl(173 80% 40%)",
     waysOfWorking: {
       keyActions: [
@@ -84,8 +84,8 @@ const roadmapStagesData: RoadmapStage[] = [
   {
     id: "OPTIMIZED",
     stage: 4,
-    headline: "Optimized Operations",
-    sublabel: "Intelligent Ops",
+    headline: "Deciding in Days",
+    sublabel: "AI-Powered Operations",
     accentColor: "hsl(280 65% 55%)",
     waysOfWorking: {
       keyActions: [
@@ -102,8 +102,8 @@ const roadmapStagesData: RoadmapStage[] = [
   {
     id: "PREDICTIVE",
     stage: 5,
-    headline: "Predictive & Proactive",
-    sublabel: "AI-Driven Foresight",
+    headline: "Anticipating the Market",
+    sublabel: "Proactive Strategy",
     accentColor: "hsl(45 93% 58%)",
     waysOfWorking: {
       keyActions: [
