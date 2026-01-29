@@ -155,19 +155,21 @@ Here's the key message: ROI compounds as organisations move up the maturity curv
   {
     slideId: 9,
     title: "Built for Connected Intelligence at Scale",
-    script: `Why GlobalData? Why are we uniquely positioned to close the Intelligence Gap?
+    script: `Why GlobalData? Let me show you exactly how we deliver connected intelligence at scale.
 
-Three differentiators.
+Our platform brings together three essential elements.
 
-First—unmatched proprietary data. Forty-plus years of consumer behaviour data across two hundred-plus markets. Data no competitor can replicate.
+First: High-Impact Data. Real-time, trusted, actionable. Coverage of ninety-five percent of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust.
 
-Second—human plus AI at scale. One thousand-plus analysts globally, amplified by Ava, our enterprise AI analyst. Insights your team would take months to find—delivered in hours.
+Second: AI and Technology that accelerates execution. This is Agentic AI that acts, not just reports—forecasting moves, surfacing answers in seconds, guiding your teams to act when timing matters most.
 
-Third—unified taxonomy. Single classification system across all intelligence domains. One truth, not five conflicting ones.
+Third: Human Expertise. Industry specialists, journalists, and advisors embedded in your workflows—decoding complexity and transforming intelligence into confident action.
+
+These three elements power our connected intelligence platform—moving your teams from reactive to precision execution.
+
+The result? Faster decision velocity. Stronger market attainment. And consistent high-value wins.
 
 The performance imperative: organisations that close the Intelligence Gap and operate intelligence as a connected system will define the next generation of category performers.
-
-Three truths: Insight alone does not create advantage. Speed without confidence creates risk. Connected Intelligence drives category performance.
 
 The future belongs to organisations that turn change into decisions—earlier, together, and with conviction.`,
     voiceId: DEFAULT_VOICE_ID,
