@@ -87,13 +87,13 @@ const solutionCombos = [
   },
 ];
 
-// Narration sync timings - updated for precise highlighting
+// Narration sync timings - aligned to exact narration phrases
 const stepTimings = [
-  { index: 0, startPercent: 12 },
-  { index: 1, startPercent: 28 },
-  { index: 2, startPercent: 45 },
-  { index: 3, startPercent: 62 },
-  { index: 4, startPercent: 78 },
+  { index: 0, startPercent: 8 },   // Stage one: Trend and Strategy
+  { index: 1, startPercent: 25 },  // Stage two: White Space
+  { index: 2, startPercent: 40 },  // Stage three: Concept Screening
+  { index: 3, startPercent: 55 },  // Stage four: Market Entry
+  { index: 4, startPercent: 70 },  // Stage five: Post-Launch
 ];
 
 const GDSlide5ValueChain = ({
@@ -135,10 +135,19 @@ const GDSlide5ValueChain = ({
     }
   };
 
+  // Map combo pills to their primary stage for showing detailed content
+  const primaryStageMap: Record<number, number> = {
+    0: 0,  // "Where to Play" → Trend & Strategy
+    1: 2,  // "How to Win" → Concept Screening
+    2: 3,  // "How to Execute" → Market Entry
+  };
+
   const handleComboHover = (index: number | null) => {
     if (!isNarrationControlled) {
       setActiveCombo(index);
-      if (index !== null) setActiveStage(null);
+      if (index !== null) {
+        setActiveStage(primaryStageMap[index]);
+      }
     }
   };
 
@@ -272,7 +281,7 @@ const GDSlide5ValueChain = ({
             const firstPain = deepDive?.painToCapability[0];
 
             return (
-              <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-2.5 animate-fade-in">
+              <div className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-2.5">
                 <div className="flex gap-3">
                   {/* Left: Icons + Stage Info */}
                   <div className="shrink-0">
@@ -357,7 +366,7 @@ const GDSlide5ValueChain = ({
           
           {activeComboData && !activeData && (
             <div 
-              className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-3 animate-fade-in"
+              className="bg-gradient-to-r from-primary/10 to-sky-500/5 border border-primary/30 rounded-xl p-3"
             >
               <div className="flex items-start gap-3">
                 <div className="flex gap-1 shrink-0">

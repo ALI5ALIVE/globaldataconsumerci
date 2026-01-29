@@ -94,9 +94,7 @@ const GDSlide1GrowthReality = ({
             return (
               <div 
                 key={i}
-                className={`bg-card/50 border border-border/50 rounded-xl p-4 hover:border-destructive/30 transition-all duration-300 group ${
-                  isVisible(stepKey) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className="bg-card/50 border border-border/50 rounded-xl p-4 hover:border-destructive/30 transition-all duration-300 group"
               >
                 <div className="flex items-start gap-3 mb-2">
                   <div className="w-9 h-9 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center">
@@ -118,9 +116,7 @@ const GDSlide1GrowthReality = ({
 
         {/* The Paradox */}
         <div className="grid lg:grid-cols-2 gap-2 items-center">
-          <div className={`bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-5 transition-all duration-300 ${
-            isVisible('paradox') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-          }`}>
+          <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/30 rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-2 mb-2">
               <AlertTriangle className="w-4 h-4 text-amber-400" />
               <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">The Paradox</span>
@@ -133,9 +129,7 @@ const GDSlide1GrowthReality = ({
             </p>
           </div>
 
-          <div className={`bg-gradient-to-br from-destructive/10 to-red-500/5 border border-destructive/30 rounded-xl p-5 transition-all duration-300 ${
-            isVisible('realProblem') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-          }`}>
+          <div className="bg-gradient-to-br from-destructive/10 to-red-500/5 border border-destructive/30 rounded-xl p-5 transition-all duration-300">
             <div className="flex items-center gap-2 mb-2">
               <Zap className="w-4 h-4 text-destructive" />
               <span className="text-xs font-semibold text-destructive uppercase tracking-wider">The Real Problem</span>
@@ -150,9 +144,7 @@ const GDSlide1GrowthReality = ({
         </div>
 
         {/* Bottom callout */}
-        <div className={`bg-card border border-border/50 rounded-lg p-3 text-center transition-all duration-300 ${
-          isVisible('callout') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
+        <div className="bg-card border border-border/50 rounded-lg p-3 text-center transition-all duration-300">
           <p className="text-xs text-foreground">
             <span className="font-semibold text-primary">Category leaders</span> don't just have better data — they have <span className="font-semibold text-primary">connected intelligence</span> that enables faster, unified action.
           </p>
