@@ -1,113 +1,112 @@
 
 
-# Plan: Redesign Slide 10 to Match Reference Layout
+# Plan: Update Slide 3 (Intelligence Gap) - Centered Copy, Larger Text, and Aligned Narration Order
 
 ## Overview
 
-Redesign GDSlide9WhyGlobalData.tsx to match the reference image, which features a clean two-column layout with a central circular Venn diagram and descriptive callout boxes around it.
+Two changes requested:
+1. **Visual**: Make the copy in the "Why It Exists" and "Quantified Impact" cards more centrally aligned with larger text
+2. **Narration**: Restructure the script so each root cause is immediately followed by its corresponding quantified impact
 
-## Reference Image Analysis
+---
 
-The reference shows:
-- **Left column**: Large headline + intro paragraph + "The result" section
-- **Right/Center**: Circular Venn diagram with three overlapping segments (High-impact data, Human expertise, AI & technology) surrounding a central blue circle
-- **Around diagram**: Three callout boxes with curved connector lines explaining each pillar
+## Part 1: Visual Changes to Cards
 
-## Proposed Layout Structure
+### Current State
+- Cards use left-aligned text with small font sizes (`text-[10px]`, `text-xs`)
+- Content is aligned to the left with icons
 
-```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│  [Left Column 40%]              │        [Right Column 60%]            │
-│                                 │                                       │
-│  "Consumer intelligence         │        ┌─ "High-impact data" callout │
-│   that turns strategy           │        │                              │
-│   into performance"             │   ┌────┴────────────────────────┐     │
-│                                 │   │     ○ High-impact           │     │
-│  Our connected intelligence     │   │       data                  │     │
-│  platform unites high-impact    │   │            ┌───┐            │     │
-│  data, AI, and human expertise  │   │ ○ Sales  ─ │ ● │ ─ ○ Human │     │
-│  to move teams from reactive    │   │   intell.  └───┘  expertise│     │
-│  to precision execution.        │   │                             │     │
-│                                 │   │       ○ AI &                │     │
-│  The result:                    │   │         technology          │     │
-│  • Faster time to market        │   └─────────────────────────────┘     │
-│  • Stronger consumer connect.   │        │                              │
-│  • Consistent category gains    │        └─ "AI that accelerates" callout
-│                                 │                                       │
-│                                 │     "Domain experts" callout ─────────│
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
-## Technical Implementation
-
-### 1. Update Slide Title and Subtitle
+### Proposed Changes
 
 | Element | Current | Proposed |
 |---------|---------|----------|
-| Title | "Built for Connected Intelligence at Scale" | "Consumer intelligence that turns strategy into performance" |
-| Subtitle | "High-impact data, AI, and human expertise—moving you from reactive to precision execution" | Remove (will be inline body text) |
+| Card layout | Left-aligned with icon on left | Center-aligned content within cards |
+| Title text | `text-xs` (~12px) | `text-sm` (~14px) |
+| Description text | `text-[10px]` | `text-xs` (~12px) |
+| Detail text | `text-[10px]` | `text-xs` (~12px) |
+| Impact value | `text-lg` | `text-xl` |
+| Impact description | `text-[10px]` | `text-xs` |
+| Text alignment | `text-left` (implicit) | `text-center` |
 
-### 2. Create New SVG Visualization Component
+### File to Modify
+`src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
 
-Create a new component `ThreePillarDiagram.tsx` that renders:
-- A circular Venn-style diagram with three overlapping rings
-- Central blue circle labeled "Consumer Intelligence"
-- Three outer segments: "High-impact data", "Human expertise", "AI & technology"
-- Curved connector lines to callout boxes
+---
 
-### 3. New Layout Structure
+## Part 2: Narration Script - Paired Sequencing
 
-Replace the current grid-based card layout with a two-column design:
+### Current Narration Structure (lines 37-54)
+```
+Why does it exist? Four reasons.
+→ All 4 "why" reasons listed
+→ Then: "The quantified impact?"
+→ All 4 impacts listed together
+```
 
-**Left Column (40%)**:
-- Large headline (handled by GDSlideContainer)
-- Intro paragraph explaining the connected platform
-- "The result:" section with three bullet points
+### Proposed Narration Structure
+```
+Why does it exist?
 
-**Right Column (60%)**:
-- Central Venn diagram (new SVG component)
-- Three positioned callout boxes with curved connectors:
-  - Top: "High-impact data — real-time, trusted, actionable"
-  - Bottom-left: "AI that accelerates execution"
-  - Right: "Domain experts who turn insight into impact"
+Signals fragment across tools, teams, and vendors—no single source of truth.
+The impact: three to five conflicting data sources per decision.
 
-### 4. Content Updates
+Leaders debate data instead of committing to direction—analysis paralysis.
+The impact: forty percent of launches miss optimal windows.
 
-**Intro Paragraph:**
-> "Our connected intelligence platform unites high-impact data, AI, and human expertise to move consumer teams from reactive to precision execution."
+Decisions arrive late—too late to matter, missed windows.
+The impact: twelve-plus weeks average decision latency.
 
-**The Result Section:**
-- Faster time to market
-- Stronger consumer connection
-- Consistent category gains
+Decisions lack conviction—teams hedge instead of committing.
+The impact: sixty-eight percent of teams lack the confidence to act decisively.
 
-**Three Callout Boxes:**
+This gap is where growth stalls, relevance erodes, and performance suffers.
+```
 
-| Pillar | Title | Description |
-|--------|-------|-------------|
-| High-impact data | "High-impact data — real-time, trusted, actionable" | Coverage of 95% of global GDP, analyst-validated and unified into a single taxonomy. Earlier signals, clearer context, and decisions you can trust. |
-| AI & Technology | "AI that accelerates execution" | Agentic AI that acts, not just reports — forecasting moves, surfacing answers in seconds, and guiding your teams to act when timing matters most. |
-| Human Expertise | "Domain experts who turn insight into impact" | Industry specialists, journalists, and advisors embedded in your workflows — decoding complexity and transforming intelligence into confident action. |
+### File to Modify
+`src/data/globalDataNarration.ts` (lines 37-54, slideId 2)
 
-## Files to Create/Modify
+---
 
-| File | Action | Description |
-|------|--------|-------------|
-| `src/components/globaldata-slides/ThreePillarDiagram.tsx` | Create | New SVG component for the circular Venn diagram |
-| `src/components/globaldata-slides/GDSlide9WhyGlobalData.tsx` | Modify | Complete redesign with new layout, content, and diagram |
+## Technical Details
 
-## Visual Styling Notes
+### Card Layout Changes (GDSlide2IntelligenceGap.tsx)
 
-- Use a beige/cream colored ring for the outer Venn circle (matching reference)
-- Central circle in GlobalData blue (#0066FF / primary)
-- Light background with clean typography
-- Curved connector lines from diagram to callout boxes
-- Maintain the existing dark theme variant for consistency with other slides
+**"Why It Exists" cards (lines 83-100):**
+- Change flex layout to center content
+- Increase font sizes for title and descriptions
+- Center text alignment
+
+**"Quantified Impact" cards (lines 106-119):**
+- Center the value/label display
+- Increase font sizes
+- Center text alignment
+
+### Narration Script Changes (globalDataNarration.ts)
+
+Rewrite slideId 2 script to interleave each root cause with its matching impact:
+
+| Order | Root Cause | Paired Impact |
+|-------|------------|---------------|
+| 1 | Signals Fragment (Breadth) | 3-5 conflicting sources |
+| 2 | Leaders Debate (Alignment) | 40% launches miss windows |
+| 3 | Decisions Arrive Late (Speed) | 12+ weeks latency |
+| 4 | Decisions Lack Conviction (Confidence) | 68% teams lack confidence |
+
+---
+
+## Files to Change
+
+| File | Lines | Change |
+|------|-------|--------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 83-119 | Update card layout for centered, larger text |
+| `src/data/globalDataNarration.ts` | 37-54 | Restructure script to pair each "why" with its impact |
+
+---
 
 ## Outcome
 
-- Slide 10 matches the reference design with a professional Venn diagram visualization
-- Clear visual hierarchy: headline → intro → results on left; diagram with callouts on right
-- Consumer-focused messaging aligned with the deck's terminology pivot
-- Maintains consistency with GDSlideContainer structure
+- Cards display with more prominent, centrally-aligned text for better visual impact
+- Narration flows logically: each root cause is immediately followed by its quantified impact
+- Better audience comprehension as the "why" and "what it costs" are paired together
+- Maintains the four-row height alignment between left and right columns
 
