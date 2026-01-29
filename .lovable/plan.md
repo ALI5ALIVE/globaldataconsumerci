@@ -1,81 +1,75 @@
 
 
-# Plan: Add Color-Coded Swim Lanes to Slide 3
+# Plan: Move Play Button to Top Right Corner
 
 ## Overview
 
-Transform the "Why It Exists" and "Quantified Impact" sections into visually aligned swim lanes where each row shares a distinct color, creating a clear visual connection between each root cause and its corresponding impact.
+Relocate the narration play/pause button from the center of the slide to the top right corner so it doesn't obstruct the visual content on any slide.
 
-## Proposed Color Palette
+## Current State
 
-Each of the four rows will have a unique color theme:
+- The play button is positioned at **center of viewport** using:
+  ```
+  absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+  ```
+- This places an 80x80px button directly over the slide content
+- The "Next slide" button appears below it after narration completes
 
-| Row | Dimension | Color Theme | HSL Value |
-|-----|-----------|-------------|-----------|
-| 1 | Breadth | Amber/Orange | `45 93% 58%` (warm gold) |
-| 2 | Alignment | Purple/Plum | `280 65% 55%` (violet) |
-| 3 | Speed | Cyan/Teal | `195 100% 45%` (sky blue) |
-| 4 | Confidence | Red/Coral | `0 75% 55%` (destructive red) |
+## Proposed Position
 
-## Visual Design
+Move the button to the **top right corner**, aligned with the slide content container:
+
+| Element | Current | Proposed |
+|---------|---------|----------|
+| Position | Center of viewport | Top right corner |
+| CSS Classes | `left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2` | `top-6 right-6 sm:top-8 sm:right-10` |
+| Button Size | 80x80px (w-20 h-20) | 56x56px (w-14 h-14) - slightly smaller for corner placement |
+| Icon Size | 32x32px (w-8 h-8) | 24x24px (w-6 h-6) |
+| Next Slide Button | Below play button | To the left of play button |
+
+## Visual Layout
 
 ```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│  Why It Exists                    │  Quantified Impact                  │
-├───────────────────────────────────┼─────────────────────────────────────┤
-│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
-│  │ [AMBER] Signals Fragment    │◄─┼─►│ [AMBER] 3-5 sources         │    │
-│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
-│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
-│  │ [PURPLE] Leaders Debate     │◄─┼─►│ [PURPLE] 40% launches       │    │
-│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
-│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
-│  │ [CYAN] Decisions Late       │◄─┼─►│ [CYAN] 12+ weeks            │    │
-│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
-│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
-│  │ [RED] Lack Conviction       │◄─┼─►│ [RED] 68% teams             │    │
-│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                     [Next] [▶️]     │  ← Top right
+│  Title                                                              │
+│  Subtitle                                                           │
+│                                                                     │
+│                                                                     │
+│            [SLIDE CONTENT - NOW UNOBSTRUCTED]                       │
+│                                                                     │
+│                                                                     │
+│  Footer                                                  Slide #    │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-## Technical Implementation
+## Technical Changes
 
-### Data Structure Update
+### File: `src/components/SlidePlayButton.tsx`
 
-Add a `color` property to both `rootCauses` and `impacts` arrays:
+1. **Update container positioning**:
+   - Change from centered to top-right corner
+   - Adjust flex direction for horizontal layout (play + next side-by-side)
 
-```typescript
-const swimLaneColors = [
-  { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-500", gradient: "from-amber-500/10" },
-  { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-500", gradient: "from-purple-500/10" },
-  { bg: "bg-cyan-500/10", border: "border-cyan-500/30", text: "text-cyan-500", gradient: "from-cyan-500/10" },
-  { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-500", gradient: "from-red-500/10" },
-];
-```
+2. **Reduce button size for corner placement**:
+   - Main button: `w-14 h-14` (from `w-20 h-20`)
+   - SVG progress ring: viewBox adjusted to 56x56
+   - Icon size: `w-6 h-6` (from `w-8 h-8`)
 
-### Card Styling Changes
+3. **Update "Next slide" button layout**:
+   - Display inline to the left of the play button
+   - Adjust flex direction to `flex-row-reverse` for natural tab order
 
-**"Why It Exists" cards** (lines 84-96):
-- Replace `bg-card/50 border-border/50` with row-specific colors
-- Update icon background from `bg-destructive/10` to row color
-- Update badge background and text color
-- Update detail text color
-
-**"Quantified Impact" cards** (lines 103-113):
-- Replace `from-destructive/10 border-destructive/20` with row-specific gradient
-- Update dimension label color
-- Update value and label text colors
-
-### File to Modify
+## Files to Modify
 
 | File | Change |
 |------|--------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | Add color array, apply per-row styling to both card columns |
+| `src/components/SlidePlayButton.tsx` | Reposition to top right, resize button, horizontal layout |
 
 ## Outcome
 
-- Each row is visually linked through consistent color coding
-- Immediate visual connection between "why" and "impact" pairs
-- Professional palette that maintains the deck's dark theme
-- Clearer audience comprehension of the cause-effect relationships
+- Play button positioned unobtrusively in the top right corner of all slides
+- Full slide content visible without any central obstruction
+- Consistent placement across both GlobalData and Comply365 decks
+- Smaller button size appropriate for corner UI element
 
