@@ -83,19 +83,15 @@ const GDSlide2IntelligenceGap = ({
             {rootCauses.map((cause, i) => (
               <div 
                 key={i}
-                className="flex items-start gap-2 bg-card/50 border border-border/50 rounded-lg p-2 group hover:border-destructive/30 transition-all duration-300 h-full"
+                className="flex flex-col items-center justify-center text-center bg-card/50 border border-border/50 rounded-lg p-3 group hover:border-destructive/30 transition-all duration-300 h-full"
               >
-                <div className="w-6 h-6 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center flex-shrink-0">
-                  <cause.icon className="w-3 h-3 text-destructive" />
+                <div className="w-8 h-8 rounded-lg bg-destructive/10 border border-destructive/20 flex items-center justify-center mb-2">
+                  <cause.icon className="w-4 h-4 text-destructive" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[8px] font-bold text-destructive bg-destructive/10 px-1 py-0.5 rounded uppercase tracking-wider">{cause.badge}</span>
-                  </div>
-                  <h4 className="text-xs font-semibold text-foreground leading-tight">{cause.title}</h4>
-                  <p className="text-[10px] text-muted-foreground leading-tight">{cause.desc}</p>
-                  <p className="text-[10px] text-destructive mt-0.5">{cause.detail}</p>
-                </div>
+                <span className="text-[9px] font-bold text-destructive bg-destructive/10 px-1.5 py-0.5 rounded uppercase tracking-wider mb-1">{cause.badge}</span>
+                <h4 className="text-sm font-semibold text-foreground leading-tight">{cause.title}</h4>
+                <p className="text-xs text-muted-foreground leading-tight mt-1">{cause.desc}</p>
+                <p className="text-xs text-destructive mt-1">{cause.detail}</p>
               </div>
             ))}
           </div>
@@ -106,16 +102,14 @@ const GDSlide2IntelligenceGap = ({
             {impacts.map((impact, i) => (
               <div 
                 key={i}
-                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-2 flex items-start gap-2 h-full"
+                className="bg-gradient-to-r from-destructive/10 to-transparent border border-destructive/20 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full"
               >
-                <div className="text-right min-w-[50px]">
-                  <span className="text-lg font-bold text-destructive">{impact.value}</span>
-                  <span className="text-[10px] text-destructive ml-1">{impact.label}</span>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">{impact.dimension}</p>
+                <div className="flex items-baseline justify-center">
+                  <span className="text-xl font-bold text-destructive">{impact.value}</span>
+                  <span className="text-xs text-destructive ml-1">{impact.label}</span>
                 </div>
-                <div className="flex-1 border-l border-destructive/20 pl-2">
-                  <p className="text-[8px] text-muted-foreground uppercase tracking-wider">{impact.dimension}</p>
-                  <p className="text-[10px] text-foreground leading-tight">{impact.desc}</p>
-                </div>
+                <p className="text-xs text-foreground leading-tight mt-1">{impact.desc}</p>
               </div>
             ))}
           </div>
