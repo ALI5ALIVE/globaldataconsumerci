@@ -1,112 +1,81 @@
 
 
-# Plan: Update Slide 3 (Intelligence Gap) - Centered Copy, Larger Text, and Aligned Narration Order
+# Plan: Add Color-Coded Swim Lanes to Slide 3
 
 ## Overview
 
-Two changes requested:
-1. **Visual**: Make the copy in the "Why It Exists" and "Quantified Impact" cards more centrally aligned with larger text
-2. **Narration**: Restructure the script so each root cause is immediately followed by its corresponding quantified impact
+Transform the "Why It Exists" and "Quantified Impact" sections into visually aligned swim lanes where each row shares a distinct color, creating a clear visual connection between each root cause and its corresponding impact.
 
----
+## Proposed Color Palette
 
-## Part 1: Visual Changes to Cards
+Each of the four rows will have a unique color theme:
 
-### Current State
-- Cards use left-aligned text with small font sizes (`text-[10px]`, `text-xs`)
-- Content is aligned to the left with icons
+| Row | Dimension | Color Theme | HSL Value |
+|-----|-----------|-------------|-----------|
+| 1 | Breadth | Amber/Orange | `45 93% 58%` (warm gold) |
+| 2 | Alignment | Purple/Plum | `280 65% 55%` (violet) |
+| 3 | Speed | Cyan/Teal | `195 100% 45%` (sky blue) |
+| 4 | Confidence | Red/Coral | `0 75% 55%` (destructive red) |
 
-### Proposed Changes
+## Visual Design
 
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Card layout | Left-aligned with icon on left | Center-aligned content within cards |
-| Title text | `text-xs` (~12px) | `text-sm` (~14px) |
-| Description text | `text-[10px]` | `text-xs` (~12px) |
-| Detail text | `text-[10px]` | `text-xs` (~12px) |
-| Impact value | `text-lg` | `text-xl` |
-| Impact description | `text-[10px]` | `text-xs` |
-| Text alignment | `text-left` (implicit) | `text-center` |
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Why It Exists                    │  Quantified Impact                  │
+├───────────────────────────────────┼─────────────────────────────────────┤
+│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
+│  │ [AMBER] Signals Fragment    │◄─┼─►│ [AMBER] 3-5 sources         │    │
+│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
+│  │ [PURPLE] Leaders Debate     │◄─┼─►│ [PURPLE] 40% launches       │    │
+│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
+│  │ [CYAN] Decisions Late       │◄─┼─►│ [CYAN] 12+ weeks            │    │
+│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐  │  ┌─────────────────────────────┐    │
+│  │ [RED] Lack Conviction       │◄─┼─►│ [RED] 68% teams             │    │
+│  └─────────────────────────────┘  │  └─────────────────────────────┘    │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+## Technical Implementation
+
+### Data Structure Update
+
+Add a `color` property to both `rootCauses` and `impacts` arrays:
+
+```typescript
+const swimLaneColors = [
+  { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-500", gradient: "from-amber-500/10" },
+  { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-500", gradient: "from-purple-500/10" },
+  { bg: "bg-cyan-500/10", border: "border-cyan-500/30", text: "text-cyan-500", gradient: "from-cyan-500/10" },
+  { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-500", gradient: "from-red-500/10" },
+];
+```
+
+### Card Styling Changes
+
+**"Why It Exists" cards** (lines 84-96):
+- Replace `bg-card/50 border-border/50` with row-specific colors
+- Update icon background from `bg-destructive/10` to row color
+- Update badge background and text color
+- Update detail text color
+
+**"Quantified Impact" cards** (lines 103-113):
+- Replace `from-destructive/10 border-destructive/20` with row-specific gradient
+- Update dimension label color
+- Update value and label text colors
 
 ### File to Modify
-`src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx`
 
----
-
-## Part 2: Narration Script - Paired Sequencing
-
-### Current Narration Structure (lines 37-54)
-```
-Why does it exist? Four reasons.
-→ All 4 "why" reasons listed
-→ Then: "The quantified impact?"
-→ All 4 impacts listed together
-```
-
-### Proposed Narration Structure
-```
-Why does it exist?
-
-Signals fragment across tools, teams, and vendors—no single source of truth.
-The impact: three to five conflicting data sources per decision.
-
-Leaders debate data instead of committing to direction—analysis paralysis.
-The impact: forty percent of launches miss optimal windows.
-
-Decisions arrive late—too late to matter, missed windows.
-The impact: twelve-plus weeks average decision latency.
-
-Decisions lack conviction—teams hedge instead of committing.
-The impact: sixty-eight percent of teams lack the confidence to act decisively.
-
-This gap is where growth stalls, relevance erodes, and performance suffers.
-```
-
-### File to Modify
-`src/data/globalDataNarration.ts` (lines 37-54, slideId 2)
-
----
-
-## Technical Details
-
-### Card Layout Changes (GDSlide2IntelligenceGap.tsx)
-
-**"Why It Exists" cards (lines 83-100):**
-- Change flex layout to center content
-- Increase font sizes for title and descriptions
-- Center text alignment
-
-**"Quantified Impact" cards (lines 106-119):**
-- Center the value/label display
-- Increase font sizes
-- Center text alignment
-
-### Narration Script Changes (globalDataNarration.ts)
-
-Rewrite slideId 2 script to interleave each root cause with its matching impact:
-
-| Order | Root Cause | Paired Impact |
-|-------|------------|---------------|
-| 1 | Signals Fragment (Breadth) | 3-5 conflicting sources |
-| 2 | Leaders Debate (Alignment) | 40% launches miss windows |
-| 3 | Decisions Arrive Late (Speed) | 12+ weeks latency |
-| 4 | Decisions Lack Conviction (Confidence) | 68% teams lack confidence |
-
----
-
-## Files to Change
-
-| File | Lines | Change |
-|------|-------|--------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 83-119 | Update card layout for centered, larger text |
-| `src/data/globalDataNarration.ts` | 37-54 | Restructure script to pair each "why" with its impact |
-
----
+| File | Change |
+|------|--------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | Add color array, apply per-row styling to both card columns |
 
 ## Outcome
 
-- Cards display with more prominent, centrally-aligned text for better visual impact
-- Narration flows logically: each root cause is immediately followed by its quantified impact
-- Better audience comprehension as the "why" and "what it costs" are paired together
-- Maintains the four-row height alignment between left and right columns
+- Each row is visually linked through consistent color coding
+- Immediate visual connection between "why" and "impact" pairs
+- Professional palette that maintains the deck's dark theme
+- Clearer audience comprehension of the cause-effect relationships
 
