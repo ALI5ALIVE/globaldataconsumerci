@@ -176,28 +176,22 @@ The future belongs to organisations that turn change into decisions—earlier, t
   },
   {
     slideId: 10,
-    title: "From Weak Signal to Winning Launch",
-    script: `Let me show you exactly how this works for a real consumer brand challenge.
+    title: "Let's Close Your Intelligence Gap",
+    script: `You've seen the Intelligence Gap. You've seen where your organisation likely sits on the maturity ladder. And you've seen what's possible when intelligence becomes connected.
 
-Imagine you're a global FMCG brand. You've spotted an opportunity in high-protein on-the-go snacking. The segment is growing fourteen percent year over year, but three competitors already have two or more SKUs each. You need to move fast—and get it right.
+Now the question is: what's the right next step for you?
 
-Here's your target consumer: urban European commuters, twenty-five to forty, health-conscious but time-poor.
+We offer two pathways.
 
-Watch how the intelligence connects.
+The first is a Discovery Session. This is where we go deep into GlobalData's five core intelligence solutions—and show you exactly how they apply to your specific challenges. You'll see the platform live, explore use cases relevant to your category, and understand what connected intelligence looks like in practice. It takes about sixty minutes, and we can do it virtually or in person.
 
-Strategic Intelligence defines the question: Where can we launch with confidence in the next twelve months? This sets the direction.
+The second option is an Intelligence Audit. This is for organisations ready to take a hard look at their current landscape. We'll map your existing tools and data sources, identify gaps and redundancies, and benchmark your maturity stage. You'll walk away with a custom audit report—a clear picture of where you are and what it would take to close the gap. This takes about ninety minutes and delivers a tangible diagnostic.
 
-Market Intelligence identifies the opportunity. Savory, high-protein snacks for urban commuters. A fast-growing segment that's under-served by current offerings.
+Here's the reality. Every week of decision latency compounds. Missed market windows. Competitor advantage. Intelligence debt that becomes harder to recover.
 
-Competitive Intelligence maps where competitors are positioned—and where the gaps are. Three competitors, but none with clean-label positioning at an accessible price point.
+The brands that act now will define the next generation of category performers.
 
-Innovation Intelligence recommends the product. A savory protein crisp with clean-label credentials. Validated with real consumers before you commit a single R&D dollar.
-
-Sales Intelligence generates the enablement. Retailer-specific stories for Tesco versus Carrefour. Sell-in materials that show exactly why this SKU wins with their consumers.
-
-The result? Launched in six months versus the typical fourteen. Captured number two position in the segment within eight weeks.
-
-That's the difference between fragmented point solutions and connected consumer intelligence. That's what we're here to help you build.`,
+Let's start the conversation.`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
