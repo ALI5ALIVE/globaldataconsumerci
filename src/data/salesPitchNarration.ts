@@ -107,13 +107,13 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 16,
     title: "The Return",
-    script: `The return shows up where it matters — in market. Mondelēz cut decision cycles by seventy percent, responding to consumer shifts before competitors even spotted them. Two times higher launch success — because every product was validated against real consumer signals. Thirty percent lower total cost of ownership. When you understand the consumer first, everything else follows.`,
+    script: `The return is measured. Mondelēz cut decision cycles by seventy percent. Two times higher launch success. Thirty percent lower total cost of ownership. Value compounds as you climb the maturity curve.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 17,
     title: "Get Connected",
-    script: `Ninety days to unified consumer intelligence. Five fragmented views of your consumer become one connected truth. Decisions accelerate from weeks to days — matching the speed your consumers already move at. Every week of delay is another week competitors are reading consumer signals you're missing.`,
+    script: `Ninety days to unified intelligence. Five vendors become one platform. Cost drops thirty percent. Decisions accelerate from weeks to days. Every week of delay compounds the gap.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
