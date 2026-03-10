@@ -144,7 +144,7 @@ export const useSalesPitchNarration = () => {
 
   const preloadNext = useCallback((currentSlideId: number) => {
     const nextSlideId = currentSlideId + 1;
-    if (nextSlideId <= 23 && !cacheRef.current.has(nextSlideId)) {
+    if (nextSlideId <= 18 && !cacheRef.current.has(nextSlideId)) {
       fetchAudio(nextSlideId).catch(() => {});
     }
   }, []);
