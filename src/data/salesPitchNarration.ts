@@ -107,7 +107,7 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 16,
     title: "The Return",
-    script: `The return is measured. Mondelēz cut decision cycles by seventy percent. Two times higher launch success. Thirty percent lower total cost of ownership. Value compounds as you climb the maturity curve.`,
+    script: `The return shows up where it matters — in market. Mondelēz cut decision cycles by seventy percent, responding to consumer shifts before competitors even spotted them. Two times higher launch success — because every product was validated against real consumer signals. Thirty percent lower total cost of ownership. When you understand the consumer first, everything else follows.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
