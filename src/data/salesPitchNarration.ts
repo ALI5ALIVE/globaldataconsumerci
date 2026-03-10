@@ -59,7 +59,7 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 8,
     title: "Competitive Intel",
-    script: `Third: Competitive Intelligence. Predictive tracking across twenty-five thousand companies using six alternative data signals: patents, job postings, deals, filings, news, and sentiment. Thematic scorecards reveal who's investing ahead of the curve. A global confectionery company spotted a competitor reformulating — responded with clean-label claims and recovered two-and-a-half points of share in six months.`,
+    script: `Third: Competitive Intelligence. Predictive tracking across twenty-five thousand companies using six alternative data signals: patents, job postings, deals, filings, news, and sentiment. Scorecards reveal who's investing ahead of the curve. A global confectionery company spotted a competitor reformulating — responded with clean-label claims and recovered two-and-a-half points of share in six months.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
