@@ -1,117 +1,76 @@
 
 
-# Plan: Sales Pitch Deck — 24-Slide Scrollable Presentation with Narration
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Overview
+## Problem
 
-Create a new page at `/sales-pitch` that presents all 24 slides from the uploaded PPTX as a scrollable deck with ElevenLabs voiceover narration. Each slide has a narration script that serves as the "sales pitch" for that slide's content.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Slide Structure (24 slides from PPTX)
+## Current Vertical Budget Analysis
 
-| # | Title | Content Summary |
-|---|-------|----------------|
-| 1 | Title Slide | GlobalData Connected Intelligence |
-| 2 | Hook | "How leading consumer brands turn change into growth" |
-| 3 | Journey Overview | Agenda/roadmap of the presentation |
-| 4 | Markets Reward Speed | 3x faster shifts, 40% narrower windows, protein snacking case |
-| 5 | Where Growth Is Lost | Intelligence Gap - 4 dimensions of loss, QBR case study |
-| 6 | Fragmented → Connected | Ferrero transformation, consolidation advantage |
-| 7 | Connected Intelligence: Sales | Wheel focused on Sales Intelligence + Ava intro |
-| 8 | Connected Intelligence: Strategic | Wheel focused on Strategic Intelligence |
-| 9 | Connected Intelligence: Market | Wheel focused on Market Intelligence |
-| 10 | Connected Intelligence: Competitive | Wheel focused on Competitive Intelligence |
-| 11 | Connected Intelligence: Innovation | Wheel focused on Innovation Intelligence |
-| 12 | Value Chain Stage 1 | Strategic Intelligence — "Is this trend material?" |
-| 13 | Value Chain Stage 2 | Market Intelligence — "Where's the demand?" |
-| 14 | Value Chain Stage 3 | Innovation Intelligence — "What product will win?" |
-| 15 | Value Chain Stage 4 | Competitive Intelligence — "Where's the gap?" |
-| 16 | Value Chain Stage 5 | Sales Intelligence — "How do we win listings?" |
-| 17 | Maturity Stage 1 | Fragmented — hunting for answers |
-| 18 | Maturity Stage 2 | Connected — one truth |
-| 19 | Maturity Stage 3 | Optimized — deciding in days |
-| 20 | Maturity Stage 4 | Predictive — AI-driven foresight |
-| 21 | Why GlobalData | Data + AI + Human expertise |
-| 22 | The Return | ROI — speed, success, savings (Mondelēz) |
-| 23 | Get Connected | 90-day implementation, consolidation benefits |
-| 24 | CTA | Let's embed foresight into your strategy |
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## Implementation Approach
+## Proposed Reductions
 
-### Phase 1: Narration Data (~800 lines)
-**File:** `src/data/salesPitchNarration.ts`
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-Write narration scripts for all 24 slides derived directly from the PPTX content. Each script is what a presenter would say when presenting that slide — conversational, persuasive, sales-oriented. Reuse the existing `SlideNarration` interface and voice ID (`JBFqnCBsd6RMkjVDRZzb`).
+**Estimated Total Savings: ~80-100px vertical space**
 
-### Phase 2: Narration Hook
-**File:** `src/hooks/useSalesPitchNarration.ts`
+## File to Modify
 
-Clone the existing `useGlobalDataNarration.ts` pattern — same caching, playback, and preloading logic but referencing `salesPitchNarration.ts`. Update the preload limit from 9 to 23.
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-### Phase 3: Slide Components (24 slides)
-**Directory:** `src/components/salespitch-slides/`
+## Specific Changes
 
-Many slides share common patterns. Implementation strategy:
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-- **Reuse existing components directly** for slides that match: `GDSlideContainer`, `ConnectedIntelligenceWheel`, `SlidePlayButton`
-- **Adapt existing slide designs** for slides 4-6 (market pressure, intelligence gap, before/after) — similar layout to existing GD slides but with PPTX-specific content (Ferrero, protein snacking case, QBR story)
-- **New template components** for repeated patterns:
-  - `SPIntelligenceSlide.tsx` — shared template for slides 7-11 (wheel + jobs-to-be-done + Ava + pain-to-outcome + real example). Each slide highlights a different intelligence segment and passes different content props.
-  - `SPValueChainStage.tsx` — shared template for slides 12-16 (value chain header + stage detail table). Each slide highlights one stage.
-  - `SPMaturityStage.tsx` — shared template for slides 17-20 (maturity bar + stage detail + key capabilities + decision velocity + time allocation). Each highlights one stage.
-- **Unique slides**: Title (1), Hook (2), Journey (3), Why GlobalData (21), ROI (22), Get Connected (23), CTA (24)
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-Total new files: ~12 component files (7 unique + 3 templates + 2 shared)
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-### Phase 4: Page & Routing
-**File:** `src/pages/SalesPitchDeck.tsx`
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
 
-Clone the `GlobalDataDeck.tsx` structure — same scroll-snap, navigation dots, keyboard nav, progress bar — but with 24 slides and the new narration hook.
+## Outcome
 
-**File:** `src/App.tsx`
-
-Add route: `<Route path="/sales-pitch" element={<SalesPitchDeck />} />`
-
-### Phase 5: Slide Container
-**File:** `src/components/salespitch-slides/SPSlideContainer.tsx`
-
-Clone `GDSlideContainer.tsx` with minor branding tweaks (footer text, slide numbering format).
-
-## File Summary
-
-| File | Action | Description |
-|------|--------|-------------|
-| `src/data/salesPitchNarration.ts` | Create | 24 narration scripts |
-| `src/hooks/useSalesPitchNarration.ts` | Create | Audio playback hook |
-| `src/components/salespitch-slides/SPSlideContainer.tsx` | Create | Base slide wrapper |
-| `src/components/salespitch-slides/SPSlide01Title.tsx` | Create | Title slide |
-| `src/components/salespitch-slides/SPSlide02Hook.tsx` | Create | Hook/opener |
-| `src/components/salespitch-slides/SPSlide03Journey.tsx` | Create | Agenda roadmap |
-| `src/components/salespitch-slides/SPSlide04MarketSpeed.tsx` | Create | Market rewards speed |
-| `src/components/salespitch-slides/SPSlide05IntelligenceGap.tsx` | Create | Where growth is lost |
-| `src/components/salespitch-slides/SPSlide06Transformation.tsx` | Create | Ferrero before/after |
-| `src/components/salespitch-slides/SPIntelligenceSlide.tsx` | Create | Template for slides 7-11 |
-| `src/components/salespitch-slides/SPValueChainStage.tsx` | Create | Template for slides 12-16 |
-| `src/components/salespitch-slides/SPMaturityStage.tsx` | Create | Template for slides 17-20 |
-| `src/components/salespitch-slides/SPSlide21WhyGlobalData.tsx` | Create | Why GlobalData |
-| `src/components/salespitch-slides/SPSlide22ROI.tsx` | Create | ROI with Mondelēz |
-| `src/components/salespitch-slides/SPSlide23GetConnected.tsx` | Create | 90-day implementation |
-| `src/components/salespitch-slides/SPSlide24CTA.tsx` | Create | Final CTA |
-| `src/pages/SalesPitchDeck.tsx` | Create | Page with scroll navigation |
-| `src/App.tsx` | Edit | Add `/sales-pitch` route |
-
-## Narration Approach
-
-Each slide's narration script will be written as what a sales presenter would actually say — conversational and persuasive. Content is derived directly from the PPTX slide text, expanded into natural speech. Example for Slide 4:
-
-> "Here's the growth reality every consumer brand faces. Consumer trends shift three times faster than insight cycles can track. Innovation windows are forty percent narrower than five years ago. And here's a case in point — in 2023, a major CPG company missed the protein snacking wave entirely. Their insight, innovation, and sales teams had three different views of the opportunity. By the time they aligned, Grenade and Barebells had claimed the shelf..."
-
-## Implementation Order
-
-Given the size, this should be implemented in phases:
-1. Narration data + hook + container + routing
-2. Slides 1-6 (unique slides)
-3. Slides 7-11 (intelligence wheel template)
-4. Slides 12-16 (value chain template)
-5. Slides 17-20 (maturity template)
-6. Slides 21-24 (closing slides)
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
