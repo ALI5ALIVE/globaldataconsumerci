@@ -10,31 +10,28 @@ const slides = [
   { id: "sp-slide-4", label: "Market Speed" },
   { id: "sp-slide-5", label: "Intelligence Gap" },
   { id: "sp-slide-6", label: "Transformation" },
-  { id: "sp-slide-7", label: "Sales Intel" },
-  { id: "sp-slide-8", label: "Strategic Intel" },
-  { id: "sp-slide-9", label: "Market Intel" },
-  { id: "sp-slide-10", label: "Competitive Intel" },
-  { id: "sp-slide-11", label: "Innovation Intel" },
-  { id: "sp-slide-12", label: "VC: Strategic" },
-  { id: "sp-slide-13", label: "VC: Market" },
-  { id: "sp-slide-14", label: "VC: Innovation" },
-  { id: "sp-slide-15", label: "VC: Competitive" },
-  { id: "sp-slide-16", label: "VC: Sales" },
-  { id: "sp-slide-17", label: "Fragmented" },
-  { id: "sp-slide-18", label: "Connected" },
-  { id: "sp-slide-19", label: "Optimised" },
-  { id: "sp-slide-20", label: "Predictive" },
-  { id: "sp-slide-21", label: "Why GlobalData" },
-  { id: "sp-slide-22", label: "The Return" },
-  { id: "sp-slide-23", label: "Get Connected" },
-  { id: "sp-slide-24", label: "CTA" },
+  { id: "sp-slide-7", label: "Strategic Intel" },
+  { id: "sp-slide-8", label: "Market Intel" },
+  { id: "sp-slide-9", label: "Competitive Intel" },
+  { id: "sp-slide-10", label: "Innovation Intel" },
+  { id: "sp-slide-11", label: "Sales Intel" },
+  { id: "sp-slide-12", label: "Fragmented" },
+  { id: "sp-slide-13", label: "Connected" },
+  { id: "sp-slide-14", label: "Optimised" },
+  { id: "sp-slide-15", label: "Predictive" },
+  { id: "sp-slide-16", label: "Why GlobalData" },
+  { id: "sp-slide-17", label: "The Return" },
+  { id: "sp-slide-18", label: "Get Connected" },
+  { id: "sp-slide-19", label: "CTA" },
 ];
 
 const SalesPitchDeck = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [autoAdvance, setAutoAdvance] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const narration = useSalesPitchNarration();
+  const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollToSlide = useCallback((index: number) => {
     if (!containerRef.current) return;
@@ -54,6 +51,29 @@ const SalesPitchDeck = () => {
     onPause: () => narration.pause(),
     onNextSlide: slideIndex < slides.length - 1 ? () => scrollToSlide(slideIndex + 1) : undefined,
   });
+
+  // Auto-advance: when narration completes, scroll to next slide and play
+  useEffect(() => {
+    if (!autoAdvance) return;
+    if (
+      narration.hasCompleted &&
+      narration.currentSlide === activeSlide &&
+      activeSlide < slides.length - 1
+    ) {
+      autoAdvanceTimerRef.current = setTimeout(() => {
+        const nextSlide = activeSlide + 1;
+        scrollToSlide(nextSlide);
+        // Play next slide after scroll settles
+        setTimeout(() => {
+          narration.play(nextSlide);
+          narration.preloadNext(nextSlide);
+        }, 800);
+      }, 1500);
+    }
+    return () => {
+      if (autoAdvanceTimerRef.current) clearTimeout(autoAdvanceTimerRef.current);
+    };
+  }, [narration.hasCompleted, narration.currentSlide, activeSlide, autoAdvance, scrollToSlide]);
 
   useEffect(() => {
     const handleScroll = () => {
