@@ -1,76 +1,32 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Enrich Solution Narration Scripts (Slides 6–10)
 
-## Problem
+## What Changes
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+Update scripts for slides 6–10 in `src/data/salesPitchNarration.ts` to add a concise capability summary for each solution, without going into excessive detail. Keep the existing narrative structure and bridge lines intact.
 
-## Current Vertical Budget Analysis
+### Script Updates
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+**Slide 6 — Strategic Intelligence** (minor tweak)
+Add "thematic foresight" framing. Ava scans converging macro themes and surfaces implications before they hit — keeping the existing case study and bridge.
 
-## Proposed Reductions
+**Slide 7 — Market Intelligence** (enrich)
+Add: category sizing and forecasting across 110 countries, over a thousand segments, with quarterly-updated forecasts replacing annual syndicated cycles. Cross-market comparability from one consistent methodology. Keep case study and bridge.
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+**Slide 8 — Competitive Intelligence** (enrich)
+Add: predictive competitor tracking using six alternative data signals — patents, job postings, deals, filings, news, and social sentiment — across twenty-five thousand companies. Thematic scorecards that show which competitors are investing ahead of the curve. Keep case study and bridge.
 
-**Estimated Total Savings: ~80-100px vertical space**
+**Slide 9 — Innovation Intelligence** (enrich)
+Add: end-to-end innovation platform covering 100+ categories and 42 countries. AI-powered trend scanning, consumer signal validation, evidence-scored launch gates, and post-launch tracking from week one. Compresses 18-month stage-gate cycles to 8-week validated sprints. Keep case study and bridge.
 
-## File to Modify
+**Slide 10 — Sales Intelligence** (keep as-is, already strong)
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+Word count increase will be modest — roughly 15-25 extra words per slide (7-8 collectively), keeping total deck under 7 minutes.
 
-## Specific Changes
+## File Changed
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
-
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+| File | Action |
+|------|--------|
+| `src/data/salesPitchNarration.ts` | Update scripts for slides 6, 7, 8, 9 |
 
