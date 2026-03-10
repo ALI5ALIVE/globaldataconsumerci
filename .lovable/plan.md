@@ -1,76 +1,70 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Replace Deck with New 19-Slide PPTX + 6-Minute Narration + Auto-Advance
 
-## Problem
+## What Changes
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+The new PPTX has **19 slides** (down from 24). The value chain stages (old slides 12-16) are removed. Narration scripts will be rewritten to fit a **6-minute total** (~840 words at 140 wpm, ~44 words per slide average). Slides will auto-advance when narration completes.
 
-## Current Vertical Budget Analysis
+## New Slide Map
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+| # | Label | Content |
+|---|-------|---------|
+| 1 | Title | GlobalData Connected Intelligence |
+| 2 | Hook | How leading brands turn change into growth |
+| 3 | Journey | 9-stop agenda roadmap |
+| 4 | Market Speed | 3x faster shifts, protein snacking case |
+| 5 | Intelligence Gap | 4 dimensions of loss, QBR case |
+| 6 | Transformation | Ferrero before/after |
+| 7 | Strategic Intel | Ava intro + strategic intelligence wheel |
+| 8 | Market Intel | Market intelligence wheel |
+| 9 | Competitive Intel | Competitive intelligence wheel |
+| 10 | Innovation Intel | Innovation intelligence wheel |
+| 11 | Sales Intel | Sales intelligence wheel |
+| 12 | Fragmented | Maturity stage 1 |
+| 13 | Connected | Maturity stage 2 |
+| 14 | Optimised | Maturity stage 3 |
+| 15 | Predictive | Maturity stage 4 |
+| 16 | Why GlobalData | Data + AI + Human expertise |
+| 17 | The Return | ROI — Mondelēz |
+| 18 | Get Connected | 90-day escape fragmentation |
+| 19 | CTA | Let's embed foresight |
 
-## Proposed Reductions
+## Changes
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+### 1. Replace slide images
+Copy 19 new slide images from the parsed PPTX to `public/slides/sp-slide-{1-19}.jpg`. Delete old `sp-slide-{20-24}.jpg`.
 
-**Estimated Total Savings: ~80-100px vertical space**
+### 2. Rewrite `src/data/salesPitchNarration.ts`
+19 scripts totalling ~840 words. Each script is tighter — roughly 20-50 words per slide. Key narration adjustments:
+- Title/Hook/Journey: ~15 words each (brief)
+- Slides 4-6 (problem/transformation): ~60-70 words each (core story)
+- Slides 7-11 (intelligence wheel): ~50 words each (concise pain→outcome)
+- Slides 12-15 (maturity): ~40 words each (stage summary)
+- Slides 16-19 (close): ~40-50 words each
 
-## File to Modify
+### 3. Update `src/pages/SalesPitchDeck.tsx`
+- Update slides array to 19 entries with new labels
+- Add auto-advance: when `narration.hasCompleted` fires for the active slide, automatically scroll to the next slide and start its narration after a 1.5s delay
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+### 4. Update `src/hooks/useSalesPitchNarration.ts`
+- Change preloadNext limit from 23 to 18
 
-## Specific Changes
+## Auto-Advance Logic
+```text
+useEffect:
+  if hasCompleted && currentSlide === activeSlide && activeSlide < slides.length - 1:
+    setTimeout → scrollToSlide(activeSlide + 1)
+    setTimeout → play(activeSlide + 1) after scroll settles
+```
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+## File Summary
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+| File | Action |
+|------|--------|
+| `public/slides/sp-slide-{1-19}.jpg` | Create (copy from new PPTX) |
+| `public/slides/sp-slide-{20-24}.jpg` | Delete |
+| `src/data/salesPitchNarration.ts` | Rewrite (19 shorter scripts) |
+| `src/pages/SalesPitchDeck.tsx` | Rewrite (19 slides + auto-advance) |
+| `src/hooks/useSalesPitchNarration.ts` | Update preload limit |
 
