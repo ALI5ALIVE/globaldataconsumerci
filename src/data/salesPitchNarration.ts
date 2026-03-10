@@ -47,25 +47,25 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 6,
     title: "Strategic Intel",
-    script: `The first solution is Strategic Intelligence — the foundation of the connected platform. Because every connected decision starts with foresight. Your AI partner Ava tracks macro forces and surfaces implications twelve months ahead — and because it shares the same taxonomy as every other solution, those signals flow directly into sizing, positioning, and innovation. A top-five beverage company avoided fifty million euros in rushed reformulation by acting eighteen months early. But foresight needs to be sized. That's where the second solution comes in.`,
+    script: `The first solution is Strategic Intelligence — thematic foresight for the connected platform. Your AI partner Ava scans converging macro themes — health and wellness, sustainability, premiumisation — and surfaces implications twelve months before they hit your category. Because it shares the same taxonomy as every other solution, those signals flow directly into sizing, positioning, and innovation. A top-five beverage company avoided fifty million euros in rushed reformulation by acting eighteen months early. But foresight needs to be sized. That's where the second solution comes in.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 7,
     title: "Market Intel",
-    script: `The second solution is Market Intelligence — it quantifies the opportunity your strategy has identified. Authoritative market size, growth rates, and benchmarks — all built on the same unified taxonomy, so every team aligns around defensible facts, not opinions. A European personal care leader aligned all regions in one week and secured board approval for a twenty-five million euro investment with ninety percent confidence. But sizing a market means nothing if you can't see what competitors are doing inside it.`,
+    script: `The second solution is Market Intelligence — category sizing and forecasting across one hundred and ten countries and over a thousand segments. Quarterly-updated forecasts replace annual syndicated cycles, and one consistent methodology gives you true cross-market comparability. All built on the same unified taxonomy, so every team aligns around defensible facts, not opinions. A European personal care leader aligned all regions in one week and secured board approval for a twenty-five million euro investment with ninety percent confidence. But sizing a market means nothing if you can't see what competitors are doing inside it.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 8,
     title: "Competitive Intel",
-    script: `The third solution is Competitive Intelligence — it connects your market view to real-time rival activity. Because the taxonomy is shared, competitive moves map directly to your strategic priorities and market opportunities. A global confectionery company spotted a competitor reformulating their hero SKU. They responded with clean-label claims at ten percent lower price and recovered two-and-a-half points of share in six months. Knowing where to play is powerful — but the fourth solution tells you what to build.`,
+    script: `The third solution is Competitive Intelligence — predictive competitor tracking across twenty-five thousand companies using six alternative data signals: patents, job postings, deals, filings, news, and social sentiment. Thematic scorecards reveal which rivals are investing ahead of the curve — and because the taxonomy is shared, every competitive move maps directly to your strategic priorities and market opportunities. A global confectionery company spotted a competitor reformulating their hero SKU. They responded with clean-label claims at ten percent lower price and recovered two-and-a-half points of share in six months. Knowing where to play is powerful — but the fourth solution tells you what to build.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
     title: "Innovation Intel",
-    script: `The fourth solution is Innovation Intelligence — it validates which concepts will win before you commit R and D budget. Because it draws from the same connected taxonomy, innovation decisions are grounded in the strategic, market, and competitive context you've already built. A leading European dairy company used innovation intelligence to launch high-protein and kids variants — both hit top five in their category within twelve weeks. Great products need great sell-in stories. That's where the fifth solution completes the chain.`,
+    script: `The fourth solution is Innovation Intelligence — an end-to-end platform covering over one hundred categories across forty-two countries. AI-powered trend scanning, consumer signal validation, evidence-scored launch gates, and post-launch tracking from week one — compressing eighteen-month stage-gate cycles into eight-week validated sprints. Because it draws from the same connected taxonomy, innovation decisions are grounded in the strategic, market, and competitive context you've already built. A leading European dairy company used it to launch high-protein and kids variants — both hit top five in their category within twelve weeks. Great products need great sell-in stories. That's where the fifth solution completes the chain.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
