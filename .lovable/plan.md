@@ -1,58 +1,76 @@
 
 
-# Plan: Replace Custom Slides with Actual PowerPoint Images + Voiceover
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## What Changes
+## Problem
 
-Replace the 14 custom HTML slide components with the 24 actual PowerPoint slide images from the uploaded PPTX, displayed full-screen in a scrollable container with the existing ElevenLabs narration overlay.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Steps
+## Current Vertical Budget Analysis
 
-### 1. Copy 24 slide images to `public/slides/`
-Copy the extracted page screenshots from the parsed PPTX into the project:
-- `parsed-documents://...page_1.jpg` → `public/slides/sp-slide-1.jpg`
-- `parsed-documents://...page_2.jpg` → `public/slides/sp-slide-2.jpg`
-- ... through `page_24.jpg`
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### 2. Rewrite `src/pages/SalesPitchDeck.tsx`
-Remove all 14 custom component imports. Replace the slides section with a simple loop:
+## Proposed Reductions
 
-```tsx
-{slides.map((slide, index) => {
-  const props = getNarrationProps(index);
-  return (
-    <section key={slide.id} className="h-screen w-full snap-start relative flex items-center justify-center bg-black">
-      <img
-        src={`/slides/sp-slide-${index + 1}.jpg`}
-        alt={slide.label}
-        className="max-h-full max-w-full object-contain"
-      />
-      <SlidePlayButton {...props} />
-    </section>
-  );
-})}
-```
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-Keep all existing navigation (dots, arrows, keyboard, progress bar) and narration hook unchanged.
+**Estimated Total Savings: ~80-100px vertical space**
 
-### 3. Delete unused slide components
-Remove all files in `src/components/salespitch-slides/`:
-- `SPSlide01Title.tsx` through `SPSlide24CTA.tsx`
-- `SPSlideContainer.tsx`
-- `SPIntelligenceSlide.tsx`
-- `SPValueChainStage.tsx`
-- `SPMaturityStage.tsx`
+## File to Modify
 
-(14 files total)
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-### 4. Keep narration system as-is
-`src/data/salesPitchNarration.ts` and `src/hooks/useSalesPitchNarration.ts` remain unchanged — the 24 scripts and audio playback work independently of the slide rendering.
+## Specific Changes
 
-## File Summary
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-| File | Action |
-|------|--------|
-| `public/slides/sp-slide-{1-24}.jpg` | Create (24 images) |
-| `src/pages/SalesPitchDeck.tsx` | Rewrite (image loop + play button overlay) |
-| `src/components/salespitch-slides/*.tsx` | Delete (14 files) |
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
