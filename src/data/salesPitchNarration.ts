@@ -41,37 +41,37 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 5,
     title: "Transformation",
-    script: `It looks like Ferrero's transformation. Before: twelve weeks to decision, five sources to reconcile, siloed insights. After: days to decision, one source of truth, aligned action across every market. They replaced Nielsen, Kantar, Mintel, Euromonitor, and Circana with one connected platform — at thirty percent lower cost. Let's look at the five intelligence domains that make this possible.`,
+    script: `It looks like Ferrero's transformation. Before: twelve weeks to decision, five sources to reconcile, siloed insights. After: days to decision, one source of truth, aligned action across every market. They replaced Nielsen, Kantar, Mintel, Euromonitor, and Circana with one connected platform — at thirty percent lower cost. How? Through the Connected Intelligence Platform — five best-in-class solutions, unified by one consumer-connected taxonomy. Every insight speaks the same language, every team works from the same truth. Let's see how each solution builds on the next.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
     title: "Strategic Intel",
-    script: `It starts with Strategic Intelligence — the foundation of every connected decision. When you need to anticipate change, your AI partner Ava tracks macro forces and surfaces implications twelve months ahead. A top-five beverage company avoided fifty million euros in rushed reformulation by acting eighteen months early. Strategic foresight feeds every decision downstream — but foresight needs to be sized. That's where Market Intelligence comes in.`,
+    script: `The first solution is Strategic Intelligence — the foundation of the connected platform. Because every connected decision starts with foresight. Your AI partner Ava tracks macro forces and surfaces implications twelve months ahead — and because it shares the same taxonomy as every other solution, those signals flow directly into sizing, positioning, and innovation. A top-five beverage company avoided fifty million euros in rushed reformulation by acting eighteen months early. But foresight needs to be sized. That's where the second solution comes in.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 7,
     title: "Market Intel",
-    script: `Market Intelligence quantifies the opportunity your strategy has identified. Authoritative market size, growth rates, and benchmarks — so every team aligns around defensible facts, not opinions. A European personal care leader aligned all regions in one week and secured board approval for a twenty-five million euro investment with ninety percent confidence. But sizing a market means nothing if you can't see what competitors are doing inside it.`,
+    script: `The second solution is Market Intelligence — it quantifies the opportunity your strategy has identified. Authoritative market size, growth rates, and benchmarks — all built on the same unified taxonomy, so every team aligns around defensible facts, not opinions. A European personal care leader aligned all regions in one week and secured board approval for a twenty-five million euro investment with ninety percent confidence. But sizing a market means nothing if you can't see what competitors are doing inside it.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 8,
     title: "Competitive Intel",
-    script: `Competitive Intelligence connects your market view to real-time rival activity. Know their strategy, their next moves — before you lose share. A global confectionery company spotted a competitor reformulating their hero SKU. They responded with clean-label claims at ten percent lower price and recovered two-and-a-half points of share in six months. Competitive insight tells you where to play — but Innovation Intelligence tells you what to build.`,
+    script: `The third solution is Competitive Intelligence — it connects your market view to real-time rival activity. Because the taxonomy is shared, competitive moves map directly to your strategic priorities and market opportunities. A global confectionery company spotted a competitor reformulating their hero SKU. They responded with clean-label claims at ten percent lower price and recovered two-and-a-half points of share in six months. Knowing where to play is powerful — but the fourth solution tells you what to build.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
     title: "Innovation Intel",
-    script: `Innovation Intelligence validates which concepts will win before you commit R and D budget. Stop wasting twelve months on products that flop. A leading European dairy company used innovation intelligence to launch high-protein and kids variants — both hit top five in their category within twelve weeks. Great products need great sell-in stories. That's where Sales Intelligence completes the chain.`,
+    script: `The fourth solution is Innovation Intelligence — it validates which concepts will win before you commit R and D budget. Because it draws from the same connected taxonomy, innovation decisions are grounded in the strategic, market, and competitive context you've already built. A leading European dairy company used innovation intelligence to launch high-protein and kids variants — both hit top five in their category within twelve weeks. Great products need great sell-in stories. That's where the fifth solution completes the chain.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 10,
     title: "Sales Intel",
-    script: `Sales Intelligence arms your commercial teams with buyer-specific stories that land. When preparing a pitch for Tesco or Carrefour, know exactly what resonates with that buyer. A multinational snack company secured one hundred percent of target listings — Tesco gave premium placement, Carrefour added them to a health-focused end-cap. That's twenty-five percent higher listing success. Five intelligence domains, one connected decision chain. The question is: how mature is your organisation's ability to do this?`,
+    script: `The fifth solution is Sales Intelligence — it arms your commercial teams with buyer-specific stories that land. Because every insight flows from one unified taxonomy, your sales team walks into Tesco or Carrefour with a story backed by strategic foresight, market data, competitive context, and innovation proof points. A multinational snack company secured one hundred percent of target listings — twenty-five percent higher listing success. Five solutions, one unified taxonomy, one connected decision chain. The question is: how mature is your organisation's ability to do this?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
