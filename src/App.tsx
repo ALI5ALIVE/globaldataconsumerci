@@ -17,6 +17,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<GlobalDataDeck />} />
+          <Route path="/sales-pitch" element={<SalesPitchDeck />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
