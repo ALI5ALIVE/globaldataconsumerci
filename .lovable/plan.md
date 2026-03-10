@@ -1,71 +1,76 @@
 
 
-# Plan: Value Chain Persona Journey Deck — New Route
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Concept
+## Problem
 
-New deck at `/consumer-pitch-journey` that follows the value chain through 5 persona-driven slides, each showing the emotional pain WITHOUT connected intelligence vs the emotional relief WITH it. Provocative, split-screen storytelling.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Slide Architecture: 12 Slides
+## Current Vertical Budget Analysis
 
-| # | Slide | Source |
-|---|-------|--------|
-| 1 | Your Monday Morning | Reuse CPSlide1 |
-| 2 | Seven Questions, Seven Sources | Reuse CPSlide2 |
-| 3 | What It's Costing You | Reuse CPSlide3 |
-| 4 | **Trend & Strategy** — The Strategist | NEW persona slide |
-| 5 | **Opportunity Sizing** — The Market Lead | NEW persona slide |
-| 6 | **Competitive Tracking** — The CI Analyst | NEW persona slide |
-| 7 | **Innovation Validation** — The Innovation Director | NEW persona slide |
-| 8 | **Commercial Execution** — The Sales Lead | NEW persona slide |
-| 9 | Imagine One Lens | Reuse CPSlide4 (adapted) |
-| 10 | Your Teams, Transformed | Reuse CPSlide7 |
-| 11 | The Results Are Real | Reuse CPSlide8 |
-| 12 | Nothing Like This Exists + CTA | Combined CPSlide9 + 10 |
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## Persona Slide Design (Slides 4–8)
+## Proposed Reductions
 
-Each slide is a dramatic split-screen:
-- **Left (red/dark)**: "Without" — persona name, role, emotional pain quote, concrete problem
-- **Right (green/bright)**: "With" — same persona, emotional relief quote, concrete outcome
-- Animated reveal: left appears first (tension), then right slides in (resolution)
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-### The 5 Personas
+**Estimated Total Savings: ~80-100px vertical space**
 
-| Step | Persona | Without (Pain) | With (Benefit) |
-|------|---------|----------------|----------------|
-| Trend & Strategy | Sarah, Head of Strategy | "I'm always 12 months late. By the time I've validated a trend, my competitor has launched." | "I see what's coming 18 months out. I walk into the board with foresight, not hindsight." |
-| Opportunity Sizing | James, Market Intelligence Lead | "I spend 3 weeks pulling numbers from 4 different sources. The board still questions them." | "One click. 110 countries. Numbers the board trusts because everyone sees the same data." |
-| Competitive Tracking | Priya, Competitive Intelligence Analyst | "I find out about competitor moves from trade press. By then, it's too late to respond." | "I track 25,000 companies in real-time. I see their moves before they announce them." |
-| Innovation Validation | Marcus, Innovation Director | "We killed a product that would have been a hit. We launched one that flopped. Both based on gut feel." | "Every concept is scored against real consumer signals. Our launch success rate doubled." |
-| Commercial Execution | Elena, National Account Manager | "I walk into buyer meetings with slides I made last night. No foresight. No proof points." | "I walk in with the full picture — trend data, market sizing, competitive context. The buyer leans in." |
+## File to Modify
 
-## Narration Scripts
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-12 scripts in second person. Slides 1–3 reuse existing text. Slides 4–8 are persona-driven and emotionally charged. Slides 9–12 reuse existing with minor adaptations.
+## Specific Changes
 
-**Sample — Slide 4 (The Strategist):**
-> "Meet Sarah. Head of Strategy at a top-five FMCG company. Without connected intelligence, she's always twelve months late. By the time she's validated a trend through three different providers, her competitor has already launched. She's not stupid — she's stranded. Now imagine Sarah with Connected Intelligence. Strategic foresight flags emerging themes eighteen months before they hit her category. She walks into the board with evidence, not excuses. Same person. Same role. Completely different impact."
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-## Files to Create
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-| File | Purpose |
-|------|---------|
-| `src/pages/ConsumerJourneyDeck.tsx` | Page with 12 slides, nav, narration |
-| `src/data/consumerJourneyNarration.ts` | 12 narration scripts |
-| `src/hooks/useConsumerJourneyNarration.ts` | Narration hook (same pattern) |
-| `src/components/consumer-journey/PersonaSlide.tsx` | Reusable split-screen persona component |
-| `src/components/consumer-journey/CJSlide12CTA.tsx` | Combined revolutionary + CTA slide |
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-## Files to Modify
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
 
-| File | Change |
-|------|--------|
-| `src/App.tsx` | Add `/consumer-journey` route |
+## Outcome
 
-## Reused Components (imported directly)
-
-- `CPSlide1MondayMorning`, `CPSlide2SevenSources`, `CPSlide3TheCost`
-- `CPSlide4ImagineOneLens`, `CPSlide7TeamsTransformed`, `CPSlide8Results`
-- `CPSlideContainer` (for the persona slides and CTA)
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 

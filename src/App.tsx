@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalDataDeck from "./pages/GlobalDataDeck";
 import ConsumerPitchDeck from "./pages/ConsumerPitchDeck";
 import SalesPitchDeck from "./pages/SalesPitchDeck";
+import ConsumerJourneyDeck from "./pages/ConsumerJourneyDeck";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<GlobalDataDeck />} />
           <Route path="/sales-pitch" element={<SalesPitchDeck />} />
           <Route path="/consumer-pitch" element={<ConsumerPitchDeck />} />
+          <Route path="/consumer-journey" element={<ConsumerJourneyDeck />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
