@@ -11,7 +11,7 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 0,
     title: "Title",
-    script: `GlobalData Connected Intelligence — built for the leaders who refuse to let data fragmentation slow their growth. Let's begin.`,
+    script: `Consumers are moving faster than ever. They're switching brands in seconds, reshaping categories overnight, and rewriting the rules of loyalty with every scroll. The companies that see it first, win. The ones that don't, lose shelf space, market share, and relevance. This is GlobalData Connected Intelligence — the platform that turns consumer signals into competitive advantage before your rivals even see them coming.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
