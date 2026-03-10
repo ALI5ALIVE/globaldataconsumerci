@@ -77,25 +77,25 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 11,
     title: "Fragmented",
-    script: `Now you've seen what connected intelligence delivers. The question is — where are you today? Stage one: Fragmented. Multiple data sources, no unified view. Teams spend sixty percent of their time reconciling data, thirty percent on analysis, and just ten percent on strategy. Decision velocity: six to eight weeks. If this sounds familiar — you're here. But the path forward is clear.`,
+    script: `Now you've seen what connected intelligence delivers. The question is — where are you today? Stage one: Fragmented. Multiple data sources, no unified view. Teams spend sixty percent of their time reconciling data, thirty percent on analysis, and just ten percent on strategy. Decision velocity: six to eight weeks. At this stage, AI can't help you — it just automates the fragmentation. The path to Optimised and Predictive starts with one move: getting Connected.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 12,
     title: "Connected",
-    script: `Stage two: Connected. One source of truth replaces the chaos. Single taxonomy, real-time updates, self-service dashboards. Reconciliation drops to twenty percent. Analysis rises to forty percent. Strategy doubles to twenty percent. Decision velocity: two to three weeks. This is where cost savings and alignment unlock. And from here, the real acceleration begins.`,
+    script: `Stage two: Connected. This is the gateway. One source of truth, one taxonomy, five solutions speaking the same language. Reconciliation drops to twenty percent. Analysis rises to forty percent. Strategy doubles to twenty percent. Decision velocity: two to three weeks. But here's what matters most — Connected is the unlock. Without it, Optimised and Predictive intelligence are impossible. With it, every capability compounds from here.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 13,
     title: "Optimised",
-    script: `Stage three: Optimised. Ava becomes central — anticipating shifts, surfacing insights before you ask. Reconciliation falls to ten percent. Strategic thinking rises to forty percent. Decision velocity: three to five days. Your teams are finally doing the work they were hired to do. And from here, you move from reactive to predictive.`,
+    script: `Stage three: Optimised — and this is only possible because Connected gave you the unified foundation. Now Ava works across your entire intelligence chain — anticipating shifts, surfacing cross-solution insights before you ask. Reconciliation falls to ten percent. Strategic thinking rises to forty percent. Decision velocity: three to five days. Your teams stop reconciling and start leading. And from here, you move from reactive to predictive.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 14,
     title: "Predictive",
-    script: `Stage four: Predictive. AI anticipates market shifts and recommends actions before competitors move. Reconciliation: just five percent. Strategic thinking: seventy-five percent. Decision velocity: hours, not weeks. Every stage compounds the value of the one before. This is what GlobalData was built to deliver.`,
+    script: `Stage four: Predictive — the compound payoff of Connected Intelligence. AI anticipates market shifts across all five solutions and recommends actions before competitors move. Reconciliation: just five percent. Strategic thinking: seventy-five percent. Decision velocity: hours, not weeks. None of this is possible without the Connected foundation. Every stage builds on the one before — and this is what GlobalData was built to deliver.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
