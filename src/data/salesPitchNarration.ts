@@ -113,7 +113,7 @@ export const salesPitchNarrations: SlideNarration[] = [
   {
     slideId: 17,
     title: "Get Connected",
-    script: `Ninety days to unified intelligence. Five vendors become one platform. Cost drops thirty percent. Decisions accelerate from weeks to days. Every week of delay compounds the gap.`,
+    script: `Ninety days to unified consumer intelligence. Five fragmented views of your consumer become one connected truth. Decisions accelerate from weeks to days — matching the speed your consumers already move at. Every week of delay is another week competitors are reading consumer signals you're missing.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
