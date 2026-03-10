@@ -1,76 +1,50 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Revised Plan: PowerPoint Slide Images with Voiceover
 
-## Problem
+## Approach
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+Instead of recreating slides as HTML components, copy the 24 full-page screenshots from the parsed PPTX into the project and display them as images in a scrollable container with the existing ElevenLabs narration system.
 
-## Current Vertical Budget Analysis
+## Changes
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+### 1. Copy 24 slide images into the project
+Copy `parsed-documents://...page_1.jpg` through `page_24.jpg` into `public/slides/sp-slide-1.jpg` through `sp-slide-24.jpg`.
 
-## Proposed Reductions
+### 2. Replace `SalesPitchDeck.tsx`
+Strip out all 24 custom slide component imports. Replace with a simple loop that renders each slide as an `<img>` inside a full-viewport snap container. Keep the existing scroll navigation, progress bar, nav dots, keyboard controls, and narration hook (`useSalesPitchNarration`) — just render images instead of components.
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+```text
+┌─────────────────────────────────┐
+│  Progress bar                   │
+│  ┌───────────────────────────┐  │
+│  │                           │  │  ← snap-start section
+│  │   <img src="slide-1.jpg"> │  │  ← actual PPTX slide image
+│  │                           │  │
+│  │  [▶ Play]                 │  │  ← SlidePlayButton overlay
+│  └───────────────────────────┘  │
+│  Nav dots (right)  Arrows (BR)  │
+└─────────────────────────────────┘
+```
 
-**Estimated Total Savings: ~80-100px vertical space**
+### 3. Keep existing narration system
+`salesPitchNarration.ts` and `useSalesPitchNarration.ts` remain unchanged — they already work and contain all 24 scripts.
 
-## File to Modify
+### 4. Delete unused slide components
+Remove all files in `src/components/salespitch-slides/` (SPSlide01Title, SPSlide02Hook, SPIntelligenceSlide, SPValueChainStage, SPMaturityStage, etc.) since they are no longer needed. Keep `SPSlideContainer.tsx` only if needed, but likely can also be removed.
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+## File Summary
 
-## Specific Changes
+| File | Action |
+|------|--------|
+| `public/slides/sp-slide-{1-24}.jpg` | Create (copy from parsed PPTX) |
+| `src/pages/SalesPitchDeck.tsx` | Rewrite — image-based slides with overlay play button |
+| `src/components/salespitch-slides/*.tsx` | Delete all ~14 files |
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+## Key Details
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+- Each slide section is `h-screen w-full snap-start` with `object-contain` image centered on a dark background
+- `SlidePlayButton` is overlaid at bottom-left of each slide (same positioning as current)
+- The narration props wiring stays identical — just attached to the image section instead of a component
+- Navigation (dots, arrows, keyboard, progress bar) stays identical
 
