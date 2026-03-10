@@ -1,50 +1,58 @@
 
 
-# Revised Plan: PowerPoint Slide Images with Voiceover
+# Plan: Replace Custom Slides with Actual PowerPoint Images + Voiceover
 
-## Approach
+## What Changes
 
-Instead of recreating slides as HTML components, copy the 24 full-page screenshots from the parsed PPTX into the project and display them as images in a scrollable container with the existing ElevenLabs narration system.
+Replace the 14 custom HTML slide components with the 24 actual PowerPoint slide images from the uploaded PPTX, displayed full-screen in a scrollable container with the existing ElevenLabs narration overlay.
 
-## Changes
+## Steps
 
-### 1. Copy 24 slide images into the project
-Copy `parsed-documents://...page_1.jpg` through `page_24.jpg` into `public/slides/sp-slide-1.jpg` through `sp-slide-24.jpg`.
+### 1. Copy 24 slide images to `public/slides/`
+Copy the extracted page screenshots from the parsed PPTX into the project:
+- `parsed-documents://...page_1.jpg` → `public/slides/sp-slide-1.jpg`
+- `parsed-documents://...page_2.jpg` → `public/slides/sp-slide-2.jpg`
+- ... through `page_24.jpg`
 
-### 2. Replace `SalesPitchDeck.tsx`
-Strip out all 24 custom slide component imports. Replace with a simple loop that renders each slide as an `<img>` inside a full-viewport snap container. Keep the existing scroll navigation, progress bar, nav dots, keyboard controls, and narration hook (`useSalesPitchNarration`) — just render images instead of components.
+### 2. Rewrite `src/pages/SalesPitchDeck.tsx`
+Remove all 14 custom component imports. Replace the slides section with a simple loop:
 
-```text
-┌─────────────────────────────────┐
-│  Progress bar                   │
-│  ┌───────────────────────────┐  │
-│  │                           │  │  ← snap-start section
-│  │   <img src="slide-1.jpg"> │  │  ← actual PPTX slide image
-│  │                           │  │
-│  │  [▶ Play]                 │  │  ← SlidePlayButton overlay
-│  └───────────────────────────┘  │
-│  Nav dots (right)  Arrows (BR)  │
-└─────────────────────────────────┘
+```tsx
+{slides.map((slide, index) => {
+  const props = getNarrationProps(index);
+  return (
+    <section key={slide.id} className="h-screen w-full snap-start relative flex items-center justify-center bg-black">
+      <img
+        src={`/slides/sp-slide-${index + 1}.jpg`}
+        alt={slide.label}
+        className="max-h-full max-w-full object-contain"
+      />
+      <SlidePlayButton {...props} />
+    </section>
+  );
+})}
 ```
 
-### 3. Keep existing narration system
-`salesPitchNarration.ts` and `useSalesPitchNarration.ts` remain unchanged — they already work and contain all 24 scripts.
+Keep all existing navigation (dots, arrows, keyboard, progress bar) and narration hook unchanged.
 
-### 4. Delete unused slide components
-Remove all files in `src/components/salespitch-slides/` (SPSlide01Title, SPSlide02Hook, SPIntelligenceSlide, SPValueChainStage, SPMaturityStage, etc.) since they are no longer needed. Keep `SPSlideContainer.tsx` only if needed, but likely can also be removed.
+### 3. Delete unused slide components
+Remove all files in `src/components/salespitch-slides/`:
+- `SPSlide01Title.tsx` through `SPSlide24CTA.tsx`
+- `SPSlideContainer.tsx`
+- `SPIntelligenceSlide.tsx`
+- `SPValueChainStage.tsx`
+- `SPMaturityStage.tsx`
+
+(14 files total)
+
+### 4. Keep narration system as-is
+`src/data/salesPitchNarration.ts` and `src/hooks/useSalesPitchNarration.ts` remain unchanged — the 24 scripts and audio playback work independently of the slide rendering.
 
 ## File Summary
 
 | File | Action |
 |------|--------|
-| `public/slides/sp-slide-{1-24}.jpg` | Create (copy from parsed PPTX) |
-| `src/pages/SalesPitchDeck.tsx` | Rewrite — image-based slides with overlay play button |
-| `src/components/salespitch-slides/*.tsx` | Delete all ~14 files |
-
-## Key Details
-
-- Each slide section is `h-screen w-full snap-start` with `object-contain` image centered on a dark background
-- `SlidePlayButton` is overlaid at bottom-left of each slide (same positioning as current)
-- The narration props wiring stays identical — just attached to the image section instead of a component
-- Navigation (dots, arrows, keyboard, progress bar) stays identical
+| `public/slides/sp-slide-{1-24}.jpg` | Create (24 images) |
+| `src/pages/SalesPitchDeck.tsx` | Rewrite (image loop + play button overlay) |
+| `src/components/salespitch-slides/*.tsx` | Delete (14 files) |
 
