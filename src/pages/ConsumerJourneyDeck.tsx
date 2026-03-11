@@ -8,7 +8,7 @@ import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
 import GDSlide4Proposition from "@/components/globaldata-slides/GDSlide4Proposition";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
-import CPSlide9NothingLikeThis from "@/components/consumer-pitch/CPSlide9NothingLikeThis";
+
 import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlideMaturityJourney from "@/components/consumer-journey/CJSlideMaturityJourney";
@@ -171,10 +171,9 @@ const slides = [
   { id: "cj-slide-6", label: "Teams Transformed" },
   { id: "cj-slide-7", label: "Maturity Journey" },
   { id: "cj-slide-8", label: "The Platform" },
-  { id: "cj-slide-12", label: "Next Steps" },
   { id: "cj-slide-9", label: "Proof" },
-  { id: "cp-slide-10", label: "Nothing Like This" },
-  { id: "cj-slide-11", label: "Why Not DIY?" },
+  { id: "cj-slide-10", label: "Why Not DIY?" },
+  { id: "cj-slide-11", label: "Next Steps" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -300,10 +299,9 @@ const ConsumerJourneyDeck = () => {
         <CPSlide7TeamsTransformed {...getNarrationProps(6)} />
         <CJSlideMaturityJourney {...getNarrationProps(7)} />
         <GDSlide4Proposition {...getNarrationProps(8)} />
-        <CJSlide12CTA {...getNarrationProps(9)} />
-        <CJSlideProof {...getNarrationProps(10)} />
-        <CPSlide9NothingLikeThis {...getNarrationProps(11)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(12)} />
+        <CJSlideProof {...getNarrationProps(9)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(10)} />
+        <CJSlide12CTA {...getNarrationProps(11)} />
       </div>
     </div>
   );

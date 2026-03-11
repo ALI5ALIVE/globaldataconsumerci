@@ -1,87 +1,76 @@
 
 
-# Narrative Review: Sharpening the Consumer Journey Deck
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Current Assessment
+## Problem
 
-The content quality on individual slides is strong. The plant-based snacking thread (slides 0-5) is well-executed. But there are structural problems that weaken the overall impact.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Problem 1: The closing arc is backwards
+## Current Vertical Budget Analysis
 
-The current order after slide 8 is:
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-```text
- 8  The Platform
- 9  Next Steps (CTA)   ← too early
-10  Proof               ← should come before CTA
-11  Nothing Like This   ← should come before CTA
-12  Why Not DIY?        ← should come before CTA
-```
+## Proposed Reductions
 
-A world-class sales deck builds conviction THEN asks for action. Right now the CTA fires before you've earned the right to ask. Proof, competitive differentiation, and objection-handling all come after the ask — the listener has already mentally checked out.
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-## Problem 2: Redundant "Nothing Like This" messaging
+**Estimated Total Savings: ~80-100px vertical space**
 
-The CTA slide (CJSlide12CTA) already leads with "Nothing like this exists" and describes the five connected solutions. Then slide 11 (CPSlide9NothingLikeThis) repeats almost the exact same headline and copy. The listener hears the same claim twice with no new information.
+## File to Modify
 
-## Problem 3: No emotional re-escalation before the close
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-Great sales decks follow a tension curve: Pain → Relief → Vision → Proof → Urgency → Ask. This deck does Pain → Relief → Vision well (slides 0-8), but then jumps straight to the ask without re-escalating urgency or stacking proof first.
+## Specific Changes
 
----
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-## Proposed Changes
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-### 1. Restructure the closing arc (slide order in ConsumerJourneyDeck.tsx)
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-New order:
-```text
- 0  The Pressure
- 1  Your Monday
- 2  Seven Sources
- 3  The Cost
- 4  One Lens, One New Way
- 5  The Connected Decision
- 6  Teams Transformed
- 7  Maturity Journey
- 8  The Platform
- 9  Proof                    ← moved up: earns credibility
-10  Why Not DIY?             ← handles the objection
-11  Next Steps (CTA)         ← now the final slide, earned
-```
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
 
-**Drop slide 11 (Nothing Like This)** entirely — its content is already in the CTA slide and repeating it dilutes the message.
+## Outcome
 
-### 2. Sharpen the CTA slide (CJSlide12CTA)
-
-- Remove the "Nothing like this exists" hero block (it now serves as the closing slide, not a differentiation slide)
-- Replace with a stronger, action-oriented close: **"Your competitors already see the full picture. Let's make sure you do too."**
-- Keep the three CTA options but make them punchier
-- Add a final urgency line referencing the "8 of top 10" stat
-
-### 3. Tighten the Title slide (CJSlide0Title)
-
-- Sharpen headline from "You're under more pressure than ever" to **"The consumer has already moved. Have you?"**
-- Tighten closing quote to something more provocative
-
-### 4. Sharpen copy across key slides
-
-- **Slide 3 (The Cost)**: Change title from "What It's Costing You" to **"What You've Already Lost"** — past tense hits harder
-- **Slide 4 (One Lens)**: Change title from "Imagine One Lens, One New Way of Working" to **"Now Imagine One Lens"** — shorter, more dramatic after the pain
-- **Slide 6 (Teams Transformed)**: Change subtitle from "From data janitors to strategic advisors" to **"From reconciling data to reading the market"** — more specific, more aspirational
-
-### 5. Update nav dot labels to match
-
-Update the `slides` array labels for the restructured order.
-
----
-
-## Files Changed
-
-1. **`src/pages/ConsumerJourneyDeck.tsx`** — Reorder slides, remove NothingLikeThis import, update narration indices
-2. **`src/components/consumer-journey/CJSlide0Title.tsx`** — Sharpen headline and closing quote
-3. **`src/components/consumer-pitch/CPSlide3TheCost.tsx`** — Update title
-4. **`src/components/consumer-pitch/CPSlide4ImagineOneLens.tsx`** — Update title
-5. **`src/components/consumer-pitch/CPSlide7TeamsTransformed.tsx`** — Update subtitle
-6. **`src/components/consumer-journey/CJSlide12CTA.tsx`** — Redesign as the definitive closing slide with urgency + action
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
