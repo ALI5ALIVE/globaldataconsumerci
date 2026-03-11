@@ -35,7 +35,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 4,
     title: "Imagine One Lens, One New Way of Working",
-    script: `Now imagine seeing that same plant-based opportunity through one connected lens. Five people. Five roles. One platform. Sarah sees the signal first — and it's validated, not debated. James sizes it instantly — one number, one methodology, no reconciliation. Priya tracks every competitive move in real time. Marcus scores your concepts against real evidence, not gut-feel. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context, validated concepts — in one click. One taxonomy. One truth. From the first signal to the shelf. That's not a vision. It exists. Let me show you.`,
+    script: `Now imagine seeing that same plant-based opportunity through one connected lens. Five people. Five roles. One platform. Sarah sees the signal first — and it's validated, not debated. James sizes it instantly — one number, one methodology, no reconciliation. Priya tracks every competitive move in real time. Marcus scores your concepts against real evidence, not gut-feel. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context, validated concepts — in one click. And David consolidates fourteen vendor contracts into one — giving every team access to best-in-class intelligence they never had before, at thirty percent lower total cost of ownership. One taxonomy. One truth. From the first signal to the shelf. That's not a vision. It exists. Let me show you.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {

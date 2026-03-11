@@ -16,16 +16,24 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
           <CJOneLensHub />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 0.6 }}
-          className="text-center max-w-xl pb-2"
-        >
-          <p className="text-sm text-primary font-medium">
+        <div className="text-center max-w-xl pb-2 space-y-2">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3, duration: 0.6 }}
+            className="text-sm text-primary font-medium"
+          >
             One opportunity — plant-based protein — seen through one connected lens. From the first signal to the shelf.
-          </p>
-        </motion.div>
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.6, duration: 0.6 }}
+            className="text-sm text-muted-foreground font-medium"
+          >
+            And David? He consolidates fourteen contracts into one — best-in-class solutions, 30% lower cost, with data access his teams never had before.
+          </motion.p>
+        </div>
       </div>
     </CPSlideContainer>
   );
