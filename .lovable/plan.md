@@ -1,76 +1,61 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Amplify Transformational Value Across Consumer Journey Deck
 
-## Problem
+## Diagnosis
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+The deck currently focuses heavily on **what** changes (time allocation bars, decision velocity) but undersells the **so what** — the business outcomes that transformation delivers. A customer reviewing this needs to feel the gravitational pull of how their working life, their team's impact, and their business results fundamentally change.
 
-## Current Vertical Budget Analysis
+Three areas to strengthen:
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+1. **Teams Transformed slide (Slide 6)** — currently just shows time bars and decision velocity. Missing: business outcome metrics that make the CFO care (launch success, revenue impact, talent retention).
 
-## Proposed Reductions
+2. **Narration across slides** — needs sharper "transformation language" that paints the before/after in human and business terms, not just operational terms.
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+3. **Proof slide (Slide 8)** — has metrics but they're generic. Should tie them explicitly to the three transformation pillars: Time, Decisions, Performance.
 
-**Estimated Total Savings: ~80-100px vertical space**
+## Changes
 
-## File to Modify
+### 1. `src/components/consumer-pitch/CPSlide7TeamsTransformed.tsx`
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+Enhance the slide beyond time-allocation bars by adding a **Business Impact** row beneath the decision velocity section. Three outcome cards that land the transformation:
 
-## Specific Changes
+- **Time Reclaimed**: "Your best people spend 75% of their time on strategy — not searching, reconciling, or reporting." (with 7.5x multiplier visual)
+- **Decisions Accelerated**: "From 6-8 week cycles to same-day, evidence-backed decisions." (with clock visual)  
+- **Launch Success**: "Double your innovation hit rate. Kill bad ideas faster, back winners with evidence." (with 2x visual)
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+Also update the subtitle from "From reconciling data to reading the market." to "What changes when your best people stop being data janitors."
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
+### 2. `src/data/consumerJourneyNarration.ts`
 
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+Strengthen transformation language in key slides:
 
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
+**Slide 6 (Teams Transformed)** — current script is good but add business performance framing:
+> "Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. Decision velocity drops from six to eight weeks to hours. But here's what really changes — your innovation hit rate doubles. Your teams spot opportunities months before competitors. And your best talent? They stay — because they're finally doing the work they were hired to do. That's not incremental improvement. That's a fundamentally different way of working."
 
-## Outcome
+**Slide 5 (Connected Decision)** — add a line reinforcing business impact:
+> Current ending: "You can probably already see what this would mean for your teams."
+> New ending: "One decision. Backed by every angle. Made in a single meeting. Imagine what that does to your speed — and your competitors' confidence."
 
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+**Slide 10 (Next Steps)** — strengthen the transformation hook:
+> Add before the closing: "The companies who've made this shift aren't just faster — they're winning categories they used to chase."
+
+### 3. `src/components/consumer-journey/CJSlideProof.tsx`
+
+Restructure the metrics into three transformation pillars instead of a generic list. Add a row of three metric cards above the testimonial:
+
+| Time | Decisions | Performance |
+|------|-----------|-------------|
+| 70% reduction in time to insight | 3x faster decisions | 2x launch success rate |
+| "Hours, not weeks" | "Evidence, not debate" | "Winners, not guesses" |
+
+And update the headline from "8 of the top 10 FMCG companies" to: "8 of the top 10 FMCG companies have already transformed how they work."
+
+### Summary of files changed
+
+| File | Change |
+|------|--------|
+| `src/components/consumer-pitch/CPSlide7TeamsTransformed.tsx` | Add business impact outcome cards + update subtitle |
+| `src/data/consumerJourneyNarration.ts` | Strengthen transformation language on slides 5, 6, 10 |
+| `src/components/consumer-journey/CJSlideProof.tsx` | Restructure metrics into Time/Decisions/Performance pillars |
 
