@@ -29,7 +29,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 3,
     title: "What It's Costing You",
-    script: `A competitor saw the same plant-based signal six months ago. They launched. They claimed the shelf. You were still reconciling data. One of your concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. This is what fragmentation costs you — in this category, this year. But it doesn't have to work this way.`,
+    script: `A competitor saw the same plant-based signal six months ago. They launched. They claimed the shelf. You were still reconciling data. One of your concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. This is what fragmentation costs you — in this category, this year. You already know this doesn't have to be the way it works.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
