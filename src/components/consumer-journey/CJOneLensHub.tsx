@@ -12,7 +12,7 @@ const valueChainStages = [
   },
   {
     id: "size",
-    label: "Market\nSizing",
+    label: "Market\nIntelligence",
     solutionName: "110 countries · 1,000+ segments",
     questions: ["How big is the white space?", "Which markets should we prioritise?"],
     color: "hsl(200 90% 45%)",
