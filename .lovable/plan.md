@@ -1,47 +1,76 @@
 
 
-# Plan: Consumer-Centric "One Lens" Hub Diagram
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Concept
+## Problem
 
-Replace the current product-module-focused radial diagram with a **consumer-at-the-center** design. "The Consumer" sits at the hub. Around it, six value chain stages flow as a journey ring — each stage labelled with a brand-strategy action (not a product name), connected to its persona.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-```text
-                        Sarah
-                     Discover Trends
-                          │
-          David ──────────●──────────── James
-       Optimise Costs   / | \        Size Opportunity
-                       /  |  \
-                 THE CONSUMER
-              (One Lens · One Truth)
-                       \  |  /
-                        \ | /
-        Elena ──────────●──────────── Priya
-       Win at Shelf    Track Competition
-                          │
-                       Marcus
-                   Validate Innovation
-```
+## Current Vertical Budget Analysis
 
-**Key differences from current:**
-- Center says "The Consumer" with "One Lens · One Truth" beneath — not "ONE TRUTH / One Taxonomy"
-- Middle ring shows **value chain stages** with brand-strategy verbs: Discover, Size, Track, Validate, Win, Optimise
-- Outer ring keeps personas but roles now reference "Global FMCG"
-- Connecting arcs between adjacent stages suggest a continuous journey, not isolated spokes
-- Hover shows the consumer question each stage answers
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
+
+## Proposed Reductions
+
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+
+**Estimated Total Savings: ~80-100px vertical space**
 
 ## File to Modify
 
-| File | Change |
-|------|--------|
-| `src/components/consumer-journey/CJOneLensHub.tsx` | Redesign: consumer hub center, value chain stage labels (verb-led), journey arc connectors between adjacent nodes, updated persona roles |
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-## Details
+## Specific Changes
 
-- Center hub: gradient circle, "THE CONSUMER" (bold), "One Lens · One Truth" (subtitle), consumer silhouette icon
-- Ring 1 (r=140): Value chain stage cards with verb labels — "Discover Trends", "Size Opportunity", "Track Competition", "Validate Innovation", "Win at Shelf", "Optimise Costs"
-- Ring 2 (r=245): Persona avatars (unchanged layout, updated role text to "· Global FMCG")
-- Journey arcs: subtle curved lines connecting adjacent stage nodes (ring 1) to show flow/sequence
-- Hover tooltip: shows "What does the consumer need?" framing instead of product questions
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 

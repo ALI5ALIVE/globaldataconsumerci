@@ -1,49 +1,48 @@
 import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
 import { useState } from "react";
 
-const solutionNodes = [
+const valueChainStages = [
   {
-    id: "strategic",
-    label: "Strategic\nIntelligence",
-    questions: ["Where is plant-based heading?", "Which macro trends matter?"],
+    id: "discover",
+    label: "Discover\nTrends",
+    questions: ["Where is the category heading?", "Which macro shifts matter most?"],
     color: "hsl(217 100% 40%)",
-    persona: { name: "Sarah", initials: "S", role: "Head of Strategy" },
+    persona: { name: "Sarah", initials: "S", role: "Head of Strategy · Global FMCG" },
   },
   {
-    id: "market",
-    label: "Market\nIntelligence",
-    questions: ["How big is the opportunity?", "Which markets to prioritise?"],
+    id: "size",
+    label: "Size\nOpportunity",
+    questions: ["How big is the white space?", "Which markets should we prioritise?"],
     color: "hsl(200 90% 45%)",
-    persona: { name: "James", initials: "J", role: "Market Intelligence Lead" },
+    persona: { name: "James", initials: "J", role: "Market Intelligence Lead · Global FMCG" },
   },
   {
-    id: "competitive",
-    label: "Competitive\nIntelligence",
-    questions: ["Who's gaining share?", "What are competitors filing?"],
+    id: "track",
+    label: "Track\nCompetition",
+    questions: ["Who's gaining share and why?", "What are competitors launching?"],
     color: "hsl(195 85% 50%)",
-    persona: { name: "Priya", initials: "P", role: "CI Analyst" },
+    persona: { name: "Priya", initials: "P", role: "CI Analyst · Global FMCG" },
   },
   {
-    id: "innovation",
-    label: "Innovation\nIntelligence",
-    questions: ["Which concepts resonate?", "What's the white space?"],
+    id: "validate",
+    label: "Validate\nInnovation",
+    questions: ["Which concepts will resonate?", "What claims can we defend?"],
     color: "hsl(160 70% 40%)",
-    persona: { name: "Marcus", initials: "M", role: "Innovation Director" },
+    persona: { name: "Marcus", initials: "M", role: "Innovation Director · Global FMCG" },
   },
   {
-    id: "commercial",
-    label: "Commercial\nIntelligence",
-    questions: ["What proof points to lead with?", "Where's the growth?"],
+    id: "win",
+    label: "Win at\nShelf",
+    questions: ["What proof points win the listing?", "Where's the incremental growth?"],
     color: "hsl(280 60% 50%)",
-    persona: { name: "Elena", initials: "E", role: "National Account Mgr" },
+    persona: { name: "Elena", initials: "E", role: "National Account Mgr · Global FMCG" },
   },
   {
-    id: "procurement",
-    label: "Procurement\nIntelligence",
-    questions: ["How do we reduce TCO?", "Which suppliers overlap?"],
+    id: "optimise",
+    label: "Optimise\nCosts",
+    questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
     color: "hsl(35 80% 45%)",
-    persona: { name: "David", initials: "D", role: "Head of Procurement" },
+    persona: { name: "David", initials: "D", role: "Head of Procurement · Global FMCG" },
   },
 ];
 
@@ -52,8 +51,8 @@ const CJOneLensHub = () => {
 
   const cx = 300;
   const cy = 300;
-  const nodeCount = solutionNodes.length;
-  const solutionRadius = 140;
+  const nodeCount = valueChainStages.length;
+  const stageRadius = 140;
   const personaRadius = 245;
 
   const getPos = (index: number, radius: number) => {
@@ -62,6 +61,22 @@ const CJOneLensHub = () => {
       x: cx + Math.cos(angle) * radius,
       y: cy + Math.sin(angle) * radius,
     };
+  };
+
+  // Build arc path between two adjacent stage positions
+  const getArcPath = (i: number) => {
+    const p1 = getPos(i, stageRadius);
+    const p2 = getPos((i + 1) % nodeCount, stageRadius);
+    const mx = (p1.x + p2.x) / 2;
+    const my = (p1.y + p2.y) / 2;
+    // Push control point outward from center for a slight curve
+    const dx = mx - cx;
+    const dy = my - cy;
+    const len = Math.sqrt(dx * dx + dy * dy) || 1;
+    const bulge = 18;
+    const cpx = mx + (dx / len) * bulge;
+    const cpy = my + (dy / len) * bulge;
+    return `M ${p1.x} ${p1.y} Q ${cpx} ${cpy} ${p2.x} ${p2.y}`;
   };
 
   return (
@@ -83,9 +98,25 @@ const CJOneLensHub = () => {
           </linearGradient>
         </defs>
 
-        {/* Spokes: center → solutions → personas */}
-        {solutionNodes.map((node, i) => {
-          const sPos = getPos(i, solutionRadius);
+        {/* Journey arcs connecting adjacent stages */}
+        {valueChainStages.map((_, i) => (
+          <motion.path
+            key={`arc-${i}`}
+            d={getArcPath(i)}
+            fill="none"
+            stroke="hsl(var(--border))"
+            strokeWidth="1.5"
+            strokeDasharray="6 4"
+            opacity={hoveredId === null ? 0.4 : 0.15}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ delay: 1.6 + i * 0.1, duration: 0.5 }}
+          />
+        ))}
+
+        {/* Spokes: center → stages → personas */}
+        {valueChainStages.map((node, i) => {
+          const sPos = getPos(i, stageRadius);
           const pPos = getPos(i, personaRadius);
           const isActive = hoveredId === null || hoveredId === node.id;
           return (
@@ -95,47 +126,50 @@ const CJOneLensHub = () => {
                 stroke={node.color}
                 strokeWidth={isActive ? 2 : 1}
                 strokeDasharray="4 4"
-                opacity={isActive ? 0.6 : 0.15}
+                opacity={isActive ? 0.5 : 0.12}
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ delay: 0.8 + i * 0.15, duration: 0.6 }}
+                transition={{ delay: 0.8 + i * 0.12, duration: 0.5 }}
               />
               <motion.line
                 x1={sPos.x} y1={sPos.y} x2={pPos.x} y2={pPos.y}
                 stroke={node.color}
-                strokeWidth={isActive ? 2 : 1}
+                strokeWidth={isActive ? 1.5 : 1}
                 strokeDasharray="4 4"
-                opacity={isActive ? 0.5 : 0.1}
+                opacity={isActive ? 0.4 : 0.08}
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{ delay: 1.8 + i * 0.15, duration: 0.5 }}
+                transition={{ delay: 1.8 + i * 0.12, duration: 0.4 }}
               />
             </g>
           );
         })}
 
-        {/* Center hub */}
+        {/* Center hub — The Consumer */}
         <motion.g
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           style={{ transformOrigin: `${cx}px ${cy}px` }}
         >
-          <circle cx={cx} cy={cy} r="42" fill="url(#hubCenter)" filter="url(#hubGlow)" />
-          <text x={cx} y={cy - 8} textAnchor="middle" dominantBaseline="middle" className="fill-white font-bold" fontSize="9">
-            ONE TRUTH
+          <circle cx={cx} cy={cy} r="46" fill="url(#hubCenter)" filter="url(#hubGlow)" />
+          {/* Consumer silhouette — simple head + shoulders */}
+          <circle cx={cx} cy={cy - 12} r="7" fill="none" stroke="white" strokeWidth="1.5" />
+          <path
+            d={`M ${cx - 12} ${cy + 6} Q ${cx - 12} ${cy - 2} ${cx} ${cy - 2} Q ${cx + 12} ${cy - 2} ${cx + 12} ${cy + 6}`}
+            fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round"
+          />
+          <text x={cx} y={cy + 16} textAnchor="middle" dominantBaseline="middle" className="fill-white font-bold" fontSize="7.5" letterSpacing="0.5">
+            THE CONSUMER
           </text>
-          <text x={cx} y={cy + 5} textAnchor="middle" dominantBaseline="middle" className="fill-white/80" fontSize="7">
-            One Taxonomy
+          <text x={cx} y={cy + 27} textAnchor="middle" dominantBaseline="middle" className="fill-white/70" fontSize="6">
+            One Lens · One Truth
           </text>
-          {/* Eye icon approximation */}
-          <circle cx={cx} cy={cy + 18} r="5" fill="none" stroke="white" strokeWidth="1.5" />
-          <circle cx={cx} cy={cy + 18} r="2" fill="white" />
         </motion.g>
 
-        {/* Solution nodes (Ring 2) */}
-        {solutionNodes.map((node, i) => {
-          const pos = getPos(i, solutionRadius);
+        {/* Value chain stage cards (Ring 1) */}
+        {valueChainStages.map((node, i) => {
+          const pos = getPos(i, stageRadius);
           const isActive = hoveredId === null || hoveredId === node.id;
           const lines = node.label.split("\n");
 
@@ -144,51 +178,34 @@ const CJOneLensHub = () => {
               key={node.id}
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: isActive ? 1 : 0.3 }}
-              transition={{ delay: 0.8 + i * 0.15, duration: 0.5, ease: "easeOut" }}
+              transition={{ delay: 0.8 + i * 0.12, duration: 0.45, ease: "easeOut" }}
               style={{ transformOrigin: `${pos.x}px ${pos.y}px` }}
               onMouseEnter={() => setHoveredId(node.id)}
               onMouseLeave={() => setHoveredId(null)}
               className="cursor-pointer"
             >
-              {/* Solution card background */}
               <rect
-                x={pos.x - 52} y={pos.y - 38}
-                width="104" height="76"
+                x={pos.x - 48} y={pos.y - 22}
+                width="96" height="44"
                 rx="8" fill="hsl(var(--card))"
                 stroke={node.color} strokeWidth="2"
               />
-              {/* Solution name */}
               {lines.map((line, li) => (
                 <text
                   key={li}
-                  x={pos.x} y={pos.y - 20 + li * 12}
+                  x={pos.x} y={pos.y - 6 + li * 14}
                   textAnchor="middle" dominantBaseline="middle"
-                  fill={node.color} fontSize="8" fontWeight="700"
+                  fill={node.color} fontSize="9" fontWeight="700"
                 >
                   {line}
                 </text>
               ))}
-              {/* Dashboard placeholder */}
-              <rect
-                x={pos.x - 38} y={pos.y + 4}
-                width="76" height="28" rx="3"
-                fill={node.color} opacity="0.15"
-                stroke={node.color} strokeWidth="0.5"
-              />
-              {/* Mock dashboard lines */}
-              <line x1={pos.x - 30} y1={pos.y + 12} x2={pos.x - 10} y2={pos.y + 12} stroke={node.color} strokeWidth="1.5" opacity="0.5" />
-              <line x1={pos.x - 30} y1={pos.y + 18} x2={pos.x + 5} y2={pos.y + 18} stroke={node.color} strokeWidth="1.5" opacity="0.4" />
-              <line x1={pos.x - 30} y1={pos.y + 24} x2={pos.x - 15} y2={pos.y + 24} stroke={node.color} strokeWidth="1.5" opacity="0.3" />
-              {/* Mini bar chart */}
-              <rect x={pos.x + 14} y={pos.y + 20} width="4" height="8" rx="1" fill={node.color} opacity="0.5" />
-              <rect x={pos.x + 20} y={pos.y + 16} width="4" height="12" rx="1" fill={node.color} opacity="0.6" />
-              <rect x={pos.x + 26} y={pos.y + 12} width="4" height="16" rx="1" fill={node.color} opacity="0.7" />
             </motion.g>
           );
         })}
 
-        {/* Persona nodes (Ring 3) */}
-        {solutionNodes.map((node, i) => {
+        {/* Persona avatars (Ring 2) */}
+        {valueChainStages.map((node, i) => {
           const pos = getPos(i, personaRadius);
           const isActive = hoveredId === null || hoveredId === node.id;
 
@@ -197,13 +214,12 @@ const CJOneLensHub = () => {
               key={`persona-${node.id}`}
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: isActive ? 1 : 0.25 }}
-              transition={{ delay: 2.2 + i * 0.15, duration: 0.4, ease: "easeOut" }}
+              transition={{ delay: 2.0 + i * 0.12, duration: 0.4, ease: "easeOut" }}
               style={{ transformOrigin: `${pos.x}px ${pos.y}px` }}
               onMouseEnter={() => setHoveredId(node.id)}
               onMouseLeave={() => setHoveredId(null)}
               className="cursor-pointer"
             >
-              {/* Avatar circle */}
               <circle cx={pos.x} cy={pos.y - 6} r="16" fill={node.color} opacity="0.9" />
               <text
                 x={pos.x} y={pos.y - 6}
@@ -212,7 +228,6 @@ const CJOneLensHub = () => {
               >
                 {node.persona.initials}
               </text>
-              {/* Name & role */}
               <text
                 x={pos.x} y={pos.y + 16}
                 textAnchor="middle" dominantBaseline="middle"
@@ -223,7 +238,7 @@ const CJOneLensHub = () => {
               <text
                 x={pos.x} y={pos.y + 26}
                 textAnchor="middle" dominantBaseline="middle"
-                className="fill-muted-foreground" fontSize="6"
+                className="fill-muted-foreground" fontSize="5.5"
               >
                 {node.persona.role}
               </text>
@@ -232,7 +247,7 @@ const CJOneLensHub = () => {
         })}
       </svg>
 
-      {/* Hover tooltip for questions */}
+      {/* Hover tooltip */}
       {hoveredId && (
         <motion.div
           initial={{ opacity: 0, y: 5 }}
@@ -240,9 +255,9 @@ const CJOneLensHub = () => {
           className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-card/95 border border-border rounded-lg px-4 py-2 text-center max-w-xs backdrop-blur-sm"
         >
           <p className="text-xs font-semibold text-foreground mb-1">
-            {solutionNodes.find(n => n.id === hoveredId)?.label.replace("\n", " ")}
+            {valueChainStages.find(n => n.id === hoveredId)?.label.replace("\n", " ")}
           </p>
-          {solutionNodes.find(n => n.id === hoveredId)?.questions.map((q, i) => (
+          {valueChainStages.find(n => n.id === hoveredId)?.questions.map((q, i) => (
             <p key={i} className="text-[11px] text-muted-foreground italic">"{q}"</p>
           ))}
         </motion.div>
