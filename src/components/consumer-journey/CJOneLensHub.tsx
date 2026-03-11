@@ -5,6 +5,7 @@ const valueChainStages = [
   {
     id: "discover",
     label: "Discover\nTrends",
+    solutionName: "Strategic Foresight",
     questions: ["Where is the category heading?", "Which macro shifts matter most?"],
     color: "hsl(217 100% 40%)",
     persona: { name: "Sarah", initials: "S", role: "Head of Strategy · Global FMCG" },
@@ -12,6 +13,7 @@ const valueChainStages = [
   {
     id: "size",
     label: "Size\nOpportunity",
+    solutionName: "Market Sizing",
     questions: ["How big is the white space?", "Which markets should we prioritise?"],
     color: "hsl(200 90% 45%)",
     persona: { name: "James", initials: "J", role: "Market Intelligence Lead · Global FMCG" },
@@ -19,6 +21,7 @@ const valueChainStages = [
   {
     id: "track",
     label: "Track\nCompetition",
+    solutionName: "Competitive Intelligence",
     questions: ["Who's gaining share and why?", "What are competitors launching?"],
     color: "hsl(195 85% 50%)",
     persona: { name: "Priya", initials: "P", role: "CI Analyst · Global FMCG" },
@@ -26,6 +29,7 @@ const valueChainStages = [
   {
     id: "validate",
     label: "Validate\nInnovation",
+    solutionName: "Innovation Validation",
     questions: ["Which concepts will resonate?", "What claims can we defend?"],
     color: "hsl(160 70% 40%)",
     persona: { name: "Marcus", initials: "M", role: "Innovation Director · Global FMCG" },
@@ -33,6 +37,7 @@ const valueChainStages = [
   {
     id: "win",
     label: "Win at\nShelf",
+    solutionName: "Commercial Intelligence",
     questions: ["What proof points win the listing?", "Where's the incremental growth?"],
     color: "hsl(280 60% 50%)",
     persona: { name: "Elena", initials: "E", role: "National Account Mgr · Global FMCG" },
@@ -40,6 +45,7 @@ const valueChainStages = [
   {
     id: "optimise",
     label: "Optimise\nCosts",
+    solutionName: "Procurement Intelligence",
     questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
     color: "hsl(35 80% 45%)",
     persona: { name: "David", initials: "D", role: "Head of Procurement · Global FMCG" },
@@ -81,7 +87,7 @@ const CJOneLensHub = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 600 600" className="w-full h-full max-h-[520px] max-w-[520px]">
+      <svg viewBox="0 0 600 600" className="w-full h-full max-h-[600px] max-w-[600px]">
         <defs>
           <filter id="hubGlow">
             <feGaussianBlur stdDeviation="6" result="blur" />
@@ -185,21 +191,28 @@ const CJOneLensHub = () => {
               className="cursor-pointer"
             >
               <rect
-                x={pos.x - 48} y={pos.y - 22}
-                width="96" height="44"
+                x={pos.x - 48} y={pos.y - 26}
+                width="96" height="52"
                 rx="8" fill="hsl(var(--card))"
                 stroke={node.color} strokeWidth="2"
               />
               {lines.map((line, li) => (
                 <text
                   key={li}
-                  x={pos.x} y={pos.y - 6 + li * 14}
+                  x={pos.x} y={pos.y - 10 + li * 14}
                   textAnchor="middle" dominantBaseline="middle"
                   fill={node.color} fontSize="9" fontWeight="700"
                 >
                   {line}
                 </text>
               ))}
+              <text
+                x={pos.x} y={pos.y + 20}
+                textAnchor="middle" dominantBaseline="middle"
+                className="fill-muted-foreground" fontSize="6.5" fontStyle="italic"
+              >
+                {node.solutionName}
+              </text>
             </motion.g>
           );
         })}

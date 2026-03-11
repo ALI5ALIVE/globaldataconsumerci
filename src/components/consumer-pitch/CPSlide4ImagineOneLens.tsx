@@ -12,13 +12,15 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
       {...props}
     >
       <div className="h-full flex flex-col items-center justify-center relative">
-        <CJOneLensHub />
+        <div className="flex-1 w-full flex items-center justify-center min-h-0">
+          <CJOneLensHub />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 3, duration: 0.6 }}
-          className="text-center max-w-xl mt-2"
+          className="text-center max-w-xl pb-2"
         >
           <p className="text-sm text-primary font-medium">
             One taxonomy. One truth. From trend to shelf.
