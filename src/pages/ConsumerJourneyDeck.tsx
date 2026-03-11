@@ -10,7 +10,7 @@ import GDSlide4Proposition from "@/components/globaldata-slides/GDSlide4Proposit
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 import CPSlide9NothingLikeThis from "@/components/consumer-pitch/CPSlide9NothingLikeThis";
 import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
-
+import CJSlideMaturityJourney from "@/components/consumer-journey/CJSlideMaturityJourney";
 
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 
