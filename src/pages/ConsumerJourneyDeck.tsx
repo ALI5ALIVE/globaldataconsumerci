@@ -283,21 +283,19 @@ const ConsumerJourneyDeck = () => {
         </button>
       </div>
 
-      {/* Slides — 12-slide optimised arc */}
+      {/* Slides — 11-slide optimised arc */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <CJSlide0Title {...getNarrationProps(0)} />
         <CPSlide1MondayMorning {...getNarrationProps(1)} />
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <PersonaPanorama personas={panorama1} slideNumber={5} groupLabel="Discover · Size · Track" {...getNarrationProps(5)} />
-        <PersonaPanorama personas={panorama2} slideNumber={6} groupLabel="Validate · Win · Optimise" {...getNarrationProps(6)} />
-        <CJSlideConnectedDecision {...getNarrationProps(7)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(8)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
-        <CJSlideProof {...getNarrationProps(10)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
-        <CJSlide12CTA {...getNarrationProps(12)} />
+        <CJSlideConnectedDecision {...getNarrationProps(5)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(6)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(7)} />
+        <CJSlideProof {...getNarrationProps(8)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
+        <CJSlide12CTA {...getNarrationProps(10)} />
       </div>
     </div>
   );

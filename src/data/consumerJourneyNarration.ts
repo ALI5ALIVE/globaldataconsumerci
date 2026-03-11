@@ -40,78 +40,41 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 5,
-    title: "The Strategist — Trend & Strategy",
-    script: `Meet Sarah. Head of Strategy at a top-five FMCG company. Without connected intelligence, she's always twelve months late. By the time she's validated a trend through three different providers, her competitor has already launched. Now look at her dashboard — Strategic Foresight. Emerging trends flagged eighteen months out. Rising and falling indicators across every category. She walks into the board with evidence, not excuses. Eighteen months of foresight. One validated view. Three times faster board prep.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 6,
-    title: "The Market Lead — Opportunity Sizing",
-    script: `Meet James. Market Intelligence Lead. His job is to size opportunities and forecast demand. Without connected intelligence, he spends three weeks pulling numbers from four different sources. The board still questions them. Now look at his dashboard — Market Sizing. One click. One hundred and ten countries. A twelve point six billion dollar global TAM with eight point three percent CAGR. Numbers the board trusts because everyone sees the same data, drawn from the same taxonomy. Three weeks becomes three minutes.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 7,
-    title: "The CI Analyst — Competitive Tracking",
-    script: `Meet Priya. Competitive Intelligence Analyst. She's brilliant at pattern recognition. But without connected intelligence, she finds out about competitor moves from trade press — the same time as everyone else. Now look at her dashboard — Competitive Intelligence. Twenty-five thousand companies tracked. Six alternative data signals. Real-time alerts on patent filings, key hires, supply chain shifts. She sees their moves before they announce them.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 8,
-    title: "The Innovation Director — Validation",
-    script: `Meet Marcus. Innovation Director. He killed a product that would have been a hit. He launched one that flopped. Both decisions were based on gut feel dressed up as insight. Now look at his dashboard — Innovation Validation. Every concept scored against real consumer signals. Probiotic Snack Bar scores eighty-seven. CBD Gummies scores thirty-four — killed early, saving millions. Two times higher launch success rate. Eighteen-month cycles compressed to eight weeks.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 9,
-    title: "The Sales Lead — Commercial Execution",
-    script: `Meet Elena. National Account Manager. She walks into buyer meetings with slides she made last night. No foresight. No proof points. Now look at her dashboard — Commercial Intelligence. Four intelligence layers — trend data, market sizing, competitive context, and innovation proof points. All unified. All current. The buyer leans in. Because Elena isn't pitching a product — she's presenting a story backed by intelligence. A partnership conversation built on shared evidence.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 10,
-    title: "The Procurement Lead — TCO & Consolidation",
-    script: `Meet David. Head of Procurement. He manages fourteen overlapping data suppliers. Two point four million pounds a year — and nobody can tell him what's actually being used. Renewal season is a nightmare of duplicate contracts and zero usage visibility. Now look at his dashboard — Procurement Intelligence. Fourteen suppliers consolidated to one. Total cost of ownership down forty percent. Every team's usage tracked. Every pound justified. David went from managing fourteen vendor relationships to one strategic partnership. Best-in-class consolidation — measurable, defensible, and immediate.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 7,
     title: "The Connected Decision",
     script: `Here's what this looks like in practice. One question: should we launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven. Priya flags that Competitor X has filed four patents in this space. Marcus scores five concepts — three pass the evidence threshold. And Elena walks into Tesco with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle. And David? He made it all possible with one contract.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 8,
+    slideId: 6,
     title: "Connected Intelligence in Action",
     script: `This is what changes everything. Sarah's foresight feeds James's sizing. James's numbers sharpen Priya's competitive signals. Priya's intelligence validates Marcus's innovation pipeline. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 9,
+    slideId: 7,
     title: "Why Not Just Integrate?",
     script: `You might be thinking — why not just integrate what we already have? Here's the reality. DIY integration means fourteen contracts, eighteen months of IT work, and no shared taxonomy. You end up with connected pipes but disconnected meaning. Connected Intelligence is fundamentally different. One platform. One taxonomy. Ninety days to deploy. The difference isn't plumbing — it's a unified language that makes every data point speak to every other.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 10,
+    slideId: 8,
     title: "The Proof",
     script: `These aren't projections — they're results. Ferrero replaced five vendors with one connected platform — at thirty percent lower cost. Mondelēz cut decision cycles by seventy percent, responding to consumer shifts before competitors could even see them. Two times higher launch success rates by validating against real consumer signals instead of gut instinct. You're not paying for seven disconnected tools anymore. You're paying for one connected answer.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 11,
+    slideId: 9,
     title: "Your Teams, Transformed",
     script: `Here's what changes for your people. Today, your teams spend sixty percent of their time reconciling data and only ten percent on actual strategic thinking. With Connected Intelligence, that flips. Reconciliation drops to five percent. Strategic thinking rises to seventy-five percent. Your best people stop being data janitors and start being the strategic advisors they were hired to be. Decision velocity moves from six to eight weeks down to hours.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 12,
+    slideId: 10,
     title: "Nothing Like This Exists — Let's Talk",
     script: `Let's be direct. This isn't another dashboard. This isn't an incremental improvement. No one has ever connected strategic foresight, market sizing, competitive tracking, innovation validation, commercial intelligence, and procurement consolidation through a single consumer-connected taxonomy. This is a first. Eight of the top ten FMCG companies already trust it. Ninety days. That's all it takes to go from fourteen disconnected suppliers to one unified platform. Every week of delay is a consumer trend missed, a competitor moving first, a launch window closing. The journey from fragmented to connected starts with one conversation. Let's have it.`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
-
 export const getConsumerJourneyNarration = (slideId: number): SlideNarration | undefined => {
   return consumerJourneyNarrations.find((n) => n.slideId === slideId);
 };
