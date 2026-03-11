@@ -1,76 +1,30 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Fix Solution Names and Procurement on One Lens Slide
 
-## Problem
+## Issues
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+1. **Wrong solution names** in `CJOneLensHub.tsx`:
+   - "Strategic Foresight" → should be **"Strategic Intelligence"**
+   - "Innovation Validation" → should be **"Innovation Intelligence"**
 
-## Current Vertical Budget Analysis
+2. **Procurement is not a solution** — it's a benefit of consolidation (lower cost, 1 vendor, best-in-class). The 6th node currently shows "Procurement Optimisation" as if it's a product. It should be reframed or removed.
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+3. **Narration for slide 4** doesn't mention the procurement/cost benefit. It should reference David and the consolidation value (1 vendor, lower TCO, best-in-class solutions).
 
-## Proposed Reductions
+## Changes
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+### `src/components/consumer-journey/CJOneLensHub.tsx`
 
-**Estimated Total Savings: ~80-100px vertical space**
+- Line 7: `"Strategic\nForesight"` → `"Strategic\nIntelligence"`
+- Line 31: `"Innovation\nValidation"` → `"Innovation\nIntelligence"`
+- Lines 46-52: Replace the "Procurement Optimisation" node with a **benefit node** reframed as:
+  - Label: `"One Vendor\nLower Cost"`
+  - solutionName: `"Best-in-class, consolidated"`
+  - Questions updated to reflect value: "Why pay for 14 contracts?" / "How do we get best-in-class at lower TCO?"
+  - David's role updated to `"Head of Procurement"` (stays as the persona advocating this benefit)
 
-## File to Modify
+### `src/data/consumerJourneyNarration.ts`
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
-
-## Specific Changes
-
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
-
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+- Slide 4 narration (line 38): Add David and the procurement benefit to the script. Append before the closing line something like: *"And David? He sees fourteen contracts become one — lower cost, best-in-class solutions, zero compromise."*
 
