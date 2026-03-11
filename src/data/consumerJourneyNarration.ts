@@ -17,7 +17,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 1,
     title: "Your Monday Morning",
-    script: `It's Monday morning and your inbox is already on fire. The board wants your plant-based protein position by Friday. Your trend provider says the category is peaking — but social listening says it's accelerating. Finance has two different TAM numbers. A rival just filed four patents and nobody on your team saw it coming. One opportunity. Seven teams. Seven answers. Which one do you trust? Here's why that keeps happening.`,
+    script: `It's Monday morning and your inbox is already on fire. The board wants your plant-based protein position by Friday. Your trend provider says the category is peaking — but social listening says it's accelerating. Finance has two different TAM numbers. A rival just filed four patents and nobody on your team saw it coming. One opportunity. Seven teams. Seven answers. Which one do you trust? If that feels familiar, you're not alone. And there's a reason it keeps happening.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
