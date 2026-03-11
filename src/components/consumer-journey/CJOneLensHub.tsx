@@ -4,7 +4,7 @@ import { useState } from "react";
 const valueChainStages = [
   {
     id: "discover",
-    label: "Strategic\nForesight",
+    label: "Strategic\nIntelligence",
     solutionName: "12-month foresight horizon",
     questions: ["Where is the category heading?", "Which macro shifts matter most?"],
     color: "hsl(217 100% 40%)",
@@ -28,7 +28,7 @@ const valueChainStages = [
   },
   {
     id: "validate",
-    label: "Innovation\nValidation",
+    label: "Innovation\nIntelligence",
     solutionName: "8-week validated sprints",
     questions: ["Which concepts will resonate?", "What claims can we defend?"],
     color: "hsl(160 70% 40%)",
@@ -44,9 +44,9 @@ const valueChainStages = [
   },
   {
     id: "optimise",
-    label: "Procurement\nOptimisation",
-    solutionName: "Consolidated vendor savings",
-    questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
+    label: "One Vendor\nLower Cost",
+    solutionName: "Best-in-class, consolidated",
+    questions: ["Why pay for 14 contracts?", "How do we get best-in-class at lower TCO?"],
     color: "hsl(35 80% 45%)",
     persona: { name: "David", initials: "D", role: "Head of Procurement · Global FMCG" },
   },
