@@ -11,76 +11,71 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 0,
     title: "The Pressure You're Under",
-    script: `You're under more pressure than ever. The board wants evidence-based strategy — not PowerPoint promises. Consumer trends are shifting faster than your planning cycles can keep up. And your data? It lives in seven different places. Seven tools. Seven logins. Seven versions of the truth. You're expected to deliver growth, move faster, prove ROI — and do it all with fewer resources. There has to be a better way.`,
+    script: `You're under more pressure than ever. The board wants evidence — not intuition. Consumer trends are shifting faster than your planning cycles. And your data? It lives in seven different places. There has to be a better way. Let me show you what Monday actually looks like.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 1,
     title: "Your Monday Morning",
-    script: `It's Monday morning and your inbox is already on fire. The board wants your plant-based protein position by Friday. Your trend provider says the category is peaking — but social listening says it's accelerating. Finance needs a TAM number, and you've got two: one point four billion from your team, two point one billion from the consultant. A rival just filed four patents in plant-based protein and nobody on your team saw it coming. You have five concepts in the pipeline. Which ones should you kill? Which ones should you fast-track? And the buyer at your biggest retailer? They want a plant-based range proposal by next month. One opportunity. Seven teams. Seven answers. Which one do you trust?`,
+    script: `It's Monday morning and your inbox is already on fire. The board wants your plant-based protein position by Friday. Your trend provider says the category is peaking — but social listening says it's accelerating. Finance has two different TAM numbers. A rival just filed four patents and nobody on your team saw it coming. One opportunity. Seven teams. Seven answers. Which one do you trust? Here's why that keeps happening.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 2,
-    title: "Seven Sources, Seven Conflicting Signals",
-    script: `Here's the problem. Every team is pulling from a different source — and every source is telling them something different about the same opportunity. Your trend report says plant-based is peaking. Your consumer panel says trial is up but repeat is flat. Your internal data says your test market grew twenty-two percent. Your competitive database says no significant moves — but your sales team says the buyer is demanding it. Seven sources. Seven conflicting signals. So your team spends sixty percent of their time not thinking — but reconciling. Ten percent on actual strategy. And twelve weeks to make a decision that should take days. By the time you reconcile, someone else has launched.`,
+    title: "Seven Sources, Seven Signals",
+    script: `Every team is pulling from a different source — and every source tells them something different about the same opportunity. So your people spend sixty percent of their time not thinking — but reconciling. Ten percent on actual strategy. And twelve weeks to make a decision that should take days. That's not a workflow problem. It's a structural one. And it's already cost you.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 3,
     title: "What It's Costing You",
-    script: `And this isn't hypothetical. A competitor saw the same plant-based signals six months ago. They launched. They claimed the shelf. You're still reconciling data. Your strategy, innovation, and commercial teams each had a different view. By the time they agreed, the buyer had moved on. One of your five plant-based concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. Another concept made it to market — but without competitive context. A rival had already saturated the space. You found out from trade press. This is what fragmentation costs you. In this category. This year.`,
+    script: `A competitor saw the same plant-based signal six months ago. They launched. They claimed the shelf. You were still reconciling data. One of your concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. This is what fragmentation costs you — in this category, this year. But it doesn't have to work this way.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 4,
-    title: "Imagine One Lens, One New Way of Working",
-    script: `Now imagine seeing that same plant-based opportunity through one connected lens. Five people. Five roles. One platform. Sarah sees the signal first — and it's validated, not debated. James sizes it instantly — one number, one methodology, no reconciliation. Priya tracks every competitive move in real time. Marcus scores your concepts against real evidence, not gut-feel. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context, validated concepts — in one click. And David consolidates fourteen vendor contracts into one — giving every team access to best-in-class intelligence they never had before, at thirty percent lower total cost of ownership. One taxonomy. One truth. From the first signal to the shelf. That's not a vision. It exists. Let me show you.`,
+    title: "One Lens, One New Way of Working",
+    script: `Imagine seeing that same opportunity through one connected lens. Sarah sees the signal first — validated, not debated. James sizes it instantly — one number, one methodology. Priya tracks every competitive move in real time. Marcus scores concepts against real evidence. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context — in one click. One taxonomy. One truth. From signal to shelf. Let me show you how it works in practice.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 5,
     title: "The Connected Decision",
-    script: `Here's what this looks like in practice. One question: should you launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year across the region. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven, twelve point six percent CAGR. Priya flags that a rival has filed four patents in this exact space. Marcus scores five concepts against the evidence — three pass the threshold. And Elena walks into the retailer with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle.`,
+    script: `One question: should you launch plant-based snacking in Southeast Asia? With Connected Intelligence — Sarah pulls the trend data: thirty-eight percent year-on-year growth. James sizes it: two point one billion dollar opportunity. Priya flags four rival patents. Marcus scores five concepts — three pass. Elena walks into the retailer with the full story. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. Now — what does this mean for your teams?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
     title: "Teams Transformed",
-    script: `This is what changes for your teams. Today, sixty percent of their time goes to reconciling data. Twenty percent to searching for it. Ten percent reporting. And just ten percent — ten — on actual strategy. They're data janitors, not strategic advisors. Now look at what happens with Connected Intelligence. Reconciliation drops to five percent. Searching — five percent. Reporting becomes fifteen percent because it's automated and evidence-based. And strategy? Seventy-five percent. Your best people finally doing what you hired them to do. And decision velocity? It goes from six to eight weeks — to hours. Not days. Hours. That's not incremental improvement. That's transformation.`,
+    script: `Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. And decision velocity? Six to eight weeks — down to hours. That's not incremental improvement. That's transformation. And there's a clear path to get there.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 7,
     title: "The Intelligence Maturity Journey",
-    script: `This is the maturity journey — and it changes everything about how you plan. Today, most teams are stuck at Stage One: Fragmented. Sixty percent of their time goes to reconciling data across seven different tools. Ten percent on actual strategy. Decisions take six to eight weeks. Stage Two is Connected — and it's the gateway. One consumer taxonomy. One platform. Reconciliation drops from sixty to twenty percent. Decisions compress to two to three weeks. This is where intelligence starts to flow. Stage Three is Optimised. AI begins surfacing cross-solution patterns — trend shifts that feed sizing models, competitive moves that trigger innovation alerts. Decisions in three to five days. And Stage Four — Predictive. AI anticipates market shifts before they happen. Seventy-five percent of team time goes to strategy. Decisions in hours. But here's the critical insight: you cannot skip to Optimised or Predictive without first being Connected. The unified taxonomy is the foundation everything else builds on.`,
+    script: `Most teams are stuck at Stage One — Fragmented. The gateway is Stage Two: Connected. One taxonomy. Reconciliation drops from sixty to twenty percent. Decisions compress to weeks. From there, AI begins surfacing cross-solution patterns — Stage Three, Optimised. And at Stage Four — Predictive — AI anticipates market shifts before they happen. But here's the critical insight: you can't skip to Predictive without first being Connected. The taxonomy is the foundation. And the results speak for themselves.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 8,
-    title: "The Platform",
-    script: `This is the platform that makes it possible. Five solutions — Strategic Foresight, Market Sizing, Competitive Intelligence, Innovation Validation, and Commercial Intelligence — all connected through one consumer taxonomy. And at the centre, Ava — your AI intelligence partner. She doesn't just search. She connects. When Sarah validates a plant-based trend, Ava automatically surfaces the sizing data James needs, flags the patent filings Priya should see, scores the concepts Marcus is evaluating, and builds the buyer story Elena will present. Five solutions. One AI agent. One taxonomy. No reconciliation. No handoffs. No version conflicts. This is Connected Intelligence — and it's how your plant-based opportunity goes from signal to shelf.`,
+    title: "The Proof",
+    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Forty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. So you might be wondering — why not just build this yourself?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
-    title: "The Proof",
-    script: `Don't just take our word for it. Leading global FMCG companies are already seeing the results. Decision velocity improved by three times. Time to insight reduced by seventy percent. Launch success rates doubled. And total cost of ownership reduced by forty percent through vendor consolidation. This is Connected Intelligence — proven, deployed, and delivering.`,
+    title: "Why Not DIY?",
+    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. The question isn't whether to connect your intelligence. It's how fast you want to move.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 10,
-    title: "Nothing Like This",
-    script: `There is nothing like this on the market. No single vendor connects strategic foresight, market sizing, competitive intelligence, innovation validation, and commercial execution through one consumer taxonomy. Others offer pieces. We offer the connected whole.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 11,
-    title: "Why Not DIY?",
-    script: `You might be thinking — can't we just connect our existing tools? The answer is no. Eighteen months of integration work. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence, you get a ninety-day deployment, one platform, one contract, forty percent lower total cost of ownership, and intelligence that flows from trend to shelf.`,
+    title: "Next Steps",
+    script: `Here's what I'd suggest. Let's map your current intelligence landscape — where you are on the maturity curve, where the quick wins are, and what Connected Intelligence would look like for your team. No commitment. Just clarity. Shall we book that in?`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
+
 export const getConsumerJourneyNarration = (slideId: number): SlideNarration | undefined => {
   return consumerJourneyNarrations.find((n) => n.slideId === slideId);
 };
