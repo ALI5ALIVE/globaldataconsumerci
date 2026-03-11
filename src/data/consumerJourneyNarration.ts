@@ -33,7 +33,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 3,
+    slideId: 4,
     title: "Imagine One Lens",
     script: `Now imagine one lens across your entire value chain. Five people. Five roles. One connected platform. Sarah sees what's coming. James sizes it instantly. Priya tracks who's moving. Marcus validates with evidence. Elena closes with conviction. One taxonomy. One truth. From the moment a trend emerges to the moment your product hits the shelf. That's not a dream. It exists. Let me show you how each of them uses it.`,
     voiceId: DEFAULT_VOICE_ID,
