@@ -5,6 +5,7 @@ const valueChainStages = [
   {
     id: "discover",
     label: "Discover\nTrends",
+    solutionName: "Strategic Foresight",
     questions: ["Where is the category heading?", "Which macro shifts matter most?"],
     color: "hsl(217 100% 40%)",
     persona: { name: "Sarah", initials: "S", role: "Head of Strategy · Global FMCG" },
@@ -12,6 +13,7 @@ const valueChainStages = [
   {
     id: "size",
     label: "Size\nOpportunity",
+    solutionName: "Market Sizing",
     questions: ["How big is the white space?", "Which markets should we prioritise?"],
     color: "hsl(200 90% 45%)",
     persona: { name: "James", initials: "J", role: "Market Intelligence Lead · Global FMCG" },
@@ -19,6 +21,7 @@ const valueChainStages = [
   {
     id: "track",
     label: "Track\nCompetition",
+    solutionName: "Competitive Intelligence",
     questions: ["Who's gaining share and why?", "What are competitors launching?"],
     color: "hsl(195 85% 50%)",
     persona: { name: "Priya", initials: "P", role: "CI Analyst · Global FMCG" },
@@ -26,6 +29,7 @@ const valueChainStages = [
   {
     id: "validate",
     label: "Validate\nInnovation",
+    solutionName: "Innovation Validation",
     questions: ["Which concepts will resonate?", "What claims can we defend?"],
     color: "hsl(160 70% 40%)",
     persona: { name: "Marcus", initials: "M", role: "Innovation Director · Global FMCG" },
@@ -33,6 +37,7 @@ const valueChainStages = [
   {
     id: "win",
     label: "Win at\nShelf",
+    solutionName: "Commercial Intelligence",
     questions: ["What proof points win the listing?", "Where's the incremental growth?"],
     color: "hsl(280 60% 50%)",
     persona: { name: "Elena", initials: "E", role: "National Account Mgr · Global FMCG" },
@@ -40,6 +45,7 @@ const valueChainStages = [
   {
     id: "optimise",
     label: "Optimise\nCosts",
+    solutionName: "Procurement Intelligence",
     questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
     color: "hsl(35 80% 45%)",
     persona: { name: "David", initials: "D", role: "Head of Procurement · Global FMCG" },
