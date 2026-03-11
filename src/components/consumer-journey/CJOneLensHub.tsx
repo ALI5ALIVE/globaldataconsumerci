@@ -38,6 +38,13 @@ const solutionNodes = [
     color: "hsl(280 60% 50%)",
     persona: { name: "Elena", initials: "E", role: "National Account Mgr" },
   },
+  {
+    id: "procurement",
+    label: "Procurement\nIntelligence",
+    questions: ["How do we reduce TCO?", "Which suppliers overlap?"],
+    color: "hsl(35 80% 45%)",
+    persona: { name: "David", initials: "D", role: "Head of Procurement" },
+  },
 ];
 
 const CJOneLensHub = () => {
