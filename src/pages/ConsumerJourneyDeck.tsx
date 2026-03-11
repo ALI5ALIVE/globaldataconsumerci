@@ -243,7 +243,32 @@ const ConsumerJourneyDeck = () => {
     containerRef.current.scrollTo({ top: index * slideHeight, behavior: "smooth" });
   }, []);
 
+  const clearAutoAdvance = useCallback(() => {
+    if (autoAdvanceTimerRef.current) {
+      clearTimeout(autoAdvanceTimerRef.current);
+      autoAdvanceTimerRef.current = null;
+    }
+  }, []);
+
+  // Auto-advance: when narration completes, scroll to next slide and play
+  useEffect(() => {
+    if (!autoAdvance || !narration.hasCompleted || narration.currentSlide !== activeSlide) return;
+    if (activeSlide >= slides.length - 1) return;
+
+    const nextSlide = activeSlide + 1;
+    autoAdvanceTimerRef.current = setTimeout(() => {
+      scrollToSlide(nextSlide);
+      autoAdvanceTimerRef.current = setTimeout(() => {
+        narration.play(nextSlide);
+        narration.preloadNext(nextSlide);
+      }, 800);
+    }, 1500);
+
+    return () => clearAutoAdvance();
+  }, [narration.hasCompleted, narration.currentSlide, activeSlide, autoAdvance, scrollToSlide, clearAutoAdvance]);
+
   const navigateSlide = (direction: "up" | "down") => {
+    clearAutoAdvance();
     if (direction === "up" && activeSlide > 0) scrollToSlide(activeSlide - 1);
     else if (direction === "down" && activeSlide < slides.length - 1) scrollToSlide(activeSlide + 1);
   };
