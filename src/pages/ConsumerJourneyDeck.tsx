@@ -165,9 +165,8 @@ const slides = [
   { id: "cj-slide-4", label: "One Lens" },
   { id: "cj-slide-5", label: "The Platform" },
   { id: "cj-slide-6", label: "The Connected Decision" },
-  { id: "cj-slide-7", label: "Connected Intelligence" },
-  { id: "cj-slide-8", label: "Teams Transformed" },
-  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-7", label: "Teams Transformed" },
+  { id: "cj-slide-8", label: "Proof" },
 ];
 
 const ConsumerJourneyDeck = () => {
