@@ -32,6 +32,10 @@ const personas: PersonaData[] = [
     solutionName: "Strategic Foresight",
     dashboardType: "trend-radar",
     valueChainPosition: 1,
+    unlockedActions: [
+      { text: "Validate trends against live market sizing", enabledBy: "James" },
+      { text: "Pre-screen concepts before innovation invests", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "James",
