@@ -6,23 +6,23 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const pressureCards = [
   {
     icon: BarChart3,
-    title: "Board Demand",
-    line: "Evidence-based strategy, not PowerPoint promises",
+    title: "Consumer Expectations",
+    line: "They expect brands to know what they want before they do",
   },
   {
     icon: Zap,
-    title: "Market Velocity",
-    line: "Consumer trends shift faster than your planning cycles",
+    title: "Consumer Velocity",
+    line: "Preferences shift faster than your planning cycles can follow",
   },
   {
     icon: Shuffle,
-    title: "Data Fragmentation",
-    line: "Seven tools, seven logins, seven versions of the truth",
+    title: "Fragmented Consumer View",
+    line: "Seven tools, seven logins — no single view of your consumer",
   },
   {
     icon: Compass,
-    title: "Your Competitors",
-    line: "8 of the top 10 FMCG companies have already connected their intelligence",
+    title: "First-Mover Advantage",
+    line: "8 of the top 10 FMCG companies already see the consumer as one connected picture",
   },
 ];
 
@@ -74,9 +74,9 @@ const CJSlide0Title = ({
             than ever.
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Deliver growth. Move faster. Prove ROI.
+            Your consumers are changing faster than you can track them.
             <br className="hidden sm:block" />
-            And do it with fewer resources.
+            And every missed signal is a missed opportunity.
           </p>
         </motion.div>
 
@@ -110,7 +110,7 @@ const CJSlide0Title = ({
           transition={{ duration: 0.8, delay: 0.9 }}
           className="text-foreground/90 text-lg sm:text-xl md:text-2xl font-display italic"
         >
-          "There has to be a better way."
+          "The consumer isn't waiting. Why are you?"
         </motion.p>
       </div>
 
