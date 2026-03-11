@@ -1,23 +1,76 @@
 
 
-# Plan: Replace Platform Slide with SlidePlatformCapabilities Layout
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-Replace the current `CPSlide5Platform` (radial Ava layout at index 5) on the consumer journey deck with the `SlidePlatformCapabilities` component from the `/` slides deck.
+## Problem
 
-## What Changes
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-The current radial layout with Ava at centre gets replaced by the two-column layout from `/` slides: ecosystem image on the left, expandable capability cards on the right, and a value outcomes banner at the bottom.
+## Current Vertical Budget Analysis
 
-Since `SlidePlatformCapabilities` uses `SlideContainer` (which has Comply365 branding), we'll switch it to use `CPSlideContainer` instead, and import the component directly.
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## File Changes
+## Proposed Reductions
 
-| File | Change |
-|------|--------|
-| `src/pages/ConsumerJourneyDeck.tsx` | Replace `CPSlide5Platform` import with `SlidePlatformCapabilities` import; render it at index 5 |
-| `src/components/consumer-pitch/CPSlide5Platform.tsx` | No longer used — can be deleted or left |
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-The `SlidePlatformCapabilities` component will be used as-is but wrapped so it receives the correct narration props. Since it already accepts `SlideNarrationProps`, it can slot in directly — the only difference is it uses `SlideContainer` instead of `CPSlideContainer`, which means it will show Comply365 branding. To fix this, we'll create a thin wrapper or modify the import to use `CPSlideContainer`.
+**Estimated Total Savings: ~80-100px vertical space**
 
-**Simpler approach**: Just import and render `SlidePlatformCapabilities` directly at index 5. The slide container difference (Comply365 logo) is minor and can be addressed in a follow-up if needed.
+## File to Modify
+
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+
+## Specific Changes
+
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
