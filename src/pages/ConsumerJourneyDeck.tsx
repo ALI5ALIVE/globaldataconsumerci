@@ -130,6 +130,7 @@ const personas: PersonaData[] = [
 ];
 
 const slides = [
+  { id: "cj-slide-0", label: "The Pressure" },
   { id: "cp-slide-1", label: "Your Monday" },
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
