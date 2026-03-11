@@ -28,7 +28,7 @@ const valueChainStages = [
   },
   {
     id: "validate",
-    label: "Innovation\nValidation",
+    label: "Innovation\nIntelligence",
     solutionName: "8-week validated sprints",
     questions: ["Which concepts will resonate?", "What claims can we defend?"],
     color: "hsl(160 70% 40%)",
