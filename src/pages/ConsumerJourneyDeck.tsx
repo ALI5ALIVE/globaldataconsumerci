@@ -6,7 +6,7 @@ import CPSlide1MondayMorning from "@/components/consumer-pitch/CPSlide1MondayMor
 import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSources";
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
-import SlidePlatformCapabilities from "@/components/slides/SlidePlatformCapabilities";
+import CPSlide5ConnectedIntelligence from "@/components/consumer-pitch/CPSlide5ConnectedIntelligence";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 
 
@@ -289,7 +289,7 @@ const ConsumerJourneyDeck = () => {
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <SlidePlatformCapabilities {...getNarrationProps(5)} />
+        <CPSlide5ConnectedIntelligence {...getNarrationProps(5)} />
         <CJSlideConnectedDecision {...getNarrationProps(6)} />
         <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
         <CPSlide7TeamsTransformed {...getNarrationProps(8)} />
