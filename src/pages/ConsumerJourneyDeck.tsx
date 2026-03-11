@@ -6,7 +6,7 @@ import CPSlide1MondayMorning from "@/components/consumer-pitch/CPSlide1MondayMor
 import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSources";
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
-import CPSlide5Platform from "@/components/consumer-pitch/CPSlide5Platform";
+import SlidePlatformCapabilities from "@/components/slides/SlidePlatformCapabilities";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 
 
