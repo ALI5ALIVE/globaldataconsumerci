@@ -21,7 +21,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 1,
+    slideId: 2,
     title: "Seven Questions, Seven Sources",
     script: `Here's what your week actually looks like. Strategy is pulling from one provider. Market sizing comes from another. Competitive tracking lives in a third. Innovation runs off trend reports that nobody else sees. And your sales team? They're building their own slides from memory. Seven critical questions. Seven disconnected sources. Seven teams — each confident they have the right answer. But none of them are speaking the same language. So you spend sixty percent of your time not thinking — but reconciling.`,
     voiceId: DEFAULT_VOICE_ID,
