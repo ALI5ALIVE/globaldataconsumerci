@@ -215,8 +215,12 @@ const CJSlideConnectedDecision = ({
                   <Icon className="w-4 h-4" />
                 </div>
                 <p className="text-sm font-bold text-foreground">{persona.name}</p>
-                <p className={`text-[10px] ${persona.accent} font-medium mb-2`}>{persona.role}</p>
-                <p className="text-xs text-muted-foreground leading-snug flex-1">"{persona.verdict}"</p>
+                <p className={`text-[10px] ${persona.accent} font-medium mb-1.5`}>{persona.role}</p>
+                {(() => {
+                  const Dashboard = dashboardMap[persona.role];
+                  return Dashboard ? <Dashboard /> : null;
+                })()}
+                <p className="text-xs text-muted-foreground leading-snug flex-1 mt-1.5">"{persona.verdict}"</p>
                 <p className={`text-[9px] mt-2 ${persona.accent} font-semibold uppercase tracking-wider`}>{persona.solution}</p>
                 {i < personas.length - 1 && (
                   <div className="absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
