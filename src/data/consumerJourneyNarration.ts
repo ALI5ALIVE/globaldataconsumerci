@@ -35,7 +35,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 4,
     title: "One Lens, One New Way of Working",
-    script: `Imagine seeing that same opportunity through one connected lens. Sarah sees the signal first — validated, not debated. James sizes it instantly — one number, one methodology. Priya tracks every competitive move in real time. Marcus scores concepts against real evidence. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context — in one click. And David? He sees fourteen contracts become one — lower cost, best-in-class solutions, zero compromise. One taxonomy. One truth. From signal to shelf. Here's what that looks like when it all comes together.`,
+    script: `Imagine seeing that same opportunity through one connected lens. Five solutions — each best-in-class — working together for the first time. Strategic Intelligence shows you where the category is heading. Market Intelligence gives you one definitive sizing. Competitive Intelligence tracks every move in real time. Innovation Intelligence tests your concepts against real evidence. And Sales Intelligence arms your team with the full story for every buyer meeting. Connecting all of them is Ava — our AI intelligence layer — surfacing patterns across solutions that no single team would spot alone. And David? He wraps it all into one contract — best-in-class at thirty percent lower cost. That's what Connected Intelligence is. Now let's see how it works in practice.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
