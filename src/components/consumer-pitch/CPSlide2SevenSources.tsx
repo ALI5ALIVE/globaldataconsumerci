@@ -4,13 +4,13 @@ import CPSlideContainer from "./CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
 
 const sources = [
-  { icon: Brain, label: "Trend\nReport", signal: '"Plant-based is peaking"' },
-  { icon: BarChart3, label: "Market\nSizing", signal: '"$1.4B TAM (or $2.1B?)"' },
-  { icon: Radar, label: "Competitive\nDB", signal: '"No significant moves"' },
-  { icon: Lightbulb, label: "Innovation\nAgency", signal: '"Consumer fatigue detected"' },
-  { icon: ShoppingCart, label: "Sales\nIntel", signal: '"Retailer X is demanding it"' },
-  { icon: Globe, label: "Consumer\nPanel", signal: '"Trial is up, repeat is flat"' },
-  { icon: Database, label: "Internal\nData", signal: '"Our test market grew 22%"' },
+  { icon: Brain, label: "Mintel\nTrends", signal: '"Plant-based is peaking"' },
+  { icon: BarChart3, label: "Euromonitor\nMarket Sizing", signal: '"$1.4B TAM (or $2.1B?)"' },
+  { icon: Radar, label: "Innova\nCompetitive Intel", signal: '"No significant moves"' },
+  { icon: Lightbulb, label: "IDEO /\nExternal Agency", signal: '"Consumer fatigue detected"' },
+  { icon: ShoppingCart, label: "NielsenIQ\nRetail Data", signal: '"Retailer X is demanding it"' },
+  { icon: Globe, label: "Kantar\nConsumer Panel", signal: '"Trial is up, repeat is flat"' },
+  { icon: Database, label: "Circana\nInternal POS", signal: '"Our test market grew 22%"' },
 ];
 
 const CPSlide2SevenSources = (props: SlideNarrationProps) => {
