@@ -35,7 +35,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 4,
     title: "One Lens, One New Way of Working",
-    script: `Imagine seeing that same opportunity through one connected lens. Sarah sees the signal first — validated, not debated. James sizes it instantly — one number, one methodology. Priya tracks every competitive move in real time. Marcus scores concepts against real evidence. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context — in one click. One taxonomy. One truth. From signal to shelf. Let me show you how it works in practice.`,
+    script: `Imagine seeing that same opportunity through one connected lens. Sarah sees the signal first — validated, not debated. James sizes it instantly — one number, one methodology. Priya tracks every competitive move in real time. Marcus scores concepts against real evidence. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context — in one click. And David? He sees fourteen contracts become one — lower cost, best-in-class solutions, zero compromise. One taxonomy. One truth. From signal to shelf. Let me show you how it works in practice.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {

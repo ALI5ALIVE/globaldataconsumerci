@@ -44,9 +44,9 @@ const valueChainStages = [
   },
   {
     id: "optimise",
-    label: "Procurement\nOptimisation",
-    solutionName: "Consolidated vendor savings",
-    questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
+    label: "One Vendor\nLower Cost",
+    solutionName: "Best-in-class, consolidated",
+    questions: ["Why pay for 14 contracts?", "How do we get best-in-class at lower TCO?"],
     color: "hsl(35 80% 45%)",
     persona: { name: "David", initials: "D", role: "Head of Procurement · Global FMCG" },
   },
