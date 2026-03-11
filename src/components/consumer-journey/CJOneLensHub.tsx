@@ -191,21 +191,28 @@ const CJOneLensHub = () => {
               className="cursor-pointer"
             >
               <rect
-                x={pos.x - 48} y={pos.y - 22}
-                width="96" height="44"
+                x={pos.x - 48} y={pos.y - 26}
+                width="96" height="52"
                 rx="8" fill="hsl(var(--card))"
                 stroke={node.color} strokeWidth="2"
               />
               {lines.map((line, li) => (
                 <text
                   key={li}
-                  x={pos.x} y={pos.y - 6 + li * 14}
+                  x={pos.x} y={pos.y - 10 + li * 14}
                   textAnchor="middle" dominantBaseline="middle"
                   fill={node.color} fontSize="9" fontWeight="700"
                 >
                   {line}
                 </text>
               ))}
+              <text
+                x={pos.x} y={pos.y + 20}
+                textAnchor="middle" dominantBaseline="middle"
+                className="fill-muted-foreground" fontSize="6.5" fontStyle="italic"
+              >
+                {node.solutionName}
+              </text>
             </motion.g>
           );
         })}
