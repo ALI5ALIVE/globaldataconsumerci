@@ -35,13 +35,13 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 4,
     title: "One Lens, One New Way of Working",
-    script: `Imagine seeing that same opportunity through one connected lens. Sarah sees the signal first — validated, not debated. James sizes it instantly — one number, one methodology. Priya tracks every competitive move in real time. Marcus scores concepts against real evidence. And Elena walks into the buyer meeting with the full story — trend, sizing, competitive context — in one click. And David? He sees fourteen contracts become one — lower cost, best-in-class solutions, zero compromise. One taxonomy. One truth. From signal to shelf. Here's what that looks like when it all comes together.`,
+    script: `This is what Connected Intelligence actually looks like. Five solutions — each best-in-class — working as one. Strategic Intelligence gives you an eighteen-month foresight horizon, so you see what's coming before your competitors do. Market Intelligence sizes opportunities across a hundred and ten countries — one number, one methodology. Competitive Intelligence tracks twenty-five thousand companies in real time — patents, hires, supply chain moves. Innovation Intelligence validates concepts in eight-week sprints — evidence, not gut feel. And Sales Intelligence arms your commercial team with the proof points that win listings. Connecting all of it is Ava — your AI analyst. She works across every solution, surfacing the patterns and cross-signals your teams would never find manually. And David? He consolidates fourteen contracts into one — best-in-class at thirty percent lower cost. This isn't a dashboard. It's a completely new way of working.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 5,
     title: "The Connected Decision",
-    script: `One question: should you launch plant-based snacking in Southeast Asia? With Connected Intelligence — Sarah pulls the Strategic Intelligence data: thirty-eight percent year-on-year growth. James sizes it: two point one billion dollar opportunity. Priya flags four rival patents. Marcus scores five concepts — three pass. Elena walks into the retailer with the full story. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. One decision. Backed by every angle. Made in a single meeting. Imagine what that does to your speed — and your competitors' confidence.`,
+    script: `So what does this look like in practice? One question lands on the table: should you launch plant-based snacking in Southeast Asia? In a single meeting, your team has the answer. The trend is accelerating — thirty-eight percent year on year. The market is two point one billion dollars. Four competitor patents are already filed. Three of five concepts pass the evidence threshold. And your buyer confirms a category gap. One platform. One meeting. One decision — backed by evidence from every angle. Without Connected Intelligence? Six vendors. Fourteen weeks. Three conflicting recommendations. That's the difference.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
