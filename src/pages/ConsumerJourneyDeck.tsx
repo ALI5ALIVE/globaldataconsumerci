@@ -147,6 +147,10 @@ const personas: PersonaData[] = [
     solutionName: "Procurement Intelligence",
     dashboardType: "procurement-dashboard",
     valueChainPosition: 6,
+    unlockedActions: [
+      { text: "Measure usage across all five intelligence layers", enabledBy: "All teams" },
+      { text: "Consolidate 14 contracts with full ROI evidence", enabledBy: "All teams" },
+    ],
   },
 ];
 

@@ -206,16 +206,31 @@ const PersonaSlide = ({ persona, slideNumber, ...narrationProps }: PersonaSlideP
           </motion.div>
         </div>
 
-        {/* Bottom line */}
+        {/* Now Unlocked strip */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5 }}
-          className="mt-2 text-center"
+          className="mt-2 pt-2 border-t border-border/50"
         >
-          <p className="text-xs text-muted-foreground">
-            Same person. Same role. <span className="text-primary font-semibold">Completely different impact.</span>
-          </p>
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <Unlock className="w-3 h-3 text-primary" />
+            <span className="text-[9px] font-bold uppercase tracking-widest text-primary">Now Unlocked</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {persona.unlockedActions.map((action, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.4 + i * 0.15 }}
+                className="flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-lg px-3 py-1.5"
+              >
+                <span className="text-[11px] text-foreground leading-tight">{action.text}</span>
+                <span className="text-[9px] text-muted-foreground whitespace-nowrap">via {action.enabledBy}</span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </CPSlideContainer>
