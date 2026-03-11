@@ -1,60 +1,76 @@
 
 
-# Redesign: More Visual, More Impactful Persona Slides
+# Plan: Reduce Vertical Height of Slide 3 Content
 
 ## Problem
-The current 3-column layout has too much dead space — the pain/benefit boxes stretch full height but only contain a quote, a paragraph, and 3 bullet points. No persona imagery makes the slides feel abstract and text-heavy.
 
-## Proposed Layout: Persona-Led Split Design
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-Replace the 3-column equal grid with a **2-row layout** — persona identity at top, transformation story below.
+## Current Vertical Budget Analysis
 
-```text
-┌─────────────────────────────────────────────────────┐
-│ [Step dots]  Step 3 of 6 · Track Competition        │
-│                                                     │
-│  ┌──────────┐                                       │
-│  │  Avatar  │  Priya · Competitive Intelligence     │
-│  │  Circle  │  "I find out about competitor moves   │
-│  │  (icon)  │   from trade press. Too late."        │
-│  └──────────┘                                       │
-│                                                     │
-│  ┌──── WITHOUT ─────┐  ┌───── DASHBOARD ──────────┐ │
-│  │ • Reactive        │  │                          │ │
-│  │ • Same intel      │  │   [Competitive Tracker]  │ │
-│  │ • Always behind   │  │                          │ │
-│  ├──── WITH ────────┤  │                          │ │
-│  │ ✓ 25K companies  │  │                          │ │
-│  │ ✓ 6 signal types │  │                          │ │
-│  │ ✓ Real-time      │  │                          │ │
-│  └──────────────────┘  └──────────────────────────┘ │
-│         Same person. Completely different impact.    │
-└─────────────────────────────────────────────────────┘
-```
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### Key changes
+## Proposed Reductions
 
-1. **Persona avatar header** — Large icon-based avatar circle (using the persona's Lucide icon with initials fallback) + name + role + the pain quote as a hero statement. Creates immediate human connection.
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-2. **Compact left column** — Stack the "Without" and "With" into a single narrow column. Without = red-tinted compact card with just the 3 pain bullets. With = green-tinted card with the 3 metric bullets. No paragraph text — just the sharp, scannable bullets. Eliminates dead space.
+**Estimated Total Savings: ~80-100px vertical space**
 
-3. **Larger dashboard** — The dashboard mockup takes ~60% width instead of 33%. This is the visual centrepiece — making it bigger adds impact and reduces the "three equal boxes of text" feel.
+## File to Modify
 
-4. **Layout**: Top row = persona identity bar. Bottom row = `grid-cols-[280px_1fr]` (compact pain/benefit stack | large dashboard).
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-## Files
+## Specific Changes
 
-| File | Change |
-|------|--------|
-| `src/components/consumer-journey/PersonaSlide.tsx` | Redesign layout: persona header row with avatar, 2-col bottom (stacked pain+benefit cards | enlarged dashboard) |
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-## Implementation detail
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-- Avatar: 56px circle with gradient bg matching the persona's value chain position color, persona icon centered inside, initials as text fallback
-- Pain card: compact, no quote/paragraph — just label + 3 bullets with AlertTriangle icons
-- Benefit card: compact — just label + 3 metric bullets with CheckCircle2 icons  
-- The pain quote moves up to the persona header as a large italic statement
-- The benefit quote becomes a small accent line between the two cards
-- Dashboard column gets `col-span` majority of width
-- Remove the `painDetail` and `benefitDetail` paragraphs from the visible layout (data stays in the interface for narration use)
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
