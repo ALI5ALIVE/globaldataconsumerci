@@ -165,7 +165,7 @@ const slides = [
   { id: "cp-slide-1", label: "Your Monday" },
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
-  { id: "cj-slide-4", label: "One Lens" },
+  { id: "cj-slide-4", label: "One Lens, One New Way" },
   { id: "cj-slide-5", label: "The Connected Decision" },
   { id: "cj-slide-6", label: "Teams Transformed" },
   { id: "cj-slide-7", label: "Maturity Journey" },
