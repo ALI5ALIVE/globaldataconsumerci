@@ -171,6 +171,7 @@ const slides = [
   { id: "cj-slide-6", label: "Teams Transformed" },
   { id: "cj-slide-7", label: "Maturity Journey" },
   { id: "cj-slide-8", label: "The Platform" },
+  { id: "cj-slide-12", label: "Next Steps" },
   { id: "cj-slide-9", label: "Proof" },
   { id: "cp-slide-10", label: "Nothing Like This" },
   { id: "cj-slide-11", label: "Why Not DIY?" },
