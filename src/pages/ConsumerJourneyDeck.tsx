@@ -7,7 +7,7 @@ import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSourc
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
-import PersonaPanorama from "@/components/consumer-journey/PersonaPanorama";
+
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
