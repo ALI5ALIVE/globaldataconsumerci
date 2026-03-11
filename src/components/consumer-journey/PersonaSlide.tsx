@@ -48,7 +48,7 @@ const PersonaSlide = ({ persona, slideNumber, ...narrationProps }: PersonaSlideP
           className="mb-2 flex items-center gap-2"
         >
           <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((pos) => (
+            {[1, 2, 3, 4, 5, 6].map((pos) => (
               <div key={pos} className="flex items-center">
                 <div
                   className={`w-2 h-2 rounded-full transition-all ${
@@ -59,7 +59,7 @@ const PersonaSlide = ({ persona, slideNumber, ...narrationProps }: PersonaSlideP
                       : "bg-muted-foreground/20"
                   }`}
                 />
-                {pos < 5 && (
+                {pos < 6 && (
                   <div
                     className={`w-4 h-0.5 ${
                       pos < persona.valueChainPosition ? "bg-primary/30" : "bg-muted-foreground/10"
@@ -70,7 +70,7 @@ const PersonaSlide = ({ persona, slideNumber, ...narrationProps }: PersonaSlideP
             ))}
           </div>
           <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground ml-2">
-            Step {persona.valueChainPosition} of 5
+            Step {persona.valueChainPosition} of 6
           </span>
           <span className="text-[10px] uppercase tracking-widest text-primary font-bold ml-1">
             {persona.step}

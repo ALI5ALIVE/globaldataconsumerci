@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart } from "lucide-react";
+import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart, Wallet } from "lucide-react";
 import { useConsumerJourneyNarration } from "@/hooks/useConsumerJourneyNarration";
 import CPSlide1MondayMorning from "@/components/consumer-pitch/CPSlide1MondayMorning";
 import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSources";
@@ -14,7 +14,7 @@ import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 const personas: PersonaData[] = [
   {
     name: "Sarah",
-    role: "Head of Strategy · Top-5 FMCG",
+    role: "Head of Strategy · Global FMCG",
     step: "Trend & Strategy",
     icon: Compass,
     painQuote: "I'm always 12 months late. By the time I've validated a trend, my competitor has launched.",
@@ -33,7 +33,7 @@ const personas: PersonaData[] = [
   },
   {
     name: "James",
-    role: "Market Intelligence Lead · Global Snacking",
+    role: "Market Intelligence Lead · Global FMCG",
     step: "Opportunity Sizing",
     icon: BarChart3,
     painQuote: "I spend 3 weeks pulling numbers from 4 different sources. The board still questions them.",
@@ -52,7 +52,7 @@ const personas: PersonaData[] = [
   },
   {
     name: "Priya",
-    role: "Competitive Intelligence Analyst · Beverages",
+    role: "Competitive Intelligence Analyst · Global FMCG",
     step: "Competitive Tracking",
     icon: Radar,
     painQuote: "I find out about competitor moves from trade press. By then, it's too late to respond.",
@@ -71,7 +71,7 @@ const personas: PersonaData[] = [
   },
   {
     name: "Marcus",
-    role: "Innovation Director · Health & Wellness",
+    role: "Innovation Director · Global FMCG",
     step: "Innovation Validation",
     icon: Lightbulb,
     painQuote: "We killed a product that would have been a hit. We launched one that flopped. Both based on gut feel.",
@@ -90,7 +90,7 @@ const personas: PersonaData[] = [
   },
   {
     name: "Elena",
-    role: "National Account Manager · Retail",
+    role: "National Account Manager · Global FMCG",
     step: "Commercial Execution",
     icon: ShoppingCart,
     painQuote: "I walk into buyer meetings with slides I made last night. No foresight. No proof points.",
@@ -107,6 +107,25 @@ const personas: PersonaData[] = [
     dashboardType: "commercial-dashboard",
     valueChainPosition: 5,
   },
+  {
+    name: "David",
+    role: "Head of Procurement · Global FMCG",
+    step: "Procurement & TCO",
+    icon: Wallet,
+    painQuote: "I manage 14 data suppliers. Nobody can tell me what we're actually using. Renewal season is a nightmare.",
+    painDetail: "Fourteen overlapping contracts. No usage visibility. £2.4M annual spend with no way to measure ROI or eliminate redundancy.",
+    painBullets: ["14 overlapping suppliers", "No usage visibility", "£2.4M spend unoptimised"],
+    benefitQuote: "One platform. One contract. TCO down 40%. I went from managing 14 vendors to one strategic partner.",
+    benefitDetail: "Full consolidation into a single platform. Usage tracking across every team. Best-in-class procurement with measurable ROI.",
+    metrics: [
+      { value: "40%", label: "TCO reduction" },
+      { value: "14→1", label: "suppliers consolidated" },
+      { value: "Best-in-class", label: "consolidation" },
+    ],
+    solutionName: "Procurement Intelligence",
+    dashboardType: "procurement-dashboard",
+    valueChainPosition: 6,
+  },
 ];
 
 const slides = [
@@ -119,9 +138,10 @@ const slides = [
   { id: "cj-slide-7", label: "The CI Analyst" },
   { id: "cj-slide-8", label: "The Innovator" },
   { id: "cj-slide-9", label: "The Sales Lead" },
-  { id: "cj-slide-10", label: "Teams Transformed" },
-  { id: "cj-slide-11", label: "Results" },
-  { id: "cj-slide-12", label: "Let's Talk" },
+  { id: "cj-slide-10", label: "The Procurement Lead" },
+  { id: "cj-slide-11", label: "Teams Transformed" },
+  { id: "cj-slide-12", label: "Results" },
+  { id: "cj-slide-13", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -249,9 +269,9 @@ const ConsumerJourneyDeck = () => {
             {...getNarrationProps(i + 4)}
           />
         ))}
-        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
-        <CPSlide8Results {...getNarrationProps(10)} />
-        <CJSlide12CTA {...getNarrationProps(11)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
+        <CPSlide8Results {...getNarrationProps(11)} />
+        <CJSlide12CTA {...getNarrationProps(12)} />
       </div>
     </div>
   );

@@ -38,6 +38,13 @@ const solutionNodes = [
     color: "hsl(280 60% 50%)",
     persona: { name: "Elena", initials: "E", role: "National Account Mgr" },
   },
+  {
+    id: "procurement",
+    label: "Procurement\nIntelligence",
+    questions: ["How do we reduce TCO?", "Which suppliers overlap?"],
+    color: "hsl(35 80% 45%)",
+    persona: { name: "David", initials: "D", role: "Head of Procurement" },
+  },
 ];
 
 const CJOneLensHub = () => {
@@ -45,11 +52,12 @@ const CJOneLensHub = () => {
 
   const cx = 300;
   const cy = 300;
+  const nodeCount = solutionNodes.length;
   const solutionRadius = 140;
   const personaRadius = 245;
 
   const getPos = (index: number, radius: number) => {
-    const angle = (index / 5) * Math.PI * 2 - Math.PI / 2;
+    const angle = (index / nodeCount) * Math.PI * 2 - Math.PI / 2;
     return {
       x: cx + Math.cos(angle) * radius,
       y: cy + Math.sin(angle) * radius,

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export type DashboardType = "trend-radar" | "market-sizing" | "competitive-tracker" | "innovation-scorecard" | "commercial-dashboard";
+export type DashboardType = "trend-radar" | "market-sizing" | "competitive-tracker" | "innovation-scorecard" | "commercial-dashboard" | "procurement-dashboard";
 
 interface PersonaDashboardProps {
   type: DashboardType;
@@ -18,6 +18,8 @@ const PersonaDashboard = ({ type }: PersonaDashboardProps) => {
       return <InnovationScorecard />;
     case "commercial-dashboard":
       return <CommercialDashboard />;
+    case "procurement-dashboard":
+      return <ProcurementDashboard />;
   }
 };
 
@@ -270,6 +272,84 @@ const CommercialDashboard = () => {
           <div className="text-xs font-bold text-primary">1 story</div>
           <div className="text-[8px] text-muted-foreground">Unified</div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── David: Procurement Dashboard ── */
+const ProcurementDashboard = () => {
+  const suppliers = [
+    { label: "Before", count: 14, pct: 100 },
+    { label: "Overlap removed", count: 8, pct: 57 },
+    { label: "Consolidated", count: 3, pct: 21 },
+    { label: "After", count: 1, pct: 7 },
+  ];
+  const tcoItems = [
+    { label: "Before", value: "£2.4M", pct: 100, color: "bg-destructive/50" },
+    { label: "After", value: "£1.4M", pct: 58, color: "bg-chart-2/60" },
+  ];
+  return (
+    <div className="h-full flex flex-col gap-2">
+      <div className="grid grid-cols-3 gap-1.5">
+        {[
+          { label: "TCO Saving", value: "40%", color: "text-chart-2" },
+          { label: "Suppliers", value: "14→1", color: "text-primary" },
+          { label: "ROI Visible", value: "100%", color: "text-chart-4" },
+        ].map((kpi) => (
+          <div key={kpi.label} className="rounded-lg bg-muted/50 p-2 text-center">
+            <div className={`text-lg font-bold ${kpi.color}`}>{kpi.value}</div>
+            <div className="text-[9px] uppercase tracking-wide text-muted-foreground">{kpi.label}</div>
+          </div>
+        ))}
+      </div>
+      {/* Supplier waterfall */}
+      <div className="flex-1 space-y-1">
+        <div className="text-[9px] font-bold uppercase tracking-wide text-muted-foreground mb-1">Supplier Consolidation</div>
+        {suppliers.map((s, i) => (
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8 + i * 0.12 }}
+            className="flex items-center gap-2"
+          >
+            <span className="text-[10px] text-muted-foreground w-20 truncate">{s.label}</span>
+            <div className="flex-1 h-3 bg-muted rounded overflow-hidden">
+              <motion.div
+                initial={{ width: "100%" }}
+                animate={{ width: `${s.pct}%` }}
+                transition={{ delay: 1 + i * 0.15, duration: 0.6 }}
+                className={`h-full rounded ${i === suppliers.length - 1 ? "bg-chart-2/60" : "bg-primary/40"}`}
+              />
+            </div>
+            <span className="text-[10px] font-bold text-foreground w-4 text-right">{s.count}</span>
+          </motion.div>
+        ))}
+      </div>
+      {/* TCO comparison */}
+      <div className="space-y-1">
+        <div className="text-[9px] font-bold uppercase tracking-wide text-muted-foreground">Total Cost of Ownership</div>
+        {tcoItems.map((t, i) => (
+          <motion.div
+            key={t.label}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4 + i * 0.15 }}
+            className="flex items-center gap-2"
+          >
+            <span className="text-[10px] text-muted-foreground w-10">{t.label}</span>
+            <div className="flex-1 h-3 bg-muted rounded overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${t.pct}%` }}
+                transition={{ delay: 1.6 + i * 0.15, duration: 0.5 }}
+                className={`h-full rounded ${t.color}`}
+              />
+            </div>
+            <span className="text-[10px] font-semibold text-foreground w-10 text-right">{t.value}</span>
+          </motion.div>
+        ))}
       </div>
     </div>
   );

@@ -1,61 +1,76 @@
 
 
-# Plan: Add Purchasing Persona + Unify Company Context
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Changes
+## Problem
 
-### 1. Add 6th persona — David, Head of Procurement
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-New persona at position 6, focused on cost reduction, TCO, and supplier consolidation:
+## Current Vertical Budget Analysis
 
-- **Name**: David
-- **Role**: Head of Procurement · Global FMCG
-- **Step**: "Procurement & TCO"
-- **Icon**: `Wallet` (from lucide-react)
-- **Pain**: "I manage 14 data suppliers. Nobody can tell me what we're actually using. Renewal season is a nightmare."
-- **Pain bullets**: 14 overlapping suppliers, No usage visibility, £2.4M annual spend unoptimised
-- **Benefit**: "One platform. One contract. TCO down 40%. I went from managing 14 vendors to one strategic partner."
-- **Metrics**: 40% TCO reduction · 14→1 suppliers · Best-in-class consolidation
-- **Dashboard type**: New `procurement-dashboard` — supplier count waterfall, TCO comparison bar, usage heatmap
-- **Value chain position**: 6
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### 2. Unify all persona roles to same company
+## Proposed Reductions
 
-Update all role strings to reference the same company context consistently:
-- Sarah: "Head of Strategy · Global FMCG"
-- James: "Market Intelligence Lead · Global FMCG"
-- Priya: "Competitive Intelligence Analyst · Global FMCG"
-- Marcus: "Innovation Director · Global FMCG"
-- Elena: "National Account Manager · Global FMCG"
-- David: "Head of Procurement · Global FMCG"
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-Update value chain to show "Step X of 6" instead of "Step X of 5".
+**Estimated Total Savings: ~80-100px vertical space**
 
-### 3. Add procurement dashboard mockup
+## File to Modify
 
-New `ProcurementDashboard` component in `PersonaDashboard.tsx` showing:
-- Supplier count waterfall (14 → 1)
-- TCO comparison bars (Before vs After)
-- Usage heatmap showing team adoption
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-### 4. Update hub diagram
+## Specific Changes
 
-Add David/Procurement as 6th node in `CJOneLensHub.tsx` — adjust radial positioning from 5 to 6 nodes.
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-### 5. Update slides array and narration
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-- Add slide entry `{ id: "cj-slide-10", label: "The Procurement Lead" }` 
-- Shift Teams/Results/CTA to slides 11-13
-- Add narration script for David focused on TCO, supplier reduction, best-in-class consolidation
-- Update narration indices for shifted slides
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-## Files to Modify
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
 
-| File | Change |
-|------|--------|
-| `src/pages/ConsumerJourneyDeck.tsx` | Add David persona, unify roles to "Global FMCG", update slides array (now 13), fix narration indices |
-| `src/components/consumer-journey/PersonaDashboard.tsx` | Add `procurement-dashboard` type + `ProcurementDashboard` component |
-| `src/components/consumer-journey/PersonaSlide.tsx` | Update value chain progress to show 6 steps |
-| `src/components/consumer-journey/CJOneLensHub.tsx` | Add 6th node for Procurement/David |
-| `src/data/consumerJourneyNarration.ts` | Add slide 9 narration for David, shift remaining slideIds |
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
