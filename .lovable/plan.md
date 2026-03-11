@@ -1,43 +1,76 @@
 
 
-# Shift Narration Tone: Instructor → Empathetic Advisor
+# Plan: Reduce Vertical Height of Slide 3 Content
 
 ## Problem
-Several scripts use directive phrases like "Let me show you", "Here's why", "Here's what I'd suggest" — positioning the narrator as an instructor rather than an empathetic advisor who understands the audience's world.
 
-## Tone Principles
-- **Ask, don't tell** — "Does this feel familiar?" not "Let me show you"
-- **Walk alongside** — "You've probably seen this" not "Here's why"
-- **Invite, don't direct** — "What if..." not "Let me show you how"
-- **Acknowledge their expertise** — they know their business, we're offering a lens
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Changes — `src/data/consumerJourneyNarration.ts`
+## Current Vertical Budget Analysis
 
-### Slide 0 (The Pressure)
-- `"Let me show you what Monday actually looks like."` → `"Sound familiar? Picture your typical Monday."`
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### Slide 1 (Monday Morning)
-- `"Here's why that keeps happening."` → `"If that feels familiar, you're not alone. And there's a reason it keeps happening."`
+## Proposed Reductions
 
-### Slide 3 (What It's Costing You)
-- `"But it doesn't have to work this way."` → `"You already know this doesn't have to be the way it works."`
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-### Slide 4 (One Lens)
-- `"Let me show you how it works in practice."` → `"Here's what that looks like when it all comes together."`
+**Estimated Total Savings: ~80-100px vertical space**
 
-### Slide 5 (Connected Decision)
-- `"Now — what does this mean for your teams?"` → `"You can probably already see what this would mean for your teams."`
+## File to Modify
 
-### Slide 7 (Maturity Journey)
-- `"But here's the critical insight:"` → `"You'll recognise the pattern —"`
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-### Slide 8 (Proof)
-- `"So you might be wondering — why not just build this yourself?"` → `"And if you're thinking — could we just build this ourselves? — you wouldn't be the first."`
+## Specific Changes
 
-### Slide 9 (Why Not DIY?)
-- `"The question isn't whether to connect your intelligence. It's how fast you want to move."` → `"You already know the intelligence needs to be connected. The real question is how quickly you want to get there."`
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-### Slide 10 (Next Steps)
-- `"Here's what I'd suggest."` → `"If any of this resonated, here's a thought."`
-- `"Shall we book that in?"` → `"Would that be useful?"`
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
