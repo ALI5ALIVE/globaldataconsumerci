@@ -74,9 +74,9 @@ const CJSlide0Title = ({
             than ever.
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Deliver growth. Move faster. Prove ROI.
+            Your consumers are changing faster than you can track them.
             <br className="hidden sm:block" />
-            And do it with fewer resources.
+            And every missed signal is a missed opportunity.
           </p>
         </motion.div>
 
