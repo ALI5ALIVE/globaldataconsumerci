@@ -67,16 +67,16 @@ const CJSlide0Title = ({
           className="space-y-4"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-foreground">
-            You're under{" "}
+            The consumer has{" "}
             <span className="bg-gradient-to-r from-destructive via-destructive/70 to-destructive bg-clip-text text-transparent">
-              more pressure
+              already moved.
             </span>{" "}
-            than ever.
+            Have you?
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Your consumers are changing faster than you can track them.
+            While you reconcile last quarter's data,
             <br className="hidden sm:block" />
-            And every missed signal is a missed opportunity.
+            your competitors are acting on tomorrow's signals.
           </p>
         </motion.div>
 
