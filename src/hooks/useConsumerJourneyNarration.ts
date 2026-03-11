@@ -128,7 +128,7 @@ export const useConsumerJourneyNarration = () => {
 
   const preloadNext = useCallback((currentSlideId: number) => {
     const nextSlideId = currentSlideId + 1;
-    if (nextSlideId <= 9 && !cacheRef.current.has(nextSlideId)) {
+    if (nextSlideId <= 10 && !cacheRef.current.has(nextSlideId)) {
       fetchAudio(nextSlideId).catch(() => {});
     }
   }, []);
