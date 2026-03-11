@@ -170,7 +170,8 @@ const slides = [
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Teams Transformed" },
   { id: "cp-slide-8", label: "Nothing Like This" },
-  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-9", label: "Why Not DIY?" },
+  { id: "cj-slide-10", label: "Proof" },
 ];
 
 const ConsumerJourneyDeck = () => {
