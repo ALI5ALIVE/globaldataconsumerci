@@ -65,7 +65,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 9,
     title: "Why Not DIY?",
-    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. The question isn't whether to connect your intelligence. It's how fast you want to move.`,
+    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. You already know the intelligence needs to be connected. The real question is how quickly you want to get there.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
