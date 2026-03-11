@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export type DashboardType = "trend-radar" | "market-sizing" | "competitive-tracker" | "innovation-scorecard" | "commercial-dashboard";
+export type DashboardType = "trend-radar" | "market-sizing" | "competitive-tracker" | "innovation-scorecard" | "commercial-dashboard" | "procurement-dashboard";
 
 interface PersonaDashboardProps {
   type: DashboardType;
