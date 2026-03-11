@@ -150,7 +150,7 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
                     ? `bg-card ${stage.borderColor} ring-1 ring-offset-1 ring-offset-background`
                     : "bg-card/50 border-border/50 hover:border-border"
                 } ${stage.isGateway && isActive ? "ring-2" : ""}`}
-                style={isActive ? { borderColor: stage.color, ringColor: stage.color } : {}}
+                style={isActive ? { borderColor: stage.color } : {}}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0, y: 20 }}
