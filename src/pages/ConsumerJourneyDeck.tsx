@@ -9,7 +9,7 @@ import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineO
 import CPSlide5Platform from "@/components/consumer-pitch/CPSlide5Platform";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 
-import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
+
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
@@ -166,9 +166,8 @@ const slides = [
   { id: "cj-slide-5", label: "The Platform" },
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Connected Intelligence" },
-  { id: "cj-slide-8", label: "Let's Talk" },
+  { id: "cj-slide-8", label: "Teams Transformed" },
   { id: "cj-slide-9", label: "Proof" },
-  { id: "cj-slide-10", label: "Teams Transformed" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -293,9 +292,8 @@ const ConsumerJourneyDeck = () => {
         <CPSlide5Platform {...getNarrationProps(5)} />
         <CJSlideConnectedDecision {...getNarrationProps(6)} />
         <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
-        <CJSlide12CTA {...getNarrationProps(8)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(8)} />
         <CJSlideProof {...getNarrationProps(9)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
       </div>
     </div>
   );
