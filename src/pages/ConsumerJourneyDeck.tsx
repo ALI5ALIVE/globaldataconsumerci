@@ -169,9 +169,10 @@ const slides = [
   { id: "cj-slide-5", label: "The Platform" },
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Teams Transformed" },
-  { id: "cp-slide-8", label: "Nothing Like This" },
-  { id: "cj-slide-9", label: "Why Not DIY?" },
-  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-8", label: "Maturity Journey" },
+  { id: "cp-slide-9", label: "Nothing Like This" },
+  { id: "cj-slide-10", label: "Why Not DIY?" },
+  { id: "cj-slide-11", label: "Proof" },
 ];
 
 const ConsumerJourneyDeck = () => {
