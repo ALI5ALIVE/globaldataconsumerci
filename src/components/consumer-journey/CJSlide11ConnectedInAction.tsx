@@ -185,7 +185,15 @@ const CJSlide11ConnectedInAction = (props: SlideNarrationProps) => {
         </motion.p>
       </div>
 
-      <SlidePlayButton {...props} />
+      <SlidePlayButton
+        isPlaying={props.isPlaying ?? false}
+        isLoading={props.isLoading ?? false}
+        progress={props.progress ?? 0}
+        hasCompleted={props.hasCompleted}
+        onPlay={props.onPlay ?? (() => {})}
+        onPause={props.onPause ?? (() => {})}
+        onNextSlide={props.onNextSlide}
+      />
     </section>
   );
 };
