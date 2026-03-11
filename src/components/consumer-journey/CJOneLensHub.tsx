@@ -52,11 +52,12 @@ const CJOneLensHub = () => {
 
   const cx = 300;
   const cy = 300;
+  const nodeCount = solutionNodes.length;
   const solutionRadius = 140;
   const personaRadius = 245;
 
   const getPos = (index: number, radius: number) => {
-    const angle = (index / 5) * Math.PI * 2 - Math.PI / 2;
+    const angle = (index / nodeCount) * Math.PI * 2 - Math.PI / 2;
     return {
       x: cx + Math.cos(angle) * radius,
       y: cy + Math.sin(angle) * radius,
