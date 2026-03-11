@@ -14,7 +14,7 @@ import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
-import CJSlideOperatingModel from "@/components/consumer-journey/CJSlideOperatingModel";
+
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
 const personas: PersonaData[] = [
@@ -166,9 +166,8 @@ const slides = [
   { id: "cj-slide-4", label: "One Lens" },
   { id: "cj-slide-5", label: "The Platform" },
   { id: "cj-slide-6", label: "The Connected Decision" },
-  { id: "cj-slide-7", label: "Operating Model" },
-  { id: "cj-slide-8", label: "Teams Transformed" },
-  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-7", label: "Teams Transformed" },
+  { id: "cj-slide-8", label: "Proof" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -292,9 +291,8 @@ const ConsumerJourneyDeck = () => {
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
         <GDSlide4Proposition {...getNarrationProps(5)} />
         <CJSlideConnectedDecision {...getNarrationProps(6)} />
-        <CJSlideOperatingModel {...getNarrationProps(7)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(7)} />
+        <CJSlideProof {...getNarrationProps(8)} />
       </div>
     </div>
   );
