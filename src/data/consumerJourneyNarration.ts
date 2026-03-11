@@ -39,7 +39,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 4,
+    slideId: 5,
     title: "The Strategist — Trend & Strategy",
     script: `Meet Sarah. Head of Strategy at a top-five FMCG company. Without connected intelligence, she's always twelve months late. By the time she's validated a trend through three different providers, her competitor has already launched. Now look at her dashboard — Strategic Foresight. Emerging trends flagged eighteen months out. Rising and falling indicators across every category. She walks into the board with evidence, not excuses. Eighteen months of foresight. One validated view. Three times faster board prep.`,
     voiceId: DEFAULT_VOICE_ID,
