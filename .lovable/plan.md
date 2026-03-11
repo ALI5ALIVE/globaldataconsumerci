@@ -1,76 +1,90 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Thread a Consumer Brand Story Arc Through Slides 1–6
 
-## Problem
+## The Story
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+An unnamed global snacking company is facing the plant-based protein opportunity. The same scenario threads through every slide, making the abstract pain and solution tangible. No brand name — just "your company" / "your team."
 
-## Current Vertical Budget Analysis
+## Current vs. Proposed Copy (Slide-by-Slide)
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+### Slide 1 — Monday Morning
+**Current**: Generic inbox notifications (CEO wants plant-based view, Sales needs Tesco context, etc.)
+**Proposed**: Same structure but every notification now orbits the same decision — plant-based protein snacking. The subtitle shifts to: *"One opportunity. Seven opinions. Zero alignment."*
 
-## Proposed Reductions
+Notifications become:
+- CEO: "The board wants our plant-based protein position by Friday"
+- Strategy: "Our trend provider says plant-based is peaking — but social data says it's accelerating"
+- Market Sizing: "Finance needs a TAM number. Ours says $1.4B. The consultant says $2.1B"
+- Competitive Intel: "A rival just filed four patents in plant-based protein. Where did that come from?"
+- Innovation: "We have five concepts in the pipeline — which ones should we kill?"
+- Commercial: "The buyer at our biggest retailer wants a plant-based range proposal by next month"
+- Procurement: "We're paying six vendors for overlapping data. Renewal season is in three weeks"
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+Bottom line: *"One opportunity. Seven teams. Seven answers. Which one do you trust?"*
 
-**Estimated Total Savings: ~80-100px vertical space**
+### Slide 2 — Seven Sources
+**Current**: Generic "Provider A/B/C" labels with abstract categories.
+**Proposed**: Each source tile now shows the conflicting answer about the same opportunity:
 
-## File to Modify
+| Source | Conflicting Signal |
+|---|---|
+| Trend Report | "Plant-based is peaking" |
+| Market Sizing | "$1.4B TAM (or $2.1B?)" |
+| Competitive DB | "No significant moves" |
+| Innovation Agency | "Consumer fatigue detected" |
+| Sales Intel | "Retailer X is demanding it" |
+| Consumer Panel | "Trial is up, repeat is flat" |
+| Internal Data | "Our test market grew 22%" |
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+Subtitle: *"Same opportunity. Seven sources. Seven conflicting signals."*
+Bottom stat bar stays (60% reconciling / 10% strategy / 12 weeks) but adds: *"By the time you reconcile, someone else has launched."*
 
-## Specific Changes
+### Slide 3 — The Cost
+**Current**: Generic cost cards (missed trends, 12 weeks, failed launches).
+**Proposed**: All four cards now reference the same story:
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+1. **"They Moved First"** — A competitor saw the same plant-based signals six months ago. They launched. They claimed the shelf. You're still reconciling.
+2. **"12 Weeks to Align"** — Your strategy, innovation, and commercial teams each had a different view. By the time they agreed, the buyer had moved on.
+3. **"The Concept You Killed"** — One of your five plant-based concepts scored low on gut-feel. A competitor launched something almost identical — it's now a £40M line.
+4. **"The Launch That Flopped"** — Another concept launched without competitive context. A rival had already saturated the space. You found out from trade press.
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
+Subtitle: *"This isn't hypothetical. This is what fragmentation costs you — in this category, this year."*
 
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+### Slide 4 — One Lens (Hub)
+**Current**: Generic "One taxonomy. One truth. From trend to shelf."
+**Proposed**: Bottom line becomes: *"One opportunity — plant-based protein — seen through one connected lens. From the first signal to the shelf."*
 
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
+No structural change to the hub visualization.
 
-## Outcome
+### Slide 5 — Connected Decision (already story-driven)
+Light copy tweak to the question card subtitle: add *"The same opportunity. But this time, every team sees it through one lens."*
 
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+### Slide 6 — Connected Intelligence in Action
+**Current**: Generic persona chain outputs.
+**Proposed**: Each persona's output references the plant-based story:
+- Sarah: "Plant-based signal validated"
+- James: "SE Asia sized at $2.1B"
+- Priya: "Rival patent activity flagged"
+- Marcus: "3 concepts evidence-validated"
+- Elena: "Buyer story built in one click"
+
+Cross-pollination outcomes rewritten to reference the story.
+
+### Narration Scripts
+All six narration entries (slides 1–6) updated to tell the same continuous story in second person ("You spot the signal... your teams disagree... it costs you... now imagine...").
+
+## Files to Modify
+
+| File | Change |
+|---|---|
+| `src/components/consumer-pitch/CPSlide1MondayMorning.tsx` | Update notification copy + subtitle to plant-based story |
+| `src/components/consumer-pitch/CPSlide2SevenSources.tsx` | Replace generic provider labels with conflicting signals, update subtitle + bottom text |
+| `src/components/consumer-pitch/CPSlide3TheCost.tsx` | Rewrite all 4 cost cards to reference the same story |
+| `src/components/consumer-pitch/CPSlide4ImagineOneLens.tsx` | Update bottom tagline |
+| `src/components/consumer-journey/CJSlideConnectedDecision.tsx` | Add story-thread subtitle to question card |
+| `src/components/consumer-journey/CJSlide11ConnectedInAction.tsx` | Update persona outputs + outcomes to reference story |
+| `src/data/consumerJourneyNarration.ts` | Rewrite scripts for slides 1–6 with continuous story thread |
+
+No structural or layout changes. Same components, same animations — new copy that tells one coherent story.
 
