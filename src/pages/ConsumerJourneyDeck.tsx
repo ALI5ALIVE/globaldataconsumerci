@@ -32,6 +32,10 @@ const personas: PersonaData[] = [
     solutionName: "Strategic Foresight",
     dashboardType: "trend-radar",
     valueChainPosition: 1,
+    unlockedActions: [
+      { text: "Validate trends against live market sizing", enabledBy: "James" },
+      { text: "Pre-screen concepts before innovation invests", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "James",
@@ -51,6 +55,10 @@ const personas: PersonaData[] = [
     solutionName: "Market Sizing",
     dashboardType: "market-sizing",
     valueChainPosition: 2,
+    unlockedActions: [
+      { text: "Size only the markets where trends are accelerating", enabledBy: "Sarah" },
+      { text: "Flag sizing gaps competitors are already exploiting", enabledBy: "Priya" },
+    ],
   },
   {
     name: "Priya",
@@ -70,6 +78,10 @@ const personas: PersonaData[] = [
     solutionName: "Competitive Intelligence",
     dashboardType: "competitive-tracker",
     valueChainPosition: 3,
+    unlockedActions: [
+      { text: "Prioritise tracking on categories with validated growth", enabledBy: "James" },
+      { text: "Alert innovation when a competitor files a relevant patent", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "Marcus",
@@ -89,6 +101,10 @@ const personas: PersonaData[] = [
     solutionName: "Innovation Validation",
     dashboardType: "innovation-scorecard",
     valueChainPosition: 4,
+    unlockedActions: [
+      { text: "Score concepts against trend momentum + market size", enabledBy: "Sarah + James" },
+      { text: "Kill concepts where competitors already dominate", enabledBy: "Priya" },
+    ],
   },
   {
     name: "Elena",
@@ -108,6 +124,10 @@ const personas: PersonaData[] = [
     solutionName: "Commercial Intelligence",
     dashboardType: "commercial-dashboard",
     valueChainPosition: 5,
+    unlockedActions: [
+      { text: "Build buyer stories with trend + sizing + competitive proof", enabledBy: "Sarah + James + Priya" },
+      { text: "Lead with validated innovation pipeline, not price", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "David",
@@ -127,6 +147,10 @@ const personas: PersonaData[] = [
     solutionName: "Procurement Intelligence",
     dashboardType: "procurement-dashboard",
     valueChainPosition: 6,
+    unlockedActions: [
+      { text: "Measure usage across all five intelligence layers", enabledBy: "All teams" },
+      { text: "Consolidate 14 contracts with full ROI evidence", enabledBy: "All teams" },
+    ],
   },
 ];
 
