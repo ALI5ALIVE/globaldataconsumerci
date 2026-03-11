@@ -110,7 +110,7 @@ const CJSlide0Title = ({
           transition={{ duration: 0.8, delay: 0.9 }}
           className="text-foreground/90 text-lg sm:text-xl md:text-2xl font-display italic"
         >
-          "There has to be a better way."
+          "The consumer isn't waiting. Why are you?"
         </motion.p>
       </div>
 
