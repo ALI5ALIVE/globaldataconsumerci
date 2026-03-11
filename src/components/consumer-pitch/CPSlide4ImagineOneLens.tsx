@@ -20,18 +20,18 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.2, duration: 0.6 }}
+            transition={{ delay: 3, duration: 0.6 }}
             className="text-sm text-primary font-medium"
           >
-            Five best-in-class solutions. One AI assistant. One completely new way of working.
+            One opportunity — plant-based protein — seen through one connected lens. From the first signal to the shelf.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.8, duration: 0.6 }}
+            transition={{ delay: 3.6, duration: 0.6 }}
             className="text-sm text-muted-foreground font-medium"
           >
-            And David? Fourteen contracts become one — best-in-class at 30% lower cost.
+            And David? He consolidates fourteen contracts into one — best-in-class solutions, 30% lower cost, with data access his teams never had before.
           </motion.p>
         </div>
       </div>
