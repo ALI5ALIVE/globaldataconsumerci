@@ -19,6 +19,11 @@ const pressureCards = [
     title: "Data Fragmentation",
     line: "Seven tools, seven logins, seven versions of the truth",
   },
+  {
+    icon: Compass,
+    title: "Your Competitors",
+    line: "8 of the top 10 FMCG companies have already connected their intelligence",
+  },
 ];
 
 const CJSlide0Title = ({
