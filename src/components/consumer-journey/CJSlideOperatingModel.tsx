@@ -27,13 +27,25 @@ const CJSlideOperatingModel = (props: SlideNarrationProps) => {
               key={card.title}
               className="group border border-border/50 rounded-xl p-5 sm:p-6 bg-card/30 hover:bg-card/60 hover:border-primary/40 transition-all duration-300"
             >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
-                  <card.icon className="w-5 h-5" />
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors shrink-0">
+                  <card.icon className="w-4 h-4" />
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold text-foreground">{card.title}</h3>
+                <div>
+                  <h3 className="text-sm sm:text-base font-semibold text-foreground leading-tight">{card.title}</h3>
+                  <p className="text-xs text-muted-foreground">{card.description}</p>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground">{card.description}</p>
+              <div className="space-y-1.5 mt-3 pt-3 border-t border-border/30">
+                <div className="flex items-start gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-destructive/80 shrink-0 mt-0.5 w-12">Before</span>
+                  <p className="text-xs text-muted-foreground line-through decoration-destructive/40">{card.before}</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-primary shrink-0 mt-0.5 w-12">After</span>
+                  <p className="text-xs text-foreground font-medium">{card.after}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
