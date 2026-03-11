@@ -152,7 +152,7 @@ const CJSlide11ConnectedInAction = (props: SlideNarrationProps) => {
           className="w-full rounded-xl border border-border bg-card/80 backdrop-blur-sm p-4 flex flex-col md:flex-row items-center justify-between gap-3"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-600 to-slate-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-muted-foreground to-muted flex items-center justify-center">
               <Wallet className="w-5 h-5 text-white" />
             </div>
             <div>
