@@ -10,6 +10,12 @@ const DEFAULT_VOICE_ID = "JBFqnCBsd6RMkjVDRZzb"; // George
 export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 0,
+    title: "The Pressure You're Under",
+    script: `You're under more pressure than ever. The board wants evidence-based strategy — not PowerPoint promises. Consumer trends are shifting faster than your planning cycles can keep up. And your data? It lives in seven different places. Seven tools. Seven logins. Seven versions of the truth. You're expected to deliver growth, move faster, prove ROI — and do it all with fewer resources. There has to be a better way.`,
+    voiceId: DEFAULT_VOICE_ID,
+  },
+  {
+    slideId: 1,
     title: "Your Monday Morning",
     script: `It's Monday morning. Your inbox is full. The CEO wants a view on plant-based. Sales needs competitive context for a retailer meeting tomorrow. Innovation wants to know if the protein trend has peaked. R&D is asking about clean-label regulations in three markets. You need answers — fast, aligned, defensible. But your data lives in seven different places. Seven tools. Seven logins. Seven versions of the truth. And every one of them is telling you something slightly different.`,
     voiceId: DEFAULT_VOICE_ID,
