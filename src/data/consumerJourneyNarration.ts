@@ -51,7 +51,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 6,
+    slideId: 7,
     title: "The CI Analyst — Competitive Tracking",
     script: `Meet Priya. Competitive Intelligence Analyst. She's brilliant at pattern recognition. But without connected intelligence, she finds out about competitor moves from trade press — the same time as everyone else. Now look at her dashboard — Competitive Intelligence. Twenty-five thousand companies tracked. Six alternative data signals. Real-time alerts on patent filings, key hires, supply chain shifts. She sees their moves before they announce them.`,
     voiceId: DEFAULT_VOICE_ID,
