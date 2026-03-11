@@ -6,29 +6,29 @@ import { SlideNarrationProps } from "@/types/slideProps";
 const costs = [
   {
     icon: TrendingDown,
-    stat: "Missed Trends",
-    detail: "A major CPG company missed the protein snacking wave — three teams, three views, no alignment.",
+    stat: "They Moved First",
+    detail: "A competitor saw the same plant-based signals six months ago. They launched. They claimed the shelf. You're still reconciling.",
     color: "border-destructive/30 bg-destructive/5",
     iconColor: "text-destructive",
   },
   {
     icon: Clock,
-    stat: "12+ Weeks",
-    detail: "Average decision latency. By the time you align, competitors have claimed the shelf.",
+    stat: "12 Weeks to Align",
+    detail: "Your strategy, innovation, and commercial teams each had a different view. By the time they agreed, the buyer had moved on.",
     color: "border-amber-500/30 bg-amber-500/5",
     iconColor: "text-amber-400",
   },
   {
     icon: AlertTriangle,
-    stat: "68% Lack Confidence",
-    detail: "Two-thirds of insight teams don't trust their data enough to act. Not a data problem — a connection problem.",
+    stat: "The Concept You Killed",
+    detail: "One of your five plant-based concepts scored low on gut-feel. A competitor launched something almost identical — it's now a £40M line.",
     color: "border-orange-500/30 bg-orange-500/5",
     iconColor: "text-orange-400",
   },
   {
     icon: DollarSign,
-    stat: "Failed Launches",
-    detail: "40% of launches miss their window. Not because the idea was wrong — the insight was too slow.",
+    stat: "The Launch That Flopped",
+    detail: "Another concept launched without competitive context. A rival had already saturated the space. You found out from trade press.",
     color: "border-violet-500/30 bg-violet-500/5",
     iconColor: "text-violet-400",
   },
@@ -39,7 +39,7 @@ const CPSlide3TheCost = (props: SlideNarrationProps) => {
     <CPSlideContainer
       id="cp-slide-3"
       title="What It's Costing You"
-      subtitle="Fragmentation isn't just frustrating — it's expensive."
+      subtitle="This isn't hypothetical. This is what fragmentation costs you — in this category, this year."
       slideNumber={3}
       {...props}
     >

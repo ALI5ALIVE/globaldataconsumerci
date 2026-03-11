@@ -4,13 +4,13 @@ import CPSlideContainer from "./CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
 
 const notifications = [
-  { icon: Mail, text: "CEO: What's our plant-based strategy?", delay: 0.2, color: "text-red-400" },
-  { icon: TrendingUp, text: "Sales: Need competitive context for Tesco by tomorrow", delay: 0.5, color: "text-amber-400" },
-  { icon: Beaker, text: "Innovation: Has the protein trend peaked?", delay: 0.8, color: "text-emerald-400" },
-  { icon: Shield, text: "R&D: Clean-label regs in 3 markets?", delay: 1.1, color: "text-sky-400" },
-  { icon: BarChart3, text: "Finance: Category sizing for board deck", delay: 1.4, color: "text-violet-400" },
-  { icon: Users, text: "Marketing: Consumer sentiment on sustainability", delay: 1.7, color: "text-pink-400" },
-  { icon: FileText, text: "Regulatory: Reformulation timeline impact", delay: 2.0, color: "text-orange-400" },
+  { icon: Mail, text: "CEO: The board wants our plant-based protein position by Friday", delay: 0.2, color: "text-red-400" },
+  { icon: TrendingUp, text: "Strategy: Our trend provider says plant-based is peaking — but social data says it's accelerating", delay: 0.5, color: "text-amber-400" },
+  { icon: BarChart3, text: "Market Sizing: Finance needs a TAM number. Ours says $1.4B. The consultant says $2.1B", delay: 0.8, color: "text-emerald-400" },
+  { icon: Shield, text: "Competitive Intel: A rival just filed four patents in plant-based protein. Where did that come from?", delay: 1.1, color: "text-sky-400" },
+  { icon: Beaker, text: "Innovation: We have five concepts in the pipeline — which ones should we kill?", delay: 1.4, color: "text-violet-400" },
+  { icon: Users, text: "Commercial: The buyer at our biggest retailer wants a plant-based range proposal by next month", delay: 1.7, color: "text-pink-400" },
+  { icon: FileText, text: "Procurement: We're paying six vendors for overlapping data. Renewal season is in three weeks", delay: 2.0, color: "text-orange-400" },
 ];
 
 const CPSlide1MondayMorning = (props: SlideNarrationProps) => {
@@ -18,12 +18,11 @@ const CPSlide1MondayMorning = (props: SlideNarrationProps) => {
     <CPSlideContainer
       id="cp-slide-1"
       title="Your Monday Morning"
-      subtitle="Seven questions. Seven tools. Zero alignment."
+      subtitle="One opportunity. Seven opinions. Zero alignment."
       slideNumber={1}
       {...props}
     >
       <div className="h-full flex flex-col items-center justify-center gap-4 relative">
-        {/* Overwhelming notification stream */}
         <div className="w-full max-w-2xl space-y-3">
           {notifications.map((notif, i) => (
             <motion.div
@@ -45,14 +44,13 @@ const CPSlide1MondayMorning = (props: SlideNarrationProps) => {
           ))}
         </div>
 
-        {/* Bottom tension line */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.8, duration: 0.6 }}
           className="text-muted-foreground text-sm sm:text-base mt-4 text-center italic"
         >
-          Your data lives in seven different places. Seven versions of the truth.
+          One opportunity. Seven teams. Seven answers. Which one do you trust?
         </motion.p>
       </div>
     </CPSlideContainer>

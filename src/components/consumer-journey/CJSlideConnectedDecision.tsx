@@ -94,6 +94,7 @@ const CJSlideConnectedDecision = ({
           <p className="text-base sm:text-lg font-bold text-foreground">
             "Should we launch plant-based snacking in Southeast Asia?"
           </p>
+          <p className="text-xs text-muted-foreground mt-1 italic">The same opportunity. But this time, every team sees it through one lens.</p>
         </motion.div>
 
         {/* Persona verdict chain */}
