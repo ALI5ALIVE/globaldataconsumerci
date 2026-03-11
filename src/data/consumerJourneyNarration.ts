@@ -53,7 +53,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 7,
     title: "The Intelligence Maturity Journey",
-    script: `Most teams are stuck at Stage One — Fragmented. The gateway is Stage Two: Connected. One taxonomy. Reconciliation drops from sixty to twenty percent. Decisions compress to weeks. From there, AI begins surfacing cross-solution patterns — Stage Three, Optimised. And at Stage Four — Predictive — AI anticipates market shifts before they happen. But here's the critical insight: you can't skip to Predictive without first being Connected. The taxonomy is the foundation. And the results speak for themselves.`,
+    script: `Most teams are stuck at Stage One — Fragmented. The gateway is Stage Two: Connected. One taxonomy. Reconciliation drops from sixty to twenty percent. Decisions compress to weeks. From there, AI begins surfacing cross-solution patterns — Stage Three, Optimised. And at Stage Four — Predictive — AI anticipates market shifts before they happen. You'll recognise the pattern — you can't skip to Predictive without first being Connected. The taxonomy is the foundation. And the results speak for themselves.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
