@@ -69,7 +69,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 9,
+    slideId: 10,
     title: "The Procurement Lead — TCO & Consolidation",
     script: `Meet David. Head of Procurement. He manages fourteen overlapping data suppliers. Two point four million pounds a year — and nobody can tell him what's actually being used. Renewal season is a nightmare of duplicate contracts and zero usage visibility. Now look at his dashboard — Procurement Intelligence. Fourteen suppliers consolidated to one. Total cost of ownership down forty percent. Every team's usage tracked. Every pound justified. David went from managing fourteen vendor relationships to one strategic partnership. Best-in-class consolidation — measurable, defensible, and immediate.`,
     voiceId: DEFAULT_VOICE_ID,
