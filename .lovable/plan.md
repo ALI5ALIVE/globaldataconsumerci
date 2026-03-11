@@ -1,76 +1,49 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Add Product Platform Slide with Ava at Centre
 
-## Problem
+Add a new slide between slide 4 (One Lens) and slide 5 (Connected Decision) that shows the five solutions arranged around a central Ava AI hub — similar to the sales pitch slide 7 layout but as a coded component.
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+## New Slide Order (11 slides, 0-10)
 
-## Current Vertical Budget Analysis
+```text
+ 0  The Pressure
+ 1  Your Monday
+ 2  Seven Sources
+ 3  The Cost
+ 4  One Lens
+ 5  The Platform  ← NEW
+ 6  The Connected Decision
+ 7  Connected Intelligence
+ 8  Let's Talk
+ 9  Proof
+10  Teams Transformed
+```
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+## New Component: `CPSlide5Platform.tsx`
 
-## Proposed Reductions
+A radial layout with Ava (Brain icon + glow) at the centre and the five solutions arranged in a ring around her. Each solution card shows icon, title, one-line description, and a connecting line/arc to the centre. The plant-based story thread continues — subtitle: *"Five solutions. One AI agent. One taxonomy. Here's how they work together on your plant-based opportunity."*
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+Layout:
+```text
+        Strategic
+           |
+  Sales ---AVA--- Market
+           |
+  Innovation --- Competitive
+```
 
-**Estimated Total Savings: ~80-100px vertical space**
+- Centre: Ava avatar with pulsing glow, label "Ava — Your AI Intelligence Partner"
+- Five solution cards in a circle, each with icon, title, and a short plant-based-specific one-liner
+- Animated connection lines from each card to centre
+- Taxonomy bar at bottom (reused pattern from CPSlide5ConnectedIntelligence)
 
-## File to Modify
+## Files to Modify/Create
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
-
-## Specific Changes
-
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
-
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+| File | Change |
+|------|--------|
+| `src/components/consumer-pitch/CPSlide5Platform.tsx` | **CREATE** — New radial platform slide with Ava centre |
+| `src/pages/ConsumerJourneyDeck.tsx` | Import new component, insert at index 5, bump all subsequent narration props by 1 (6→10), update slides array to 11 entries |
+| `src/data/consumerJourneyNarration.ts` | Insert new narration at slideId 5, shift existing 5–9 → 6–10 |
+| `src/hooks/useConsumerJourneyNarration.ts` | Update max slide cap to 10 |
 
