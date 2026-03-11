@@ -13,6 +13,7 @@ import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
 import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
+import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
 const personas: PersonaData[] = [
