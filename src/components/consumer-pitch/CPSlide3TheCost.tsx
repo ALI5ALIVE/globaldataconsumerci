@@ -38,8 +38,8 @@ const CPSlide3TheCost = (props: SlideNarrationProps) => {
   return (
     <CPSlideContainer
       id="cp-slide-3"
-      title="What It's Costing You"
-      subtitle="This isn't hypothetical. This is what fragmentation costs you — in this category, this year."
+      title="What You've Already Lost"
+      subtitle="This isn't hypothetical. These are real losses — in your category, this year."
       slideNumber={3}
       {...props}
     >

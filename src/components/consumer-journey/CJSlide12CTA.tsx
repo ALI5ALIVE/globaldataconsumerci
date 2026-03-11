@@ -34,37 +34,36 @@ const CJSlide12CTA = (props: SlideNarrationProps) => {
       {...props}
     >
       <div className="h-full flex flex-col items-center justify-center text-center relative">
-        {/* Revolutionary statement */}
+        {/* Closing headline */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl mb-8"
         >
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center justify-center gap-2 mb-4"
-          >
-            <Crown className="w-5 h-5 text-primary" />
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-primary">A First</span>
-          </motion.div>
-
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground leading-tight mb-4">
-            Nothing like this{" "}
-            <span className="text-primary">exists.</span>
+            Your competitors already see{" "}
+            <span className="text-primary">the full picture.</span>
           </h2>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.5 }}
             className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
           >
-            No one has ever connected strategic foresight, market sizing, competitive tracking,
-            innovation validation, and commercial intelligence through a single consumer-connected taxonomy.
+            Let's make sure you do too.
           </motion.p>
+        </motion.div>
+
+        {/* Social proof badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="mb-8 px-5 py-2.5 rounded-full bg-card/60 border border-primary/20 text-sm text-foreground"
+        >
+          8 of the top 10 FMCG companies already trust this platform.
         </motion.div>
 
         {/* 3 CTA options */}

@@ -50,7 +50,7 @@ const CPSlide7TeamsTransformed = (props: SlideNarrationProps) => {
     <CPSlideContainer
       id="cp-slide-7"
       title="Your Teams, Transformed"
-      subtitle="From data janitors to strategic advisors."
+      subtitle="From reconciling data to reading the market."
       slideNumber={7}
       {...props}
     >
