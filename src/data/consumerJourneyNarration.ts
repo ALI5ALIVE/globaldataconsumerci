@@ -47,7 +47,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 6,
     title: "Teams Transformed",
-    script: `Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. And decision velocity? Six to eight weeks — down to hours. That's not incremental improvement. That's transformation. And there's a clear path to get there.`,
+    script: `Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. Decision velocity drops from six to eight weeks to hours. But here's what really changes — your innovation hit rate doubles. Your teams spot opportunities months before competitors. And your best talent? They stay — because they're finally doing the work they were hired to do. That's not incremental improvement. That's a fundamentally different way of working. And there's a clear path to get there.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
