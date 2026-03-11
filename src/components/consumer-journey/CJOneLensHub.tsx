@@ -44,7 +44,7 @@ const valueChainStages = [
   },
   {
     id: "optimise",
-    label: "Procurement\nIntelligence",
+    label: "Procurement\nOptimisation",
     solutionName: "Consolidated vendor savings",
     questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
     color: "hsl(35 80% 45%)",
