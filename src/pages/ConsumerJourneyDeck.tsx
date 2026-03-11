@@ -167,12 +167,12 @@ const slides = [
   { id: "cp-slide-3", label: "The Cost" },
   { id: "cj-slide-4", label: "One Lens" },
   { id: "cj-slide-5", label: "The Platform" },
-  { id: "cj-slide-6", label: "Teams Transformed" },
-  { id: "cj-slide-7", label: "The Connected Decision" },
-  { id: "cj-slide-8", label: "Maturity Journey" },
-  { id: "cp-slide-9", label: "Nothing Like This" },
-  { id: "cj-slide-10", label: "Why Not DIY?" },
-  { id: "cj-slide-11", label: "Proof" },
+  { id: "cj-slide-6", label: "The Connected Decision" },
+  { id: "cj-slide-7", label: "Maturity Journey" },
+  { id: "cp-slide-8", label: "Nothing Like This" },
+  { id: "cj-slide-9", label: "Teams Transformed" },
+  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-11", label: "Why Not DIY?" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -295,12 +295,12 @@ const ConsumerJourneyDeck = () => {
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
         <GDSlide4Proposition {...getNarrationProps(5)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(6)} />
-        <CJSlideConnectedDecision {...getNarrationProps(7)} />
-        <CJSlideMaturityJourney {...getNarrationProps(8)} />
-        <CPSlide9NothingLikeThis {...getNarrationProps(9)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(10)} />
-        <CJSlideProof {...getNarrationProps(11)} />
+        <CJSlideConnectedDecision {...getNarrationProps(6)} />
+        <CJSlideMaturityJourney {...getNarrationProps(7)} />
+        <CPSlide9NothingLikeThis {...getNarrationProps(8)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(11)} />
       </div>
     </div>
   );
