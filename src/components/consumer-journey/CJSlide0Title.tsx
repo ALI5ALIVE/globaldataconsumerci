@@ -63,7 +63,7 @@ const CJSlide0Title = ({
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-foreground">
             You're under{" "}
-            <span className="bg-gradient-to-r from-destructive via-orange-400 to-destructive bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-destructive via-destructive/70 to-destructive bg-clip-text text-transparent">
               more pressure
             </span>{" "}
             than ever.
