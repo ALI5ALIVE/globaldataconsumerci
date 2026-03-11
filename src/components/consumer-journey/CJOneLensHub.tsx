@@ -12,7 +12,7 @@ const valueChainStages = [
   },
   {
     id: "size",
-    label: "Market\nSizing",
+    label: "Market\nIntelligence",
     solutionName: "110 countries · 1,000+ segments",
     questions: ["How big is the white space?", "Which markets should we prioritise?"],
     color: "hsl(200 90% 45%)",
@@ -36,7 +36,7 @@ const valueChainStages = [
   },
   {
     id: "win",
-    label: "Commercial\nIntelligence",
+    label: "Sales\nIntelligence",
     solutionName: "Evidence-backed listings",
     questions: ["What proof points win the listing?", "Where's the incremental growth?"],
     color: "hsl(280 60% 50%)",
@@ -44,7 +44,7 @@ const valueChainStages = [
   },
   {
     id: "optimise",
-    label: "Procurement\nIntelligence",
+    label: "Procurement\nOptimisation",
     solutionName: "Consolidated vendor savings",
     questions: ["How do we reduce total cost of ownership?", "Which suppliers can we consolidate?"],
     color: "hsl(35 80% 45%)",
