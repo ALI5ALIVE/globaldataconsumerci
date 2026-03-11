@@ -18,6 +18,8 @@ const PersonaDashboard = ({ type }: PersonaDashboardProps) => {
       return <InnovationScorecard />;
     case "commercial-dashboard":
       return <CommercialDashboard />;
+    case "procurement-dashboard":
+      return <ProcurementDashboard />;
   }
 };
 
