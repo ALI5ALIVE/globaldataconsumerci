@@ -23,7 +23,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
             transition={{ delay: 3, duration: 0.6 }}
             className="text-sm text-primary font-medium"
           >
-            Five solutions. One AI layer. One connected lens — from signal to shelf.
+            Six people. Five solutions. One AI layer. One connected lens.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
