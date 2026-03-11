@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { LucideIcon, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { LucideIcon, AlertTriangle, CheckCircle2, Unlock } from "lucide-react";
 import CPSlideContainer from "@/components/consumer-pitch/CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
 import PersonaDashboard, { DashboardType } from "@/components/consumer-journey/PersonaDashboard";
