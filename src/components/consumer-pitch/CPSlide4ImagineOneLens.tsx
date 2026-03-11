@@ -23,7 +23,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
             transition={{ delay: 3, duration: 0.6 }}
             className="text-sm text-primary font-medium"
           >
-            One opportunity — plant-based protein — seen through one connected lens. From the first signal to the shelf.
+            Five solutions. One AI layer. One connected lens — from signal to shelf.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
             transition={{ delay: 3.6, duration: 0.6 }}
             className="text-sm text-muted-foreground font-medium"
           >
-            And David? He consolidates fourteen contracts into one — best-in-class solutions, 30% lower cost, with data access his teams never had before.
+            Ava works across every solution, surfacing patterns no single team would see alone.
           </motion.p>
         </div>
       </div>
