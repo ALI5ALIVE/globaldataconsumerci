@@ -119,7 +119,7 @@ const personas = [
     role: "Strategy",
     icon: Compass,
     verdict: "Trend accelerating +38% YoY across SE Asia",
-    solution: "Strategic Foresight",
+    solution: "Strategic Intelligence",
     color: "from-blue-500/20 to-blue-600/20",
     border: "border-blue-500/30",
     accent: "text-blue-400",
