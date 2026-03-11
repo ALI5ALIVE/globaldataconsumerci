@@ -10,6 +10,7 @@ import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsT
 import CPSlide8Results from "@/components/consumer-pitch/CPSlide8Results";
 import PersonaSlide, { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
+import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 
 const personas: PersonaData[] = [
   {
@@ -129,6 +130,7 @@ const personas: PersonaData[] = [
 ];
 
 const slides = [
+  { id: "cj-slide-0", label: "The Pressure" },
   { id: "cp-slide-1", label: "Your Monday" },
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
@@ -257,21 +259,22 @@ const ConsumerJourneyDeck = () => {
 
       {/* Slides — One Lens now comes BEFORE personas */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
-        <CPSlide1MondayMorning {...getNarrationProps(0)} />
-        <CPSlide2SevenSources {...getNarrationProps(1)} />
-        <CPSlide3TheCost {...getNarrationProps(2)} />
-        <CPSlide4ImagineOneLens {...getNarrationProps(3)} />
+        <CJSlide0Title {...getNarrationProps(0)} />
+        <CPSlide1MondayMorning {...getNarrationProps(1)} />
+        <CPSlide2SevenSources {...getNarrationProps(2)} />
+        <CPSlide3TheCost {...getNarrationProps(3)} />
+        <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
         {personas.map((persona, i) => (
           <PersonaSlide
             key={persona.name}
             persona={persona}
-            slideNumber={i + 5}
-            {...getNarrationProps(i + 4)}
+            slideNumber={i + 6}
+            {...getNarrationProps(i + 5)}
           />
         ))}
-        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
-        <CPSlide8Results {...getNarrationProps(11)} />
-        <CJSlide12CTA {...getNarrationProps(12)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
+        <CPSlide8Results {...getNarrationProps(12)} />
+        <CJSlide12CTA {...getNarrationProps(13)} />
       </div>
     </div>
   );
