@@ -76,6 +76,12 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 11,
+    title: "The Connected Decision",
+    script: `Here's what this looks like in practice. One question: should we launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven. Priya flags that Competitor X has filed four patents in this space. Marcus scores five concepts — three pass the evidence threshold. And Elena walks into Tesco with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle. And David? He made it all possible with one contract.`,
+    voiceId: DEFAULT_VOICE_ID,
+  },
+  {
+    slideId: 12,
     title: "Connected Intelligence in Action",
     script: `This is what changes everything. Sarah's foresight feeds James's sizing. James's numbers sharpen Priya's competitive signals. Priya's intelligence validates Marcus's innovation pipeline. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
     voiceId: DEFAULT_VOICE_ID,

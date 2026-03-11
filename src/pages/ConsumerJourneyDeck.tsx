@@ -296,11 +296,12 @@ const ConsumerJourneyDeck = () => {
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
         <PersonaPanorama personas={panorama1} slideNumber={5} groupLabel="Discover · Size · Track" {...getNarrationProps(5)} />
         <PersonaPanorama personas={panorama2} slideNumber={6} groupLabel="Validate · Win · Optimise" {...getNarrationProps(6)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
-        <CJSlide12CTA {...getNarrationProps(11)} />
+        <CJSlideConnectedDecision {...getNarrationProps(7)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(8)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
+        <CJSlide12CTA {...getNarrationProps(12)} />
       </div>
     </div>
   );
