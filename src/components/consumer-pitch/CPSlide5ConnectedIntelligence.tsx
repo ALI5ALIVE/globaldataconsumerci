@@ -46,7 +46,7 @@ const CPSlide5ConnectedIntelligence = (props: SlideNarrationProps) => {
     <CPSlideContainer
       id="cp-slide-5"
       title="Connected Consumer Intelligence"
-      subtitle="Five solutions. One taxonomy. Every insight speaks the same language."
+      subtitle="One solution that moves faster, aligns better, and acts with confidence."
       slideNumber={5}
       {...props}
     >
