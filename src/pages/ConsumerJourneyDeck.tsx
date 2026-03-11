@@ -181,6 +181,7 @@ const ConsumerJourneyDeck = () => {
   const [autoAdvance, setAutoAdvance] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevSlideRef = useRef<number>(0);
 
   const narration = useConsumerJourneyNarration();
 
