@@ -1,30 +1,76 @@
 
 
-# Plan: Enhance Operating Model Canvas with Consumer-Specific Detail, Stats & Visuals
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-Transform the generic Operating Model Canvas cards into rich, consumer-industry-specific cards with real stats, benefit statements, and visual progress indicators.
+## Problem
 
-## Updated Card Data
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-Each card gets: consumer-specific before/after examples, a stat with visual indicator, and a benefit line.
+## Current Vertical Budget Analysis
 
-| Dimension | Before | After | Stat | Benefit |
-|---|---|---|---|---|
-| **Workflow Impact** | Pulling trend data from Mintel, Nielsen, Kantar separately every Monday | One unified consumer intelligence feed — trends, sizing & retail signals in one view | 60% → 5% time on data reconciliation | Your CMI team reclaims 11 hours per week for strategic thinking |
-| **Role Evolution** | Consumer insights analysts building 40-slide decks nobody reads | Strategic advisors briefing the board with evidence-backed recommendations | 10% → 75% time on strategy | Analysts become the growth advisors they were hired to be |
-| **Decision Rights** | Category decisions based on whoever presents last or loudest | Every call backed by connected trend, sizing & competitive evidence | 6–8 weeks → 48 hours decision velocity | Kill or fast-track concepts in days, not quarters |
-| **Information Flow** | Trend team emails a PDF. Sizing team has a different number. Nobody sees competitor moves | One taxonomy connects foresight, sizing, competitive intel & innovation scoring in real time | 7 sources → 1 connected truth | No more "which number is right?" meetings |
-| **Success Metrics** | Tracking reports produced and meetings attended | Measuring concepts validated, time-to-shelf, and listing win rate | 3× faster innovation cycle | Prove CMI's impact in language the board understands |
-| **Change Velocity** | Quarterly planning cycles that miss fast-moving consumer trends | Continuous signal monitoring with AI-triggered alerts when markets shift | 12 weeks → real-time response | Never miss another plant-based protein moment |
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## Visual Enhancements
+## Proposed Reductions
 
-- Each card gets a **stat bar** showing the before→after metric visually (a mini progress/comparison bar)
-- Benefit line in primary colour at the bottom of each card
-- Framer Motion stagger animations for card entry
-- Cards use slightly larger padding and the stat is prominently displayed
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-## Files Changed
+**Estimated Total Savings: ~80-100px vertical space**
 
-1. **`src/components/consumer-journey/CJSlideOperatingModel.tsx`** — Complete rewrite of card data and card layout to include stats, benefits, and visual stat indicators with motion animations.
+## File to Modify
+
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+
+## Specific Changes
+
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
