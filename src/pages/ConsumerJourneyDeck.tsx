@@ -14,7 +14,7 @@ import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
-import CJSlideOperatingModel from "@/components/consumer-journey/CJSlideOperatingModel";
+
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
 const personas: PersonaData[] = [
