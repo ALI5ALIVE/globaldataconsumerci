@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronDown, BarChart3, Zap, Shuffle } from "lucide-react";
+import { ChevronDown, BarChart3, Zap, Shuffle, Compass } from "lucide-react";
 import SlidePlayButton from "@/components/SlidePlayButton";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
@@ -18,6 +18,11 @@ const pressureCards = [
     icon: Shuffle,
     title: "Data Fragmentation",
     line: "Seven tools, seven logins, seven versions of the truth",
+  },
+  {
+    icon: Compass,
+    title: "Your Competitors",
+    line: "8 of the top 10 FMCG companies have already connected their intelligence",
   },
 ];
 
@@ -76,7 +81,7 @@ const CJSlide0Title = ({
         </motion.div>
 
         {/* Pressure cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {pressureCards.map((card, i) => (
             <motion.div
               key={card.title}
