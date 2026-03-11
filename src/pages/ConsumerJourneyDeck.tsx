@@ -185,14 +185,17 @@ const ConsumerJourneyDeck = () => {
 
   const narration = useConsumerJourneyNarration();
 
-  // Auto-play slide 0 on mount to kick off uninterrupted flow
+  // Auto-play narration whenever activeSlide changes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      narration.play(0);
-      narration.preloadNext(0);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (activeSlide !== prevSlideRef.current || prevSlideRef.current === 0) {
+      prevSlideRef.current = activeSlide;
+      const timer = setTimeout(() => {
+        narration.play(activeSlide);
+        narration.preloadNext(activeSlide);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [activeSlide]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getNarrationProps = (slideId: number) => ({
     isPlaying: narration.currentSlide === slideId && narration.isPlaying,
