@@ -78,6 +78,10 @@ const personas: PersonaData[] = [
     solutionName: "Competitive Intelligence",
     dashboardType: "competitive-tracker",
     valueChainPosition: 3,
+    unlockedActions: [
+      { text: "Prioritise tracking on categories with validated growth", enabledBy: "James" },
+      { text: "Alert innovation when a competitor files a relevant patent", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "Marcus",
