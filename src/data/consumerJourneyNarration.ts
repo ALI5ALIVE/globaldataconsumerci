@@ -40,14 +40,14 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 5,
-    title: "The Platform",
-    script: `This is the platform that makes it possible. Five solutions — Strategic Foresight, Market Sizing, Competitive Intelligence, Innovation Validation, and Commercial Intelligence — all connected through one consumer taxonomy. And at the centre, Ava — your AI intelligence partner. She doesn't just search. She connects. When Sarah validates a plant-based trend, Ava automatically surfaces the sizing data James needs, flags the patent filings Priya should see, scores the concepts Marcus is evaluating, and builds the buyer story Elena will present. Five solutions. One AI agent. One taxonomy. No reconciliation. No handoffs. No version conflicts. This is Connected Intelligence — and it's how your plant-based opportunity goes from signal to shelf.`,
+    title: "The Connected Decision",
+    script: `Here's what this looks like in practice. One question: should you launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year across the region. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven, twelve point six percent CAGR. Priya flags that a rival has filed four patents in this exact space. Marcus scores five concepts against the evidence — three pass the threshold. And Elena walks into the retailer with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
-    title: "The Connected Decision",
-    script: `Here's what this looks like in practice. One question: should you launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year across the region. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven, twelve point six percent CAGR. Priya flags that a rival has filed four patents in this exact space. Marcus scores five concepts against the evidence — three pass the threshold. And Elena walks into the retailer with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle.`,
+    title: "Teams Transformed",
+    script: `This is what changes everything. Sarah validates the plant-based signal. That feeds directly into James's sizing model — no manual handoff, no reconciliation. James's two point one billion dollar number sharpens Priya's competitive scan — she flags four rival patents you would have missed. Priya's intelligence feeds into Marcus's innovation scoring — three of your five concepts pass because they account for what competitors are actually doing. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -58,20 +58,20 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 8,
-    title: "Nothing Like This",
-    script: `There is nothing like this on the market. No single vendor connects strategic foresight, market sizing, competitive intelligence, innovation validation, and commercial execution through one consumer taxonomy. Others offer pieces. We offer the connected whole.`,
+    title: "The Platform",
+    script: `This is the platform that makes it possible. Five solutions — Strategic Foresight, Market Sizing, Competitive Intelligence, Innovation Validation, and Commercial Intelligence — all connected through one consumer taxonomy. And at the centre, Ava — your AI intelligence partner. She doesn't just search. She connects. When Sarah validates a plant-based trend, Ava automatically surfaces the sizing data James needs, flags the patent filings Priya should see, scores the concepts Marcus is evaluating, and builds the buyer story Elena will present. Five solutions. One AI agent. One taxonomy. No reconciliation. No handoffs. No version conflicts. This is Connected Intelligence — and it's how your plant-based opportunity goes from signal to shelf.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
-    title: "Teams Transformed",
-    script: `This is what changes everything. Sarah validates the plant-based signal. That feeds directly into James's sizing model — no manual handoff, no reconciliation. James's two point one billion dollar number sharpens Priya's competitive scan — she flags four rival patents you would have missed. Priya's intelligence feeds into Marcus's innovation scoring — three of your five concepts pass because they account for what competitors are actually doing. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
+    title: "The Proof",
+    script: `Don't just take our word for it. Leading global FMCG companies are already seeing the results. Decision velocity improved by three times. Time to insight reduced by seventy percent. Launch success rates doubled. And total cost of ownership reduced by forty percent through vendor consolidation. This is Connected Intelligence — proven, deployed, and delivering.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 10,
-    title: "The Proof",
-    script: `Don't just take our word for it. Leading global FMCG companies are already seeing the results. Decision velocity improved by three times. Time to insight reduced by seventy percent. Launch success rates doubled. And total cost of ownership reduced by forty percent through vendor consolidation. This is Connected Intelligence — proven, deployed, and delivering.`,
+    title: "Nothing Like This",
+    script: `There is nothing like this on the market. No single vendor connects strategic foresight, market sizing, competitive intelligence, innovation validation, and commercial execution through one consumer taxonomy. Others offer pieces. We offer the connected whole.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
