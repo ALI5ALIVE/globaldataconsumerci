@@ -7,7 +7,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
   return (
     <CPSlideContainer
       id="cp-slide-4"
-      title="Imagine One Lens"
+      title="Imagine One Lens, One New Way of Working"
       slideNumber={4}
       {...props}
     >
