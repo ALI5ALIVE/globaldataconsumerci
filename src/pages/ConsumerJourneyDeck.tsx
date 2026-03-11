@@ -184,6 +184,15 @@ const ConsumerJourneyDeck = () => {
 
   const narration = useConsumerJourneyNarration();
 
+  // Auto-play slide 0 on mount to kick off uninterrupted flow
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      narration.play(0);
+      narration.preloadNext(0);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const getNarrationProps = (slideId: number) => ({
     isPlaying: narration.currentSlide === slideId && narration.isPlaying,
     isLoading: narration.currentSlide === slideId && narration.isLoading,
