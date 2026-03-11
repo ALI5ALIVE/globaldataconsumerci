@@ -27,7 +27,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 2,
+    slideId: 3,
     title: "What It's Costing You",
     script: `And it's not just frustrating — it's expensive. A major CPG company missed the protein snacking wave entirely. Three teams had three different views. By the time they aligned, competitors had claimed the shelf. Twelve weeks to make a decision that should have taken days. Every missed trend is revenue left on the table. Every slow decision is a competitor moving first.`,
     voiceId: DEFAULT_VOICE_ID,
