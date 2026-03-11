@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronDown, BarChart3, Zap, Shuffle } from "lucide-react";
+import { ChevronDown, BarChart3, Zap, Shuffle, Compass } from "lucide-react";
 import SlidePlayButton from "@/components/SlidePlayButton";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
