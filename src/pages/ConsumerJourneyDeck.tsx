@@ -18,19 +18,37 @@ const personas: PersonaData[] = [
     step: "Trend & Strategy",
     icon: Compass,
     painQuote: "I'm always 12 months late. By the time I've validated a trend, my competitor has launched.",
-    painDetail: "Three providers. Three conflicting trend reports. By the time Sarah reconciles them, the window has closed. Her board wants foresight — she delivers hindsight with a time lag.",
+    painDetail: "Three providers. Three conflicting trend reports. By the time Sarah reconciles them, the window has closed.",
+    painBullets: ["12-month insight lag", "3 conflicting sources", "Board gets hindsight, not foresight"],
     benefitQuote: "I see what's coming 18 months out. I walk into the board with evidence, not excuses.",
-    benefitDetail: "Strategic foresight flags emerging themes before they hit her category. Connected data means one validated view — no reconciliation, no debate, just clarity.",
+    benefitDetail: "Strategic foresight flags emerging themes before they hit her category. One validated view — no reconciliation.",
+    metrics: [
+      { value: "18mo", label: "foresight horizon" },
+      { value: "1", label: "validated view" },
+      { value: "3×", label: "faster board prep" },
+    ],
+    solutionName: "Strategic Foresight",
+    dashboardType: "trend-radar",
+    valueChainPosition: 1,
   },
   {
     name: "James",
-    role: "Market Intelligence Lead · Global Snacking Division",
+    role: "Market Intelligence Lead · Global Snacking",
     step: "Opportunity Sizing",
     icon: BarChart3,
     painQuote: "I spend 3 weeks pulling numbers from 4 different sources. The board still questions them.",
-    painDetail: "Every executive has their own data source. Every meeting starts with 'where did this number come from?' James isn't wrong — he's outnumbered by conflicting data.",
+    painDetail: "Every executive has their own data source. Every meeting starts with 'where did this number come from?'",
+    painBullets: ["3 weeks per sizing exercise", "4 conflicting data sources", "Numbers always questioned"],
     benefitQuote: "One click. 110 countries. Numbers the board trusts because everyone sees the same data.",
-    benefitDetail: "Unified market sizing across all priority markets. One taxonomy means one number — trusted, defensible, and available in minutes instead of weeks.",
+    benefitDetail: "Unified market sizing across all priority markets. One taxonomy, one number — trusted and defensible.",
+    metrics: [
+      { value: "110", label: "countries, one click" },
+      { value: "3min", label: "replaces 3 weeks" },
+      { value: "1", label: "trusted number" },
+    ],
+    solutionName: "Market Sizing",
+    dashboardType: "market-sizing",
+    valueChainPosition: 2,
   },
   {
     name: "Priya",
@@ -38,9 +56,18 @@ const personas: PersonaData[] = [
     step: "Competitive Tracking",
     icon: Radar,
     painQuote: "I find out about competitor moves from trade press. By then, it's too late to respond.",
-    painDetail: "Priya is brilliant at pattern recognition. But she's reading the same news everyone else reads, at the same time. She's always reactive, always a step behind.",
+    painDetail: "Priya is brilliant at pattern recognition. But she's reading the same news as everyone, at the same time.",
+    painBullets: ["Reactive to trade press", "Same intel as competitors", "Always a step behind"],
     benefitQuote: "I track 25,000 companies in real-time. I see their moves before they announce them.",
-    benefitDetail: "Six alternative data signals — patent filings, job postings, supply chain shifts. The boardroom doesn't hear what happened. They hear what's coming.",
+    benefitDetail: "Six alternative data signals — patent filings, job postings, supply chain shifts. Real-time intelligence.",
+    metrics: [
+      { value: "25K", label: "companies tracked" },
+      { value: "6", label: "signal types" },
+      { value: "Real-time", label: "alerts" },
+    ],
+    solutionName: "Competitive Intelligence",
+    dashboardType: "competitive-tracker",
+    valueChainPosition: 3,
   },
   {
     name: "Marcus",
@@ -48,9 +75,18 @@ const personas: PersonaData[] = [
     step: "Innovation Validation",
     icon: Lightbulb,
     painQuote: "We killed a product that would have been a hit. We launched one that flopped. Both based on gut feel.",
-    painDetail: "Consumer research takes months. By the time results arrive, the market has moved. Every concept is a gamble disguised as a process.",
+    painDetail: "Consumer research takes months. By the time results arrive, the market has moved.",
+    painBullets: ["18-month development cycles", "Gut feel over evidence", "50/50 launch success rate"],
     benefitQuote: "Every concept scored against real consumer signals. Our launch success rate doubled.",
-    benefitDetail: "Search trends, social sentiment, purchase behaviour — all connected. 18-month cycles compress to 8-week validated sprints. Evidence, not intuition.",
+    benefitDetail: "Search trends, social sentiment, purchase behaviour — all connected. 8-week validated sprints.",
+    metrics: [
+      { value: "2×", label: "launch success" },
+      { value: "8wk", label: "replaces 18 months" },
+      { value: "Evidence", label: "based scoring" },
+    ],
+    solutionName: "Innovation Validation",
+    dashboardType: "innovation-scorecard",
+    valueChainPosition: 4,
   },
   {
     name: "Elena",
@@ -58,9 +94,18 @@ const personas: PersonaData[] = [
     step: "Commercial Execution",
     icon: ShoppingCart,
     painQuote: "I walk into buyer meetings with slides I made last night. No foresight. No proof points.",
-    painDetail: "The buyer has better data than Elena does — and they both know it. She's bringing enthusiasm and a price list to a conversation that demands intelligence.",
+    painDetail: "The buyer has better data than Elena does — and they both know it.",
+    painBullets: ["No foresight or proof points", "Buyer has better data", "Price-led, not insight-led"],
     benefitQuote: "I walk in with the full picture — trend data, sizing, competitive context. The buyer leans in.",
-    benefitDetail: "Unified intelligence means Elena presents a story backed by foresight. Not a pitch — a partnership conversation built on shared evidence.",
+    benefitDetail: "Unified intelligence means Elena presents a story backed by foresight — a partnership conversation.",
+    metrics: [
+      { value: "Full", label: "buyer story" },
+      { value: "4", label: "intelligence layers" },
+      { value: "Partnership", label: "conversations" },
+    ],
+    solutionName: "Commercial Intelligence",
+    dashboardType: "commercial-dashboard",
+    valueChainPosition: 5,
   },
 ];
 
@@ -68,12 +113,12 @@ const slides = [
   { id: "cp-slide-1", label: "Your Monday" },
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
-  { id: "cj-slide-4", label: "The Strategist" },
-  { id: "cj-slide-5", label: "The Market Lead" },
-  { id: "cj-slide-6", label: "The CI Analyst" },
-  { id: "cj-slide-7", label: "The Innovator" },
-  { id: "cj-slide-8", label: "The Sales Lead" },
-  { id: "cj-slide-9", label: "One Lens" },
+  { id: "cj-slide-4", label: "One Lens" },
+  { id: "cj-slide-5", label: "The Strategist" },
+  { id: "cj-slide-6", label: "The Market Lead" },
+  { id: "cj-slide-7", label: "The CI Analyst" },
+  { id: "cj-slide-8", label: "The Innovator" },
+  { id: "cj-slide-9", label: "The Sales Lead" },
   { id: "cj-slide-10", label: "Teams Transformed" },
   { id: "cj-slide-11", label: "Results" },
   { id: "cj-slide-12", label: "Let's Talk" },
@@ -190,20 +235,20 @@ const ConsumerJourneyDeck = () => {
         </button>
       </div>
 
-      {/* Slides */}
+      {/* Slides — One Lens now comes BEFORE personas */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <CPSlide1MondayMorning {...getNarrationProps(0)} />
         <CPSlide2SevenSources {...getNarrationProps(1)} />
         <CPSlide3TheCost {...getNarrationProps(2)} />
+        <CPSlide4ImagineOneLens {...getNarrationProps(3)} />
         {personas.map((persona, i) => (
           <PersonaSlide
             key={persona.name}
             persona={persona}
-            slideNumber={i + 4}
-            {...getNarrationProps(i + 3)}
+            slideNumber={i + 5}
+            {...getNarrationProps(i + 4)}
           />
         ))}
-        <CPSlide4ImagineOneLens {...getNarrationProps(8)} />
         <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
         <CPSlide8Results {...getNarrationProps(10)} />
         <CJSlide12CTA {...getNarrationProps(11)} />
