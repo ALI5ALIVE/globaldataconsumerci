@@ -7,11 +7,13 @@ import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSourc
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
-import CPSlide8Results from "@/components/consumer-pitch/CPSlide8Results";
-import PersonaSlide, { PersonaData } from "@/components/consumer-journey/PersonaSlide";
+import PersonaPanorama from "@/components/consumer-journey/PersonaPanorama";
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
+import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
+import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
+import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
 const personas: PersonaData[] = [
   {
@@ -160,16 +162,13 @@ const slides = [
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
   { id: "cj-slide-4", label: "One Lens" },
-  { id: "cj-slide-5", label: "The Strategist" },
-  { id: "cj-slide-6", label: "The Market Lead" },
-  { id: "cj-slide-7", label: "The CI Analyst" },
-  { id: "cj-slide-8", label: "The Innovator" },
-  { id: "cj-slide-9", label: "The Sales Lead" },
-  { id: "cj-slide-10", label: "The Procurement Lead" },
-  { id: "cj-slide-11", label: "Connected Intelligence" },
-  { id: "cj-slide-12", label: "Teams Transformed" },
-  { id: "cj-slide-13", label: "Results" },
-  { id: "cj-slide-14", label: "Let's Talk" },
+  { id: "cj-slide-5", label: "Discover · Size · Track" },
+  { id: "cj-slide-6", label: "Validate · Win · Optimise" },
+  { id: "cj-slide-7", label: "Connected Intelligence" },
+  { id: "cj-slide-8", label: "Why Not DIY?" },
+  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-10", label: "Teams Transformed" },
+  { id: "cj-slide-11", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -243,6 +242,9 @@ const ConsumerJourneyDeck = () => {
     else if (direction === "down" && activeSlide < slides.length - 1) scrollToSlide(activeSlide + 1);
   };
 
+  const panorama1 = personas.slice(0, 3); // Sarah, James, Priya
+  const panorama2 = personas.slice(3, 6); // Marcus, Elena, David
+
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
       {/* Progress bar */}
@@ -283,25 +285,20 @@ const ConsumerJourneyDeck = () => {
         </button>
       </div>
 
-      {/* Slides — One Lens now comes BEFORE personas */}
+      {/* Slides — 12-slide optimised arc */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <CJSlide0Title {...getNarrationProps(0)} />
         <CPSlide1MondayMorning {...getNarrationProps(1)} />
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        {personas.map((persona, i) => (
-          <PersonaSlide
-            key={persona.name}
-            persona={persona}
-            slideNumber={i + 6}
-            {...getNarrationProps(i + 5)}
-          />
-        ))}
-        <CJSlide11ConnectedInAction {...getNarrationProps(11)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(12)} />
-        <CPSlide8Results {...getNarrationProps(13)} />
-        <CJSlide12CTA {...getNarrationProps(14)} />
+        <PersonaPanorama personas={panorama1} slideNumber={5} groupLabel="Discover · Size · Track" {...getNarrationProps(5)} />
+        <PersonaPanorama personas={panorama2} slideNumber={6} groupLabel="Validate · Win · Optimise" {...getNarrationProps(6)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(8)} />
+        <CJSlideProof {...getNarrationProps(9)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
+        <CJSlide12CTA {...getNarrationProps(11)} />
       </div>
     </div>
   );

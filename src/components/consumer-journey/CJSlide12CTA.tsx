@@ -1,7 +1,28 @@
 import { motion } from "framer-motion";
-import { Zap, ArrowRight, Crown } from "lucide-react";
+import { Phone, BarChart3, Rocket, Crown, ArrowRight } from "lucide-react";
 import CPSlideContainer from "@/components/consumer-pitch/CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
+
+const ctaOptions = [
+  {
+    icon: Phone,
+    title: "30-min Discovery Call",
+    description: "Understand how connected intelligence applies to your specific category challenges.",
+    cta: "Book a call",
+  },
+  {
+    icon: BarChart3,
+    title: "Intelligence Maturity Assessment",
+    description: "Score your current setup across all five intelligence layers. Identify the biggest gaps.",
+    cta: "Get assessed",
+  },
+  {
+    icon: Rocket,
+    title: "90-Day Pilot",
+    description: "Deploy connected intelligence in one category. Measurable impact within a quarter.",
+    cta: "Start a pilot",
+  },
+];
 
 const CJSlide12CTA = (props: SlideNarrationProps) => {
   return (
@@ -41,53 +62,46 @@ const CJSlide12CTA = (props: SlideNarrationProps) => {
             transition={{ delay: 0.6 }}
             className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
           >
-            No one has ever connected strategic foresight, market sizing, competitive tracking, 
+            No one has ever connected strategic foresight, market sizing, competitive tracking,
             innovation validation, and commercial intelligence through a single consumer-connected taxonomy.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 }}
-            className="text-sm text-primary mt-3 font-medium"
-          >
-            Eight of the top ten FMCG companies already trust it.
           </motion.p>
         </motion.div>
 
-        {/* Divider */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 1.3, duration: 0.6 }}
-          className="w-24 h-px bg-primary/40 mb-8"
-        />
-
-        {/* CTA */}
+        {/* 3 CTA options */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.6 }}
-          className="flex flex-col items-center gap-4"
+          transition={{ delay: 1.0, duration: 0.6 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl w-full mb-6"
         >
-          <div className="flex items-center gap-3 px-6 py-3 rounded-xl bg-primary/10 border border-primary/30">
-            <Zap className="w-5 h-5 text-primary" />
-            <span className="text-2xl sm:text-3xl font-bold text-foreground">90 Days</span>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-md">
-            From seven disconnected sources to one unified consumer intelligence platform.
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.2 }}
-            className="mt-4 flex items-center gap-2 text-primary font-semibold text-lg"
-          >
-            <span>Let's have the conversation</span>
-            <ArrowRight className="w-5 h-5" />
-          </motion.div>
+          {ctaOptions.map((option, i) => (
+            <motion.div
+              key={option.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 + i * 0.15 }}
+              className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-left hover:border-primary/40 transition-colors group"
+            >
+              <option.icon className="w-5 h-5 text-primary mb-2" />
+              <h3 className="text-sm font-bold text-foreground mb-1">{option.title}</h3>
+              <p className="text-[10px] text-muted-foreground leading-relaxed mb-3">{option.description}</p>
+              <div className="flex items-center gap-1 text-xs text-primary font-semibold group-hover:gap-2 transition-all">
+                <span>{option.cta}</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
+
+        {/* Risk reversal */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8 }}
+          className="text-sm text-muted-foreground italic"
+        >
+          No commitment. No procurement. Just clarity.
+        </motion.p>
 
         {/* Background glow */}
         <motion.div
