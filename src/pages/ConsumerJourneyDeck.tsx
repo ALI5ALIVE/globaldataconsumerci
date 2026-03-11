@@ -6,6 +6,7 @@ import CPSlide1MondayMorning from "@/components/consumer-pitch/CPSlide1MondayMor
 import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSources";
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
+import CPSlide5Platform from "@/components/consumer-pitch/CPSlide5Platform";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
@@ -162,11 +163,12 @@ const slides = [
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
   { id: "cj-slide-4", label: "One Lens" },
-  { id: "cj-slide-5", label: "The Connected Decision" },
-  { id: "cj-slide-6", label: "Connected Intelligence" },
-  { id: "cj-slide-7", label: "Let's Talk" },
-  { id: "cj-slide-8", label: "Proof" },
-  { id: "cj-slide-9", label: "Teams Transformed" },
+  { id: "cj-slide-5", label: "The Platform" },
+  { id: "cj-slide-6", label: "The Connected Decision" },
+  { id: "cj-slide-7", label: "Connected Intelligence" },
+  { id: "cj-slide-8", label: "Let's Talk" },
+  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-10", label: "Teams Transformed" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -288,11 +290,12 @@ const ConsumerJourneyDeck = () => {
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <CJSlideConnectedDecision {...getNarrationProps(5)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(6)} />
-        <CJSlide12CTA {...getNarrationProps(7)} />
-        <CJSlideProof {...getNarrationProps(8)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
+        <CPSlide5Platform {...getNarrationProps(5)} />
+        <CJSlideConnectedDecision {...getNarrationProps(6)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
+        <CJSlide12CTA {...getNarrationProps(8)} />
+        <CJSlideProof {...getNarrationProps(9)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
       </div>
     </div>
   );
