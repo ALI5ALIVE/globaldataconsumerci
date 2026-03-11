@@ -85,12 +85,10 @@ const CJSlideOperatingModel = (props: SlideNarrationProps) => {
       slideNumber={8}
       {...props}
     >
-      <div className="h-full flex items-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full max-w-6xl mx-auto">
+      <div className="h-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 w-full max-w-6xl mx-auto">
           {canvasCards.map((card, i) => {
-            // For percentage-based stats, show a comparison bar
             const showPercentBar = !card.statUnit;
-            const afterIsHigher = card.statAfter > card.statBefore;
 
             return (
               <motion.div
@@ -99,39 +97,39 @@ const CJSlideOperatingModel = (props: SlideNarrationProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="group border border-border/50 rounded-xl p-4 bg-card/30 hover:bg-card/60 hover:border-primary/40 transition-all duration-300 flex flex-col"
+                className="group border border-border/50 rounded-lg p-2.5 bg-card/30 hover:bg-card/60 hover:border-primary/40 transition-all duration-300 flex flex-col"
               >
                 {/* Header */}
-                <div className="flex items-center gap-2.5 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors shrink-0">
-                    <card.icon className="w-4 h-4" />
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors shrink-0">
+                    <card.icon className="w-3 h-3" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-foreground leading-tight">{card.title}</h3>
-                    <p className="text-[10px] text-muted-foreground">{card.description}</p>
+                    <h3 className="text-xs font-semibold text-foreground leading-tight">{card.title}</h3>
+                    <p className="text-[9px] text-muted-foreground">{card.description}</p>
                   </div>
                 </div>
 
                 {/* Before / After */}
-                <div className="space-y-1 mt-1 pt-2 border-t border-border/30 text-[11px] leading-snug">
+                <div className="space-y-0.5 pt-1 border-t border-border/30 text-[10px] leading-snug">
                   <div className="flex items-start gap-1.5">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-destructive/80 shrink-0 mt-px w-10">Before</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-destructive/80 shrink-0 mt-px w-9">Before</span>
                     <p className="text-muted-foreground line-through decoration-destructive/30">{card.before}</p>
                   </div>
                   <div className="flex items-start gap-1.5">
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-primary shrink-0 mt-px w-10">After</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-primary shrink-0 mt-px w-9">After</span>
                     <p className="text-foreground font-medium">{card.after}</p>
                   </div>
                 </div>
 
                 {/* Stat Bar */}
-                <div className="mt-2 pt-2 border-t border-border/20">
+                <div className="mt-1 pt-1 border-t border-border/20">
                   <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1 font-semibold">{card.statLabel}</p>
                   {showPercentBar ? (
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[9px] text-destructive/70 w-7 text-right font-semibold">{card.statBefore}%</span>
-                        <div className="flex-1 h-2 rounded-full bg-muted/50 overflow-hidden">
+                        <div className="flex-1 h-1.5 rounded-full bg-muted/50 overflow-hidden">
                           <motion.div
                             className="h-full rounded-full bg-destructive/50"
                             initial={{ width: 0 }}
@@ -143,9 +141,9 @@ const CJSlideOperatingModel = (props: SlideNarrationProps) => {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="text-[9px] text-primary w-7 text-right font-semibold">{card.statAfter}%</span>
-                        <div className="flex-1 h-2 rounded-full bg-muted/50 overflow-hidden">
+                        <div className="flex-1 h-1.5 rounded-full bg-muted/50 overflow-hidden">
                           <motion.div
-                            className={`h-full rounded-full ${afterIsHigher ? "bg-primary" : "bg-primary"}`}
+                            className="h-full rounded-full bg-primary"
                             initial={{ width: 0 }}
                             whileInView={{ width: `${card.statAfter}%` }}
                             viewport={{ once: true }}
@@ -156,13 +154,13 @@ const CJSlideOperatingModel = (props: SlideNarrationProps) => {
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-primary">{card.statUnit}</span>
+                      <span className="text-xs font-bold text-primary">{card.statUnit}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Benefit */}
-                <p className="mt-auto pt-2 text-[10px] text-primary font-medium leading-snug">
+                <p className="mt-auto pt-1 text-[9px] text-primary font-medium leading-snug">
                   ✦ {card.benefit}
                 </p>
               </motion.div>
