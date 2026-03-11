@@ -40,6 +40,12 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 5,
+    title: "The Platform",
+    script: `This is the platform that makes it possible. Five solutions — Strategic Foresight, Market Sizing, Competitive Intelligence, Innovation Validation, and Commercial Intelligence — all connected through one consumer taxonomy. And at the centre, Ava — your AI intelligence partner. She doesn't just search. She connects. When Sarah validates a plant-based trend, Ava automatically surfaces the sizing data James needs, flags the patent filings Priya should see, scores the concepts Marcus is evaluating, and builds the buyer story Elena will present. Five solutions. One AI agent. One taxonomy. No reconciliation. No handoffs. No version conflicts. This is Connected Intelligence — and it's how your plant-based opportunity goes from signal to shelf.`,
+    voiceId: DEFAULT_VOICE_ID,
+  },
+  {
+    slideId: 6,
     title: "The Connected Decision",
     script: `Here's what this looks like in practice. One question: should you launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year across the region. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven, twelve point six percent CAGR. Priya flags that a rival has filed four patents in this exact space. Marcus scores five concepts against the evidence — three pass the threshold. And Elena walks into the retailer with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle.`,
     voiceId: DEFAULT_VOICE_ID,
