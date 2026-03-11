@@ -9,6 +9,11 @@ export interface PersonaMetric {
   label: string;
 }
 
+export interface UnlockedAction {
+  text: string;
+  enabledBy: string;
+}
+
 export interface PersonaData {
   name: string;
   role: string;
@@ -23,6 +28,7 @@ export interface PersonaData {
   solutionName: string;
   dashboardType: DashboardType;
   valueChainPosition: number;
+  unlockedActions: UnlockedAction[];
 }
 
 interface PersonaSlideProps extends SlideNarrationProps {
