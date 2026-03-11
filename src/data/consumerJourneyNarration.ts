@@ -52,7 +52,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 7,
-    title: "Connected Intelligence in Action",
+    title: "Teams Transformed",
     script: `This is what changes everything. Sarah validates the plant-based signal. That feeds directly into James's sizing model — no manual handoff, no reconciliation. James's two point one billion dollar number sharpens Priya's competitive scan — she flags four rival patents you would have missed. Priya's intelligence feeds into Marcus's innovation scoring — three of your five concepts pass because they account for what competitors are actually doing. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
     voiceId: DEFAULT_VOICE_ID,
   },
