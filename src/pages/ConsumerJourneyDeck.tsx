@@ -124,6 +124,10 @@ const personas: PersonaData[] = [
     solutionName: "Commercial Intelligence",
     dashboardType: "commercial-dashboard",
     valueChainPosition: 5,
+    unlockedActions: [
+      { text: "Build buyer stories with trend + sizing + competitive proof", enabledBy: "Sarah + James + Priya" },
+      { text: "Lead with validated innovation pipeline, not price", enabledBy: "Marcus" },
+    ],
   },
   {
     name: "David",
