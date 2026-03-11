@@ -52,8 +52,8 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 7,
-    title: "Why Not Just Integrate?",
-    script: `You might be thinking — why not just integrate what we already have? Here's the reality. DIY integration means fourteen contracts, eighteen months of IT work, and no shared taxonomy. You end up with connected pipes but disconnected meaning. Connected Intelligence is fundamentally different. One platform. One taxonomy. Ninety days to deploy. The difference isn't plumbing — it's a unified language that makes every data point speak to every other.`,
+    title: "Nothing Like This Exists — Let's Talk",
+    script: `Let's be direct. This isn't another dashboard. This isn't an incremental improvement. No one has ever connected strategic foresight, market sizing, competitive tracking, innovation validation, commercial intelligence, and procurement consolidation through a single consumer-connected taxonomy. This is a first. Eight of the top ten FMCG companies already trust it. Ninety days. That's all it takes to go from fourteen disconnected suppliers to one unified platform. Every week of delay is a consumer trend missed, a competitor moving first, a launch window closing. The journey from fragmented to connected starts with one conversation. Let's have it.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -66,12 +66,6 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     slideId: 9,
     title: "Your Teams, Transformed",
     script: `Here's what changes for your people. Today, your teams spend sixty percent of their time reconciling data and only ten percent on actual strategic thinking. With Connected Intelligence, that flips. Reconciliation drops to five percent. Strategic thinking rises to seventy-five percent. Your best people stop being data janitors and start being the strategic advisors they were hired to be. Decision velocity moves from six to eight weeks down to hours.`,
-    voiceId: DEFAULT_VOICE_ID,
-  },
-  {
-    slideId: 10,
-    title: "Nothing Like This Exists — Let's Talk",
-    script: `Let's be direct. This isn't another dashboard. This isn't an incremental improvement. No one has ever connected strategic foresight, market sizing, competitive tracking, innovation validation, commercial intelligence, and procurement consolidation through a single consumer-connected taxonomy. This is a first. Eight of the top ten FMCG companies already trust it. Ninety days. That's all it takes to go from fourteen disconnected suppliers to one unified platform. Every week of delay is a consumer trend missed, a competitor moving first, a launch window closing. The journey from fragmented to connected starts with one conversation. Let's have it.`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
