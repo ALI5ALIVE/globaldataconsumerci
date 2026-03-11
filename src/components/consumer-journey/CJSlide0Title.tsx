@@ -6,23 +6,23 @@ import type { SlideNarrationProps } from "@/types/slideProps";
 const pressureCards = [
   {
     icon: BarChart3,
-    title: "Board Demand",
-    line: "Evidence-based strategy, not PowerPoint promises",
+    title: "Consumer Expectations",
+    line: "They expect brands to know what they want before they do",
   },
   {
     icon: Zap,
-    title: "Market Velocity",
-    line: "Consumer trends shift faster than your planning cycles",
+    title: "Consumer Velocity",
+    line: "Preferences shift faster than your planning cycles can follow",
   },
   {
     icon: Shuffle,
-    title: "Data Fragmentation",
-    line: "Seven tools, seven logins, seven versions of the truth",
+    title: "Fragmented Consumer View",
+    line: "Seven tools, seven logins — no single view of your consumer",
   },
   {
     icon: Compass,
-    title: "Your Competitors",
-    line: "8 of the top 10 FMCG companies have already connected their intelligence",
+    title: "First-Mover Advantage",
+    line: "8 of the top 10 FMCG companies already see the consumer as one connected picture",
   },
 ];
 
