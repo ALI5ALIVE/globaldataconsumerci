@@ -242,8 +242,6 @@ const ConsumerJourneyDeck = () => {
     else if (direction === "down" && activeSlide < slides.length - 1) scrollToSlide(activeSlide + 1);
   };
 
-  const panorama1 = personas.slice(0, 3); // Sarah, James, Priya
-  const panorama2 = personas.slice(3, 6); // Marcus, Elena, David
 
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
