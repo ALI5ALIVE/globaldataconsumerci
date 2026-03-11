@@ -10,6 +10,7 @@ import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsT
 import CPSlide8Results from "@/components/consumer-pitch/CPSlide8Results";
 import PersonaSlide, { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
+import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 
 const personas: PersonaData[] = [
   {
