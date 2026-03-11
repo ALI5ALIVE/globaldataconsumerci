@@ -1,61 +1,76 @@
 
 
-# Plan: "Connected Intelligence in Action" Slide
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## The idea
+## Problem
 
-Insert a new slide between the last persona (David, slide 10) and "Teams Transformed" (slide 11). This slide is the narrative climax — it shows how the six personas' intelligence **flows across the value chain as a connected system**, creating outcomes no siloed vendor can deliver.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Layout: Cross-Pollination Flow
+## Current Vertical Budget Analysis
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│  "What happens when intelligence connects"              │
-│                                                         │
-│  ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐    ┌─────┐  │
-│  │Sarah│───▶│James│───▶│Priya│───▶│Marcus│──▶│Elena │  │
-│  │ S   │    │ J   │    │ P   │    │  M   │   │  E   │  │
-│  └──┬──┘    └──┬──┘    └──┬──┘    └──┬──┘   └──┬──┘  │
-│     │          │          │          │          │       │
-│  Foresight → Sizing  → Signals  → Validated → Buyer   │
-│                                     Sprint    Story    │
-│                                                         │
-│  ┌─────────────────────────────────────────────────────┐│
-│  │  "Cross-pollination unlocks"                        ││
-│  │  ┌──────────────┐ ┌──────────────┐ ┌─────────────┐ ││
-│  │  │ Trend-sized   │ │ Competitor-  │ │ Evidence-   │ ││
-│  │  │ innovation    │ │ validated    │ │ backed      │ ││
-│  │  │ pipeline      │ │ launches     │ │ buyer story │ ││
-│  │  └──────────────┘ └──────────────┘ └─────────────┘ ││
-│  └─────────────────────────────────────────────────────┘│
-│                                                         │
-│  David consolidates it all: 14→1 · 40% TCO reduction   │
-│  "No combination of point solutions can do this."       │
-└─────────────────────────────────────────────────────────┘
-```
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### Visual mechanics
+## Proposed Reductions
 
-1. **Top: Persona chain** — Five persona avatar circles (Sarah→James→Priya→Marcus→Elena) connected by animated arrows. Each arrow carries a label showing what intelligence passes forward (e.g. "Trend signals" → "Sized opportunities" → "Competitive context" → "Validated concepts" → "Full buyer story"). Arrows animate sequentially left-to-right to show the flow.
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-2. **Middle: Cross-pollination outcomes** — Three outcome cards that appear after the chain completes, each showing a compound benefit only possible when solutions connect:
-   - "Trend-sized innovation pipeline" (Sarah + James + Marcus)
-   - "Competitor-validated launches" (Priya + Marcus)  
-   - "Evidence-backed buyer stories" (Sarah + James + Priya + Elena)
+**Estimated Total Savings: ~80-100px vertical space**
 
-3. **Bottom: David as the consolidation anchor** — A single accent bar showing David wraps the entire chain into one contract (14→1 suppliers, 40% TCO), with the killer line: *"No combination of point solutions can deliver this."*
+## File to Modify
 
-4. **Animated data pulse** — A subtle glowing dot travels the full chain path on loop, visualising live intelligence flow.
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-## Files
+## Specific Changes
 
-| File | Action |
-|------|--------|
-| `src/components/consumer-journey/CJSlide11ConnectedInAction.tsx` | **Create** — New slide component |
-| `src/pages/ConsumerJourneyDeck.tsx` | **Edit** — Insert new slide at position 11, bump subsequent slide numbers and nav labels |
-| `src/data/consumerJourneyNarration.ts` | **Edit** — Add narration entry for the new slide |
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-## Narration text (for the new slide)
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-*"This is what changes everything. Sarah's foresight feeds James's sizing. James's numbers sharpen Priya's competitive signals. Priya's intelligence validates Marcus's innovation pipeline. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action."*
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 

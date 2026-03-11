@@ -11,6 +11,7 @@ import CPSlide8Results from "@/components/consumer-pitch/CPSlide8Results";
 import PersonaSlide, { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
+import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
 
 const personas: PersonaData[] = [
   {
@@ -141,9 +142,10 @@ const slides = [
   { id: "cj-slide-8", label: "The Innovator" },
   { id: "cj-slide-9", label: "The Sales Lead" },
   { id: "cj-slide-10", label: "The Procurement Lead" },
-  { id: "cj-slide-11", label: "Teams Transformed" },
-  { id: "cj-slide-12", label: "Results" },
-  { id: "cj-slide-13", label: "Let's Talk" },
+  { id: "cj-slide-11", label: "Connected Intelligence" },
+  { id: "cj-slide-12", label: "Teams Transformed" },
+  { id: "cj-slide-13", label: "Results" },
+  { id: "cj-slide-14", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -272,9 +274,10 @@ const ConsumerJourneyDeck = () => {
             {...getNarrationProps(i + 5)}
           />
         ))}
-        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
-        <CPSlide8Results {...getNarrationProps(12)} />
-        <CJSlide12CTA {...getNarrationProps(13)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(11)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(12)} />
+        <CPSlide8Results {...getNarrationProps(13)} />
+        <CJSlide12CTA {...getNarrationProps(14)} />
       </div>
     </div>
   );
