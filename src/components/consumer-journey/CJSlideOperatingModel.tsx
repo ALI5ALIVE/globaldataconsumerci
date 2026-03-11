@@ -3,12 +3,12 @@ import GDSlideContainer from "@/components/globaldata-slides/GDSlideContainer";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
 const canvasCards = [
-  { icon: ArrowRight, title: "Workflow Impact", description: "How daily work changes" },
-  { icon: RefreshCw, title: "Role Evolution", description: "Who does what differently" },
-  { icon: Diamond, title: "Decision Rights", description: "Where authority shifts" },
-  { icon: ArrowLeftRight, title: "Information Flow", description: "What data moves where" },
-  { icon: Target, title: "Success Metrics", description: "How outcomes are measured" },
-  { icon: Zap, title: "Change Velocity", description: "Speed of transformation" },
+  { icon: ArrowRight, title: "Workflow Impact", before: "Manual data pulls from 5+ tools", after: "One-click connected dashboards", description: "How daily work changes" },
+  { icon: RefreshCw, title: "Role Evolution", before: "Analysts as report factories", after: "Strategists driving growth", description: "Who does what differently" },
+  { icon: Diamond, title: "Decision Rights", before: "HiPPO-driven, gut-feel calls", after: "Data-backed at every level", description: "Where authority shifts" },
+  { icon: ArrowLeftRight, title: "Information Flow", before: "Siloed emails & slide decks", after: "Real-time shared intelligence", description: "What data moves where" },
+  { icon: Target, title: "Success Metrics", before: "Activity & output tracking", after: "Outcome & impact measurement", description: "How outcomes are measured" },
+  { icon: Zap, title: "Change Velocity", before: "Quarterly review cycles", after: "Continuous optimisation loops", description: "Speed of transformation" },
 ];
 
 const CJSlideOperatingModel = (props: SlideNarrationProps) => {
