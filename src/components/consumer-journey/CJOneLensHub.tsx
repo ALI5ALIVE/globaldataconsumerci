@@ -5,8 +5,8 @@ const valueChainStages = [
   {
     id: "discover",
     label: "Strategic\nIntelligence",
-    solutionName: "12-month foresight horizon",
-    value: "See where your category is heading before your competitors do",
+    solutionName: "Disruption · Themes · Predictive Foresight",
+    value: "Spot emerging disruptions and converging themes to act before the market shifts",
     color: "hsl(217 100% 40%)",
     persona: { name: "Sarah", initials: "S", role: "Head of Strategy" },
   },
