@@ -45,7 +45,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 5,
+    slideId: 6,
     title: "The Market Lead — Opportunity Sizing",
     script: `Meet James. Market Intelligence Lead. His job is to size opportunities and forecast demand. Without connected intelligence, he spends three weeks pulling numbers from four different sources. The board still questions them. Now look at his dashboard — Market Sizing. One click. One hundred and ten countries. A twelve point six billion dollar global TAM with eight point three percent CAGR. Numbers the board trusts because everyone sees the same data, drawn from the same taxonomy. Three weeks becomes three minutes.`,
     voiceId: DEFAULT_VOICE_ID,
