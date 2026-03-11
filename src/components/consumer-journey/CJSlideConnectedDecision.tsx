@@ -12,6 +12,107 @@ interface CJSlideConnectedDecisionProps {
   onNextSlide?: () => void;
 }
 
+/* ── Mini Dashboard Thumbnails ── */
+const MiniTrendLine = () => (
+  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
+    <div className="flex justify-between items-center">
+      <span className="text-[7px] text-muted-foreground font-medium">TRENDS</span>
+      <span className="text-[7px] text-chart-2 font-bold">↑ 38%</span>
+    </div>
+    <svg viewBox="0 0 80 24" className="w-full h-[20px]">
+      <polyline points="0,20 15,16 30,18 45,10 60,8 75,3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" />
+      <polyline points="0,22 15,20 30,19 45,17 60,16 75,14" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2,2" />
+    </svg>
+    <div className="flex gap-1">
+      {["Plant", "Clean", "Gut"].map(l => (
+        <span key={l} className="text-[6px] bg-primary/10 text-primary rounded px-1">{l}</span>
+      ))}
+    </div>
+  </div>
+);
+
+const MiniBarChart = () => (
+  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
+    <div className="flex justify-between items-center">
+      <span className="text-[7px] text-muted-foreground font-medium">TAM</span>
+      <span className="text-[7px] text-primary font-bold">$2.1B</span>
+    </div>
+    <div className="flex items-end gap-[3px] h-[22px]">
+      {[40, 65, 85, 55, 30].map((h, i) => (
+        <div key={i} className="flex-1 bg-primary/40 rounded-t" style={{ height: `${h}%` }} />
+      ))}
+    </div>
+    <div className="flex justify-between">
+      {["NA", "EU", "SEA", "LA", "ME"].map(l => (
+        <span key={l} className="text-[5px] text-muted-foreground">{l}</span>
+      ))}
+    </div>
+  </div>
+);
+
+const MiniRadarDots = () => (
+  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
+    <div className="flex justify-between items-center">
+      <span className="text-[7px] text-muted-foreground font-medium">SIGNALS</span>
+      <span className="text-[7px] text-chart-4 font-bold">4 new</span>
+    </div>
+    <div className="flex-1 flex items-center gap-1.5 py-1">
+      {[
+        { color: "bg-chart-4", label: "Patent" },
+        { color: "bg-chart-2", label: "Hire" },
+        { color: "bg-primary", label: "Supply" },
+        { color: "bg-destructive", label: "SKU" },
+      ].map(s => (
+        <div key={s.label} className="flex flex-col items-center gap-0.5">
+          <div className={`w-2 h-2 rounded-full ${s.color}/60`} />
+          <span className="text-[5px] text-muted-foreground">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const MiniScorecard = () => (
+  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
+    <div className="flex justify-between items-center">
+      <span className="text-[7px] text-muted-foreground font-medium">CONCEPTS</span>
+      <span className="text-[7px] text-chart-2 font-bold">3/5 ✓</span>
+    </div>
+    <div className="flex gap-1 flex-1 items-center">
+      {[87, 72, 34, 81, 55].map((s, i) => (
+        <div key={i} className={`flex-1 h-4 rounded flex items-center justify-center text-[7px] font-bold ${s >= 60 ? "bg-chart-2/15 text-chart-2" : "bg-destructive/15 text-destructive"}`}>
+          {s}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const MiniRetailerList = () => (
+  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
+    <div className="flex justify-between items-center">
+      <span className="text-[7px] text-muted-foreground font-medium">BUYERS</span>
+      <span className="text-[7px] text-primary font-bold">Ready</span>
+    </div>
+    <div className="space-y-0.5 flex-1 flex flex-col justify-center">
+      {["Tesco — Gap confirmed", "Carrefour — Review Q3", "Walmart — Pending"].map((r, i) => (
+        <div key={i} className="flex items-center gap-1">
+          <div className={`w-1 h-1 rounded-full ${i === 0 ? "bg-chart-2" : i === 1 ? "bg-chart-4" : "bg-muted-foreground"}`} />
+          <span className="text-[6px] text-muted-foreground truncate">{r}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const dashboardMap: Record<string, React.FC> = {
+  Strategy: MiniTrendLine,
+  "Market Sizing": MiniBarChart,
+  "Competitive Intel": MiniRadarDots,
+  Innovation: MiniScorecard,
+  Commercial: MiniRetailerList,
+};
+
 const personas = [
   {
     name: "Sarah",
