@@ -76,6 +76,12 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 11,
+    title: "Connected Intelligence in Action",
+    script: `This is what changes everything. Sarah's foresight feeds James's sizing. James's numbers sharpen Priya's competitive signals. Priya's intelligence validates Marcus's innovation pipeline. And Marcus's validated concepts give Elena the evidence-backed story that wins the listing. No single vendor delivers this. No combination of point solutions connects these dots. And David? He consolidates fourteen contracts into one — with forty percent lower total cost of ownership. This is Connected Intelligence in action.`,
+    voiceId: DEFAULT_VOICE_ID,
+  },
+  {
+    slideId: 12,
     title: "Your Teams, Transformed",
     script: `Here's what changes for your people. Today, your teams spend sixty percent of their time reconciling data and only ten percent on actual strategic thinking. With Connected Intelligence, that flips. Reconciliation drops to five percent. Strategic thinking rises to seventy-five percent. Your best people stop being data janitors and start being the strategic advisors they were hired to be. Decision velocity moves from six to eight weeks down to hours.`,
     voiceId: DEFAULT_VOICE_ID,
