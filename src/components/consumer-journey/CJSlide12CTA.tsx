@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, BarChart3, Rocket, Crown, ArrowRight } from "lucide-react";
+import { Phone, BarChart3, Rocket, ArrowRight } from "lucide-react";
 import CPSlideContainer from "@/components/consumer-pitch/CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
 
