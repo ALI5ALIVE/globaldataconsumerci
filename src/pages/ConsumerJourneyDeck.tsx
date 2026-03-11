@@ -290,11 +290,12 @@ const ConsumerJourneyDeck = () => {
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <CJSlideConnectedDecision {...getNarrationProps(5)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(6)} />
-        <CJSlide12CTA {...getNarrationProps(7)} />
-        <CJSlideProof {...getNarrationProps(8)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
+        <CPSlide5Platform {...getNarrationProps(5)} />
+        <CJSlideConnectedDecision {...getNarrationProps(6)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
+        <CJSlide12CTA {...getNarrationProps(8)} />
+        <CJSlideProof {...getNarrationProps(9)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
       </div>
     </div>
   );
