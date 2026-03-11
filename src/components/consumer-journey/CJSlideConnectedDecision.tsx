@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart, Wallet, CheckCircle2, XCircle, ArrowRight } from "lucide-react";
+import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart, Wallet, Link2 } from "lucide-react";
 import CPSlideContainer from "@/components/consumer-pitch/CPSlideContainer";
 
 interface CJSlideConnectedDecisionProps {
@@ -12,157 +12,72 @@ interface CJSlideConnectedDecisionProps {
   onNextSlide?: () => void;
 }
 
-/* ── Mini Dashboard Thumbnails ── */
-const MiniTrendLine = () => (
-  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
-    <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">TRENDS</span>
-      <span className="text-[7px] text-chart-2 font-bold">↑ 38%</span>
-    </div>
-    <svg viewBox="0 0 80 24" className="w-full h-[20px]">
-      <polyline points="0,20 15,16 30,18 45,10 60,8 75,3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" />
-      <polyline points="0,22 15,20 30,19 45,17 60,16 75,14" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2,2" />
-    </svg>
-    <div className="flex gap-1">
-      {["Plant", "Clean", "Gut"].map(l => (
-        <span key={l} className="text-[6px] bg-primary/10 text-primary rounded px-1">{l}</span>
-      ))}
-    </div>
-  </div>
-);
-
-const MiniBarChart = () => (
-  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
-    <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">TAM</span>
-      <span className="text-[7px] text-primary font-bold">$2.1B</span>
-    </div>
-    <div className="flex items-end gap-[3px] h-[22px]">
-      {[40, 65, 85, 55, 30].map((h, i) => (
-        <div key={i} className="flex-1 bg-primary/40 rounded-t" style={{ height: `${h}%` }} />
-      ))}
-    </div>
-    <div className="flex justify-between">
-      {["NA", "EU", "SEA", "LA", "ME"].map(l => (
-        <span key={l} className="text-[5px] text-muted-foreground">{l}</span>
-      ))}
-    </div>
-  </div>
-);
-
-const MiniRadarDots = () => (
-  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
-    <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">SIGNALS</span>
-      <span className="text-[7px] text-chart-4 font-bold">4 new</span>
-    </div>
-    <div className="flex-1 flex items-center gap-1.5 py-1">
-      {[
-        { color: "bg-chart-4", label: "Patent" },
-        { color: "bg-chart-2", label: "Hire" },
-        { color: "bg-primary", label: "Supply" },
-        { color: "bg-destructive", label: "SKU" },
-      ].map(s => (
-        <div key={s.label} className="flex flex-col items-center gap-0.5">
-          <div className={`w-2 h-2 rounded-full ${s.color}/60`} />
-          <span className="text-[5px] text-muted-foreground">{s.label}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const MiniScorecard = () => (
-  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
-    <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">CONCEPTS</span>
-      <span className="text-[7px] text-chart-2 font-bold">3/5 ✓</span>
-    </div>
-    <div className="flex gap-1 flex-1 items-center">
-      {[87, 72, 34, 81, 55].map((s, i) => (
-        <div key={i} className={`flex-1 h-4 rounded flex items-center justify-center text-[7px] font-bold ${s >= 60 ? "bg-chart-2/15 text-chart-2" : "bg-destructive/15 text-destructive"}`}>
-          {s}
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const MiniRetailerList = () => (
-  <div className="w-full h-[60px] bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col justify-between">
-    <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">BUYERS</span>
-      <span className="text-[7px] text-primary font-bold">Ready</span>
-    </div>
-    <div className="space-y-0.5 flex-1 flex flex-col justify-center">
-      {["Tesco — Gap confirmed", "Carrefour — Review Q3", "Walmart — Pending"].map((r, i) => (
-        <div key={i} className="flex items-center gap-1">
-          <div className={`w-1 h-1 rounded-full ${i === 0 ? "bg-chart-2" : i === 1 ? "bg-chart-4" : "bg-muted-foreground"}`} />
-          <span className="text-[6px] text-muted-foreground truncate">{r}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const dashboardMap: Record<string, React.FC> = {
-  Strategy: MiniTrendLine,
-  "Market Sizing": MiniBarChart,
-  "Competitive Intel": MiniRadarDots,
-  Innovation: MiniScorecard,
-  Commercial: MiniRetailerList,
-};
-
-const personas = [
+const solutions = [
   {
-    name: "Sarah",
-    role: "Strategy",
     icon: Compass,
-    verdict: "Trend accelerating +38% YoY across SE Asia",
-    solution: "Strategic Foresight",
-    color: "from-blue-500/20 to-blue-600/20",
-    border: "border-blue-500/30",
+    title: "Strategic Foresight",
+    who: "Heads of Strategy & Planning",
+    value: "Identifies emerging themes 12–18 months before they hit your category — so you act on foresight, not hindsight.",
+    connected: "Feeds validated trends into Market Intelligence and Innovation Validation",
+    color: "border-blue-500/30",
+    bg: "from-blue-500/15 to-blue-600/10",
     accent: "text-blue-400",
+    dotColor: "bg-blue-400",
   },
   {
-    name: "James",
-    role: "Market Sizing",
     icon: BarChart3,
-    verdict: "$2.1B TAM by 2027 — 12.6% CAGR",
-    solution: "Market Sizing",
-    color: "from-emerald-500/20 to-emerald-600/20",
-    border: "border-emerald-500/30",
+    title: "Market Intelligence",
+    who: "Market Intelligence & Commercial Teams",
+    value: "One-click sizing across 110 countries and 1,000+ segments — one number everyone trusts.",
+    connected: "Sizes only the markets where Strategic Foresight signals growth",
+    color: "border-emerald-500/30",
+    bg: "from-emerald-500/15 to-emerald-600/10",
     accent: "text-emerald-400",
+    dotColor: "bg-emerald-400",
   },
   {
-    name: "Priya",
-    role: "Competitive Intel",
     icon: Radar,
-    verdict: "Competitor X filed 4 patents in this space",
-    solution: "Competitive Intelligence",
-    color: "from-amber-500/20 to-amber-600/20",
-    border: "border-amber-500/30",
+    title: "Competitive Intelligence",
+    who: "Competitive Intelligence & Strategy Teams",
+    value: "Tracks 25,000 companies via six alternative data signals — patents, hires, supply chain shifts — in real time.",
+    connected: "Alerts Innovation when a competitor files a relevant patent",
+    color: "border-amber-500/30",
+    bg: "from-amber-500/15 to-amber-600/10",
     accent: "text-amber-400",
+    dotColor: "bg-amber-400",
   },
   {
-    name: "Marcus",
-    role: "Innovation",
     icon: Lightbulb,
-    verdict: "3 of 5 concepts pass the evidence threshold",
-    solution: "Innovation Validation",
-    color: "from-purple-500/20 to-purple-600/20",
-    border: "border-purple-500/30",
-    accent: "text-purple-400",
+    title: "Innovation Intelligence",
+    who: "Innovation & R&D Directors",
+    value: "Scores every concept against real consumer signals — compressing 18-month cycles to 8-week validated sprints.",
+    connected: "Scores concepts against trend momentum + market size + competitive white space",
+    color: "border-violet-500/30",
+    bg: "from-violet-500/15 to-violet-600/10",
+    accent: "text-violet-400",
+    dotColor: "bg-violet-400",
   },
   {
-    name: "Elena",
-    role: "Commercial",
     icon: ShoppingCart,
-    verdict: "Tesco confirms category gap — wants first-mover pitch",
-    solution: "Commercial Intelligence",
-    color: "from-rose-500/20 to-rose-600/20",
-    border: "border-rose-500/30",
+    title: "Sales Intelligence",
+    who: "National Account Managers & Commercial Leads",
+    value: "Walks into every buyer meeting with the full story — trend, sizing, competitive context — in one click.",
+    connected: "Builds buyer stories from every upstream intelligence layer",
+    color: "border-rose-500/30",
+    bg: "from-rose-500/15 to-rose-600/10",
     accent: "text-rose-400",
+    dotColor: "bg-rose-400",
+  },
+  {
+    icon: Wallet,
+    title: "Procurement Optimisation",
+    who: "Heads of Procurement & CFOs",
+    value: "Consolidates 14 data vendors into one platform — 40% lower TCO with full usage visibility.",
+    connected: "Measures ROI across all five intelligence solutions in one contract",
+    color: "border-cyan-500/30",
+    bg: "from-cyan-500/15 to-cyan-600/10",
+    accent: "text-cyan-400",
+    dotColor: "bg-cyan-400",
   },
 ];
 
@@ -172,8 +87,8 @@ const CJSlideConnectedDecision = ({
   return (
     <CPSlideContainer
       id="cj-slide-decision"
-      title="The Connected Decision"
-      subtitle="One question. Six perspectives. One connected answer."
+      title="Connected Consumer Intelligence"
+      subtitle="Six solutions. One taxonomy. Each powerful alone — transformational together."
       slideNumber={7}
       isPlaying={isPlaying}
       isLoading={isLoading}
@@ -183,100 +98,65 @@ const CJSlideConnectedDecision = ({
       onPause={onPause}
       onNextSlide={onNextSlide}
     >
-      <div className="h-full flex flex-col gap-3">
-        {/* The Question */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-primary/10 border border-primary/30 rounded-lg px-4 py-3 text-center"
-        >
-          <p className="text-[10px] uppercase tracking-widest text-primary mb-1 font-semibold">The Question</p>
-          <p className="text-base sm:text-lg font-bold text-foreground">
-            "Should we launch plant-based snacking in Southeast Asia?"
-          </p>
-          <p className="text-xs text-muted-foreground mt-1 italic">The same opportunity. But this time, every team sees it through one lens.</p>
-        </motion.div>
-
-        {/* Persona verdict chain */}
-        <div className="grid grid-cols-5 gap-2 flex-1 min-h-0">
-          {personas.map((persona, i) => {
-            const Icon = persona.icon;
+      <div className="h-full flex flex-col gap-2">
+        {/* Solution grid — 3×2 */}
+        <div className="grid grid-cols-3 gap-2 flex-1 min-h-0">
+          {solutions.map((sol, i) => {
+            const Icon = sol.icon;
             return (
               <motion.div
-                key={persona.name}
+                key={sol.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className={`relative bg-gradient-to-b ${persona.color} border ${persona.border} rounded-lg p-3 flex flex-col items-center text-center`}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className={`relative bg-gradient-to-b ${sol.bg} border ${sol.color} rounded-lg p-3 flex flex-col`}
               >
-                <div className={`w-8 h-8 rounded-full bg-card/50 flex items-center justify-center mb-1.5 ${persona.accent}`}>
-                  <Icon className="w-4 h-4" />
-                </div>
-                <p className="text-sm font-bold text-foreground">{persona.name}</p>
-                <p className={`text-[10px] ${persona.accent} font-medium mb-1.5`}>{persona.role}</p>
-                {(() => {
-                  const Dashboard = dashboardMap[persona.role];
-                  return Dashboard ? <Dashboard /> : null;
-                })()}
-                <p className="text-xs text-muted-foreground leading-snug flex-1 mt-1.5">"{persona.verdict}"</p>
-                <p className={`text-[9px] mt-2 ${persona.accent} font-semibold uppercase tracking-wider`}>{persona.solution}</p>
-                {i < personas.length - 1 && (
-                  <div className="absolute -right-2.5 top-1/2 -translate-y-1/2 z-10 hidden sm:block">
-                    <ArrowRight className="w-3 h-3 text-muted-foreground" />
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className={`w-7 h-7 rounded-lg bg-card/50 flex items-center justify-center ${sol.accent}`}>
+                    <Icon className="w-4 h-4" />
                   </div>
-                )}
+                  <div>
+                    <p className="text-sm font-bold text-foreground leading-tight">{sol.title}</p>
+                    <p className={`text-[9px] ${sol.accent} font-medium`}>{sol.who}</p>
+                  </div>
+                </div>
+
+                {/* Value */}
+                <p className="text-xs text-muted-foreground leading-relaxed flex-1">
+                  {sol.value}
+                </p>
+
+                {/* Connected link */}
+                <div className="mt-1.5 flex items-start gap-1 pt-1.5 border-t border-border/30">
+                  <Link2 className="w-3 h-3 text-primary mt-0.5 shrink-0" />
+                  <p className="text-[10px] text-primary/80 leading-snug italic">
+                    {sol.connected}
+                  </p>
+                </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Verdict bar */}
+        {/* Unifying taxonomy bar */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="bg-emerald-500/15 border border-emerald-500/40 rounded-lg px-4 py-2.5 flex items-center justify-between"
-        >
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-            <div>
-              <p className="text-base font-bold text-emerald-400">GO</p>
-              <p className="text-xs text-muted-foreground">Validated in one meeting — not 14 weeks</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Wallet className="w-4 h-4 text-primary" />
-            <span className="font-medium text-foreground">David:</span>
-            <span>"One platform. One contract. All of this."</span>
-          </div>
-        </motion.div>
-
-        {/* Without vs With */}
-        <motion.div
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="h-1.5 rounded-full bg-gradient-to-r from-blue-500 via-primary to-rose-500 origin-left"
+        />
+        <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-          className="grid grid-cols-2 gap-3"
+          transition={{ delay: 1 }}
+          className="text-center text-xs text-muted-foreground"
         >
-          <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5 flex items-start gap-3">
-            <XCircle className="w-5 h-5 text-destructive mt-0.5 shrink-0" />
-            <div>
-              <p className="text-xs font-bold text-destructive mb-0.5">WITHOUT</p>
-              <p className="text-xs text-muted-foreground">6 vendors · 14 weeks · 3 conflicting answers</p>
-            </div>
-          </div>
-          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-4 py-2.5 flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" />
-            <div>
-              <p className="text-xs font-bold text-emerald-400 mb-0.5">WITH</p>
-              <p className="text-xs text-muted-foreground">1 platform · 1 meeting · 1 connected answer</p>
-            </div>
-          </div>
-        </motion.div>
+          One Consumer-Connected Taxonomy — intelligence flows from foresight to shelf
+        </motion.p>
       </div>
     </CPSlideContainer>
   );
