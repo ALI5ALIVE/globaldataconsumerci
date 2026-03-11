@@ -36,7 +36,7 @@ const valueChainStages = [
   },
   {
     id: "win",
-    label: "Commercial\nIntelligence",
+    label: "Sales\nIntelligence",
     solutionName: "Evidence-backed listings",
     questions: ["What proof points win the listing?", "Where's the incremental growth?"],
     color: "hsl(280 60% 50%)",
