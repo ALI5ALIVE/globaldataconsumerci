@@ -271,10 +271,6 @@ const ConsumerJourneyDeck = () => {
     const nextSlide = activeSlide + 1;
     autoAdvanceTimerRef.current = setTimeout(() => {
       scrollToSlide(nextSlide);
-      autoAdvanceTimerRef.current = setTimeout(() => {
-        narration.play(nextSlide);
-        narration.preloadNext(nextSlide);
-      }, 800);
     }, 1500);
 
     return () => clearAutoAdvance();
