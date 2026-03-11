@@ -142,9 +142,10 @@ const slides = [
   { id: "cj-slide-8", label: "The Innovator" },
   { id: "cj-slide-9", label: "The Sales Lead" },
   { id: "cj-slide-10", label: "The Procurement Lead" },
-  { id: "cj-slide-11", label: "Teams Transformed" },
-  { id: "cj-slide-12", label: "Results" },
-  { id: "cj-slide-13", label: "Let's Talk" },
+  { id: "cj-slide-11", label: "Connected Intelligence" },
+  { id: "cj-slide-12", label: "Teams Transformed" },
+  { id: "cj-slide-13", label: "Results" },
+  { id: "cj-slide-14", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
