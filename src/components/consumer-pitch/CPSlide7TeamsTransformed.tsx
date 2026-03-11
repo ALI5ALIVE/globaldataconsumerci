@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Clock, TrendingUp, Target } from "lucide-react";
 import CPSlideContainer from "./CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
 
@@ -45,12 +46,33 @@ const BarSet = ({ bars, delay, label }: { bars: TimeBar[]; delay: number; label:
   </div>
 );
 
+const impactCards = [
+  {
+    icon: Clock,
+    metric: "7.5×",
+    title: "Time Reclaimed",
+    desc: "75% of time on strategy — not searching, reconciling, or reporting.",
+  },
+  {
+    icon: TrendingUp,
+    metric: "Same-day",
+    title: "Decisions Accelerated",
+    desc: "From 6–8 week cycles to evidence-backed decisions in hours.",
+  },
+  {
+    icon: Target,
+    metric: "2×",
+    title: "Launch Success",
+    desc: "Double your innovation hit rate. Kill bad ideas faster, back winners with evidence.",
+  },
+];
+
 const CPSlide7TeamsTransformed = (props: SlideNarrationProps) => {
   return (
     <CPSlideContainer
       id="cp-slide-7"
       title="Your Teams, Transformed"
-      subtitle="From reconciling data to reading the market."
+      subtitle="What changes when your best people stop being data janitors."
       slideNumber={7}
       {...props}
     >
@@ -74,7 +96,7 @@ const CPSlide7TeamsTransformed = (props: SlideNarrationProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.5, duration: 0.5 }}
-            className="mt-8 flex items-center justify-center gap-6 sm:gap-10"
+            className="mt-6 flex items-center justify-center gap-6 sm:gap-10"
           >
             <div className="text-center">
               <p className="text-xs text-muted-foreground">Decision velocity</p>
@@ -90,6 +112,29 @@ const CPSlide7TeamsTransformed = (props: SlideNarrationProps) => {
               <p className="text-xs text-muted-foreground">Decision velocity</p>
               <p className="text-lg font-bold text-primary">Hours</p>
             </div>
+          </motion.div>
+
+          {/* Business Impact Cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.2, duration: 0.6 }}
+            className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4"
+          >
+            {impactCards.map((card, i) => (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3.4 + i * 0.2, duration: 0.5 }}
+                className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-center"
+              >
+                <card.icon className="w-5 h-5 text-primary mx-auto mb-2" />
+                <p className="text-2xl font-bold text-primary">{card.metric}</p>
+                <p className="text-xs font-semibold text-foreground mt-1">{card.title}</p>
+                <p className="text-[10px] text-muted-foreground mt-1 leading-snug">{card.desc}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>

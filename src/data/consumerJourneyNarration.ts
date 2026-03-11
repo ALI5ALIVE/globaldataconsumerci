@@ -41,13 +41,13 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 5,
     title: "The Connected Decision",
-    script: `One question: should you launch plant-based snacking in Southeast Asia? With Connected Intelligence — Sarah pulls the Strategic Intelligence data: thirty-eight percent year-on-year growth. James sizes it: two point one billion dollar opportunity. Priya flags four rival patents. Marcus scores five concepts — three pass. Elena walks into the retailer with the full story. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. You can probably already see what this would mean for your teams.`,
+    script: `One question: should you launch plant-based snacking in Southeast Asia? With Connected Intelligence — Sarah pulls the Strategic Intelligence data: thirty-eight percent year-on-year growth. James sizes it: two point one billion dollar opportunity. Priya flags four rival patents. Marcus scores five concepts — three pass. Elena walks into the retailer with the full story. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. One decision. Backed by every angle. Made in a single meeting. Imagine what that does to your speed — and your competitors' confidence.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 6,
     title: "Teams Transformed",
-    script: `Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. And decision velocity? Six to eight weeks — down to hours. That's not incremental improvement. That's transformation. And there's a clear path to get there.`,
+    script: `Today your best people are data janitors. Searching, reconciling, reporting. With Connected Intelligence, strategy time goes from ten percent to seventy-five percent. Decision velocity drops from six to eight weeks to hours. But here's what really changes — your innovation hit rate doubles. Your teams spot opportunities months before competitors. And your best talent? They stay — because they're finally doing the work they were hired to do. That's not incremental improvement. That's a fundamentally different way of working. And there's a clear path to get there.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
@@ -71,7 +71,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 10,
     title: "Next Steps",
-    script: `If any of this resonated, here's a thought. Let's map your current intelligence landscape — where you are on the maturity curve, where the quick wins are, and what Connected Intelligence would look like for your team. No commitment. Just clarity. Would that be useful?`,
+    script: `The companies who've made this shift aren't just faster — they're winning categories they used to chase. If any of this resonated, here's a thought. Let's map your current intelligence landscape — where you are on the maturity curve, where the quick wins are, and what Connected Intelligence would look like for your team. No commitment. Just clarity. Would that be useful?`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
