@@ -55,6 +55,10 @@ const personas: PersonaData[] = [
     solutionName: "Market Sizing",
     dashboardType: "market-sizing",
     valueChainPosition: 2,
+    unlockedActions: [
+      { text: "Size only the markets where trends are accelerating", enabledBy: "Sarah" },
+      { text: "Flag sizing gaps competitors are already exploiting", enabledBy: "Priya" },
+    ],
   },
   {
     name: "Priya",
