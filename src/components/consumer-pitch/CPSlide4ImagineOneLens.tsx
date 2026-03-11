@@ -31,7 +31,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
             transition={{ delay: 3.6, duration: 0.6 }}
             className="text-sm text-muted-foreground font-medium"
           >
-            Ava works across every solution, surfacing patterns no single team would see alone.
+            Meet the team who'll show you how it works.
           </motion.p>
         </div>
       </div>

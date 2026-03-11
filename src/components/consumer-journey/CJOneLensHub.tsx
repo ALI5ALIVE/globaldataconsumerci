@@ -302,8 +302,11 @@ const CJOneLensHub = () => {
           animate={{ opacity: 1, y: 0 }}
           className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-card/95 border border-border rounded-lg px-4 py-3 text-center max-w-xs backdrop-blur-sm"
         >
-          <p className="text-xs font-semibold text-foreground mb-1">
+          <p className="text-xs font-semibold text-foreground mb-0.5">
             {valueChainStages.find(n => n.id === hoveredId)?.label.replace("\n", " ")}
+          </p>
+          <p className="text-[11px] text-muted-foreground mb-1">
+            {valueChainStages.find(n => n.id === hoveredId)?.persona.name}, {valueChainStages.find(n => n.id === hoveredId)?.persona.role}
           </p>
           <p className="text-[11px] text-primary font-medium">
             {valueChainStages.find(n => n.id === hoveredId)?.value}
