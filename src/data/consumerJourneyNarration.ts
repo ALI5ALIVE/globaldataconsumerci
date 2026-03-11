@@ -63,7 +63,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 8,
+    slideId: 9,
     title: "The Sales Lead — Commercial Execution",
     script: `Meet Elena. National Account Manager. She walks into buyer meetings with slides she made last night. No foresight. No proof points. Now look at her dashboard — Commercial Intelligence. Four intelligence layers — trend data, market sizing, competitive context, and innovation proof points. All unified. All current. The buyer leans in. Because Elena isn't pitching a product — she's presenting a story backed by intelligence. A partnership conversation built on shared evidence.`,
     voiceId: DEFAULT_VOICE_ID,
