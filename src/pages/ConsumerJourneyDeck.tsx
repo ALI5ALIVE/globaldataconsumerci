@@ -294,7 +294,8 @@ const ConsumerJourneyDeck = () => {
         <GDSlide4Proposition {...getNarrationProps(5)} />
         <CJSlideConnectedDecision {...getNarrationProps(6)} />
         <CPSlide7TeamsTransformed {...getNarrationProps(7)} />
-        <CJSlideProof {...getNarrationProps(8)} />
+        <CPSlide9NothingLikeThis {...getNarrationProps(8)} />
+        <CJSlideProof {...getNarrationProps(9)} />
       </div>
     </div>
   );
