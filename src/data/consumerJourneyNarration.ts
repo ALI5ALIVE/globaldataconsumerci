@@ -11,7 +11,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 0,
     title: "The Pressure You're Under",
-    script: `You're under more pressure than ever. The board wants evidence — not intuition. Consumer trends are shifting faster than your planning cycles. And your data? It lives in seven different places. There has to be a better way. Let me show you what Monday actually looks like.`,
+    script: `You're under more pressure than ever. The board wants evidence — not intuition. Consumer trends are shifting faster than your planning cycles. And your data? It lives in seven different places. There has to be a better way. Sound familiar? Picture your typical Monday.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
