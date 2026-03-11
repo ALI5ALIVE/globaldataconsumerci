@@ -11,28 +11,28 @@ interface ChainPersona {
 }
 
 const chain: ChainPersona[] = [
-  { name: "Sarah", icon: Compass, output: "Trend signals" },
-  { name: "James", icon: BarChart3, output: "Sized opportunities" },
-  { name: "Priya", icon: Radar, output: "Competitive context" },
-  { name: "Marcus", icon: Lightbulb, output: "Validated concepts" },
-  { name: "Elena", icon: ShoppingCart, output: "Full buyer story" },
+  { name: "Sarah", icon: Compass, output: "Plant-based signal validated" },
+  { name: "James", icon: BarChart3, output: "SE Asia sized at $2.1B" },
+  { name: "Priya", icon: Radar, output: "Rival patent activity flagged" },
+  { name: "Marcus", icon: Lightbulb, output: "3 concepts evidence-validated" },
+  { name: "Elena", icon: ShoppingCart, output: "Buyer story built in one click" },
 ];
 
 const outcomes = [
   {
-    title: "Trend-sized innovation pipeline",
+    title: "Plant-based pipeline validated",
     personas: "Sarah + James + Marcus",
-    description: "Foresight feeds sizing feeds validation — concepts are market-ready before competitors even see the trend.",
+    description: "Sarah's trend signal confirms the wave. James sizes it at $2.1B. Marcus scores five concepts — three pass. Pipeline is market-ready before competitors see the signal.",
   },
   {
-    title: "Competitor-validated launches",
+    title: "Competitor moves neutralised",
     personas: "Priya + Marcus",
-    description: "Competitive signals sharpen innovation scoring — every launch accounts for what rivals are doing.",
+    description: "Priya flags four rival patents in plant-based protein. Marcus adjusts innovation scoring — your launch accounts for what they're doing, not what you hoped they weren't.",
   },
   {
-    title: "Evidence-backed buyer stories",
+    title: "Retailer pitch wins the listing",
     personas: "Sarah + James + Priya + Elena",
-    description: "The full intelligence chain flows into one compelling narrative that wins the listing.",
+    description: "Elena walks into the buyer meeting with trend data, market sizing, competitive context, and validated concepts. One story. One click. The listing is yours.",
   },
 ];
 

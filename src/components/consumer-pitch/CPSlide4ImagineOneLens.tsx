@@ -23,7 +23,7 @@ const CPSlide4ImagineOneLens = (props: SlideNarrationProps) => {
           className="text-center max-w-xl pb-2"
         >
           <p className="text-sm text-primary font-medium">
-            One taxonomy. One truth. From trend to shelf.
+            One opportunity — plant-based protein — seen through one connected lens. From the first signal to the shelf.
           </p>
         </motion.div>
       </div>
