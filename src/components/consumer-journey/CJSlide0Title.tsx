@@ -67,11 +67,10 @@ const CJSlide0Title = ({
           className="space-y-4"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-foreground">
-            The consumer has{" "}
+            You're Under{" "}
             <span className="bg-gradient-to-r from-destructive via-destructive/70 to-destructive bg-clip-text text-transparent">
-              already moved.
-            </span>{" "}
-            Have you?
+              More Pressure Than Ever.
+            </span>
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             While you reconcile last quarter's data,
