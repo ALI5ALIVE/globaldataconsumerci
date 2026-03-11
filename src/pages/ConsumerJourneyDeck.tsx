@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart } from "lucide-react";
+import { Compass, BarChart3, Radar, Lightbulb, ShoppingCart, Wallet } from "lucide-react";
 import { useConsumerJourneyNarration } from "@/hooks/useConsumerJourneyNarration";
 import CPSlide1MondayMorning from "@/components/consumer-pitch/CPSlide1MondayMorning";
 import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSources";
