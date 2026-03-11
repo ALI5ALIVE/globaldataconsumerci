@@ -297,10 +297,9 @@ const ConsumerJourneyDeck = () => {
         <CJSlideConnectedDecision {...getNarrationProps(5)} />
         <CPSlide7TeamsTransformed {...getNarrationProps(6)} />
         <CJSlideMaturityJourney {...getNarrationProps(7)} />
-        <GDSlide4Proposition {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(10)} />
-        <CJSlide12CTA {...getNarrationProps(11)} />
+        <CJSlideProof {...getNarrationProps(8)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
+        <CJSlide12CTA {...getNarrationProps(10)} />
       </div>
     </div>
   );
