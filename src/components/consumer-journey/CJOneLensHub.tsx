@@ -87,7 +87,7 @@ const CJOneLensHub = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center">
-      <svg viewBox="0 0 600 600" className="w-full h-full max-h-[520px] max-w-[520px]">
+      <svg viewBox="0 0 600 600" className="w-full h-full max-h-[600px] max-w-[600px]">
         <defs>
           <filter id="hubGlow">
             <feGaussianBlur stdDeviation="6" result="blur" />
