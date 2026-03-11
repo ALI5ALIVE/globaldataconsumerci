@@ -10,6 +10,7 @@ import GDSlide4Proposition from "@/components/globaldata-slides/GDSlide4Proposit
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 import CPSlide9NothingLikeThis from "@/components/consumer-pitch/CPSlide9NothingLikeThis";
 import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
+import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlideMaturityJourney from "@/components/consumer-journey/CJSlideMaturityJourney";
 
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
@@ -170,6 +171,7 @@ const slides = [
   { id: "cj-slide-6", label: "Teams Transformed" },
   { id: "cj-slide-7", label: "Maturity Journey" },
   { id: "cj-slide-8", label: "The Platform" },
+  { id: "cj-slide-12", label: "Next Steps" },
   { id: "cj-slide-9", label: "Proof" },
   { id: "cp-slide-10", label: "Nothing Like This" },
   { id: "cj-slide-11", label: "Why Not DIY?" },
@@ -298,9 +300,10 @@ const ConsumerJourneyDeck = () => {
         <CPSlide7TeamsTransformed {...getNarrationProps(6)} />
         <CJSlideMaturityJourney {...getNarrationProps(7)} />
         <GDSlide4Proposition {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CPSlide9NothingLikeThis {...getNarrationProps(10)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(11)} />
+        <CJSlide12CTA {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CPSlide9NothingLikeThis {...getNarrationProps(11)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(12)} />
       </div>
     </div>
   );
