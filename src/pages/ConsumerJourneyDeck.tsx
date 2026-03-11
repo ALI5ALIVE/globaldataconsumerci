@@ -9,7 +9,7 @@ import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineO
 import CPSlide5Platform from "@/components/consumer-pitch/CPSlide5Platform";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
 
-import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
+
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
