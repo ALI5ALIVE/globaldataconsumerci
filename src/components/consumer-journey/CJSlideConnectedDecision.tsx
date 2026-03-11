@@ -149,7 +149,7 @@ const personas = [
     role: "Innovation",
     icon: Lightbulb,
     verdict: "3 of 5 concepts pass the evidence threshold",
-    solution: "Innovation Validation",
+    solution: "Innovation Intelligence",
     color: "from-purple-500/20 to-purple-600/20",
     border: "border-purple-500/30",
     accent: "text-purple-400",
