@@ -71,7 +71,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 10,
     title: "Next Steps",
-    script: `Here's what I'd suggest. Let's map your current intelligence landscape — where you are on the maturity curve, where the quick wins are, and what Connected Intelligence would look like for your team. No commitment. Just clarity. Shall we book that in?`,
+    script: `If any of this resonated, here's a thought. Let's map your current intelligence landscape — where you are on the maturity curve, where the quick wins are, and what Connected Intelligence would look like for your team. No commitment. Just clarity. Would that be useful?`,
     voiceId: DEFAULT_VOICE_ID,
   },
 ];
