@@ -7,7 +7,7 @@ import CPSlide2SevenSources from "@/components/consumer-pitch/CPSlide2SevenSourc
 import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
-import PersonaPanorama from "@/components/consumer-journey/PersonaPanorama";
+
 import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
@@ -163,14 +163,12 @@ const slides = [
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
   { id: "cj-slide-4", label: "One Lens" },
-  { id: "cj-slide-5", label: "Discover · Size · Track" },
-  { id: "cj-slide-6", label: "Validate · Win · Optimise" },
-  { id: "cj-slide-7", label: "The Connected Decision" },
-  { id: "cj-slide-8", label: "Connected Intelligence" },
-  { id: "cj-slide-9", label: "Why Not DIY?" },
-  { id: "cj-slide-10", label: "Proof" },
-  { id: "cj-slide-11", label: "Teams Transformed" },
-  { id: "cj-slide-12", label: "Let's Talk" },
+  { id: "cj-slide-5", label: "The Connected Decision" },
+  { id: "cj-slide-6", label: "Connected Intelligence" },
+  { id: "cj-slide-7", label: "Why Not DIY?" },
+  { id: "cj-slide-8", label: "Proof" },
+  { id: "cj-slide-9", label: "Teams Transformed" },
+  { id: "cj-slide-10", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -244,8 +242,6 @@ const ConsumerJourneyDeck = () => {
     else if (direction === "down" && activeSlide < slides.length - 1) scrollToSlide(activeSlide + 1);
   };
 
-  const panorama1 = personas.slice(0, 3); // Sarah, James, Priya
-  const panorama2 = personas.slice(3, 6); // Marcus, Elena, David
 
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
@@ -287,21 +283,19 @@ const ConsumerJourneyDeck = () => {
         </button>
       </div>
 
-      {/* Slides — 12-slide optimised arc */}
+      {/* Slides — 11-slide optimised arc */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <CJSlide0Title {...getNarrationProps(0)} />
         <CPSlide1MondayMorning {...getNarrationProps(1)} />
         <CPSlide2SevenSources {...getNarrationProps(2)} />
         <CPSlide3TheCost {...getNarrationProps(3)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <PersonaPanorama personas={panorama1} slideNumber={5} groupLabel="Discover · Size · Track" {...getNarrationProps(5)} />
-        <PersonaPanorama personas={panorama2} slideNumber={6} groupLabel="Validate · Win · Optimise" {...getNarrationProps(6)} />
-        <CJSlideConnectedDecision {...getNarrationProps(7)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(8)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
-        <CJSlideProof {...getNarrationProps(10)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
-        <CJSlide12CTA {...getNarrationProps(12)} />
+        <CJSlideConnectedDecision {...getNarrationProps(5)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(6)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(7)} />
+        <CJSlideProof {...getNarrationProps(8)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(9)} />
+        <CJSlide12CTA {...getNarrationProps(10)} />
       </div>
     </div>
   );
