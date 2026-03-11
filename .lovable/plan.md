@@ -1,83 +1,76 @@
 
 
-# Plan: Enrich "Imagine One Lens" — Concentric Hub-and-Spoke Diagram
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Concept
+## Problem
 
-Replace the simple convergence animation with a **3-ring concentric diagram**:
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-```text
-                    ┌─────────────┐
-                    │   Sarah     │
-                    │  (Strategy) │
-                    └──────┬──────┘
-                           │
-              ┌────────────┼────────────┐
-              │    ┌───────┴───────┐    │
-     Dashboard│    │  Strategic    │    │Dashboard
-     placeholder   │  Intelligence │    │placeholder
-              │    └───────┬───────┘    │
-              │            │            │
-              │      ┌─────┴─────┐      │
-              │      │ ONE TRUTH │      │
-              │      │   (Eye)   │      │
-              │      └─────┬─────┘      │
-              │            │            │
-              │    ┌───────┴───────┐    │
-              │    │   Market     │    │
-              │    │ Intelligence │    │
-              └────┼───────────────┼────┘
-                   └───────┬───────┘
-                           │
-                    ┌──────┴──────┐
-                    │   James     │
-                    │  (Market)   │
-                    └─────────────┘
-```
+## Current Vertical Budget Analysis
 
-**Ring 1 (center):** "One Truth" — Eye icon, pulsing glow
-**Ring 2 (inner):** 5 solution modules — Strategic, Market, Competitive, Innovation, Commercial — each with key questions they answer and a placeholder dashboard thumbnail
-**Ring 3 (outer):** 5 personas — Sarah, James, Priya, Marcus, Elena — connected by lines to their primary solution, showing team unity
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-Spokes connect all three rings. Animated build: center appears → solutions radiate out → dashboards fade in → personas appear on the outside. Hovering a solution highlights its connected persona and sample questions.
+## Proposed Reductions
 
-## New Component
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-Create `src/components/consumer-journey/CJOneLensHub.tsx` — the full hub-and-spoke SVG/HTML hybrid diagram with:
+**Estimated Total Savings: ~80-100px vertical space**
 
-- Center: Eye icon + "One Truth" + "One Taxonomy"
-- 5 solution nodes at ~140px radius, each showing:
-  - Solution name (e.g. "Strategic Intelligence")
-  - 2 sample questions (e.g. "Where is plant-based heading?", "Which trends are peaking?")
-  - Small placeholder dashboard rectangle (gradient mock)
-- 5 persona nodes at ~260px radius, each showing:
-  - Avatar circle with initials + name
-  - Role title
-  - Connected to their solution via animated dashed line
-- SVG spokes connecting center → solutions → personas
-- Staggered Framer Motion entrance: center (0s) → solutions (0.8s) → dashboards (1.5s) → personas (2.2s)
-- Hover interaction: hovering a solution highlights its persona and questions
+## File to Modify
 
-## Data Structure
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-```typescript
-const solutionNodes = [
-  { id: "strategic", label: "Strategic Intelligence", 
-    questions: ["Where is plant-based heading?", "Which macro trends matter?"],
-    persona: { name: "Sarah", initials: "S", role: "Head of Strategy" } },
-  { id: "market", label: "Market Intelligence",
-    questions: ["How big is the opportunity?", "Which markets to prioritise?"],
-    persona: { name: "James", initials: "J", role: "Market Intelligence Lead" } },
-  // ... Priya (Competitive), Marcus (Innovation), Elena (Commercial)
-];
-```
+## Specific Changes
 
-## Files
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-| File | Action |
-|------|--------|
-| `src/components/consumer-journey/CJOneLensHub.tsx` | Create — the hub-and-spoke diagram |
-| `src/components/consumer-pitch/CPSlide4ImagineOneLens.tsx` | Replace convergence animation with the new hub diagram (keep the container, title, reveal text) |
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-No route changes needed — the slide is already used in both `/consumer-pitch` and `/consumer-journey`.
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
