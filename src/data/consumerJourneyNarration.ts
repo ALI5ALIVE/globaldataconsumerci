@@ -57,7 +57,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 7,
+    slideId: 8,
     title: "The Innovation Director — Validation",
     script: `Meet Marcus. Innovation Director. He killed a product that would have been a hit. He launched one that flopped. Both decisions were based on gut feel dressed up as insight. Now look at his dashboard — Innovation Validation. Every concept scored against real consumer signals. Probiotic Snack Bar scores eighty-seven. CBD Gummies scores thirty-four — killed early, saving millions. Two times higher launch success rate. Eighteen-month cycles compressed to eight weeks.`,
     voiceId: DEFAULT_VOICE_ID,
