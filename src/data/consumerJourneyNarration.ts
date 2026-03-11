@@ -40,8 +40,8 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 5,
-    title: "Connected Consumer Intelligence",
-    script: `Let me walk you through the six intelligence solutions — and how they connect. Strategic Foresight is for your heads of strategy and planning. It identifies emerging themes twelve to eighteen months before they hit your category — so you act on foresight, not hindsight. Market Intelligence is for your market intelligence and commercial teams. One click — sizing across a hundred and ten countries and a thousand segments. One number everyone trusts. Competitive Intelligence tracks twenty-five thousand companies in real time — patents, hires, supply chain shifts — so your strategy team sees moves before they're announced. Innovation Intelligence is for your R&D directors. Every concept scored against real consumer signals. Eighteen-month cycles compressed to eight-week validated sprints. Sales Intelligence puts the full story in your account managers' hands — trend, sizing, competitive context — in one click. And Procurement Optimisation consolidates fourteen vendors into one platform — forty percent lower total cost of ownership with full visibility. Here's the critical point — each solution is powerful alone. But because they share one consumer-connected taxonomy, intelligence flows from foresight to shelf. That's what makes this transformational.`,
+    title: "The Connected Decision",
+    script: `One question: should you launch plant-based snacking in Southeast Asia? With Connected Intelligence — Sarah pulls the trend data: thirty-eight percent year-on-year growth. James sizes it: two point one billion dollar opportunity. Priya flags four rival patents. Marcus scores five concepts — three pass. Elena walks into the retailer with the full story. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. Now — what does this mean for your teams?`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
