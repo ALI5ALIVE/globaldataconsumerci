@@ -1,76 +1,80 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Enriched Persona Slides + Reorder One Lens
 
-## Problem
+## Changes
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+### 1. Reorder slides — Move "One Lens" before personas
 
-## Current Vertical Budget Analysis
+Current order: Slides 1-3 → 5 Personas → One Lens → Teams → Results → CTA
+New order: Slides 1-3 → **One Lens** → 5 Personas → Teams → Results → CTA
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+This sets up the "here's the unified platform" context FIRST, then walks through each persona showing how they use it. The hub diagram becomes the map; the personas become the guided tour.
 
-## Proposed Reductions
+Update `slides` array and render order in `ConsumerJourneyDeck.tsx`. Update narration slideId mappings in `consumerJourneyNarration.ts` accordingly.
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+### 2. Enrich PersonaSlide with dashboard mockups, metrics, and company context
 
-**Estimated Total Savings: ~80-100px vertical space**
+Transform each persona slide from a simple quote-based split into a rich, visual storytelling slide. All personas work at the same company — **a Top-5 Global FMCG** — telling one connected story.
 
-## File to Modify
+**New PersonaData fields:**
+- `company`: shared company context (e.g. "Top-5 Global FMCG")
+- `solutionName`: the specific platform module (e.g. "Strategic Foresight")
+- `metrics`: array of 3 quantified benefits per persona (e.g. `{ value: "18mo", label: "Foresight horizon" }`)
+- `dashboardElements`: data for rendering a mock dashboard (chart type, KPI cards, data labels)
+- `valueChainPosition`: number 1-5 for visual progress indicator
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+**New slide layout (3-column on desktop):**
 
-## Specific Changes
+```text
+┌──────────────────────────────────────────────────────┐
+│ Step 2 of 5 ━━━━●━━━━━━━━  Opportunity Sizing       │
+│                                                       │
+│ Meet James · Market Intelligence Lead                 │
+│ Same company. Connected team.                         │
+│                                                       │
+│ ┌─────────────┐ ┌──────────────────┐ ┌─────────────┐ │
+│ │  WITHOUT     │ │   DASHBOARD      │ │  WITH       │ │
+│ │  ─────────   │ │   MOCKUP         │ │  ─────────  │ │
+│ │  Pain quote  │ │  ┌──┐ ┌──┐      │ │  Benefit    │ │
+│ │  Pain detail │ │  │▓▓│ │░░│ KPIs │ │  quote      │ │
+│ │              │ │  └──┘ └──┘      │ │  + metrics  │ │
+│ │  ⚠ 3 weeks  │ │  [chart area]   │ │  ✓ 3 mins   │ │
+│ │  ⚠ 4 sources│ │                  │ │  ✓ 110 mkts │ │
+│ │  ⚠ Distrust │ │  "Market Sizing" │ │  ✓ Trusted  │ │
+│ └─────────────┘ └──────────────────┘ └─────────────┘ │
+│                                                       │
+│ Same person. Same role. Completely different impact.   │
+└──────────────────────────────────────────────────────┘
+```
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+**Dashboard mockups per persona (rendered as styled HTML/SVG):**
+- Sarah (Strategic): Trend radar with rising/falling indicators, heatmap grid
+- James (Market): Bar chart with country flags, market size KPI cards
+- Priya (Competitive): Real-time feed with signal dots, company tracker grid
+- Marcus (Innovation): Concept scorecard with pass/fail indicators, funnel chart
+- Elena (Commercial): Buyer dashboard with category tiles, proof-point cards
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
+**Quantified metrics per persona:**
+- Sarah: 18mo foresight · 1 validated view · 3x faster board prep
+- James: 110 countries · 3 weeks → 3 mins · One trusted number
+- Priya: 25,000 companies · 6 signal types · Real-time alerts
+- Marcus: 2x launch success · 18mo → 8 weeks · Evidence-based scoring
+- Elena: Full buyer story · 4 intelligence layers · Partnership conversations
 
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+### 3. Update narration scripts
 
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
+Adjust the One Lens narration to work as slide 4 (setup before personas) and reorder slideId values. Slightly enrich persona scripts to reference the dashboard and metrics.
 
-## Outcome
+## Files to Modify
 
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+| File | Change |
+|------|--------|
+| `src/components/consumer-journey/PersonaSlide.tsx` | Complete redesign — 3-column layout with dashboard mockup center panel, metrics badges, value chain progress bar, shared company context |
+| `src/pages/ConsumerJourneyDeck.tsx` | Reorder slides (One Lens → slot 4), update persona data with new fields (metrics, dashboardElements, solutionName), fix narration prop indices |
+| `src/data/consumerJourneyNarration.ts` | Reorder slideIds (One Lens = 3, personas = 4-8), minor script tweaks |
+
+## Files to Create
+
+None — all changes are enrichments to existing components.
 
