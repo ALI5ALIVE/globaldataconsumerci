@@ -81,7 +81,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
     voiceId: DEFAULT_VOICE_ID,
   },
   {
-    slideId: 11,
+    slideId: 12,
     title: "The Results Are Real",
     script: `These aren't projections — they're results. Ferrero replaced five vendors with one connected platform — at thirty percent lower cost. Mondelēz cut decision cycles by seventy percent, responding to consumer shifts before competitors could even see them. Two times higher launch success rates by validating against real consumer signals instead of gut instinct. You're not paying for seven disconnected tools anymore. You're paying for one connected answer.`,
     voiceId: DEFAULT_VOICE_ID,
