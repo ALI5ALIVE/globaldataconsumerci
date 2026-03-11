@@ -4,7 +4,7 @@ import { useState } from "react";
 const valueChainStages = [
   {
     id: "discover",
-    label: "Strategic\nForesight",
+    label: "Strategic\nIntelligence",
     solutionName: "12-month foresight horizon",
     questions: ["Where is the category heading?", "Which macro shifts matter most?"],
     color: "hsl(217 100% 40%)",
