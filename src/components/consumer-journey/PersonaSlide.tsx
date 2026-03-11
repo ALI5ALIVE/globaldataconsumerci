@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, AlertTriangle, CheckCircle2 } from "lucide-react";
 import CPSlideContainer from "@/components/consumer-pitch/CPSlideContainer";
 import { SlideNarrationProps } from "@/types/slideProps";
+import PersonaDashboard, { DashboardType } from "@/components/consumer-journey/PersonaDashboard";
+
+export interface PersonaMetric {
+  value: string;
+  label: string;
+}
 
 export interface PersonaData {
   name: string;
@@ -10,8 +16,13 @@ export interface PersonaData {
   icon: LucideIcon;
   painQuote: string;
   painDetail: string;
+  painBullets: string[];
   benefitQuote: string;
   benefitDetail: string;
+  metrics: PersonaMetric[];
+  solutionName: string;
+  dashboardType: DashboardType;
+  valueChainPosition: number;
 }
 
 interface PersonaSlideProps extends SlideNarrationProps {
@@ -29,96 +40,166 @@ const PersonaSlide = ({ persona, slideNumber, ...narrationProps }: PersonaSlideP
       {...narrationProps}
     >
       <div className="h-full flex flex-col">
-        {/* Step label */}
+        {/* Value chain progress bar */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-2 flex items-center gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="mb-2 flex items-center gap-2"
         >
-          <persona.icon className="w-5 h-5 text-primary" />
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">{persona.step}</span>
+          <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((pos) => (
+              <div key={pos} className="flex items-center">
+                <div
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    pos === persona.valueChainPosition
+                      ? "bg-primary scale-150"
+                      : pos < persona.valueChainPosition
+                      ? "bg-primary/40"
+                      : "bg-muted-foreground/20"
+                  }`}
+                />
+                {pos < 5 && (
+                  <div
+                    className={`w-4 h-0.5 ${
+                      pos < persona.valueChainPosition ? "bg-primary/30" : "bg-muted-foreground/10"
+                    }`}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground ml-2">
+            Step {persona.valueChainPosition} of 5
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-primary font-bold ml-1">
+            {persona.step}
+          </span>
         </motion.div>
 
         {/* Persona intro */}
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-2xl sm:text-3xl font-display font-bold text-foreground mb-1"
+          transition={{ delay: 0.15, duration: 0.4 }}
+          className="mb-3"
         >
-          Meet <span className="text-primary">{persona.name}</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-sm text-muted-foreground mb-4 sm:mb-6"
-        >
-          {persona.role}
-        </motion.p>
+          <h2 className="text-xl sm:text-2xl font-display font-bold text-foreground">
+            Meet <span className="text-primary">{persona.name}</span>
+            <span className="text-muted-foreground font-normal text-sm sm:text-base ml-2">
+              {persona.role}
+            </span>
+          </h2>
+          <p className="text-xs text-muted-foreground/70 mt-0.5">Same company. Connected team.</p>
+        </motion.div>
 
-        {/* Split screen: Without vs With */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 min-h-0">
-          {/* WITHOUT — Pain */}
+        {/* 3-column layout */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-3 min-h-0">
+          {/* LEFT — Without */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-col rounded-2xl border border-destructive/30 bg-destructive/5 p-5 sm:p-6 relative overflow-hidden"
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="flex flex-col rounded-xl border border-destructive/25 bg-destructive/5 p-4 relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-1 h-full bg-destructive/60" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-destructive/70 mb-3">
+            <div className="absolute top-0 left-0 w-1 h-full bg-destructive/50" />
+            <span className="text-[9px] font-bold uppercase tracking-widest text-destructive/60 mb-2">
               Without Connected Intelligence
             </span>
-            <blockquote className="text-base sm:text-lg font-medium text-foreground leading-snug mb-3 italic">
+            <blockquote className="text-sm font-medium text-foreground leading-snug mb-2 italic">
               "{persona.painQuote}"
             </blockquote>
-            <p className="text-sm text-muted-foreground leading-relaxed mt-auto">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-3">
               {persona.painDetail}
             </p>
-            {/* Emotional tension pulse */}
+            <div className="mt-auto space-y-1.5">
+              {persona.painBullets.map((bullet, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 + i * 0.1 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <AlertTriangle className="w-3 h-3 text-destructive/60 shrink-0" />
+                  <span className="text-[11px] text-destructive/80">{bullet}</span>
+                </motion.div>
+              ))}
+            </div>
             <motion.div
-              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              animate={{ opacity: [0.05, 0.15, 0.05] }}
               transition={{ repeat: Infinity, duration: 3 }}
-              className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-destructive/10 blur-2xl"
+              className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-destructive/10 blur-2xl"
             />
           </motion.div>
 
-          {/* WITH — Benefit */}
+          {/* CENTER — Dashboard mockup */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-            className="flex flex-col rounded-2xl border border-primary/30 bg-primary/5 p-5 sm:p-6 relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="flex flex-col rounded-xl border border-border bg-card p-3 relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 w-1 h-full bg-primary/60" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70 mb-3">
+            <div className="text-center mb-2">
+              <span className="text-[9px] font-bold uppercase tracking-widest text-primary/70">
+                {persona.solutionName}
+              </span>
+            </div>
+            <div className="flex-1 min-h-0">
+              <PersonaDashboard type={persona.dashboardType} />
+            </div>
+          </motion.div>
+
+          {/* RIGHT — With */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+            className="flex flex-col rounded-xl border border-primary/25 bg-primary/5 p-4 relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 w-1 h-full bg-primary/50" />
+            <span className="text-[9px] font-bold uppercase tracking-widest text-primary/60 mb-2">
               With Connected Intelligence
             </span>
-            <blockquote className="text-base sm:text-lg font-medium text-foreground leading-snug mb-3 italic">
+            <blockquote className="text-sm font-medium text-foreground leading-snug mb-2 italic">
               "{persona.benefitQuote}"
             </blockquote>
-            <p className="text-sm text-muted-foreground leading-relaxed mt-auto">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-3">
               {persona.benefitDetail}
             </p>
-            {/* Resolution glow */}
+            <div className="mt-auto space-y-1.5">
+              {persona.metrics.map((metric, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.1 + i * 0.1 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <CheckCircle2 className="w-3 h-3 text-primary/70 shrink-0" />
+                  <span className="text-[11px] text-foreground">
+                    <span className="font-bold text-primary">{metric.value}</span>{" "}
+                    <span className="text-muted-foreground">{metric.label}</span>
+                  </span>
+                </motion.div>
+              ))}
+            </div>
             <motion.div
-              animate={{ opacity: [0.1, 0.25, 0.1] }}
+              animate={{ opacity: [0.05, 0.15, 0.05] }}
               transition={{ repeat: Infinity, duration: 4 }}
-              className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-primary/10 blur-2xl"
+              className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-primary/10 blur-2xl"
             />
           </motion.div>
         </div>
 
-        {/* Bottom transformation line */}
+        {/* Bottom line */}
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="mt-3 sm:mt-4 text-center origin-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.5 }}
+          className="mt-2 text-center"
         >
-          <p className="text-xs sm:text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             Same person. Same role. <span className="text-primary font-semibold">Completely different impact.</span>
           </p>
         </motion.div>
