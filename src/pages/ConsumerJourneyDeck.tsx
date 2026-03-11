@@ -8,6 +8,7 @@ import CPSlide3TheCost from "@/components/consumer-pitch/CPSlide3TheCost";
 import CPSlide4ImagineOneLens from "@/components/consumer-pitch/CPSlide4ImagineOneLens";
 import GDSlide4Proposition from "@/components/globaldata-slides/GDSlide4Proposition";
 import CPSlide7TeamsTransformed from "@/components/consumer-pitch/CPSlide7TeamsTransformed";
+import CPSlide9NothingLikeThis from "@/components/consumer-pitch/CPSlide9NothingLikeThis";
 
 
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
