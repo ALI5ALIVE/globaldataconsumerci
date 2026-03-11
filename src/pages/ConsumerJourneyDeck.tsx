@@ -13,6 +13,7 @@ import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
 import CJSlide11ConnectedInAction from "@/components/consumer-journey/CJSlide11ConnectedInAction";
 import CJSlideWhyNotDIY from "@/components/consumer-journey/CJSlideWhyNotDIY";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
+import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
 const personas: PersonaData[] = [
@@ -164,11 +165,12 @@ const slides = [
   { id: "cj-slide-4", label: "One Lens" },
   { id: "cj-slide-5", label: "Discover · Size · Track" },
   { id: "cj-slide-6", label: "Validate · Win · Optimise" },
-  { id: "cj-slide-7", label: "Connected Intelligence" },
-  { id: "cj-slide-8", label: "Why Not DIY?" },
-  { id: "cj-slide-9", label: "Proof" },
-  { id: "cj-slide-10", label: "Teams Transformed" },
-  { id: "cj-slide-11", label: "Let's Talk" },
+  { id: "cj-slide-7", label: "The Connected Decision" },
+  { id: "cj-slide-8", label: "Connected Intelligence" },
+  { id: "cj-slide-9", label: "Why Not DIY?" },
+  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-11", label: "Teams Transformed" },
+  { id: "cj-slide-12", label: "Let's Talk" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -294,11 +296,12 @@ const ConsumerJourneyDeck = () => {
         <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
         <PersonaPanorama personas={panorama1} slideNumber={5} groupLabel="Discover · Size · Track" {...getNarrationProps(5)} />
         <PersonaPanorama personas={panorama2} slideNumber={6} groupLabel="Validate · Win · Optimise" {...getNarrationProps(6)} />
-        <CJSlide11ConnectedInAction {...getNarrationProps(7)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(10)} />
-        <CJSlide12CTA {...getNarrationProps(11)} />
+        <CJSlideConnectedDecision {...getNarrationProps(7)} />
+        <CJSlide11ConnectedInAction {...getNarrationProps(8)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(11)} />
+        <CJSlide12CTA {...getNarrationProps(12)} />
       </div>
     </div>
   );

@@ -1,77 +1,76 @@
 
 
-# Plan: Add "The Connected Decision" Slide (Keep Panoramas)
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## The Concept
+## Problem
 
-Add a new slide after the two panorama slides (before "Connected Intelligence in Action") that shows a **critical boardroom meeting** where all six personas converge around one strategic question. Each persona contributes their intelligence layer to reach a unified, evidence-based decision — demonstrating the single version of truth across the full value chain.
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## The Scenario
+## Current Vertical Budget Analysis
 
-**"Should we launch plant-based snacking in Southeast Asia?"**
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-One question. Six perspectives. One connected answer — in one meeting.
+## Proposed Reductions
 
-```text
-┌──────────────────────────────────────────────────────────┐
-│  "One Decision. Six Perspectives. One Connected Answer." │
-│                                                          │
-│  ┌─ THE QUESTION ──────────────────────────────────────┐ │
-│  │ "Should we launch plant-based snacking in SE Asia?" │ │
-│  └─────────────────────────────────────────────────────┘ │
-│                                                          │
-│  Sarah        James        Priya        Marcus     Elena │
-│  "Trend is    "$2.1B       "CompX has   "3 of 5    "Tesco│
-│   accelerat-   TAM by       filed 4      concepts   wants│
-│   ing +38%"    2027"        patents"     pass"      this" │
-│  ─────────────────────────────────────────────────────── │
-│                                                          │
-│  ┌─ THE VERDICT ─────────────────────────────────────┐   │
-│  │ ✓ GO — Validated in one meeting, not 14 weeks     │   │
-│  └───────────────────────────────────────────────────┘   │
-│                                                          │
-│  David: "One platform. One contract. All of this."       │
-│                                                          │
-│  WITHOUT: 6 vendors · 14 weeks · 3 conflicting answers   │
-│  WITH:    1 platform · 1 meeting · 1 connected answer    │
-└──────────────────────────────────────────────────────────┘
-```
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-## Visual Mechanics
+**Estimated Total Savings: ~80-100px vertical space**
 
-1. **Top**: Strategic question in a prominent card
-2. **Middle**: Five persona verdict cards animate sequentially, each showing avatar, name, their specific data contribution, and solution name
-3. **Verdict bar**: A green "GO" verdict that appears after all cards, emphasising this was done in one meeting
-4. **David anchor**: Consolidation message at bottom
-5. **Without vs With**: A stark comparison footer
+## File to Modify
 
-## Slide Order (13 slides — panoramas kept)
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
 
-```text
- 0  The Pressure
- 1  Your Monday Morning
- 2  Seven Sources
- 3  The Cost
- 4  One Lens
- 5  Team Panorama 1 (Sarah, James, Priya)
- 6  Team Panorama 2 (Marcus, Elena, David)
- 7  The Connected Decision (NEW)
- 8  Connected Intelligence in Action
- 9  Why Not DIY?
-10  Proof
-11  Teams Transformed
-12  Let's Talk
-```
+## Specific Changes
 
-## Files
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
 
-| File | Action |
-|------|--------|
-| `src/components/consumer-journey/CJSlideConnectedDecision.tsx` | **Create** — Boardroom decision slide |
-| `src/pages/ConsumerJourneyDeck.tsx` | **Edit** — Insert slide at position 7, update slides array to 13 entries, re-index narration props |
-| `src/data/consumerJourneyNarration.ts` | **Edit** — Add narration entry for new slide |
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
 
-## Narration Script
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
 
-*"Here's what this looks like in practice. One question: should we launch plant-based snacking in Southeast Asia? Sarah pulls the trend data — plant-based is accelerating at thirty-eight percent year-on-year. James sizes the opportunity — two point one billion dollar TAM by twenty-twenty-seven. Priya flags that Competitor X has filed four patents in this space. Marcus scores five concepts — three pass the evidence threshold. And Elena walks into Tesco with the full story. One meeting. One connected answer. Without this? Six vendors. Fourteen weeks. Three conflicting recommendations. With it? One platform. One meeting. One decision — backed by evidence from every angle. And David? He made it all possible with one contract."*
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
