@@ -81,7 +81,7 @@ const CJSlide0Title = ({
         </motion.div>
 
         {/* Pressure cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
           {pressureCards.map((card, i) => (
             <motion.div
               key={card.title}
