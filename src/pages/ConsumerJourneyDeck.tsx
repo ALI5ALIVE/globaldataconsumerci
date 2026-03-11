@@ -101,6 +101,10 @@ const personas: PersonaData[] = [
     solutionName: "Innovation Validation",
     dashboardType: "innovation-scorecard",
     valueChainPosition: 4,
+    unlockedActions: [
+      { text: "Score concepts against trend momentum + market size", enabledBy: "Sarah + James" },
+      { text: "Kill concepts where competitors already dominate", enabledBy: "Priya" },
+    ],
   },
   {
     name: "Elena",
