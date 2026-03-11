@@ -1,76 +1,40 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Plan: Add Maturity Journey Slide to Consumer Journey Deck
 
-## Problem
+## What
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+Create a single consolidated maturity slide that combines the 4-stage journey from the sales pitch (Fragmented → Connected → Optimised → Predictive) into one interactive slide for the consumer journey deck. This replaces the need for 4 separate slides.
 
-## Current Vertical Budget Analysis
+## New Component: `src/components/consumer-journey/CJSlideMaturityJourney.tsx`
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+A single full-screen slide showing all 4 maturity stages with:
+- A visual maturity curve (hockey-stick shape) with 4 stage markers
+- Clickable/auto-highlighting stage cards showing:
+  - **Fragmented**: 60% reconciliation / 10% strategy, 6-8 week decisions
+  - **Connected**: The gateway — one taxonomy, reconciliation drops to 20%, 2-3 week decisions
+  - **Optimised**: AI-powered cross-solution insights, 3-5 day decisions
+  - **Predictive**: AI anticipates shifts, 75% strategy time, decisions in hours
+- Time allocation bars for each stage (reconciliation vs analysis vs strategy)
+- "Connected" stage visually emphasised as the gateway/unlock
 
-## Proposed Reductions
+Styling matches existing consumer journey deck (dark theme, card-based layout).
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+## Placement
 
-**Estimated Total Savings: ~80-100px vertical space**
+Insert after "Teams Transformed" (index 7) and before "Nothing Like This" (index 8). This logically flows: teams are transformed → here's the maturity journey → nothing like this exists → why not DIY → proof.
 
-## File to Modify
+## Changes
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+### `src/pages/ConsumerJourneyDeck.tsx`
+- Import new `CJSlideMaturityJourney` component
+- Add slide entry at index 8: `{ id: "cj-slide-8", label: "Maturity Journey" }`
+- Bump remaining slides: Nothing Like This → 9, Why Not DIY → 10, Proof → 11
+- Add render and update narration prop indices (12 slides total, indices 0-11)
 
-## Specific Changes
+### `src/data/consumerJourneyNarration.ts`
+- Add narration entry for slideId 8 covering the 4-stage maturity journey in a single script, drawing from the sales pitch narration content (stages Fragmented through Predictive with time allocation shifts)
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
-
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+### Final slide order (12 slides):
+0 The Pressure → 1 Your Monday → 2 Seven Sources → 3 The Cost → 4 One Lens → 5 The Platform → 6 Connected Decision → 7 Teams Transformed → **8 Maturity Journey** → 9 Nothing Like This → 10 Why Not DIY → 11 Proof
 
