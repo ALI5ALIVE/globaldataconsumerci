@@ -181,19 +181,29 @@ const ConsumerJourneyDeck = () => {
   const [autoAdvance, setAutoAdvance] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userInitiatedRef = useRef(false);
+  const autoAdvancingRef = useRef(false);
   const prevSlideRef = useRef<number>(0);
 
   const narration = useConsumerJourneyNarration();
 
-  // Auto-play narration whenever activeSlide changes
+  // When activeSlide changes: stop narration on manual nav, auto-play on auto-advance
   useEffect(() => {
-    if (activeSlide !== prevSlideRef.current || prevSlideRef.current === 0) {
-      prevSlideRef.current = activeSlide;
+    if (activeSlide === prevSlideRef.current) return;
+    prevSlideRef.current = activeSlide;
+
+    if (autoAdvancingRef.current) {
+      // Auto-advance triggered this change — play after settle time
       const timer = setTimeout(() => {
+        autoAdvancingRef.current = false;
         narration.play(activeSlide);
         narration.preloadNext(activeSlide);
-      }, 400);
+      }, 800);
       return () => clearTimeout(timer);
+    } else {
+      // Manual scroll/nav — stop everything
+      narration.stop();
+      userInitiatedRef.current = false;
     }
   }, [activeSlide]); // eslint-disable-line react-hooks/exhaustive-deps
 
