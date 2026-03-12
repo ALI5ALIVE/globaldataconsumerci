@@ -14,6 +14,7 @@ import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlideMaturityJourney from "@/components/consumer-journey/CJSlideMaturityJourney";
 
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
+import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
