@@ -213,11 +213,16 @@ const ConsumerJourneyDeck = () => {
     progress: narration.currentSlide === slideId ? narration.progress : 0,
     hasCompleted: narration.currentSlide === slideId && narration.hasCompleted,
     onPlay: () => {
+      userInitiatedRef.current = true;
       narration.play(slideId);
       narration.preloadNext(slideId);
     },
     onPause: () => narration.pause(),
-    onNextSlide: slideId < slides.length - 1 ? () => scrollToSlide(slideId + 1) : undefined,
+    onNextSlide: slideId < slides.length - 1 ? () => {
+      userInitiatedRef.current = true;
+      autoAdvancingRef.current = true;
+      scrollToSlide(slideId + 1);
+    } : undefined,
   });
 
   useEffect(() => {
