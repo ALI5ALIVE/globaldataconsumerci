@@ -64,14 +64,14 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 9,
-    title: "Why Not DIY?",
-    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. Built on forty years of analyst-validated market intelligence covering ninety-five percent of global GDP. You already know the intelligence needs to be connected. The real question is how quickly you want to get there.`,
+    title: "The Proof",
+    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Thirty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 10,
-    title: "The Proof",
-    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Thirty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. And if you're thinking — could we just build this ourselves? — you wouldn't be the first.`,
+    title: "Why Not DIY?",
+    script: `Now, here's the question we always get: can't we just integrate what we already have? Let's be honest about what that looks like. You start with fourteen separate contracts — each with its own taxonomy, its own definitions, its own API. Eighteen months of integration becomes thirty-six when you factor in maintenance, version changes, and the three people you need just to keep the pipes connected. And even then — you still don't have cross-pollination. A trend signal in one tool never reaches the innovation scorecard in another. The data flows, but the intelligence doesn't. Connected Intelligence is structurally different. One taxonomy across every solution. One contract. Ninety-day deployment — not because we cut corners, but because it's built on forty years of analyst-validated market intelligence covering ninety-five percent of global GDP. The infrastructure already exists. You're not building it — you're switching it on. The real question isn't whether to connect your intelligence. It's how many more planning cycles you're willing to lose while you try to do it yourself.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {

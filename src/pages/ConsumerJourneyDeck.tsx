@@ -172,8 +172,8 @@ const slides = [
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Teams Transformed" },
   { id: "cj-slide-8", label: "Maturity Journey" },
-  { id: "cj-slide-9", label: "Why Not DIY?" },
-  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-10", label: "Why Not DIY?" },
   { id: "cj-slide-11", label: "Next Steps" },
 ];
 
@@ -359,8 +359,8 @@ const ConsumerJourneyDeck = () => {
         <CJSlideConnectedDecision {...getNarrationProps(6)} />
         <CPSlide7TeamsTransformed {...getNarrationProps(7)} />
         <CJSlideMaturityJourney {...getNarrationProps(8)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
-        <CJSlideProof {...getNarrationProps(10)} />
+        <CJSlideProof {...getNarrationProps(9)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(10)} />
         <CJSlide12CTA {...getNarrationProps(11)} />
       </div>
     </div>
