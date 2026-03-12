@@ -11,7 +11,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 0,
     title: "Welcome",
-    script: `Connected Intelligence for Consumer Brands. What you're about to see is a new way of working — one that turns fragmented data into the fastest path to growth.`,
+    script: `Connected Intelligence for Consumer Brands. What you're about to see is a new way of working — one where the brands that win don't have more data — they have connected intelligence.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {

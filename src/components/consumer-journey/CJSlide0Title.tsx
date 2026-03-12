@@ -79,10 +79,10 @@ const CJSlide0Title = ({
             </span>
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Stop reacting. Start leading.
+            What you're about to see isn't just better data.
             <br className="hidden sm:block" />
-            Turn fragmented consumer data into the{" "}
-            <span className="text-primary font-medium">fastest path to growth.</span>
+            It's a completely{" "}
+            <span className="text-primary font-medium">new way of working.</span>
           </p>
         </motion.div>
 
@@ -114,17 +114,22 @@ const CJSlide0Title = ({
         </motion.div>
 
         {/* Bottom quote */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-foreground/80 text-base sm:text-lg md:text-xl font-display italic pt-2"
+          className="pt-2 space-y-2"
         >
-          "The brands that win don't have more data.
-          <br className="hidden sm:block" />
-          They have connected intelligence."
-        </motion.p>
+          <p className="text-foreground/80 text-base sm:text-lg md:text-xl font-display italic">
+            "The brands that win don't have more data.
+            <br className="hidden sm:block" />
+            They have connected intelligence."
+          </p>
+          <span className="inline-block text-primary text-[10px] sm:text-xs font-semibold uppercase tracking-widest">
+            A new way of working
+          </span>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
