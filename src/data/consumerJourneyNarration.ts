@@ -35,7 +35,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 4,
     title: "What It's Costing You",
-    script: `A competitor saw the same plant-based signal six months ago. They launched. They claimed the shelf. You were still reconciling data. One of your concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. This is what fragmentation costs you — in this category, this year. You already know this doesn't have to be the way it works.`,
+    script: `A competitor saw the same plant-based signal six months ago. They launched. They claimed the shelf. You were still reconciling data. One of your concepts scored low on gut-feel — no evidence, just instinct. A competitor launched something almost identical. It's now a forty million pound line. That's the business cost — sixty-three million in revenue at risk across your portfolio this year. But there's a personal cost too. You're spending sixty percent of your time reconciling data instead of making decisions. Every board meeting, your credibility depends on numbers you're not fully confident in. The insight is there — buried across seven platforms — but by the time you've pieced it together, the window has closed. This is what fragmentation costs — not just in revenue, but in your time, your confidence, and your standing. You already know this doesn't have to be the way it works.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
