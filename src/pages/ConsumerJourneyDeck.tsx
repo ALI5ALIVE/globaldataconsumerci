@@ -319,7 +319,13 @@ const ConsumerJourneyDeck = () => {
         {slides.map((slide, index) => (
           <button
             key={slide.id}
-            onClick={() => scrollToSlide(index)}
+            onClick={() => {
+              clearAutoAdvance();
+              narration.stop();
+              userInitiatedRef.current = false;
+              autoAdvancingRef.current = false;
+              scrollToSlide(index);
+            }}
             className="group relative flex items-center justify-end transition-all duration-200"
           >
             <span className={`absolute right-5 whitespace-nowrap text-xs opacity-0 group-hover:opacity-100 transition-opacity ${activeSlide === index ? 'text-primary' : 'text-muted-foreground'}`}>
