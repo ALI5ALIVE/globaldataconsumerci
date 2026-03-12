@@ -58,14 +58,14 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   },
   {
     slideId: 8,
-    title: "The Proof",
-    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Forty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. And if you're thinking — could we just build this ourselves? — you wouldn't be the first.`,
+    title: "Why Not DIY?",
+    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. Built on forty years of analyst-validated market intelligence covering ninety-five percent of global GDP. You already know the intelligence needs to be connected. The real question is how quickly you want to get there.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
     slideId: 9,
-    title: "Why Not DIY?",
-    script: `Eighteen months of integration. Fourteen separate contracts. No shared taxonomy. No cross-pollination of insights. With Connected Intelligence — ninety-day deployment, one platform, one contract, and intelligence that flows from trend to shelf. You already know the intelligence needs to be connected. The real question is how quickly you want to get there.`,
+    title: "The Proof",
+    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Forty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. And if you're thinking — could we just build this ourselves? — you wouldn't be the first.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
