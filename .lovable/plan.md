@@ -1,36 +1,76 @@
 
 
-# Make Slide 4 ("The Cost") Personal and Powerful
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Concept: "The Real Cost — To Your Business and To You"
+## Problem
 
-Reframe the slide from abstract business losses into a deeply personal mirror. Split into two halves: **what fragmentation cost the business** and **what it cost the listener personally** (their credibility, their time, their career momentum). This creates an emotional bridge between the "Seven Sources" problem (slide 3) and the "One Lens" solution (slide 5).
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-## Design
+## Current Vertical Budget Analysis
 
-### Layout (top to bottom)
-1. **Title**: "What It's Already Cost You" — subtitle: "In your category. This year. Personally."
-2. **Two-column layout**:
-   - **Left: "Your Business"** — 3 loss cards with accumulating £ ticker (competitor moved first → £40M line lost, 12-week alignment delay, concept killed without evidence)
-   - **Right: "You, Personally"** — 3 cards framing the human cost (credibility eroded in the boardroom, 60% of your week wasted reconciling, the call you didn't make because you weren't sure)
-3. **Bottom accumulator bar**: A running "total cost" that animates up as cards appear — combining revenue lost + time wasted + opportunities missed. Ends with a punchy line: *"And next quarter, it happens again — unless something changes."*
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-### Animation
-- Cards appear sequentially (left-right alternating) with staggered delays
-- The accumulator bar fills/counts up as each card lands
-- Final line fades in after all cards, creating a pause before the viewer scrolls to "One Lens"
+## Proposed Reductions
 
-### Emotional hooks (personal side)
-- "Your board questioned the numbers — again" (credibility)
-- "You spent 3 days building a deck instead of building strategy" (time)
-- "You had the right instinct but no evidence to back it" (confidence)
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-## File Changes
+**Estimated Total Savings: ~80-100px vertical space**
 
-### `src/components/consumer-pitch/CPSlide3TheCost.tsx`
-- Replace 4-card grid with 2-column layout (Business | You)
-- 3 cards per column with icon, headline, and one-line detail
-- Add bottom accumulator strip with animated counter
-- Add closing bridge line that sets up the "One Lens" slide
-- Keep framer-motion staggered entrance, CPSlideContainer wrapper, and narration props
+## File to Modify
+
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+
+## Specific Changes
+
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
