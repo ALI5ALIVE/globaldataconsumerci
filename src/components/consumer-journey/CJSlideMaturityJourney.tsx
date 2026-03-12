@@ -117,7 +117,7 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
       slideNumber={8}
       {...props}
     >
-      <div className="h-full flex flex-col items-center justify-center gap-2 px-4 max-w-6xl mx-auto">
+      <div className="h-full flex flex-col items-center justify-center gap-1 px-4 max-w-6xl mx-auto">
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
