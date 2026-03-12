@@ -172,8 +172,8 @@ const slides = [
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Teams Transformed" },
   { id: "cj-slide-8", label: "Maturity Journey" },
-  { id: "cj-slide-9", label: "Why Not DIY?" },
-  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-9", label: "Proof" },
+  { id: "cj-slide-10", label: "Why Not DIY?" },
   { id: "cj-slide-11", label: "Next Steps" },
 ];
 
