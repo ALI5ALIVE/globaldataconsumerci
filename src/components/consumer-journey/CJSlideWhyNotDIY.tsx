@@ -11,10 +11,10 @@ const diyPoints = [
 ];
 
 const connectedPoints = [
-  { icon: Clock, label: "90-day deployment", detail: "Pre-built, unified, ready to connect" },
+  { icon: Clock, label: "90-day deployment", detail: "Pre-built on 40+ years of analyst-validated intelligence" },
   { icon: DollarSign, label: "1 platform, 1 contract", detail: "40% TCO reduction through consolidation" },
-  { icon: Layers, label: "One consumer taxonomy", detail: "Every insight shares the same language" },
-  { icon: Link2, label: "Intelligence flows", detail: "Trends feed sizing feed innovation feed sales" },
+  { icon: Layers, label: "One consumer taxonomy", detail: "Unified across 50+ markets · 95% global GDP coverage" },
+  { icon: Link2, label: "Intelligence flows", detail: "Agentic AI + domain experts accelerate every layer" },
 ];
 
 const CJSlideWhyNotDIY = (props: SlideNarrationProps) => {
