@@ -16,21 +16,33 @@ interface CJSlideConnectedDecisionProps {
 const MiniTrendLine = () => (
   <div className="w-full bg-muted/30 rounded border border-border/40 p-1.5 flex flex-col gap-1">
     <div className="flex justify-between items-center">
-      <span className="text-[7px] text-muted-foreground font-medium">TRENDS</span>
-      <span className="text-[7px] text-chart-2 font-bold">↑ 38%</span>
+      <span className="text-[7px] text-muted-foreground font-medium">THEMES</span>
+      <span className="text-[7px] text-primary font-bold">2 MACRO · 4 MICRO</span>
     </div>
     <svg viewBox="0 0 80 24" className="w-full h-[18px]">
       <polyline points="0,20 15,16 30,18 45,10 60,8 75,3" fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" />
       <polyline points="0,22 15,20 30,19 45,17 60,16 75,14" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.8" strokeLinecap="round" strokeDasharray="2,2" />
     </svg>
     <div className="flex justify-between items-center">
-      <span className="text-[6px] text-muted-foreground font-medium">CONVERGING SIGNALS</span>
+      <span className="text-[6px] text-muted-foreground font-medium">CONVERGENCE</span>
       <span className="text-[7px] text-primary font-bold">92/100</span>
     </div>
-    <div className="flex gap-0.5 flex-wrap">
-      {["Plant Protein", "Clean Label", "Gut Health"].map(l => (
-        <span key={l} className="text-[6px] bg-primary/15 text-primary rounded px-1 py-[1px] font-medium">{l}</span>
-      ))}
+    {/* Macro → Micro theme hierarchy */}
+    <div className="space-y-[3px]">
+      <div>
+        <span className="text-[6px] text-foreground font-semibold">Health & Wellness</span>
+        <div className="flex gap-0.5 flex-wrap ml-1 mt-[1px]">
+          {["Plant Protein", "Clean Label", "Gut Health"].map(l => (
+            <span key={l} className="text-[5px] bg-primary/15 text-primary rounded px-1 py-[1px] font-medium">{l}</span>
+          ))}
+        </div>
+      </div>
+      <div>
+        <span className="text-[6px] text-foreground font-semibold">Sustainability</span>
+        <div className="flex gap-0.5 flex-wrap ml-1 mt-[1px]">
+          <span className="text-[5px] bg-primary/15 text-primary rounded px-1 py-[1px] font-medium">Ethical Sourcing</span>
+        </div>
+      </div>
     </div>
     <div className="flex items-center gap-1 mt-0.5">
       <div className="w-1 h-1 rounded-full bg-chart-4" />
