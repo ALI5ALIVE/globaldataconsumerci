@@ -1,42 +1,76 @@
 
 
-# Add "You're Under Pressure" Slide & Revise Narration
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## What Changes
+## Problem
 
-The current title slide (Slide 0) doubles as both intro and pressure framing. We split it into two slides:
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-- **Slide 0 — Title**: Keeps the "Connected Intelligence for Consumer Brands" headline, stats strip, and quote. Gets a very short narration (a welcome/scene-setter, ~15 seconds).
-- **Slide 1 — "You're Under More Pressure Than Ever"** (NEW): A dedicated emotional slide with animated pressure cards (Consumer Expectations, Market Velocity, Fragmented Data, First-Mover Risk). The full narrative hook starts here — the current slide 0 narration content moves here and expands.
+## Current Vertical Budget Analysis
 
-All subsequent slides shift index by +1 (Monday becomes slide 2, Seven Sources becomes slide 3, etc.). Total slides: 12.
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## File Changes
+## Proposed Reductions
 
-### 1. NEW: `src/components/consumer-journey/CJSlide1Pressure.tsx`
-- Full-screen slide with 4 animated pressure cards:
-  - **Consumer Expectations** — "Changing faster than your planning cycles"
-  - **Market Velocity** — "Competitors move in weeks, you move in quarters"  
-  - **Fragmented View** — "Your data lives in 7 different places"
-  - **First-Mover Risk** — "Every missed signal is a missed category"
-- Cards animate in with staggered delays
-- Empathetic tone headline: "You're Under More Pressure Than Ever"
-- Subtitle: "Your consumers are changing faster than you can track them."
-- Uses CPSlideContainer or custom section with SlidePlayButton
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-### 2. UPDATE: `src/data/consumerJourneyNarration.ts`
-- **Slide 0 narration** (title): Short intro — ~2 sentences welcoming the audience and setting the stage. E.g. *"Connected Intelligence for Consumer Brands. What you're about to see is a new way of working — one that turns fragmented data into the fastest path to growth."*
-- **Slide 1 narration** (pressure): Takes the current slide 0 script content and expands it as the narrative opening. E.g. *"You're under more pressure than ever. The board wants evidence — not intuition. Consumer trends are shifting faster than your planning cycles. And your data? It lives in seven different places. There has to be a better way. Sound familiar? Picture your typical Monday."*
-- All subsequent slideId values shift +1 (current slide 1→2, 2→3, etc.)
+**Estimated Total Savings: ~80-100px vertical space**
 
-### 3. UPDATE: `src/pages/ConsumerJourneyDeck.tsx`
-- Import new `CJSlide1Pressure` component
-- Insert it after `CJSlide0Title` in the slide list
-- Update `slides` array to include new entry at index 1: `{ id: "cj-slide-1", label: "The Pressure" }`
-- Shift all other slide IDs accordingly
-- Update `getNarrationProps` calls to match new indices (total 12 slides)
+## File to Modify
 
-### 4. UPDATE: `src/components/consumer-journey/CJSlide0Title.tsx`
-- No visual changes needed — it already works as a clean title slide
-- The narration props will now trigger the short intro narration
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+
+## Specific Changes
+
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 

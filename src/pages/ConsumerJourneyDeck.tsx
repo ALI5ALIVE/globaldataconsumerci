@@ -14,6 +14,7 @@ import CJSlide12CTA from "@/components/consumer-journey/CJSlide12CTA";
 import CJSlideMaturityJourney from "@/components/consumer-journey/CJSlideMaturityJourney";
 
 import CJSlide0Title from "@/components/consumer-journey/CJSlide0Title";
+import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
@@ -162,17 +163,18 @@ const personas: PersonaData[] = [
 ];
 
 const slides = [
-  { id: "cj-slide-0", label: "The Pressure" },
-  { id: "cp-slide-1", label: "Your Monday" },
-  { id: "cp-slide-2", label: "Seven Sources" },
-  { id: "cp-slide-3", label: "The Cost" },
-  { id: "cj-slide-4", label: "One Lens, One New Way" },
-  { id: "cj-slide-5", label: "The Connected Decision" },
-  { id: "cj-slide-6", label: "Teams Transformed" },
-  { id: "cj-slide-7", label: "Maturity Journey" },
-  { id: "cj-slide-8", label: "Why Not DIY?" },
-  { id: "cj-slide-9", label: "Proof" },
-  { id: "cj-slide-10", label: "Next Steps" },
+  { id: "cj-slide-0", label: "Title" },
+  { id: "cj-slide-1", label: "The Pressure" },
+  { id: "cp-slide-2", label: "Your Monday" },
+  { id: "cp-slide-3", label: "Seven Sources" },
+  { id: "cp-slide-4", label: "The Cost" },
+  { id: "cj-slide-5", label: "One Lens, One New Way" },
+  { id: "cj-slide-6", label: "The Connected Decision" },
+  { id: "cj-slide-7", label: "Teams Transformed" },
+  { id: "cj-slide-8", label: "Maturity Journey" },
+  { id: "cj-slide-9", label: "Why Not DIY?" },
+  { id: "cj-slide-10", label: "Proof" },
+  { id: "cj-slide-11", label: "Next Steps" },
 ];
 
 const ConsumerJourneyDeck = () => {
@@ -349,16 +351,17 @@ const ConsumerJourneyDeck = () => {
       {/* Slides — 11-slide optimised arc */}
       <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
         <CJSlide0Title {...getNarrationProps(0)} />
-        <CPSlide1MondayMorning {...getNarrationProps(1)} />
-        <CPSlide2SevenSources {...getNarrationProps(2)} />
-        <CPSlide3TheCost {...getNarrationProps(3)} />
-        <CPSlide4ImagineOneLens {...getNarrationProps(4)} />
-        <CJSlideConnectedDecision {...getNarrationProps(5)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(6)} />
-        <CJSlideMaturityJourney {...getNarrationProps(7)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CJSlide12CTA {...getNarrationProps(10)} />
+        <CJSlide1Pressure {...getNarrationProps(1)} />
+        <CPSlide1MondayMorning {...getNarrationProps(2)} />
+        <CPSlide2SevenSources {...getNarrationProps(3)} />
+        <CPSlide3TheCost {...getNarrationProps(4)} />
+        <CPSlide4ImagineOneLens {...getNarrationProps(5)} />
+        <CJSlideConnectedDecision {...getNarrationProps(6)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(7)} />
+        <CJSlideMaturityJourney {...getNarrationProps(8)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CJSlide12CTA {...getNarrationProps(11)} />
       </div>
     </div>
   );
