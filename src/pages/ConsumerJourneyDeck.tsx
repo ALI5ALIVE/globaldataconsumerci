@@ -178,22 +178,31 @@ const slides = [
 const ConsumerJourneyDeck = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [autoAdvance, setAutoAdvance] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userInitiatedRef = useRef(false);
+  const autoAdvancingRef = useRef(false);
   const prevSlideRef = useRef<number>(0);
 
   const narration = useConsumerJourneyNarration();
 
-  // Auto-play narration whenever activeSlide changes
+  // When activeSlide changes: stop narration on manual nav, auto-play on auto-advance
   useEffect(() => {
-    if (activeSlide !== prevSlideRef.current || prevSlideRef.current === 0) {
-      prevSlideRef.current = activeSlide;
+    if (activeSlide === prevSlideRef.current) return;
+    prevSlideRef.current = activeSlide;
+
+    if (autoAdvancingRef.current) {
+      // Auto-advance triggered this change — play after settle time
       const timer = setTimeout(() => {
+        autoAdvancingRef.current = false;
         narration.play(activeSlide);
         narration.preloadNext(activeSlide);
-      }, 400);
+      }, 800);
       return () => clearTimeout(timer);
+    } else {
+      // Manual scroll/nav — stop everything
+      narration.stop();
+      userInitiatedRef.current = false;
     }
   }, [activeSlide]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -203,11 +212,16 @@ const ConsumerJourneyDeck = () => {
     progress: narration.currentSlide === slideId ? narration.progress : 0,
     hasCompleted: narration.currentSlide === slideId && narration.hasCompleted,
     onPlay: () => {
+      userInitiatedRef.current = true;
       narration.play(slideId);
       narration.preloadNext(slideId);
     },
     onPause: () => narration.pause(),
-    onNextSlide: slideId < slides.length - 1 ? () => scrollToSlide(slideId + 1) : undefined,
+    onNextSlide: slideId < slides.length - 1 ? () => {
+      userInitiatedRef.current = true;
+      autoAdvancingRef.current = true;
+      scrollToSlide(slideId + 1);
+    } : undefined,
   });
 
   useEffect(() => {
@@ -263,21 +277,24 @@ const ConsumerJourneyDeck = () => {
     }
   }, []);
 
-  // Auto-advance: when narration completes, scroll to next slide and play
+  // Auto-advance: when narration completes and user initiated, scroll to next slide
   useEffect(() => {
-    if (!autoAdvance || !narration.hasCompleted || narration.currentSlide !== activeSlide) return;
+    if (!userInitiatedRef.current || !narration.hasCompleted || narration.currentSlide !== activeSlide) return;
     if (activeSlide >= slides.length - 1) return;
 
-    const nextSlide = activeSlide + 1;
     autoAdvanceTimerRef.current = setTimeout(() => {
-      scrollToSlide(nextSlide);
+      autoAdvancingRef.current = true;
+      scrollToSlide(activeSlide + 1);
     }, 1500);
 
     return () => clearAutoAdvance();
-  }, [narration.hasCompleted, narration.currentSlide, activeSlide, autoAdvance, scrollToSlide, clearAutoAdvance]);
+  }, [narration.hasCompleted, narration.currentSlide, activeSlide, scrollToSlide, clearAutoAdvance]);
 
   const navigateSlide = (direction: "up" | "down") => {
     clearAutoAdvance();
+    narration.stop();
+    userInitiatedRef.current = false;
+    autoAdvancingRef.current = false;
     if (direction === "up" && activeSlide > 0) scrollToSlide(activeSlide - 1);
     else if (direction === "down" && activeSlide < slides.length - 1) scrollToSlide(activeSlide + 1);
   };
@@ -302,7 +319,13 @@ const ConsumerJourneyDeck = () => {
         {slides.map((slide, index) => (
           <button
             key={slide.id}
-            onClick={() => scrollToSlide(index)}
+            onClick={() => {
+              clearAutoAdvance();
+              narration.stop();
+              userInitiatedRef.current = false;
+              autoAdvancingRef.current = false;
+              scrollToSlide(index);
+            }}
             className="group relative flex items-center justify-end transition-all duration-200"
           >
             <span className={`absolute right-5 whitespace-nowrap text-xs opacity-0 group-hover:opacity-100 transition-opacity ${activeSlide === index ? 'text-primary' : 'text-muted-foreground'}`}>
