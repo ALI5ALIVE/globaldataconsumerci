@@ -65,7 +65,7 @@ export const consumerJourneyNarrations: SlideNarration[] = [
   {
     slideId: 9,
     title: "The Proof",
-    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Forty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. And if you're thinking — could we just build this ourselves? — you wouldn't be the first.`,
+    script: `Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Thirty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering. And if you're thinking — could we just build this ourselves? — you wouldn't be the first.`,
     voiceId: DEFAULT_VOICE_ID,
   },
   {
