@@ -1,29 +1,12 @@
 import { motion } from "framer-motion";
-import { ChevronDown, BarChart3, Zap, Shuffle, Compass } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import SlidePlayButton from "@/components/SlidePlayButton";
 import type { SlideNarrationProps } from "@/types/slideProps";
 
-const pressureCards = [
-  {
-    icon: BarChart3,
-    title: "Consumer Expectations",
-    line: "They expect brands to know what they want before they do",
-  },
-  {
-    icon: Zap,
-    title: "Consumer Velocity",
-    line: "Preferences shift faster than your planning cycles can follow",
-  },
-  {
-    icon: Shuffle,
-    title: "Fragmented Consumer View",
-    line: "Seven tools, seven logins — no single view of your consumer",
-  },
-  {
-    icon: Compass,
-    title: "First-Mover Advantage",
-    line: "8 of the top 10 FMCG companies already see the consumer as one connected picture",
-  },
+const stats = [
+  { value: "8 of 10", label: "Top FMCG companies trust us" },
+  { value: "95%", label: "Global GDP coverage" },
+  { value: "40+", label: "Years of market intelligence" },
 ];
 
 const CJSlide0Title = ({
@@ -53,63 +36,94 @@ const CJSlide0Title = ({
       )}
 
       {/* Ambient glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-destructive/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-sky-400/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+                           linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl w-full text-center space-y-8 sm:space-y-10">
+      <div className="relative z-10 max-w-4xl w-full text-center space-y-6 sm:space-y-8">
+        {/* Audience badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[10px] sm:text-xs font-semibold text-primary uppercase tracking-wider">
+            For CMOs, CSOs & Category Leaders
+          </span>
+        </motion.div>
+
         {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
           className="space-y-4"
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-foreground">
-            You're Under{" "}
-            <span className="bg-gradient-to-r from-destructive via-destructive/70 to-destructive bg-clip-text text-transparent">
-              More Pressure Than Ever.
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">
+            <span className="text-foreground">Connected Intelligence</span>
+            <br />
+            <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
+              for Consumer Brands
             </span>
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            While you reconcile last quarter's data,
+            Stop reacting. Start leading.
             <br className="hidden sm:block" />
-            your competitors are acting on tomorrow's signals.
+            Turn fragmented consumer data into the{" "}
+            <span className="text-primary font-medium">fastest path to growth.</span>
           </p>
         </motion.div>
 
-        {/* Pressure cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
-          {pressureCards.map((card, i) => (
+        {/* Stats strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="grid grid-cols-3 gap-4 sm:gap-6 max-w-2xl mx-auto pt-4 border-t border-border/30"
+        >
+          {stats.map((stat, i) => (
             <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={stat.label}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
-              className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl p-4 sm:p-5 text-left hover:border-destructive/30 transition-colors duration-300"
+              transition={{ duration: 0.5, delay: 0.5 + i * 0.12 }}
+              className="text-center"
             >
-              <card.icon className="w-5 h-5 text-destructive/80 mb-2" />
-              <h3 className="text-foreground text-xs sm:text-sm font-semibold mb-1">
-                {card.title}
-              </h3>
-              <p className="text-muted-foreground text-[11px] sm:text-xs leading-relaxed">
-                {card.line}
-              </p>
+              <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-primary">
+                {stat.value}
+              </div>
+              <div className="text-muted-foreground text-[10px] sm:text-xs mt-1 leading-tight">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Emotional closer */}
+        {/* Bottom quote */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-foreground/90 text-lg sm:text-xl md:text-2xl font-display italic"
+          className="text-foreground/80 text-base sm:text-lg md:text-xl font-display italic pt-2"
         >
-          "The brands that win tomorrow are the ones connecting the dots today."
+          "The brands that win don't have more data.
+          <br className="hidden sm:block" />
+          They have connected intelligence."
         </motion.p>
       </div>
 
