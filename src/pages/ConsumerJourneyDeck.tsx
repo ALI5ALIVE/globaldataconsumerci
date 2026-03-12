@@ -178,7 +178,6 @@ const slides = [
 const ConsumerJourneyDeck = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [autoAdvance, setAutoAdvance] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userInitiatedRef = useRef(false);
