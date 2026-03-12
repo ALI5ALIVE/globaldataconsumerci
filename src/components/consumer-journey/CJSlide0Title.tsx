@@ -114,17 +114,22 @@ const CJSlide0Title = ({
         </motion.div>
 
         {/* Bottom quote */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-foreground/80 text-base sm:text-lg md:text-xl font-display italic pt-2"
+          className="pt-2 space-y-2"
         >
-          "The brands that win don't have more data.
-          <br className="hidden sm:block" />
-          They have connected intelligence."
-        </motion.p>
+          <p className="text-foreground/80 text-base sm:text-lg md:text-xl font-display italic">
+            "The brands that win don't have more data.
+            <br className="hidden sm:block" />
+            They have connected intelligence."
+          </p>
+          <span className="inline-block text-primary text-[10px] sm:text-xs font-semibold uppercase tracking-widest">
+            A new way of working
+          </span>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
