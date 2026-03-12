@@ -1,76 +1,32 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Swap Slides 10/11 + Enrich "Why Not DIY?" Narration
 
-## Problem
+## What Changes
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+1. **Swap Proof and Why Not DIY slides** — move "Why Not DIY?" to position 10 (after Proof) so the arc flows: Proof first (here's what others achieved), then the objection handling (why you can't just DIY it), then CTA.
 
-## Current Vertical Budget Analysis
+2. **Deepen the "Why Not DIY?" narration** — the current script is ~70 words and surface-level. Expand it to ~150 words with concrete pain points: what DIY actually looks like (the taxonomy nightmare, the maintenance burden, the 18-month timeline that becomes 36), and why Connected Intelligence is structurally different (not just bundled tools, but a unified intelligence layer built on 40 years of analyst-curated data).
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+## Changes
 
-## Proposed Reductions
+### `src/pages/ConsumerJourneyDeck.tsx`
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+Swap the render order and slides array:
+- Position 9 → `CJSlideProof` (was `CJSlideWhyNotDIY`)
+- Position 10 → `CJSlideWhyNotDIY` (was `CJSlideProof`)
+- Update `slides` array labels to match
 
-**Estimated Total Savings: ~80-100px vertical space**
+### `src/data/consumerJourneyNarration.ts`
 
-## File to Modify
+**Swap slideId assignments:**
+- Proof becomes slideId 9, Why Not DIY becomes slideId 10
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+**Expand the Why Not DIY script (slideId 10) from ~70 to ~150 words:**
 
-## Specific Changes
+> "Now, here's the question we always get: can't we just integrate what we already have? Let's be honest about what that looks like. You start with fourteen separate contracts — each with its own taxonomy, its own definitions, its own API. Eighteen months of integration becomes thirty-six when you factor in maintenance, version changes, and the three people you need just to keep the pipes connected. And even then — you still don't have cross-pollination. A trend signal in one tool never reaches the innovation scorecard in another. The data flows, but the intelligence doesn't. Connected Intelligence is structurally different. One taxonomy across every solution. One contract. Ninety-day deployment — not because we cut corners, but because it's built on forty years of analyst-validated market intelligence covering ninety-five percent of global GDP. The infrastructure already exists. You're not building it — you're switching it on. The real question isn't whether to connect your intelligence. It's how many more planning cycles you're willing to lose while you try to do it yourself."
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+**Update the Proof script (slideId 9)** — remove the trailing "could we just build this ourselves?" line since the DIY slide now follows it:
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+> "Leading global FMCG companies are already seeing this. Three times faster decisions. Seventy percent reduction in time to insight. Double the launch success rate. Thirty percent lower total cost of ownership. This is Connected Intelligence — proven and delivering."
 
