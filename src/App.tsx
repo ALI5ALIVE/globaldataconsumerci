@@ -3,9 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GlobalDataDeck from "./pages/GlobalDataDeck";
-import ConsumerPitchDeck from "./pages/ConsumerPitchDeck";
-import SalesPitchDeck from "./pages/SalesPitchDeck";
 import ConsumerJourneyDeck from "./pages/ConsumerJourneyDeck";
 import NotFound from "./pages/NotFound";
 
@@ -18,10 +15,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<GlobalDataDeck />} />
-          <Route path="/sales-pitch" element={<SalesPitchDeck />} />
-          <Route path="/consumer-pitch" element={<ConsumerPitchDeck />} />
-          <Route path="/consumer-journey" element={<ConsumerJourneyDeck />} />
+          <Route path="/" element={<ConsumerJourneyDeck />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
