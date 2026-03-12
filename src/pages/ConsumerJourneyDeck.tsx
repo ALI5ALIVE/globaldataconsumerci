@@ -170,8 +170,8 @@ const slides = [
   { id: "cj-slide-5", label: "The Connected Decision" },
   { id: "cj-slide-6", label: "Teams Transformed" },
   { id: "cj-slide-7", label: "Maturity Journey" },
-  { id: "cj-slide-8", label: "Proof" },
-  { id: "cj-slide-9", label: "Why Not DIY?" },
+  { id: "cj-slide-8", label: "Why Not DIY?" },
+  { id: "cj-slide-9", label: "Proof" },
   { id: "cj-slide-10", label: "Next Steps" },
 ];
 
