@@ -134,7 +134,7 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
         </motion.div>
 
         {/* SVG Curve — compact */}
-        <div className="w-full max-h-[200px]">
+        <div className="w-full max-h-[300px]">
           <svg viewBox="0 0 650 380" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
