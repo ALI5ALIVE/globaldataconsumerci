@@ -11,10 +11,10 @@ const diyPoints = [
 ];
 
 const connectedPoints = [
-  { icon: Clock, label: "90-day deployment", detail: "Pre-built, unified, ready to connect" },
+  { icon: Clock, label: "90-day deployment", detail: "Pre-built on 40+ years of analyst-validated intelligence" },
   { icon: DollarSign, label: "1 platform, 1 contract", detail: "40% TCO reduction through consolidation" },
-  { icon: Layers, label: "One consumer taxonomy", detail: "Every insight shares the same language" },
-  { icon: Link2, label: "Intelligence flows", detail: "Trends feed sizing feed innovation feed sales" },
+  { icon: Layers, label: "One consumer taxonomy", detail: "Unified across 50+ markets · 95% global GDP coverage" },
+  { icon: Link2, label: "Intelligence flows", detail: "Agentic AI + domain experts accelerate every layer" },
 ];
 
 const CJSlideWhyNotDIY = (props: SlideNarrationProps) => {
@@ -103,14 +103,26 @@ const CJSlideWhyNotDIY = (props: SlideNarrationProps) => {
           </motion.div>
         </div>
 
+        {/* Data infrastructure callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="mt-4 w-full max-w-4xl rounded-lg border border-primary/15 bg-primary/5 px-4 py-2 flex items-center justify-center gap-3"
+        >
+          <span className="text-[10px] sm:text-xs text-primary/80 font-medium tracking-wide text-center">
+            Built on 40+ years of market intelligence · 95% global GDP coverage · Analyst-validated · Real-time
+          </span>
+        </motion.div>
+
         {/* Bottom line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="mt-6 text-sm md:text-base font-semibold text-foreground/80 italic text-center"
+          className="mt-4 text-sm md:text-base font-semibold text-foreground/80 italic text-center"
         >
-          "Integration connects pipes. Connected intelligence connects <span className="text-primary">meaning</span>."
+          "Integration connects pipes. GlobalData connects <span className="text-primary">meaning</span> — with the world's deepest consumer intelligence infrastructure behind it."
         </motion.p>
       </div>
     </CPSlideContainer>
