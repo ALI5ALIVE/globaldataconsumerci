@@ -1,76 +1,44 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Revise Strategic Intelligence: Macro + Micro Themes
 
-## Problem
+## What Changes
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+Sarah's Strategic Intelligence panel currently shows three flat "converging signals" (Plant Protein, Clean Label, Gut Health). We'll restructure this into a **macro/micro theme hierarchy** that better reflects how Strategic Intelligence actually works for consumer brands — identifying big forces and then zooming into category-level signals.
 
-## Current Vertical Budget Analysis
+## Visual: `src/components/consumer-journey/CJSlideConnectedDecision.tsx`
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+Replace the `MiniTrendLine` component's flat theme pills with a two-tier layout:
 
-## Proposed Reductions
+**Macro Themes** (industry-level forces):
+- "Health & Wellness" — broad consumer mega-trend
+- "Sustainability" — regulatory + consumer pressure
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+**Micro Themes** (category-specific signals converging under the macros):
+- "Plant Protein" ← under Health & Wellness
+- "Clean Label" ← under Health & Wellness  
+- "Gut Health" ← under Health & Wellness
+- "Ethical Sourcing" ← under Sustainability
 
-**Estimated Total Savings: ~80-100px vertical space**
+Layout: Two small rows with macro labels on the left and micro pills nested/indented to the right. Keep the convergence score (92/100) and the trend line SVG. Replace the "↑ 38%" header stat with "3 MACRO · 4 MICRO" to signal the hierarchy. Keep the "3 brands entered" footnote.
 
-## File to Modify
+## Narration: `src/data/consumerJourneyNarration.ts`
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+Update the Sarah section in slideId 6 script from:
 
-## Specific Changes
+> "three converging signals: plant protein, clean label, and gut health — all accelerating"
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+To:
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
+> "two macro themes — Health and Wellness, and Sustainability — with four micro signals converging beneath them: plant protein, clean label, gut health, and ethical sourcing — all accelerating in Southeast Asia. Convergence score: ninety-two out of a hundred."
 
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+Also update the One Lens narration (slideId 5) Sarah line from:
 
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
+> "spot emerging disruptions and converging themes"
 
-## Outcome
+To:
 
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+> "spot macro forces and the micro signals converging beneath them — giving you predictive foresight before the market shifts"
+
+Everything else on the slide stays the same.
 
