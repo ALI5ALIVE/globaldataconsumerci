@@ -1,24 +1,76 @@
 
 
-# Enrich Slide 7 Dashboards + Deepen Narration
+# Plan: Reduce Vertical Height of Slide 3 Content
 
-## Visual Changes: `src/components/consumer-journey/CJSlideConnectedDecision.tsx`
+## Problem
 
-Expand each persona's mini dashboard from ~60px to ~110px with richer, scenario-specific data:
+Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
 
-- **Sarah (Strategic)**: Keep trend line. Add "Converging signals" row with theme pills (Plant Protein + Clean Label + Gut Health) and convergence score (92/100). Add "3 brands entered in last 6 months" label.
-- **James (Market)**: Keep bar chart. Add highlighted row: "SEA $820M · CAGR 14.2%". Add white-space indicator: "42% of snacking occasions unaddressed".
-- **Priya (Competitive)**: Replace signal dots with mini timeline: Patent (2w), Hire (1mo), Supply (3mo), SKU (6mo). Add threat badge: "High — accelerating".
-- **Marcus (Innovation)**: Keep scorecard. Add concept names with pass/fail: "Crispy Bites 87✓ · Protein Bar 72✓ · Gut Shot 34✗". Add evidence confidence bar (3/5 above threshold).
-- **Elena (Commercial)**: Keep retailer list. Add shelf gap % and buyer sentiment per retailer. Add "Pitch readiness: 2 of 3 ready" badge.
+## Current Vertical Budget Analysis
 
-Increase persona card min-height. Reduce icon/header slightly to give data more room.
+| Element | Current Spacing | Issue |
+|---------|----------------|-------|
+| Definition Box | `p-4`, `mb-2` | Can be reduced |
+| Section headers | `text-xs` with margin | Acceptable |
+| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
+| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
+| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
+| Main grid | `gap-2` | Acceptable |
+| Card columns | `gap-1.5` | Acceptable |
 
-## Narration Changes: `src/data/consumerJourneyNarration.ts`
+## Proposed Reductions
 
-Update slideId 6 script to walk through each persona's data in more detail, matching the enriched dashboards:
+| Element | Current | Proposed | Savings |
+|---------|---------|----------|---------|
+| Definition Box padding | `p-4` | `p-3` | ~8px |
+| Definition Box text | `text-base` | `text-sm` | ~2px |
+| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
+| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
+| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
+| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
+| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
+| Impact value text | `text-xl` | `text-lg` | ~2px |
+| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
+| Bottom Line padding | `p-4` | `p-3` | ~8px |
+| Bottom Line text | `text-base` | `text-sm` | ~2px |
+| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
 
-> "One question: should you launch plant-based snacking in Southeast Asia? Sarah pulls the Strategic Intelligence data — three converging signals: plant protein, clean label, and gut health — all accelerating. Convergence score: ninety-two out of a hundred. Three competitors have already entered in the last six months. James sizes the opportunity: two point one billion dollars globally, but Southeast Asia alone is eight hundred and twenty million — growing at fourteen percent. And forty-two percent of snacking occasions in the region are completely unaddressed. Priya's competitive radar is flashing. A rival filed four patents in the last two weeks. They've hired a regional supply chain lead. They're building capacity. Threat level: high and accelerating. Marcus runs five concepts through Innovation Intelligence. Crispy Bites scores eighty-seven. Protein Bar, seventy-two. Gut Shot fails at thirty-four. Three of five pass the evidence threshold — and crucially, they're the three aligned to the converging trends Sarah identified. Elena walks into the Tesco meeting with everything: confirmed category gap, twelve percent shelf space available, buyer sentiment positive. Two of three target retailers are ready for a first-mover pitch. One platform. One meeting. One decision — backed by evidence from every angle. Without it? Six vendors. Fourteen weeks. Three conflicting recommendations. Imagine what that speed does to your competitors' confidence."
+**Estimated Total Savings: ~80-100px vertical space**
 
-This deepens the narration from ~100 words to ~200 words, adding ~40 seconds — well within the overall deck timing budget.
+## File to Modify
+
+| File | Lines | Changes |
+|------|-------|---------|
+| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+
+## Specific Changes
+
+### Definition Box (lines 75-83)
+- Change `p-4` → `p-3`
+- Change `mb-2` → `mb-1`
+- Change body `text-base` → `text-sm`
+
+### Root Cause Cards (lines 93-104)
+- Change card `p-3` → `p-2`
+- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
+- Change icon `w-4 h-4` → `w-3 h-3`
+- Change text margins `mt-1` → `mt-0.5`
+
+### Impact Cards (lines 115-125)
+- Change card `p-3` → `p-2`
+- Change value `text-xl` → `text-lg`
+- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
+
+### Bottom Line Box (lines 132-137)
+- Change `p-4` → `p-3`
+- Change header `mb-1` → `mb-0.5`
+- Change body `text-base` → `text-sm`
+
+## Outcome
+
+- All content fits within the 768p viewport without scrolling
+- Maintains the color-coded swim lane design
+- Preserves visual hierarchy and readability
+- Consistent with the deck's compact styling policy
 
