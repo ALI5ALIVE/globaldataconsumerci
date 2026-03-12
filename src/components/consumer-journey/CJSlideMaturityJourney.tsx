@@ -67,10 +67,9 @@ const curvePath = `M 100 320 C 150 310, 200 280, 250 260 C 300 240, 350 180, 400
 
 const StageCard = ({ stage }: { stage: Stage }) => (
   <div
-    className="bg-card border border-border rounded-lg p-3 flex flex-col gap-1.5 relative"
+    className="bg-card border border-border rounded-lg p-2 flex flex-col gap-1 relative"
     style={{ borderTopWidth: 3, borderTopColor: stage.color }}
   >
-    {/* Gateway badge */}
     {stage.isGateway && (
       <span
         className="absolute -top-3 right-2 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full"
@@ -79,39 +78,26 @@ const StageCard = ({ stage }: { stage: Stage }) => (
         Gateway
       </span>
     )}
-
-    {/* Header */}
     <div className="flex items-center justify-between">
-      <h4 className="text-xs font-bold text-foreground">{stage.label}</h4>
-      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-secondary text-muted-foreground font-medium">
+      <h4 className="text-[11px] font-bold text-foreground">{stage.label}</h4>
+      <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-secondary text-muted-foreground font-medium">
         {stage.decisionSpeed}
       </span>
     </div>
-
-    {/* Tagline */}
-    <p className="text-[10px] font-semibold leading-tight" style={{ color: stage.color }}>
+    <p className="text-[9px] font-semibold leading-tight" style={{ color: stage.color }}>
       {stage.tagline}
     </p>
-
-    {/* Bullets */}
-    <ul className="space-y-0.5">
+    <ul className="space-y-0">
       {stage.bullets.map((b, i) => (
-        <li key={i} className="flex items-start gap-1.5 text-[10px] text-muted-foreground leading-tight">
+        <li key={i} className="flex items-start gap-1 text-[9px] text-muted-foreground leading-tight">
           <span className="mt-1 w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: stage.color }} />
           {b}
         </li>
       ))}
     </ul>
-
-    {/* Time allocation summary */}
-    <div className="text-[9px] text-muted-foreground mt-auto pt-1 border-t border-border/50">
+    <div className="text-[8px] text-muted-foreground mt-auto pt-0.5 border-t border-border/50">
       <span className="font-medium">{stage.timeAllocation.reconciliation}%</span> reconcile · <span className="font-medium">{stage.timeAllocation.strategy}%</span> strategy
     </div>
-
-    {/* Insight */}
-    <p className="text-[9px] italic text-muted-foreground/80 leading-snug">
-      {stage.insight}
-    </p>
   </div>
 );
 
@@ -131,7 +117,7 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
       slideNumber={8}
       {...props}
     >
-      <div className="h-full flex flex-col items-center justify-center gap-2 px-4 max-w-6xl mx-auto">
+      <div className="h-full flex flex-col items-center justify-center gap-1 px-4 max-w-6xl mx-auto">
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -148,7 +134,7 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
         </motion.div>
 
         {/* SVG Curve — compact */}
-        <div className="w-full max-h-[200px]">
+        <div className="w-full max-h-[300px]">
           <svg viewBox="0 0 650 380" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
