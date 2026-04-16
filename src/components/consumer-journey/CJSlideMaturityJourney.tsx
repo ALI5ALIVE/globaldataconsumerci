@@ -22,7 +22,7 @@ interface Stage {
 const stages: Stage[] = [
   {
     id: 1, label: "Fragmented", icon: TrendingUp,
-    color: "hsl(var(--comply-red))",
+    color: "hsl(var(--gd-red))",
     tagline: "Seven sources. Seven answers.",
     decisionSpeed: "6–8 weeks",
     timeAllocation: { reconciliation: 60, analysis: 30, strategy: 10 },
@@ -32,7 +32,7 @@ const stages: Stage[] = [
   },
   {
     id: 2, label: "Connected", icon: Zap,
-    color: "hsl(var(--comply-teal))",
+    color: "hsl(var(--gd-mid-blue))",
     tagline: "The Gateway — one taxonomy unlocks everything.",
     decisionSpeed: "2–3 weeks",
     timeAllocation: { reconciliation: 20, analysis: 45, strategy: 35 },
@@ -43,7 +43,7 @@ const stages: Stage[] = [
   },
   {
     id: 3, label: "Optimised", icon: Brain,
-    color: "hsl(var(--comply-plum))",
+    color: "hsl(var(--gd-hyper-blue))",
     tagline: "AI-powered insights across every solution.",
     decisionSpeed: "3–5 days",
     timeAllocation: { reconciliation: 10, analysis: 35, strategy: 55 },
@@ -53,7 +53,7 @@ const stages: Stage[] = [
   },
   {
     id: 4, label: "Predictive", icon: Rocket,
-    color: "hsl(var(--comply-sky))",
+    color: "hsl(var(--gd-cream))",
     tagline: "AI anticipates — your team acts first.",
     decisionSpeed: "Hours",
     timeAllocation: { reconciliation: 5, analysis: 20, strategy: 75 },
