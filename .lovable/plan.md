@@ -1,76 +1,58 @@
 
 
-# Plan: Reduce Vertical Height of Slide 3 Content
+# Generate Branded GlobalData PPTX from Consumer Journey Deck
 
-## Problem
+## Summary
 
-Slide 3 ("Where Growth and Performance Are Lost") is overflowing the viewport. The current layout has too much vertical spacing and padding, causing content to go off the page.
+Create a downloadable .pptx file that translates the 12-slide Consumer Journey deck into a fully branded GlobalData presentation, using the 2025 master template's brand system.
 
-## Current Vertical Budget Analysis
+## Brand System (from template)
 
-| Element | Current Spacing | Issue |
-|---------|----------------|-------|
-| Definition Box | `p-4`, `mb-2` | Can be reduced |
-| Section headers | `text-xs` with margin | Acceptable |
-| Root cause cards | `p-3`, `mb-2` icon, `mt-1` text gaps | Too much internal padding |
-| Impact cards | `p-3`, `mb-1` dimension label | Too much internal padding |
-| Bottom Line box | `p-4`, `mb-1` label | Can be reduced |
-| Main grid | `gap-2` | Acceptable |
-| Card columns | `gap-1.5` | Acceptable |
+- **Font**: Poppins (all slides)
+- **Primary palette**: Navy Blue `#1F2432` (dark bg), Cream `#FBF5E9` (light bg), Hyper Blue `#293FE1` (accent/CTA), GD Black `#242528` (text), Mid Blue `#09216B`, White `#FFFFFF`
+- **Secondary**: Light Grey `#F2F2F2`, Mid Grey `#D1D5D8`, Dark Grey `#676B75`
+- **Logo**: G-mark icon top-right on every content slide; full "GlobalData" wordmark on title slide
+- **Footer**: `globaldata.com` bottom-center + slide number bottom-right
+- **Layout patterns**: Dark navy title slides, white/cream content slides, diagonal image crops with cream border on hero slides
 
-## Proposed Reductions
+## Approach
 
-| Element | Current | Proposed | Savings |
-|---------|---------|----------|---------|
-| Definition Box padding | `p-4` | `p-3` | ~8px |
-| Definition Box text | `text-base` | `text-sm` | ~2px |
-| Definition Box header margin | `mb-2` | `mb-1` | ~4px |
-| Root cause card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Root cause icon wrapper | `w-8 h-8`, `mb-2` | `w-6 h-6`, `mb-1` | ~12px per card |
-| Root cause icon | `w-4 h-4` | `w-3 h-3` | proportional |
-| Root cause text margins | `mt-1` | `mt-0.5` | ~2px per line |
-| Impact card padding | `p-3` | `p-2` | ~8px per card (32px total) |
-| Impact value text | `text-xl` | `text-lg` | ~2px |
-| Impact text margins | `mt-1`, `mb-1` | `mt-0.5`, `mb-0.5` | ~4px per card |
-| Bottom Line padding | `p-4` | `p-3` | ~8px |
-| Bottom Line text | `text-base` | `text-sm` | ~2px |
-| Bottom Line header margin | `mb-1` | `mb-0.5` | ~2px |
+Use **pptxgenjs** to generate a 12-slide .pptx from scratch, embedding all slide content from `consumerJourneyNarration.ts` and `ConsumerJourneyDeck.tsx` into on-brand layouts. Also add a "Download Deck" button to the web app.
 
-**Estimated Total Savings: ~80-100px vertical space**
+## Slide-by-Slide Plan
 
-## File to Modify
+| # | Title | Layout |
+|---|-------|--------|
+| 01 | Connected Intelligence for Consumer Brands | Dark navy bg, full logo wordmark, subtitle, stats strip, date + presenter fields |
+| 02 | The Pressure You're Under | White bg, bold heading, 3 bullet pain points |
+| 03 | Your Monday Morning | White bg, scenario narrative with key stats callouts |
+| 04 | Seven Sources, Seven Signals | Navy bg, "60% reconciling / 10% strategy / 12 weeks" stat callouts |
+| 05 | What It's Costing You | Cream bg, revenue-at-risk headline (63M), personal cost bullets |
+| 06 | One Lens, One New Way | Navy bg, 6 persona cards (Sarah/James/Priya/Marcus/Elena/David) |
+| 07 | The Connected Decision | White bg, plant-based snacking scenario flow across 5 personas |
+| 08 | Teams Transformed | Cream bg, before/after metrics (10% to 75% strategy time, etc.) |
+| 09 | The Intelligence Maturity Journey | White bg, 4-stage progression (Fragmented > Connected > Optimised > Predictive) |
+| 10 | The Proof | Navy bg, 4 large stat callouts (3x, 70%, 2x, 30%) |
+| 11 | Why Not DIY? | White bg, DIY vs Connected comparison (14 contracts vs 1, 36mo vs 90 days) |
+| 12 | Next Steps | Navy bg, CTA with maturity assessment offer, contact details |
 
-| File | Lines | Changes |
-|------|-------|---------|
-| `src/components/globaldata-slides/GDSlide2IntelligenceGap.tsx` | 73-138 | Reduce padding, margins, and font sizes throughout |
+## Technical Steps
 
-## Specific Changes
+1. **Copy the .potx template** to extract the logo images (G-mark, wordmark) for embedding in slides
+2. **Install Poppins font** (Google Font) for LibreOffice rendering
+3. **Write a Node.js script** using pptxgenjs that:
+   - Sets 16:9 layout with Poppins as default font
+   - Creates each slide with the correct background color, logo placement, and footer
+   - Embeds the G-mark logo as base64 on content slides
+   - Adds narration scripts as speaker notes on every slide
+4. **Generate the .pptx** to `/mnt/documents/`
+5. **QA**: Convert to PDF, then to images, inspect every slide
+6. **Add a Download button** to `ConsumerJourneyDeck.tsx` that links to a static copy of the file in the `public/` folder, or triggers a client-side download
 
-### Definition Box (lines 75-83)
-- Change `p-4` → `p-3`
-- Change `mb-2` → `mb-1`
-- Change body `text-base` → `text-sm`
+## Files Changed
 
-### Root Cause Cards (lines 93-104)
-- Change card `p-3` → `p-2`
-- Change icon wrapper `w-8 h-8` → `w-6 h-6`, `mb-2` → `mb-1`
-- Change icon `w-4 h-4` → `w-3 h-3`
-- Change text margins `mt-1` → `mt-0.5`
-
-### Impact Cards (lines 115-125)
-- Change card `p-3` → `p-2`
-- Change value `text-xl` → `text-lg`
-- Change `mb-1` → `mb-0.5`, `mt-1` → `mt-0.5`
-
-### Bottom Line Box (lines 132-137)
-- Change `p-4` → `p-3`
-- Change header `mb-1` → `mb-0.5`
-- Change body `text-base` → `text-sm`
-
-## Outcome
-
-- All content fits within the 768p viewport without scrolling
-- Maintains the color-coded swim lane design
-- Preserves visual hierarchy and readability
-- Consistent with the deck's compact styling policy
+- **New**: `/tmp/generate-gd-deck.js` (generation script)
+- **New**: `public/downloads/GlobalData-Connected-Intelligence.pptx` (generated file)
+- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` (add download button in header)
+- **New**: `src/components/DeckDownloadButton.tsx` (download UI component)
 
