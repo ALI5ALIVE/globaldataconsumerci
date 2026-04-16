@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ['Poppins', 'sans-serif'],
+        display: ['Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -58,14 +58,14 @@ export default {
           transformational: "hsl(var(--pyramid-transformational))",
           fragmentation: "hsl(var(--pyramid-fragmentation))",
         },
-        comply: {
-          blue: "hsl(var(--comply-blue))",
-          sky: "hsl(var(--comply-sky))",
-          teal: "hsl(var(--comply-teal))",
-          plum: "hsl(var(--comply-plum))",
-          dark: "hsl(var(--comply-dark))",
-          light: "hsl(var(--comply-light))",
-          red: "hsl(var(--comply-red))",
+        gd: {
+          navy: "hsl(var(--gd-navy))",
+          "hyper-blue": "hsl(var(--gd-hyper-blue))",
+          "mid-blue": "hsl(var(--gd-mid-blue))",
+          cream: "hsl(var(--gd-cream))",
+          "dark-grey": "hsl(var(--gd-dark-grey))",
+          light: "hsl(var(--gd-light))",
+          red: "hsl(var(--gd-red))",
         },
       },
       borderRadius: {

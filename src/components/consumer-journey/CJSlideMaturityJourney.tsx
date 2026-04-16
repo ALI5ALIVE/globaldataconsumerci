@@ -22,7 +22,7 @@ interface Stage {
 const stages: Stage[] = [
   {
     id: 1, label: "Fragmented", icon: TrendingUp,
-    color: "hsl(var(--comply-red))",
+    color: "hsl(var(--gd-red))",
     tagline: "Seven sources. Seven answers.",
     decisionSpeed: "6–8 weeks",
     timeAllocation: { reconciliation: 60, analysis: 30, strategy: 10 },
@@ -32,7 +32,7 @@ const stages: Stage[] = [
   },
   {
     id: 2, label: "Connected", icon: Zap,
-    color: "hsl(var(--comply-teal))",
+    color: "hsl(var(--gd-mid-blue))",
     tagline: "The Gateway — one taxonomy unlocks everything.",
     decisionSpeed: "2–3 weeks",
     timeAllocation: { reconciliation: 20, analysis: 45, strategy: 35 },
@@ -43,7 +43,7 @@ const stages: Stage[] = [
   },
   {
     id: 3, label: "Optimised", icon: Brain,
-    color: "hsl(var(--comply-plum))",
+    color: "hsl(var(--gd-hyper-blue))",
     tagline: "AI-powered insights across every solution.",
     decisionSpeed: "3–5 days",
     timeAllocation: { reconciliation: 10, analysis: 35, strategy: 55 },
@@ -53,7 +53,7 @@ const stages: Stage[] = [
   },
   {
     id: 4, label: "Predictive", icon: Rocket,
-    color: "hsl(var(--comply-sky))",
+    color: "hsl(var(--gd-cream))",
     tagline: "AI anticipates — your team acts first.",
     decisionSpeed: "Hours",
     timeAllocation: { reconciliation: 5, analysis: 20, strategy: 75 },
@@ -138,10 +138,10 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
           <svg viewBox="0 0 650 380" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(var(--comply-red))" />
-                <stop offset="33%" stopColor="hsl(var(--comply-teal))" />
-                <stop offset="66%" stopColor="hsl(var(--comply-plum))" />
-                <stop offset="100%" stopColor="hsl(var(--comply-sky))" />
+                <stop offset="0%" stopColor="hsl(var(--gd-red))" />
+                <stop offset="33%" stopColor="hsl(var(--gd-mid-blue))" />
+                <stop offset="66%" stopColor="hsl(var(--gd-hyper-blue))" />
+                <stop offset="100%" stopColor="hsl(var(--gd-cream))" />
               </linearGradient>
             </defs>
 
@@ -161,9 +161,9 @@ const CJSlideMaturityJourney = (props: SlideNarrationProps) => {
             ))}
 
             {/* Gateway vertical line */}
-            <line x1="250" y1="30" x2="250" y2="355" stroke="hsl(var(--comply-teal))" strokeWidth="1.5" strokeDasharray="6 4" opacity="0.5" />
-            <rect x="205" y="30" width="90" height="18" rx="9" fill="hsl(var(--comply-teal))" opacity="0.15" />
-            <text x="250" y="42" fill="hsl(var(--comply-teal))" fontSize="8" textAnchor="middle" fontWeight="600">
+            <line x1="250" y1="30" x2="250" y2="355" stroke="hsl(var(--gd-mid-blue))" strokeWidth="1.5" strokeDasharray="6 4" opacity="0.5" />
+            <rect x="205" y="30" width="90" height="18" rx="9" fill="hsl(var(--gd-mid-blue))" opacity="0.15" />
+            <text x="250" y="42" fill="hsl(var(--gd-mid-blue))" fontSize="8" textAnchor="middle" fontWeight="600">
               CONNECTED GATEWAY
             </text>
 

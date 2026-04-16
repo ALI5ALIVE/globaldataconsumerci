@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import complyIcon from "@/assets/comply365-logo-white.png";
+import gdLogo from "@/assets/globaldata-logo-white.svg";
 import SlidePlayButton from "@/components/SlidePlayButton";
 
 interface SlideContainerProps {
@@ -65,8 +65,8 @@ const SlideContainer = ({
       {/* Logo icon - top right */}
       <div className="absolute top-6 right-6 sm:top-8 sm:right-10">
         <img
-          src={complyIcon}
-          alt="Comply365"
+          src={gdLogo}
+          alt="GlobalData"
           className="h-6 sm:h-8 w-auto opacity-90"
         />
       </div>
