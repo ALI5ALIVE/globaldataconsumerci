@@ -18,6 +18,7 @@ import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
+import DeckDownloadButton from "@/components/DeckDownloadButton";
 
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
