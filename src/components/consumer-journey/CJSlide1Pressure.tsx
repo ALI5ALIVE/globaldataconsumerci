@@ -14,7 +14,7 @@ const pressureCards = [
     icon: Zap,
     title: "Market Velocity",
     desc: "Competitors move in weeks, you move in quarters",
-    accent: "from-sky-400/20 to-sky-400/5",
+    accent: "from-accent/20 to-accent/5",
   },
   {
     icon: Layers,

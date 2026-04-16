@@ -42,7 +42,7 @@ const CPSlideContainer = ({
       id={id}
       className={cn(
         "h-screen w-full flex flex-col px-6 sm:px-10 lg:px-16 py-6 sm:py-8 snap-start relative overflow-hidden",
-        variant === "light" ? "bg-white text-foreground" : "bg-background",
+        variant === "light" ? "bg-gd-cream text-foreground" : "bg-background",
         className
       )}
     >

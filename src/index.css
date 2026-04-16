@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,84 +6,84 @@
 
 @layer base {
   :root {
-    /* Comply365 Brand Colors - Dark Theme */
-    --background: 230 25% 5%;
-    --foreground: 0 0% 98%;
+    /* GlobalData 2025 Brand Colors — Dark Theme */
+    --background: 225 25% 17%;
+    --foreground: 40 33% 95%;
 
-    --card: 230 25% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 225 20% 20%;
+    --card-foreground: 40 33% 95%;
 
-    --popover: 230 25% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 225 20% 20%;
+    --popover-foreground: 40 33% 95%;
 
-    /* Comply365 Primary Blue */
-    --primary: 217 100% 50%;
+    /* GlobalData Hyper Blue */
+    --primary: 233 78% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 230 25% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 225 25% 22%;
+    --secondary-foreground: 40 33% 95%;
 
-    --muted: 230 25% 15%;
-    --muted-foreground: 220 15% 60%;
+    --muted: 225 15% 28%;
+    --muted-foreground: 225 8% 48%;
 
-    /* Comply365 Sky Blue Accent */
-    --accent: 195 100% 45%;
+    /* GlobalData Mid Blue Accent */
+    --accent: 225 82% 23%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 230 25% 18%;
-    --input: 230 25% 18%;
-    --ring: 217 100% 50%;
+    --border: 225 15% 28%;
+    --input: 225 15% 28%;
+    --ring: 233 78% 52%;
 
     --radius: 0.5rem;
 
-    /* Comply365 Brand Extended Colors */
-    --comply-blue: 217 100% 50%;
-    --comply-sky: 195 100% 45%;
-    --comply-teal: 173 80% 40%;
-    --comply-plum: 300 65% 50%;
-    --comply-dark: 230 25% 5%;
-    --comply-light: 0 0% 100%;
-    --comply-red: 0 75% 55%;
+    /* GlobalData Brand Extended Colors */
+    --gd-navy: 225 25% 17%;
+    --gd-hyper-blue: 233 78% 52%;
+    --gd-mid-blue: 225 82% 23%;
+    --gd-cream: 39 60% 95%;
+    --gd-dark-grey: 225 5% 44%;
+    --gd-light: 0 0% 100%;
+    --gd-red: 0 75% 55%;
 
     /* Custom pyramid colors */
-    --pyramid-foundation: 217 100% 50%;
-    --pyramid-operational: 195 100% 45%;
-    --pyramid-commercial: 300 65% 50%;
+    --pyramid-foundation: 233 78% 52%;
+    --pyramid-operational: 225 82% 23%;
+    --pyramid-commercial: 280 65% 50%;
     --pyramid-transformational: 45 93% 58%;
     --pyramid-fragmentation: 0 75% 55%;
 
     /* Glow effects */
-    --glow-primary: 0 0 30px hsl(217 100% 50% / 0.4);
-    --glow-foundation: 0 0 40px hsl(217 100% 50% / 0.5);
-    --glow-operational: 0 0 40px hsl(195 100% 45% / 0.5);
-    --glow-commercial: 0 0 40px hsl(300 65% 50% / 0.5);
+    --glow-primary: 0 0 30px hsl(233 78% 52% / 0.4);
+    --glow-foundation: 0 0 40px hsl(233 78% 52% / 0.5);
+    --glow-operational: 0 0 40px hsl(225 82% 23% / 0.5);
+    --glow-commercial: 0 0 40px hsl(280 65% 50% / 0.5);
     --glow-transformational: 0 0 40px hsl(45 93% 58% / 0.5);
     --glow-fragmentation: 0 0 40px hsl(0 75% 55% / 0.5);
 
     /* Gradients */
-    --gradient-dark: linear-gradient(180deg, hsl(230 25% 8%) 0%, hsl(230 25% 4%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(230 25% 10%) 0%, hsl(230 25% 6%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(217 100% 50% / 0.1) 0%, transparent 70%);
-    --gradient-comply-diagonal: linear-gradient(135deg, hsl(217 100% 50%) 0%, hsl(195 100% 45%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(225 20% 20%) 0%, hsl(225 25% 14%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(225 20% 22%) 0%, hsl(225 25% 18%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(233 78% 52% / 0.1) 0%, transparent 70%);
+    --gradient-gd-diagonal: linear-gradient(135deg, hsl(233 78% 52%) 0%, hsl(225 82% 23%) 100%);
   }
 
   .dark {
-    --background: 230 25% 5%;
-    --foreground: 0 0% 98%;
+    --background: 225 25% 17%;
+    --foreground: 40 33% 95%;
   }
 
-  /* Light variant for specific slides */
+  /* Light variant for specific slides — GlobalData Cream */
   .slide-light {
-    --background: 0 0% 100%;
-    --foreground: 230 25% 10%;
-    --card: 220 20% 97%;
-    --card-foreground: 230 25% 10%;
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 15% 40%;
-    --border: 220 15% 88%;
+    --background: 39 60% 95%;
+    --foreground: 225 25% 17%;
+    --card: 39 40% 93%;
+    --card-foreground: 225 25% 17%;
+    --muted: 39 20% 88%;
+    --muted-foreground: 225 10% 35%;
+    --border: 39 15% 85%;
   }
 }
 
@@ -94,11 +94,11 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
@@ -155,7 +155,7 @@
 
   .platform-callout {
     @apply relative overflow-hidden rounded-xl border border-border/50 p-6;
-    background: linear-gradient(135deg, hsl(222 47% 12%) 0%, hsl(222 47% 8%) 100%);
+    background: linear-gradient(135deg, hsl(225 20% 22%) 0%, hsl(225 25% 18%) 100%);
   }
 
   .platform-callout::before {
@@ -187,7 +187,7 @@
 @layer utilities {
   .text-gradient-primary {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(217 100% 50%) 0%, hsl(195 100% 45%) 100%);
+    background-image: linear-gradient(135deg, hsl(233 78% 52%) 0%, hsl(225 82% 23%) 100%);
   }
 
   .text-gradient-gold {
@@ -195,7 +195,7 @@
     background-image: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(35 90% 50%) 100%);
   }
 
-  /* Comply365 Title Accent - Red underline */
+  /* GlobalData Title Accent — Hyper Blue underline */
   .title-accent {
     position: relative;
     display: inline-block;
@@ -208,7 +208,7 @@
     left: 0;
     width: 60px;
     height: 3px;
-    background: hsl(var(--comply-red));
+    background: hsl(var(--primary));
     border-radius: 2px;
   }
 
@@ -224,7 +224,7 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(135deg, hsl(217 100% 50% / 0.9) 0%, hsl(195 100% 45% / 0.7) 100%);
+    background: linear-gradient(135deg, hsl(233 78% 52% / 0.9) 0%, hsl(225 82% 23% / 0.7) 100%);
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
     z-index: 0;
   }
@@ -274,6 +274,6 @@
   }
 
   .maturity-curve-container svg {
-    filter: drop-shadow(0 0 20px hsl(217 100% 50% / 0.1));
+    filter: drop-shadow(0 0 20px hsl(233 78% 52% / 0.1));
   }
 }

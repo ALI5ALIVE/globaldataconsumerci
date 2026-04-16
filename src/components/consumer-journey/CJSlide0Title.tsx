@@ -37,7 +37,7 @@ const CJSlide0Title = ({
 
       {/* Ambient glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/20 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-sky-400/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Grid pattern */}
       <div
@@ -74,7 +74,7 @@ const CJSlide0Title = ({
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] tracking-tight">
             <span className="text-foreground">Connected Intelligence</span>
             <br />
-            <span className="bg-gradient-to-r from-primary via-sky-400 to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               for Consumer Brands
             </span>
           </h1>
