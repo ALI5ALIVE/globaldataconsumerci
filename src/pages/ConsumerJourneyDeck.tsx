@@ -303,21 +303,8 @@ const ConsumerJourneyDeck = () => {
   };
 
 
-  // Slide nodes for PDF capture (no narration props — static render at 1920x1080)
-  const captureSlides = [
-    <CJSlide0Title key="0" />,
-    <CJSlide1Pressure key="1" />,
-    <CPSlide1MondayMorning key="2" />,
-    <CPSlide2SevenSources key="3" />,
-    <CPSlide3TheCost key="4" />,
-    <CPSlide4ImagineOneLens key="5" />,
-    <CJSlideConnectedDecision key="6" />,
-    <CPSlide7TeamsTransformed key="7" />,
-    <CJSlideMaturityJourney key="8" />,
-    <CJSlideProof key="9" />,
-    <CJSlideWhyNotDIY key="10" />,
-    <CJSlide12CTA key="11" />,
-  ];
+
+
 
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
