@@ -309,16 +309,15 @@ const ConsumerJourneyDeck = () => {
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
       {/* Progress bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-muted z-50">
+      <div data-deck-ui="true" className="fixed top-0 left-0 right-0 h-1 bg-muted z-50 print:hidden">
         <div className="h-full bg-primary transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
       </div>
 
       {/* Header */}
-      <header className="fixed top-1 left-0 right-0 z-40 px-4 py-3">
+      <header data-deck-ui="true" className="fixed top-1 left-0 right-0 z-40 px-4 py-3 print:hidden">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
           <DeckDownloadButton
-            slides={captureSlides}
             onBeforeCapture={() => {
               narration.stop();
               userInitiatedRef.current = false;
@@ -329,7 +328,7 @@ const ConsumerJourneyDeck = () => {
       </header>
 
       {/* Slide nav dots */}
-      <nav className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-2">
+      <nav data-deck-ui="true" className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-2 print:hidden">
         {slides.map((slide, index) => (
           <button
             key={slide.id}
@@ -351,7 +350,7 @@ const ConsumerJourneyDeck = () => {
       </nav>
 
       {/* Nav arrows */}
-      <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2">
+      <div data-deck-ui="true" className="fixed bottom-4 right-4 z-40 flex flex-col gap-2 print:hidden">
         <button onClick={() => navigateSlide("up")} disabled={activeSlide === 0} className="w-10 h-10 rounded-full bg-card/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed transition-all">
           <ChevronUp className="w-5 h-5" />
         </button>
@@ -361,7 +360,11 @@ const ConsumerJourneyDeck = () => {
       </div>
 
       {/* Slides — 11-slide optimised arc */}
-      <div ref={containerRef} className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
+      <div
+        ref={containerRef}
+        data-deck-print-root="true"
+        className="h-full w-full overflow-y-auto snap-y snap-mandatory scroll-smooth"
+      >
         <CJSlide0Title {...getNarrationProps(0)} />
         <CJSlide1Pressure {...getNarrationProps(1)} />
         <CPSlide1MondayMorning {...getNarrationProps(2)} />
