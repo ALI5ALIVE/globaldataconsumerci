@@ -1,49 +1,62 @@
 
 
-# Download Slides as Pixel-Perfect PDF
+# Pixel-Perfect PDF Export — Force 1920×1080 Capture
 
-## Summary
+## Why the current PDF is wrong
 
-Replace the existing PPTX download with a **client-side PDF export** that captures each of the 12 live React slides exactly as they appear on screen — same visuals, same GlobalData branding, same fonts — and bundles them into a single downloadable PDF.
+- Pages target 1920×1080 in `jsPDF`, but the captured **images** are 1440×810 (or whatever the user's browser viewport is — yours is currently 1139×696). They get upscaled inside the PDF, so the result looks soft and slides designed for 1920×1080 layouts get squished/clipped.
+- All 12 slides ARE in the PDF (I verified the embedded image objects), so the "missing slides" perception is actually content that's been clipped out by the small viewport rather than absent slides.
 
-## How It Works
+## Fix: render slides off-screen at a forced 1920×1080 frame
 
-1. User clicks **"Download Deck"** in the header.
-2. The app programmatically scrolls through all 12 slides one-by-one in a hidden/offscreen capture mode at a fixed 1920×1080 viewport.
-3. Each slide is rasterised to a high-resolution PNG using `html2canvas` (scale 2x for crisp output, `useCORS: true`, backgroundColor preserved).
-4. Each PNG is added as a full-bleed 16:9 landscape page in a `jsPDF` document.
-5. The completed PDF (`GlobalData-Connected-Intelligence.pdf`) is saved via `pdf.save()` — no server round-trip, no proxy redirect.
+Instead of capturing the live, on-screen scroll container at the user's browser size, mount each slide one-by-one into a hidden 1920×1080 wrapper that exists outside the visible viewport. html2canvas then captures true 1920×1080 pixels, regardless of the user's screen.
 
-## Technical Changes
+### Implementation
 
-### 1. `src/components/DeckDownloadButton.tsx` (rewritten)
-- Remove the static `.pptx` fetch.
-- Accept a `containerRef` prop pointing to the scroll container.
-- On click: iterate slides 0–11, for each:
-  - Scroll the container to `index * slideHeight` and wait ~600ms for layout/animations to settle.
-  - Target the slide's DOM node (first-level child of the scroll container) and run `html2canvas(node, { scale: 2, useCORS: true, logging: false })`.
-  - Add the resulting dataURL to `jsPDF` as a new landscape page sized 1920×1080.
-- Show progress: `"Capturing slide 3 / 12…"` in the button label.
-- Restore the original scroll position when done.
-- Save as `GlobalData-Connected-Intelligence.pdf`.
+**1. Refactor `src/pages/ConsumerJourneyDeck.tsx`**
+- Extract the ordered list of `<Slide />` JSX elements into a single `slidesArray` constant (one entry per slide, in order). The current inline JSX block becomes `slidesArray.map(...)`.
+- Pass `slidesArray` (the React nodes, with narration props stripped) down to `DeckDownloadButton` as a new `slides` prop.
 
-### 2. `src/pages/ConsumerJourneyDeck.tsx`
-- Pass `containerRef` to `<DeckDownloadButton containerRef={containerRef} />`.
-- Pause narration (`narration.stop()`) before capture begins.
+**2. Rewrite `src/components/DeckDownloadButton.tsx`**
+- Replace the scroll-and-capture loop with an off-screen render approach:
+  1. Create a hidden host `<div>` and append it to `document.body`:
+     ```
+     position: fixed; left: -100000px; top: 0;
+     width: 1920px; height: 1080px;
+     overflow: hidden; pointer-events: none;
+     ```
+  2. Use `ReactDOM.createRoot(host)` to render each slide one at a time inside this fixed-size container.
+  3. After each render, wait ~600ms for fonts/layout/SVGs (use `document.fonts.ready` + a frame tick), then `html2canvas(host, { scale: 2, width: 1920, height: 1080, windowWidth: 1920, windowHeight: 1080, useCORS: true, backgroundColor: null })`.
+  4. Add the resulting 3840×2160 PNG into `jsPDF` (page format 1920×1080 landscape).
+  5. After all slides, unmount the root and remove the host node.
+- Keep the same progress UI (`Capturing 3 / 12…`) and the `onBeforeCapture` hook (still pause narration first).
 
-### Libraries
-- `html2canvas` and `jspdf` are **already installed** (used by `src/components/DownloadButton.tsx`). No new dependencies.
+**3. Disable animations during capture**
+- Add a `data-capturing="true"` attribute on `<html>` while capture runs; in `src/index.css` add a small rule that forces `animation: none !important; transition: none !important; transform: none !important;` for elements with framer-motion `animate`/`initial` styles, scoped to `[data-capturing="true"] *`. This makes sure entrance animations don't cause half-rendered frames.
 
-## Notes & Tradeoffs
+**4. Wait for fonts before first capture**
+- Call `await document.fonts.ready` once before the loop so Poppins is fully loaded.
 
-- **Pixel-perfect match** with the web deck — whatever renders on screen is what lands in the PDF.
-- **Non-editable** — slides become images in the PDF (same tradeoff we discussed for the PPTX screenshot approach).
-- **Capture time**: ~10–15 seconds for 12 slides (user sees live progress).
-- **Fonts/gradients/SVGs** render natively via html2canvas — no recreation needed.
-- The obsolete `.pptx` file in `public/downloads/` can be left or removed later; it's no longer referenced.
+### Result
+
+- Every page is a true **3840×2160 PNG** (2× scale of 1920×1080) embedded into a 1920×1080 PDF page → pixel-perfect crisp output.
+- Layout is identical to what the slide looks like at 1920×1080, regardless of the user's browser size.
+- All 12 slides render fully (no clipping caused by the user's small viewport).
 
 ## Files Changed
 
-- **Modified**: `src/components/DeckDownloadButton.tsx` — replace PPTX fetch with html2canvas + jsPDF capture loop.
-- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — pass `containerRef` prop; stop narration before capture.
+- **Modified**: `src/components/DeckDownloadButton.tsx` — new off-screen render + capture loop using `react-dom/client`.
+- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — extract slides into an array; pass to download button.
+- **Modified**: `src/index.css` — add `[data-capturing="true"]` rule to neutralise animations during capture.
+
+## Tradeoffs / Notes
+
+- Capture time stays around 12–18 seconds for 12 slides.
+- Slides that depend on `IntersectionObserver` or scroll-driven effects (none currently used in the Consumer Journey deck) would need a hint to render in their "final" state — not an issue here.
+- If a slide later uses lazy-loaded media, we'd add an explicit `await` for `<img>` decode before capture. Not needed for the current deck.
+- If after this fix any individual slide STILL looks off, the fix moves into that specific slide's CSS (e.g., a hardcoded `min-h-[1100px]`), not the export pipeline.
+
+## Fallback if results still aren't acceptable
+
+If client-side rendering still produces artifacts (e.g., complex SVG filters or `backdrop-blur` not rendering perfectly in html2canvas), the next step is a **server-side Puppeteer edge function**: headless Chrome navigates to `/?capture=1&slide=N` for each slide at 1920×1080, screenshots, then assembles the PDF. This produces true browser-rendered output but requires a Lovable Cloud edge function with the `puppeteer` runtime.
 
