@@ -314,7 +314,15 @@ const ConsumerJourneyDeck = () => {
       <header className="fixed top-1 left-0 right-0 z-40 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
-          <DeckDownloadButton />
+          <DeckDownloadButton
+            containerRef={containerRef}
+            totalSlides={slides.length}
+            onBeforeCapture={() => {
+              narration.stop();
+              userInitiatedRef.current = false;
+              autoAdvancingRef.current = false;
+            }}
+          />
         </div>
       </header>
 
