@@ -34,7 +34,7 @@ const SlidePlayButton = ({
   const isIdle = !isPlaying && !isLoading && !hasCompleted && progress === 0;
 
   return (
-    <div className="absolute top-5 right-5 sm:top-7 sm:right-9 z-30 flex flex-row-reverse items-center gap-2">
+    <div data-deck-ui="true" className="absolute top-5 right-5 sm:top-7 sm:right-9 z-30 flex flex-row-reverse items-center gap-2 print:hidden">
       {/* Main play/pause control */}
       <button
         onClick={handleClick}
