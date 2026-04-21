@@ -1,59 +1,49 @@
 
 
-# Rebrand Web Slides to GlobalData Template
+# Download Slides as Pixel-Perfect PDF
 
 ## Summary
 
-Update the CSS theme, fonts, and Tailwind config so all 12 Consumer Journey slides render with the GlobalData 2025 brand system instead of the current Comply365 blue theme.
+Replace the existing PPTX download with a **client-side PDF export** that captures each of the 12 live React slides exactly as they appear on screen — same visuals, same GlobalData branding, same fonts — and bundles them into a single downloadable PDF.
 
-## Brand Mapping
+## How It Works
 
-| Element | Current (Comply365) | Target (GlobalData) |
-|---------|-------------------|---------------------|
-| **Font (headings)** | Space Grotesk | Poppins |
-| **Font (body)** | Inter | Poppins |
-| **Dark background** | `hsl(230 25% 5%)` | `#1F2432` (Navy) |
-| **Primary accent** | `#0066FF` | `#293FE1` (Hyper Blue) |
-| **Secondary accent** | Sky blue `#00B8D9` | `#09216B` (Mid Blue) |
-| **Light slide bg** | White `#FFFFFF` | `#FBF5E9` (Cream) |
-| **Card background** | `hsl(230 25% 8%)` | `#2A2F3F` (lighter navy) |
-| **Muted text** | `hsl(220 15% 60%)` | `#676B75` (Dark Grey) |
-| **Border** | `hsl(230 25% 18%)` | `#3A3F50` |
-| **Title accent underline** | Red | Hyper Blue `#293FE1` |
-| **Gradients** | Blue-to-sky | Navy-to-Hyper Blue |
+1. User clicks **"Download Deck"** in the header.
+2. The app programmatically scrolls through all 12 slides one-by-one in a hidden/offscreen capture mode at a fixed 1920×1080 viewport.
+3. Each slide is rasterised to a high-resolution PNG using `html2canvas` (scale 2x for crisp output, `useCORS: true`, backgroundColor preserved).
+4. Each PNG is added as a full-bleed 16:9 landscape page in a `jsPDF` document.
+5. The completed PDF (`GlobalData-Connected-Intelligence.pdf`) is saved via `pdf.save()` — no server round-trip, no proxy redirect.
+
+## Technical Changes
+
+### 1. `src/components/DeckDownloadButton.tsx` (rewritten)
+- Remove the static `.pptx` fetch.
+- Accept a `containerRef` prop pointing to the scroll container.
+- On click: iterate slides 0–11, for each:
+  - Scroll the container to `index * slideHeight` and wait ~600ms for layout/animations to settle.
+  - Target the slide's DOM node (first-level child of the scroll container) and run `html2canvas(node, { scale: 2, useCORS: true, logging: false })`.
+  - Add the resulting dataURL to `jsPDF` as a new landscape page sized 1920×1080.
+- Show progress: `"Capturing slide 3 / 12…"` in the button label.
+- Restore the original scroll position when done.
+- Save as `GlobalData-Connected-Intelligence.pdf`.
+
+### 2. `src/pages/ConsumerJourneyDeck.tsx`
+- Pass `containerRef` to `<DeckDownloadButton containerRef={containerRef} />`.
+- Pause narration (`narration.stop()`) before capture begins.
+
+### Libraries
+- `html2canvas` and `jspdf` are **already installed** (used by `src/components/DownloadButton.tsx`). No new dependencies.
+
+## Notes & Tradeoffs
+
+- **Pixel-perfect match** with the web deck — whatever renders on screen is what lands in the PDF.
+- **Non-editable** — slides become images in the PDF (same tradeoff we discussed for the PPTX screenshot approach).
+- **Capture time**: ~10–15 seconds for 12 slides (user sees live progress).
+- **Fonts/gradients/SVGs** render natively via html2canvas — no recreation needed.
+- The obsolete `.pptx` file in `public/downloads/` can be left or removed later; it's no longer referenced.
 
 ## Files Changed
 
-### 1. `src/index.css`
-- Replace Google Fonts import: swap `Inter` + `Space Grotesk` for `Poppins` (weights 300-700)
-- Update all `:root` CSS custom properties to GlobalData palette:
-  - `--background` → Navy `#1F2432`
-  - `--primary` → Hyper Blue `#293FE1`
-  - `--accent` → Mid Blue `#09216B`
-  - `--comply-*` variables renamed/remapped to `--gd-*` equivalents
-  - Light slide variant (`slide-light`) uses Cream `#FBF5E9` instead of white
-- Update `.title-accent::after` from red to Hyper Blue
-- Update gradient utilities to use navy/blue tones
-- Update body and heading font-family to Poppins
-
-### 2. `tailwind.config.ts`
-- Update `fontFamily.sans` and `fontFamily.display` to `['Poppins', 'sans-serif']`
-- Rename `comply` color namespace to `gd` with new values
-- Update pyramid/glow colour references
-
-### 3. `src/components/consumer-pitch/CPSlideContainer.tsx`
-- Update footer text from "© 2026 GlobalData · Connected Consumer Intelligence" (already correct) — no change needed
-- Update `variant === "light"` class to use cream background
-
-### 4. Individual slide components (spot fixes only)
-- Any hardcoded hex colours (e.g. `sky-400`, `bg-white`) in slide components get swapped to theme tokens or GlobalData equivalents
-- `CJSlide0Title.tsx`: gradient text from `sky-400` → Hyper Blue, ambient glow colour update
-- Other slides: replace `bg-white` with `bg-[#FBF5E9]` or theme token for cream
-
-### 5. `src/assets/globaldata-logo-white.svg` 
-- Already exists in the project — will be added to the header/title slide in place of the removed Comply365 logo
-
-## Approach
-
-This is primarily a theme-level change — updating CSS variables and font imports covers ~90% of the rebrand. The remaining 10% is replacing hardcoded Tailwind classes (`sky-400`, `bg-white`) in individual slide components with the new palette.
+- **Modified**: `src/components/DeckDownloadButton.tsx` — replace PPTX fetch with html2canvas + jsPDF capture loop.
+- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — pass `containerRef` prop; stop narration before capture.
 
