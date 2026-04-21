@@ -307,7 +307,7 @@ const ConsumerJourneyDeck = () => {
 
 
   return (
-    <div className="h-screen w-screen bg-background overflow-hidden relative">
+    <div className="h-screen w-screen bg-background overflow-hidden relative print:h-auto print:w-auto print:overflow-visible print:block">
       {/* Progress bar */}
       <div data-deck-ui="true" className="fixed top-0 left-0 right-0 h-1 bg-muted z-50 print:hidden">
         <div className="h-full bg-primary transition-all duration-150" style={{ width: `${scrollProgress}%` }} />

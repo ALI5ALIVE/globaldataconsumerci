@@ -21,18 +21,17 @@ const DeckDownloadButton = ({ onBeforeCapture }: DeckDownloadButtonProps) => {
       if ((document as any).fonts?.ready) {
         await (document as any).fonts.ready;
       }
-      // Let layout settle into print mode before opening dialog
-      await new Promise((r) => setTimeout(r, 250));
+      // Allow layout to reflow at 1920px width and slides to expand
+      await new Promise((r) => setTimeout(r, 700));
+      await new Promise((r) => requestAnimationFrame(() => r(null)));
       window.print();
     } finally {
-      // afterprint fires when dialog closes (cancel or save)
       const cleanup = () => {
         document.documentElement.removeAttribute("data-printing");
         setIsPreparing(false);
         window.removeEventListener("afterprint", cleanup);
       };
       window.addEventListener("afterprint", cleanup);
-      // Safety fallback in case afterprint doesn't fire (some browsers)
       setTimeout(cleanup, 60_000);
     }
   };

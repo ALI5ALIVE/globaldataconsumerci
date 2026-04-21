@@ -278,7 +278,30 @@
   }
 }
 
-/* Disable animations/transitions during PDF capture so slides render in final state */
+/* ============================================================
+   Pre-print mode: expand viewport so layout matches 1920px desktop
+   ============================================================ */
+html[data-printing="true"],
+html[data-printing="true"] body {
+  width: 1920px !important;
+  min-width: 1920px !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* While in print-prep mode, unlock the deck so all slides lay out */
+html[data-printing="true"] [data-deck-print-root] {
+  height: auto !important;
+  overflow: visible !important;
+  scroll-snap-type: none !important;
+}
+html[data-printing="true"] [data-deck-print-root] > * {
+  height: 1080px !important;
+  min-height: 1080px !important;
+  scroll-snap-align: none !important;
+}
+
+/* Disable animations/transitions during PDF capture */
 [data-capturing="true"] *,
 [data-capturing="true"] *::before,
 [data-capturing="true"] *::after,
@@ -302,10 +325,10 @@
 
 /* ============================================================
    Native Browser Print → "Save as PDF"
-   Each direct slide section becomes one full-bleed landscape page.
+   16:9 landscape; each direct slide section becomes one page.
    ============================================================ */
 @page {
-  size: 1920px 1080px landscape;
+  size: 297mm 167mm;
   margin: 0;
 }
 
@@ -334,10 +357,13 @@
     display: none !important;
   }
 
-  /* Unlock the scroll container so every slide renders in flow */
+  /* Unlock outer wrappers all the way down to the print root */
+  #root,
+  #root > *,
+  [data-deck-print-root],
   [data-deck-print-root] {
     height: auto !important;
-    width: 1920px !important;
+    max-height: none !important;
     overflow: visible !important;
     scroll-snap-type: none !important;
     display: block !important;
@@ -345,10 +371,10 @@
 
   /* Each top-level slide becomes one PDF page */
   [data-deck-print-root] > * {
-    width: 1920px !important;
-    height: 1080px !important;
-    min-height: 1080px !important;
-    max-height: 1080px !important;
+    width: 100% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
     overflow: hidden !important;
     page-break-after: always !important;
     break-after: page !important;
@@ -374,4 +400,5 @@
     transform: none !important;
   }
 }
+
 
