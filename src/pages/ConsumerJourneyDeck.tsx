@@ -303,6 +303,22 @@ const ConsumerJourneyDeck = () => {
   };
 
 
+  // Slide nodes for PDF capture (no narration props — static render at 1920x1080)
+  const captureSlides = [
+    <CJSlide0Title key="0" />,
+    <CJSlide1Pressure key="1" />,
+    <CPSlide1MondayMorning key="2" />,
+    <CPSlide2SevenSources key="3" />,
+    <CPSlide3TheCost key="4" />,
+    <CPSlide4ImagineOneLens key="5" />,
+    <CJSlideConnectedDecision key="6" />,
+    <CPSlide7TeamsTransformed key="7" />,
+    <CJSlideMaturityJourney key="8" />,
+    <CJSlideProof key="9" />,
+    <CJSlideWhyNotDIY key="10" />,
+    <CJSlide12CTA key="11" />,
+  ];
+
   return (
     <div className="h-screen w-screen bg-background overflow-hidden relative">
       {/* Progress bar */}
@@ -315,8 +331,7 @@ const ConsumerJourneyDeck = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
           <DeckDownloadButton
-            containerRef={containerRef}
-            totalSlides={slides.length}
+            slides={captureSlides}
             onBeforeCapture={() => {
               narration.stop();
               userInitiatedRef.current = false;
