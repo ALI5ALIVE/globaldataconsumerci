@@ -1,62 +1,142 @@
 
+# Replace Broken PDF Capture with Native Browser “Save as PDF”
 
-# Pixel-Perfect PDF Export — Force 1920×1080 Capture
+## Goal
 
-## Why the current PDF is wrong
+Stop using `html2canvas`/`jsPDF` to recreate the slides, because that is producing inconsistent, non-pixel-perfect output.
 
-- Pages target 1920×1080 in `jsPDF`, but the captured **images** are 1440×810 (or whatever the user's browser viewport is — yours is currently 1139×696). They get upscaled inside the PDF, so the result looks soft and slides designed for 1920×1080 layouts get squished/clipped.
-- All 12 slides ARE in the PDF (I verified the embedded image objects), so the "missing slides" perception is actually content that's been clipped out by the small viewport rather than absent slides.
+Instead, export the **actual deck DOM that the browser renders** using the browser’s own print-to-PDF engine. This is the closest way to get the slides exactly as shown, because it uses Chrome/Safari/Edge’s real rendering pipeline rather than a canvas approximation.
 
-## Fix: render slides off-screen at a forced 1920×1080 frame
+## Key Change
 
-Instead of capturing the live, on-screen scroll container at the user's browser size, mount each slide one-by-one into a hidden 1920×1080 wrapper that exists outside the visible viewport. html2canvas then captures true 1920×1080 pixels, regardless of the user's screen.
+The **Download Deck** button will become a **Save as PDF** flow:
 
-### Implementation
+1. User clicks **Save as PDF**.
+2. The app switches into a clean print/export mode.
+3. Header, slide dots, arrows, play buttons, and narration controls are hidden.
+4. Every deck slide is printed as one full-bleed landscape page.
+5. The browser opens the native print dialog.
+6. User chooses **Save as PDF**.
 
-**1. Refactor `src/pages/ConsumerJourneyDeck.tsx`**
-- Extract the ordered list of `<Slide />` JSX elements into a single `slidesArray` constant (one entry per slide, in order). The current inline JSX block becomes `slidesArray.map(...)`.
-- Pass `slidesArray` (the React nodes, with narration props stripped) down to `DeckDownloadButton` as a new `slides` prop.
+This will not silently auto-download the file, but it will produce a much more faithful PDF because the browser is printing the real slides.
 
-**2. Rewrite `src/components/DeckDownloadButton.tsx`**
-- Replace the scroll-and-capture loop with an off-screen render approach:
-  1. Create a hidden host `<div>` and append it to `document.body`:
-     ```
-     position: fixed; left: -100000px; top: 0;
-     width: 1920px; height: 1080px;
-     overflow: hidden; pointer-events: none;
-     ```
-  2. Use `ReactDOM.createRoot(host)` to render each slide one at a time inside this fixed-size container.
-  3. After each render, wait ~600ms for fonts/layout/SVGs (use `document.fonts.ready` + a frame tick), then `html2canvas(host, { scale: 2, width: 1920, height: 1080, windowWidth: 1920, windowHeight: 1080, useCORS: true, backgroundColor: null })`.
-  4. Add the resulting 3840×2160 PNG into `jsPDF` (page format 1920×1080 landscape).
-  5. After all slides, unmount the root and remove the host node.
-- Keep the same progress UI (`Capturing 3 / 12…`) and the `onBeforeCapture` hook (still pause narration first).
+## Why this is better
 
-**3. Disable animations during capture**
-- Add a `data-capturing="true"` attribute on `<html>` while capture runs; in `src/index.css` add a small rule that forces `animation: none !important; transition: none !important; transform: none !important;` for elements with framer-motion `animate`/`initial` styles, scoped to `[data-capturing="true"] *`. This makes sure entrance animations don't cause half-rendered frames.
+The current export is failing because it tries to screenshot React slides with `html2canvas`, which does not perfectly support all browser CSS, responsive layouts, gradients, blur effects, SVGs, transforms, and animation states.
 
-**4. Wait for fonts before first capture**
-- Call `await document.fonts.ready` once before the loop so Poppins is fully loaded.
+Native print/PDF uses the browser’s actual renderer, so:
 
-### Result
+- Text stays sharper.
+- SVGs and gradients render more accurately.
+- Layout matches the real deck more closely.
+- Slides are not re-rendered into a separate hidden 1920×1080 environment.
+- The PDF comes from the same slide DOM the user sees.
 
-- Every page is a true **3840×2160 PNG** (2× scale of 1920×1080) embedded into a 1920×1080 PDF page → pixel-perfect crisp output.
-- Layout is identical to what the slide looks like at 1920×1080, regardless of the user's browser size.
-- All 12 slides render fully (no clipping caused by the user's small viewport).
+## Implementation Plan
 
-## Files Changed
+### 1. Replace `DeckDownloadButton.tsx`
 
-- **Modified**: `src/components/DeckDownloadButton.tsx` — new off-screen render + capture loop using `react-dom/client`.
-- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — extract slides into an array; pass to download button.
-- **Modified**: `src/index.css` — add `[data-capturing="true"]` rule to neutralise animations during capture.
+Remove the current off-screen `createRoot`, `html2canvas`, and `jsPDF` logic.
 
-## Tradeoffs / Notes
+Replace it with a print/export button that:
 
-- Capture time stays around 12–18 seconds for 12 slides.
-- Slides that depend on `IntersectionObserver` or scroll-driven effects (none currently used in the Consumer Journey deck) would need a hint to render in their "final" state — not an issue here.
-- If a slide later uses lazy-loaded media, we'd add an explicit `await` for `<img>` decode before capture. Not needed for the current deck.
-- If after this fix any individual slide STILL looks off, the fix moves into that specific slide's CSS (e.g., a hardcoded `min-h-[1100px]`), not the export pipeline.
+- Stops narration before export.
+- Adds a temporary `data-printing="true"` attribute to the document.
+- Waits for fonts to finish loading.
+- Calls `window.print()`.
+- Removes the print flag after the print dialog closes.
 
-## Fallback if results still aren't acceptable
+The button label changes from **Download Deck** to **Save as PDF**.
 
-If client-side rendering still produces artifacts (e.g., complex SVG filters or `backdrop-blur` not rendering perfectly in html2canvas), the next step is a **server-side Puppeteer edge function**: headless Chrome navigates to `/?capture=1&slide=N` for each slide at 1920×1080, screenshots, then assembles the PDF. This produces true browser-rendered output but requires a Lovable Cloud edge function with the `puppeteer` runtime.
+### 2. Add print/export CSS in `src/index.css`
 
+Add a dedicated `@media print` section that:
+
+- Hides all UI chrome:
+  - progress bar
+  - header
+  - navigation dots
+  - up/down arrows
+  - narration/play controls
+- Forces backgrounds and colours to print:
+  - `print-color-adjust: exact`
+  - `-webkit-print-color-adjust: exact`
+- Makes the scroll container printable:
+  - removes scroll snapping
+  - removes viewport overflow clipping
+  - allows every slide to appear in sequence
+- Forces each direct slide section to become one PDF page:
+  - full-page landscape
+  - no margins
+  - page break after each slide
+  - no extra blank pages
+
+### 3. Add print-safe classes/attributes to deck UI
+
+Update `ConsumerJourneyDeck.tsx` so non-slide controls have clear export-hide markers, for example:
+
+- `data-deck-ui="true"` on the progress bar/header/nav/arrows
+- `data-deck-print-root="true"` on the slide container
+
+This makes the print CSS reliable and avoids accidentally hiding slide content.
+
+### 4. Hide narration controls inside slides
+
+Update `SlidePlayButton.tsx` so its wrapper has a print-hide marker, for example:
+
+```tsx
+data-deck-ui="true"
+```
+
+That prevents the “Listen” buttons from appearing on every PDF page.
+
+### 5. Make animation states print-ready
+
+Because some slides use Framer Motion, add print/export CSS to neutralise animation artefacts:
+
+```css
+[data-printing="true"] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media print {
+  [data-deck-print-root] * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+```
+
+Where needed, force motion elements into their visible/final state during print so no slide exports half-hidden.
+
+### 6. Remove the broken export path
+
+The current forced 1920×1080 off-screen export should be removed entirely from the active download flow.
+
+This avoids having two competing PDF export methods and prevents users from downloading the bad version again.
+
+## Files to Change
+
+- `src/components/DeckDownloadButton.tsx`
+  - Replace `html2canvas`/`jsPDF` export with native print flow.
+
+- `src/pages/ConsumerJourneyDeck.tsx`
+  - Add print/export markers to deck UI and slide container.
+  - Keep narration stop logic before export.
+
+- `src/components/SlidePlayButton.tsx`
+  - Add a print-hide marker to the narration control wrapper.
+
+- `src/index.css`
+  - Add print-specific layout and page-break rules.
+  - Hide UI chrome.
+  - Force exact colour printing.
+  - Neutralise animations during PDF export.
+
+## Expected Result
+
+Clicking **Save as PDF** will open the browser’s print dialog with all 12 slides laid out as full-page landscape PDF pages, using the actual rendered deck rather than a canvas screenshot approximation.
+
+This should be significantly closer to “what is shown in the deck” than the current generated PDF approach.
