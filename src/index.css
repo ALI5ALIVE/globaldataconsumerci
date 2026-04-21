@@ -281,9 +281,97 @@
 /* Disable animations/transitions during PDF capture so slides render in final state */
 [data-capturing="true"] *,
 [data-capturing="true"] *::before,
-[data-capturing="true"] *::after {
+[data-capturing="true"] *::after,
+[data-printing="true"] *,
+[data-printing="true"] *::before,
+[data-printing="true"] *::after {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
   transition-duration: 0s !important;
   transition-delay: 0s !important;
 }
+
+/* Force motion-driven hidden elements into final visible state during print */
+[data-printing="true"] [style*="opacity: 0"],
+[data-printing="true"] [style*="opacity:0"] {
+  opacity: 1 !important;
+}
+[data-printing="true"] [data-deck-print-root] * {
+  transform: none !important;
+}
+
+/* ============================================================
+   Native Browser Print → "Save as PDF"
+   Each direct slide section becomes one full-bleed landscape page.
+   ============================================================ */
+@page {
+  size: 1920px 1080px landscape;
+  margin: 0;
+}
+
+@media print {
+  /* Force exact colours so brand backgrounds/gradients print */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: hsl(var(--background)) !important;
+    width: 1920px !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide all deck UI chrome */
+  [data-deck-ui="true"] {
+    display: none !important;
+  }
+
+  /* Unlock the scroll container so every slide renders in flow */
+  [data-deck-print-root] {
+    height: auto !important;
+    width: 1920px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    display: block !important;
+  }
+
+  /* Each top-level slide becomes one PDF page */
+  [data-deck-print-root] > * {
+    width: 1920px !important;
+    height: 1080px !important;
+    min-height: 1080px !important;
+    max-height: 1080px !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    scroll-snap-align: none !important;
+    transform: none !important;
+    position: relative !important;
+  }
+
+  [data-deck-print-root] > *:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* Force any motion-hidden content visible */
+  [data-deck-print-root] [style*="opacity: 0"],
+  [data-deck-print-root] [style*="opacity:0"] {
+    opacity: 1 !important;
+  }
+  [data-deck-print-root] *[style*="translate"],
+  [data-deck-print-root] *[style*="scale"] {
+    transform: none !important;
+  }
+}
+
