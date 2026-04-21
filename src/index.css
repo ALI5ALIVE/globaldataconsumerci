@@ -277,3 +277,13 @@
     filter: drop-shadow(0 0 20px hsl(233 78% 52% / 0.1));
   }
 }
+
+/* Disable animations/transitions during PDF capture so slides render in final state */
+[data-capturing="true"] *,
+[data-capturing="true"] *::before,
+[data-capturing="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
