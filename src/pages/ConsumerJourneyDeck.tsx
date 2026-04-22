@@ -19,6 +19,7 @@ import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
 import DeckDownloadButton from "@/components/DeckDownloadButton";
+import DeckExportPptxButton from "@/components/DeckExportPptxButton";
 
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
@@ -317,13 +318,22 @@ const ConsumerJourneyDeck = () => {
       <header data-deck-ui="true" className="fixed top-1 left-0 right-0 z-40 px-4 py-3 print:hidden">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
-          <DeckDownloadButton
-            onBeforeCapture={() => {
-              narration.stop();
-              userInitiatedRef.current = false;
-              autoAdvancingRef.current = false;
-            }}
-          />
+          <div className="flex items-center gap-2">
+            <DeckExportPptxButton
+              onBeforeCapture={() => {
+                narration.stop();
+                userInitiatedRef.current = false;
+                autoAdvancingRef.current = false;
+              }}
+            />
+            <DeckDownloadButton
+              onBeforeCapture={() => {
+                narration.stop();
+                userInitiatedRef.current = false;
+                autoAdvancingRef.current = false;
+              }}
+            />
+          </div>
         </div>
       </header>
 
