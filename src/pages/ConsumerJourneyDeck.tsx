@@ -190,6 +190,27 @@ const ConsumerJourneyDeck = () => {
 
   const narration = useConsumerJourneyNarration();
 
+  // ?capture=1&slide=N — server-side PPTX export deep-link.
+  // Hide UI chrome, jump directly to the slide, suppress narration/animation.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("capture") !== "1") return;
+    const slideParam = parseInt(params.get("slide") || "0", 10);
+    const targetSlide = Number.isFinite(slideParam)
+      ? Math.max(0, Math.min(slideParam, slides.length - 1))
+      : 0;
+
+    document.documentElement.setAttribute("data-pptx-capture", "true");
+    document.documentElement.setAttribute("data-printing", "true");
+
+    requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      const slideHeight = containerRef.current.clientHeight;
+      containerRef.current.scrollTo({ top: targetSlide * slideHeight, behavior: "auto" });
+      setActiveSlide(targetSlide);
+    });
+  }, []);
+
   // When activeSlide changes: stop narration on manual nav, auto-play on auto-advance
   useEffect(() => {
     if (activeSlide === prevSlideRef.current) return;
