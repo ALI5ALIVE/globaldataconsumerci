@@ -72,8 +72,8 @@ const DeckExportPptxButton = ({
 
       // Wait for fonts, then a settle delay for animations / lazy paint.
       try {
-        // @ts-expect-error -- fonts API not always typed
-        if (doc.fonts && doc.fonts.ready) await doc.fonts.ready;
+        const fonts = (doc as Document & { fonts?: { ready: Promise<unknown> } }).fonts;
+        if (fonts?.ready) await fonts.ready;
       } catch {
         /* ignore */
       }
