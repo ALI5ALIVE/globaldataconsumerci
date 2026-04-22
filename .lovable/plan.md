@@ -1,56 +1,72 @@
 
 
-# Fix PDF Export — All 12 Slides, Full Layout
+# Pixel-Perfect Slide Export to PPTX
 
-## Diagnosis
+## The honest answer
 
-The PDF you exported is genuine Chrome "Save as PDF" output (good — pixel-perfect renderer is working), but only 2 pages render and content is clipped. Root causes:
+A true "pixel-perfect" PPTX export of these React slides is **not realistic** — PPTX is a structured format (shapes, text boxes, native fonts) and cannot natively render Tailwind/Framer Motion/SVG layouts the way a browser does. Any direct React→PPTX conversion will look noticeably different.
 
-1. **Outer wrapper clips everything.** `ConsumerJourneyDeck.tsx` wraps the deck in `<div className="h-screen w-screen overflow-hidden">`. The print CSS only unlocks `[data-deck-print-root]` (the inner scroll container), but its parent still forces `height: 100vh` and `overflow: hidden`, so only the first ~2 slides spill into print.
-2. **Slides keep `h-screen` (100vh).** During print Chrome uses the on-screen viewport height (your 696px window), not the `@page` 1080px. Each slide section becomes 696px tall but the page is 1080px → big white gap, and when forced to 1080px the inner content (laid out for 696px) sits at the top, looking cut off.
-3. **`@page size: 1920px 1080px`** is non-standard syntax; Chrome ignores the pixel values and falls back to default Letter/A4 with `landscape`. That further distorts ratio.
+The reliable way to get the deck **looking exactly like the browser** inside a `.pptx` file is to **render each slide as a high-resolution image and place each image full-bleed on its own PPTX slide.** The result is visually identical to the live deck, opens in PowerPoint/Keynote/Google Slides, and can be presented or re-exported to PDF cleanly.
 
-## Fix
+This is the same technique design agencies use when delivering "image decks" to clients.
 
-### 1. `src/pages/ConsumerJourneyDeck.tsx`
-Add `print:h-auto print:w-auto print:overflow-visible` to the outer `<div className="h-screen w-screen overflow-hidden …">` so the print path is no longer clipped at one viewport.
+## Approach
 
-### 2. `src/index.css` — rewrite the `@media print` block
-- Change `@page` to a real landscape ratio Chrome respects: `@page { size: 297mm 167mm landscape; margin: 0; }` (16:9 at A4 width). Or use `size: landscape` only and let Chrome's "Save as PDF" use Letter — but force each slide to one full page via `height: 100vh`.
-- Force the deck root, its parent, and `html, body` to `height: auto !important; overflow: visible !important;`.
-- Force every direct slide section to **exactly one print page**:
-  ```
-  [data-deck-print-root] > section {
-    width: 100% !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    page-break-after: always;
-    break-after: page;
-    page-break-inside: avoid;
-    overflow: hidden !important;
-  }
-  ```
-  Using `100vh` (not `1080px`) makes the slide match whatever the print page height actually is, so no clipping regardless of `@page` size.
-- Also override the slide container's own `h-screen` and `snap-start` (scroll-snap can collapse layout in print): set `scroll-snap-type: none !important` on the print root.
+Use a **server-side Puppeteer (headless Chrome) edge function** to:
 
-### 3. `src/components/DeckDownloadButton.tsx`
-Increase the pre-print settle delay from 250ms to ~600ms and additionally `await document.fonts.ready` plus one `requestAnimationFrame` so all 12 slides have laid out before the print dialog snapshots them.
+1. Open the live deck at a forced **1920×1080** viewport.
+2. Navigate to each of the 12 slides in turn (via a `?slide=N&capture=1` URL param the deck already understands, or by scrolling).
+3. Screenshot each slide as a **PNG at 2× density (3840×2160)**.
+4. Pass the 12 PNGs to **PptxGenJS** running in the same edge function.
+5. For each PNG, create a 13.333"×7.5" (16:9) PPTX slide and place the image full-bleed (`x:0, y:0, w:13.333, h:7.5`).
+6. Return the assembled `.pptx` as a download.
 
-### 4. Optional safety: temporarily expand the on-screen viewport before print
-While `data-printing="true"` is set, apply via CSS:
-```
-html[data-printing="true"], html[data-printing="true"] body { width: 1920px !important; }
-```
-This forces the layout engine to compute slide widths at 1920px so responsive breakpoints render their "desktop" layouts in the PDF, not the user's 1139px laptop layout.
+A new "Download as PPTX" button in the deck header triggers the edge function and saves the file.
 
-## Expected Result
-- All 12 slides export as 12 individual landscape pages.
-- Each slide fills the full page (no clipping, no white gap).
-- Layout matches the 1920×1080 desktop view, not the user's smaller browser window.
+## Why this works
 
-## Files Changed
-- `src/pages/ConsumerJourneyDeck.tsx` — add print-mode overrides to outer wrapper.
-- `src/index.css` — rewrite `@page` + `@media print` rules per above.
-- `src/components/DeckDownloadButton.tsx` — longer settle delay + font-ready await.
+- Headless Chrome renders the slides with the **real browser engine** — so gradients, blur, SVGs, custom fonts, and Framer Motion all look identical to what's on screen.
+- Each slide becomes a 4K PNG → crisp on any display, projector, or PDF re-export.
+- The PPTX file is fully portable (no fonts to install, no missing assets).
+
+## Tradeoffs (be aware)
+
+- Slides are **not editable** in PowerPoint — they're images. Text cannot be re-typed inside PPTX.
+- File size will be ~15–25 MB (12 high-res PNGs).
+- Generation takes ~20–30 seconds.
+
+If editable native PPTX text is required instead, that would be a separate, much larger effort (rebuilding each slide's layout in PptxGenJS shapes/textboxes by hand) and would not look pixel-identical to the browser.
+
+## Implementation
+
+### 1. New edge function: `supabase/functions/export-pptx/index.ts`
+- Use `puppeteer` (Deno-compatible build) + `pptxgenjs`.
+- Accept `{ deckUrl: string, slideCount: number }` in the POST body.
+- Loop slides 0..N-1: `page.goto(`${deckUrl}?slide=${i}&capture=1`)`, wait for fonts + 600ms settle, `page.screenshot({ type: 'png', omitBackground: false })`.
+- Build the PPTX with `pres.layout = 'LAYOUT_WIDE'` (13.333×7.5 in) and one image per slide full-bleed.
+- Return the binary file with `Content-Type: application/vnd.openxmlformats-officedocument.presentationml.presentation`.
+
+### 2. Add a `?slide=N&capture=1` deep-link to `ConsumerJourneyDeck.tsx`
+- On mount, read the URL params and scroll directly to that slide; in `capture=1` mode also hide UI chrome (reuse the existing `data-deck-ui="true"` selectors via a CSS class on `<html>`).
+- This lets Puppeteer load any single slide cleanly without scrolling animations.
+
+### 3. New header button: `DeckExportPptxButton.tsx`
+- Sits next to the existing **Save as PDF** button.
+- On click: stops narration, calls the edge function via `supabase.functions.invoke('export-pptx', ...)`, downloads the returned blob as `GlobalData-Connected-Intelligence.pptx`.
+- Shows progress: `Rendering slide 5/12…`.
+
+### 4. Wire it into `ConsumerJourneyDeck.tsx`
+- Place the new button alongside the existing `DeckDownloadButton`.
+
+## Files
+
+- **New**: `supabase/functions/export-pptx/index.ts` — Puppeteer + PptxGenJS pipeline.
+- **New**: `src/components/DeckExportPptxButton.tsx` — trigger + progress UI.
+- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — read `?slide=&capture=` params, mount new button.
+
+## Alternative if you want PPTX without server-side Chrome
+
+Reuse the **already-working "Save as PDF" output** and convert it: open the saved PDF in PowerPoint (File → Open → choose the PDF) or use Acrobat's "Export → PowerPoint." Each PDF page becomes one image-based slide. No code changes needed — but the user has to do a manual two-step.
+
+Recommend the **edge function approach** for a one-click experience.
 
