@@ -1,72 +1,74 @@
 
 
-# Pixel-Perfect Slide Export to PPTX
+# Fix PPTX Export — Render Each Slide Pixel-Perfect
 
-## The honest answer
+## Why the current PPTX is wrong
 
-A true "pixel-perfect" PPTX export of these React slides is **not realistic** — PPTX is a structured format (shapes, text boxes, native fonts) and cannot natively render Tailwind/Framer Motion/SVG layouts the way a browser does. Any direct React→PPTX conversion will look noticeably different.
+Two distinct bugs in the current client-side `html2canvas` capture:
 
-The reliable way to get the deck **looking exactly like the browser** inside a `.pptx` file is to **render each slide as a high-resolution image and place each image full-bleed on its own PPTX slide.** The result is visually identical to the live deck, opens in PowerPoint/Keynote/Google Slides, and can be presented or re-exported to PDF cleanly.
+1. **Slides export too small / leave white space.** `html2canvas` renders the slide at the **user's actual browser viewport** (currently 1139×696), not at 1920×1080. We then place that small image into a 13.333"×7.5" PPTX slide → it shows up undersized with white margins. Forcing `width: 1920px` via CSS doesn't fix it because the browser's layout engine still uses the real window size for media queries, `vw/vh`, and `sm:/md:/lg:` Tailwind breakpoints.
 
-This is the same technique design agencies use when delivering "image decks" to clients.
+2. **Circles and boxes overlay text.** `html2canvas` has known limitations with: `backdrop-blur`, `position: fixed`, CSS `transform`, SVG `<foreignObject>`, and absolutely-positioned overlays. The Slide Play Button (circular progress ring), nav dots, and motion-revealed cards are getting captured at the wrong coordinates because the layout shifted between when html2canvas walked the DOM and when it painted the canvas.
 
-## Approach
+These are **fundamental** limitations of the html2canvas approach. No amount of tweaking `scale`, delays, or CSS overrides will fix them reliably.
 
-Use a **server-side Puppeteer (headless Chrome) edge function** to:
+## The fix: server-side headless Chrome
 
-1. Open the live deck at a forced **1920×1080** viewport.
-2. Navigate to each of the 12 slides in turn (via a `?slide=N&capture=1` URL param the deck already understands, or by scrolling).
-3. Screenshot each slide as a **PNG at 2× density (3840×2160)**.
-4. Pass the 12 PNGs to **PptxGenJS** running in the same edge function.
-5. For each PNG, create a 13.333"×7.5" (16:9) PPTX slide and place the image full-bleed (`x:0, y:0, w:13.333, h:7.5`).
-6. Return the assembled `.pptx` as a download.
+Move the PPTX export to a **Lovable Cloud edge function** that:
 
-A new "Download as PPTX" button in the deck header triggers the edge function and saves the file.
+1. Spins up headless Chrome at a true **1920×1080** viewport (`deviceScaleFactor: 2` → 4K capture).
+2. For each of the 12 slides, navigates to `https://globaldataconsumerci.lovable.app/?capture=1&slide=N`.
+3. Waits for fonts + 800ms layout settle.
+4. Takes a real Chromium screenshot — the **same renderer the user sees on screen**, so circles, blur, gradients, SVGs, and motion-final states all render correctly.
+5. Assembles the 12 PNGs into a `LAYOUT_WIDE` (13.333×7.5") PPTX with each image full-bleed.
+6. Returns the `.pptx` to the browser for download.
 
-## Why this works
-
-- Headless Chrome renders the slides with the **real browser engine** — so gradients, blur, SVGs, custom fonts, and Framer Motion all look identical to what's on screen.
-- Each slide becomes a 4K PNG → crisp on any display, projector, or PDF re-export.
-- The PPTX file is fully portable (no fonts to install, no missing assets).
-
-## Tradeoffs (be aware)
-
-- Slides are **not editable** in PowerPoint — they're images. Text cannot be re-typed inside PPTX.
-- File size will be ~15–25 MB (12 high-res PNGs).
-- Generation takes ~20–30 seconds.
-
-If editable native PPTX text is required instead, that would be a separate, much larger effort (rebuilding each slide's layout in PptxGenJS shapes/textboxes by hand) and would not look pixel-identical to the browser.
+This is the only reliable way to get pixel-perfect output. Headless Chrome **is** a real browser — there is no rendering gap.
 
 ## Implementation
 
-### 1. New edge function: `supabase/functions/export-pptx/index.ts`
-- Use `puppeteer` (Deno-compatible build) + `pptxgenjs`.
-- Accept `{ deckUrl: string, slideCount: number }` in the POST body.
-- Loop slides 0..N-1: `page.goto(`${deckUrl}?slide=${i}&capture=1`)`, wait for fonts + 600ms settle, `page.screenshot({ type: 'png', omitBackground: false })`.
-- Build the PPTX with `pres.layout = 'LAYOUT_WIDE'` (13.333×7.5 in) and one image per slide full-bleed.
-- Return the binary file with `Content-Type: application/vnd.openxmlformats-officedocument.presentationml.presentation`.
+### 1. New edge function `supabase/functions/export-deck-pptx/index.ts`
+- Use Deno-compatible Puppeteer (`puppeteer-core` + `@sparticuz/chromium` style, or `astral` Deno-native browser library).
+- Accept `{ deckUrl: string, slideCount: number }`.
+- Open one page, set viewport `{ width: 1920, height: 1080, deviceScaleFactor: 2 }`.
+- Loop `slide=0..N-1`, screenshot as PNG buffer.
+- Use `pptxgenjs` (Deno ESM import) to build the deck; `pres.layout = 'LAYOUT_WIDE'`; one image per slide at `x:0, y:0, w:13.333, h:7.5`.
+- Return `application/vnd.openxmlformats-officedocument.presentationml.presentation` with `Content-Disposition: attachment`.
+- `verify_jwt = false` in `supabase/config.toml` so the button works without auth.
 
-### 2. Add a `?slide=N&capture=1` deep-link to `ConsumerJourneyDeck.tsx`
-- On mount, read the URL params and scroll directly to that slide; in `capture=1` mode also hide UI chrome (reuse the existing `data-deck-ui="true"` selectors via a CSS class on `<html>`).
-- This lets Puppeteer load any single slide cleanly without scrolling animations.
+### 2. Add `?capture=1&slide=N` deep-link to `ConsumerJourneyDeck.tsx`
+- On mount, read URL params. If `capture=1`:
+  - Add `data-pptx-capture="true"` to `<html>` (reuses existing CSS that hides UI chrome and sets 1920px layout).
+  - Stop narration + auto-advance.
+  - Scroll directly to slide N with `behavior: 'auto'`, no animation.
+  - Force any Framer Motion reveals into final state (set a flag the slide components can read, OR rely on existing `data-printing` overrides in `index.css`).
 
-### 3. New header button: `DeckExportPptxButton.tsx`
-- Sits next to the existing **Save as PDF** button.
-- On click: stops narration, calls the edge function via `supabase.functions.invoke('export-pptx', ...)`, downloads the returned blob as `GlobalData-Connected-Intelligence.pptx`.
-- Shows progress: `Rendering slide 5/12…`.
+### 3. Replace `DeckExportPptxButton.tsx` logic
+- Remove `html2canvas` capture loop.
+- Call edge function via `supabase.functions.invoke('export-deck-pptx', { body: { deckUrl: window.location.origin, slideCount: 12 } })`.
+- Stream the response blob, trigger download as `GlobalData-Connected-Intelligence.pptx`.
+- Show progress: "Rendering slides… (this takes ~25s)".
 
-### 4. Wire it into `ConsumerJourneyDeck.tsx`
-- Place the new button alongside the existing `DeckDownloadButton`.
+### 4. Cleanup
+- Drop the `html2canvas` dependency from `package.json` (no longer used after this swap; the PDF flow uses native print, not html2canvas).
+- Keep `pptxgenjs` only in the edge function, remove from client bundle.
+
+## Tradeoffs
+
+- **Editability**: slides are images inside the PPTX, not editable text. Same as before — this is the only way to keep visual fidelity. If editable text is later required, we'd rebuild each slide manually in PptxGenJS shapes (large separate effort, would not look identical).
+- **Time**: ~25–30 seconds for 12 slides (user sees progress).
+- **File size**: ~15–20 MB.
+- **Public URL required**: the edge function fetches `globaldataconsumerci.lovable.app`, which is already published.
 
 ## Files
 
-- **New**: `supabase/functions/export-pptx/index.ts` — Puppeteer + PptxGenJS pipeline.
-- **New**: `src/components/DeckExportPptxButton.tsx` — trigger + progress UI.
-- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — read `?slide=&capture=` params, mount new button.
+- **New**: `supabase/functions/export-deck-pptx/index.ts` — Puppeteer + PptxGenJS pipeline.
+- **Modified**: `supabase/config.toml` — register the function with `verify_jwt = false`.
+- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — handle `?capture=1&slide=N` deep-link.
+- **Modified**: `src/components/DeckExportPptxButton.tsx` — invoke edge function instead of client-side capture.
+- **Modified**: `package.json` — remove `html2canvas` and `pptxgenjs` from client deps.
 
-## Alternative if you want PPTX without server-side Chrome
+## Expected result
 
-Reuse the **already-working "Save as PDF" output** and convert it: open the saved PDF in PowerPoint (File → Open → choose the PDF) or use Acrobat's "Export → PowerPoint." Each PDF page becomes one image-based slide. No code changes needed — but the user has to do a manual two-step.
-
-Recommend the **edge function approach** for a one-click experience.
+Clicking **Save as PPTX** produces a 12-slide deck where each slide is a crisp 3840×2160 image of the actual rendered slide — circles in the right place, no overlapping boxes, no undersized layout, no white margins.
 
