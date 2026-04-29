@@ -202,7 +202,9 @@ const ConsumerJourneyDeck = () => {
       : 0;
 
     document.documentElement.setAttribute("data-pptx-capture", "true");
-    document.documentElement.setAttribute("data-printing", "true");
+    // NOTE: do NOT set data-printing — that unlocks the scroll container and
+    // breaks scrollTo. PPTX capture relies on the normal snap container with
+    // each slide sized to 1080px via the data-pptx-capture CSS.
 
     let cancelled = false;
     const start = Date.now();
