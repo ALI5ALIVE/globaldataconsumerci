@@ -184,7 +184,7 @@ export async function buildFromTemplate({
   // ── 6. Update [Content_Types].xml as STRING ───────────────────────────────
   // Remove Override entries for slides that no longer exist
   let newCt = ctOriginal.replace(
-    /<Override\s+PartName="\/ppt\/slides\/slide\d+\.xml"[^/]*\/>/g,
+    /<Override\s+PartName="\/ppt\/slides\/slide\d+\.xml"[^>]*?\/>/g,
     (match) => {
       if (
         match.includes(`/ppt/slides/${KEEP_TITLE_SLIDE}"`) ||
