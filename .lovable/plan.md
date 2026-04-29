@@ -1,57 +1,64 @@
-# Fix PPTX export — same-origin iframe + reliable capture
+# Implement native PptxGenJS builders for slides 0–4, 7, 9–11
 
-## Root cause
+## Goal
 
-Console: `Iframe document unavailable`. The button creates a hidden iframe pointed at `https://globaldataconsumerci.lovable.app` (the published deck), but the user is on the **preview** origin `id-preview--…lovable.app`. Browsers block cross-origin `iframe.contentDocument` access, so `html2canvas` can't read the iframe at all → every slide fails.
+Replace the iframe-screenshot PPTX export with **native PptxGenJS authoring** for 9 of the 12 Consumer Journey slides. Output is a real `.pptx` with editable text, native shapes, native tables, and a real chart — opens cleanly in PowerPoint, Keynote, and Google Slides.
 
-Forcing a 1920×1080 layout in a hidden iframe was the right idea; pointing it at a different origin was the bug.
+Slides 5 (One Lens Hub), 6 (Connected Decision), and 8 (Maturity Curve) are too SVG/connector-heavy to faithfully rebuild as shapes; they fall back to `html2canvas` rasterisation of the live React DOM (no iframe, no cross-origin — captures the slide that is already laid out on the page).
 
-## The fix
+## Slide-by-slide build map
 
-### 1. Use a same-origin iframe
+| # | Slide | Source | Strategy |
+|---|---|---|---|
+| 0 | Title — Connected Intelligence + 3 stats + quote | CJSlide0Title | **Native** — text frames + accent rectangle |
+| 1 | The Pressure — 4 pressure cards + bridge line | CJSlide1Pressure | **Native** — 2×2 grid of rounded shapes + text |
+| 2 | Your Monday Morning — inbox of 7 emails | CPSlide1MondayMorning | **Native** — `addTable` of 7 rows |
+| 3 | Seven Sources — 7 vendors + 60/10/12wk stat strip | CPSlide2SevenSources | **Native** — 7-col grid + 3 stat callouts |
+| 4 | The Cost — Business vs You split + £63M accumulator | CPSlide3TheCost | **Native** — 2-column card grid + bottom strip |
+| 5 | One Lens Hub | CJOneLensHub | **Image fallback** — `renderToImage("cj-slide-5")` |
+| 6 | Connected Decision Meeting | CJSlideConnectedDecision | **Image fallback** — `renderToImage("cj-slide-6")` |
+| 7 | Teams Transformed — before/after % bars + 3 KPI cards | CPSlide7TeamsTransformed | **Native** — 8 horizontal bar shapes + 3 cards |
+| 8 | Maturity Journey | CJSlideMaturityJourney | **Image fallback** — `renderToImage("cj-slide-8")` |
+| 9 | Proof — 3 pillars + 8 logos + testimonial | CJSlideProof | **Native** — 3 stat cards + 4×2 logo grid + quote box |
+| 10 | Why Not DIY — DIY vs Connected 4-row comparison | CJSlideWhyNotDIY | **Native** — 2-column card with 4 rows each + footer |
+| 11 | CTA — closing headline + 3 action cards + risk reversal | CJSlide12CTA | **Native** — headline + 3 card grid |
 
-In `DeckExportPptxButton.tsx`, default `deckUrl` to `window.location.origin` instead of the hard-coded published URL. That makes `iframe.contentDocument` accessible everywhere the button is used (preview, published, custom domain).
+All exact copy taken verbatim from the React components I just inspected (e.g. the 7 inbox subjects, the £40M / 12wk / £15M Cost stats, the 8 trusted brand names, etc.).
 
-Also: append a cache-busting param so each iframe load is fresh, and explicitly set `iframe.sandbox`-free (default) so scripts run.
+## Files to create
 
-### 2. Make the capture deep-link more robust
+- `src/lib/pptxBrand.ts` — hex tokens (`primary 0066FF`, `bgNavy 23293D`, etc.), Calibri font fallback (Poppins fallback), `SLIDE_W/H = 13.333/7.5`, helpers `addBackground`, `addAccentBar`, `addTitle`, `addEyebrow`, `addFooter`.
+- `src/exporters/pptx/types.ts` — `BuildOpts` interface (`onProgress?: (i, total, label) => void`), `DeckId = "consumer-journey"`.
+- `src/exporters/pptx/renderToImage.ts` — `html2canvas` wrapper that captures a slide DOM node by id at `scale: 2`, returns `data:image/png;base64,…`.
+- `src/exporters/pptx/index.ts` — `DECK_BUILDERS` map with lazy `import()` so PptxGenJS only loads on click.
+- `src/exporters/pptx/buildConsumerJourneyDeck.ts` — orchestrates 12 slide builders, calls `onProgress` between each, returns `Blob`.
+- `src/components/DeckPPTXExportButton.tsx` — `<DeckPPTXExportButton deckId="consumer-journey" />`. Lazy-loads builder, shows progress in the button label, downloads via `URL.createObjectURL` + `<a>`.
 
-`ConsumerJourneyDeck.tsx` currently jumps with `requestAnimationFrame` once. In a freshly mounted iframe the slide container's `clientHeight` may still be 0 on the first frame, so the scroll lands on slide 0 every time. Fix:
+## Files to modify
 
-- After detecting `?capture=1`, poll for `containerRef.current.clientHeight > 0` (max ~1s), then scroll.
-- Stop narration + auto-advance entirely while in capture mode.
-- Add a `data-pptx-ready="true"` attribute on `<html>` once the target slide is in place and fonts are loaded — the export button waits for this attribute instead of a blind 1500 ms timeout, so capture starts only when the slide is actually painted.
+- `src/pages/ConsumerJourneyDeck.tsx` — replace `<DeckExportPptxButton …/>` with `<DeckPPTXExportButton deckId="consumer-journey" onBeforeBuild={…} />`. Remove the `?capture=1&slide=N` `useEffect` (no longer needed).
+- `src/index.css` — drop the `data-pptx-capture` and `data-pptx-ready` blocks (still keep `data-printing` blocks — used by PDF flow).
+- `src/components/DeckExportPptxButton.tsx` — delete.
+- `package.json` — remove `modern-screenshot`. Keep `pptxgenjs` and `html2canvas`.
 
-### 3. Replace html2canvas with a more reliable renderer
+## Native-builder implementation notes
 
-`html2canvas` is what caused the original overlapping circles / boxes. Swap it for **`modern-screenshot`** (`npm i modern-screenshot`) — a maintained fork of `html-to-image` that handles `backdrop-blur`, CSS `transform`, SVG `<foreignObject>`, and absolutely-positioned overlays correctly. API is similar:
+- Use `pptx.layout = "LAYOUT_WIDE"` (13.333" × 7.5", 16:9).
+- Every slide gets `addBackground()` (navy) + `addAccentBar()` (1pt primary line at top) + `addFooter(n, 12)`. Title slide skips the accent bar and footer.
+- Cards: `slide.addShape("roundRect", { fill: {color, transparency: 80}, line: {color, width: 1}, rectRadius: 0.12 })` then text on top.
+- Inbox (slide 2): `slide.addTable(rows, { colW: [...], rowH: 0.42, fontFace, fontSize: 12 })` — first row toolbar header, 7 data rows. Each row = `[unread-dot cell, sender, subject, time]`.
+- Bars (slide 7): one rounded background rect per row + a coloured fill rect whose width = `pct × maxBarWidth`. Text label inside.
+- ROI / proof slide (9): logos rendered as rounded rectangles with the brand name as text inside (no real logo PNGs needed — keeps file size tiny and copyright-clean).
 
-```ts
-import { domToPng } from "modern-screenshot";
-const dataUrl = await domToPng(iframe.contentDocument.documentElement, {
-  width: 1920, height: 1080, scale: 2, backgroundColor: "#ffffff",
-});
-```
+## Verification (after implementation)
 
-If `modern-screenshot` still misrenders any specific slide, fall back to `html2canvas` for that slide only.
-
-### 4. Better progress + error reporting
-
-- Show "Slide N/12 — waiting for layout…" vs "…capturing…" so a stuck step is obvious.
-- On error, log which slide failed and surface the message in the toast.
-
-## Files to change
-
-- `src/components/DeckExportPptxButton.tsx` — same-origin URL, wait-for-ready handshake, swap to `modern-screenshot`, better progress/error.
-- `src/pages/ConsumerJourneyDeck.tsx` — poll for non-zero container height before scrolling; set `data-pptx-ready="true"` after fonts ready + 600 ms settle; ensure narration is fully stopped in capture mode.
-- `package.json` — add `modern-screenshot`; keep `html2canvas` only as a fallback (or remove if unused after testing).
-
-## Verification
-
-After implementing, I'll open the preview, click **Save as PPTX**, watch the network/console for errors, and confirm a 12-slide `.pptx` downloads with each slide showing the correct full-bleed 1920×1080 layout (no overlapping circles, no white margins). If any slide still looks wrong, I'll iterate on the renderer config for that slide before declaring done.
+1. Click button in preview, confirm `.pptx` downloads in ~1 s with progress text in the button.
+2. `python -m markitdown /mnt/documents/<file>.pptx` — verify all 7 inbox subjects, 4 pressure cards, 8 brand names, etc., come through as **selectable text**.
+3. Convert to PDF via LibreOffice and inspect each page image for layout overflow, overlap, off-brand colour.
+4. Iterate on any slide that looks broken before declaring done.
 
 ## Tradeoffs
 
-- Slides remain images in the PPTX (not editable text). Same as before — required for visual fidelity.
-- Export time ~20-30 s for 12 slides.
-- The button must be used on a route where the deck itself is mounted (it is — same origin, same app).
+- Visual styling is on-brand but **not pixel-identical** to the live React slides. Anyone needing the exact preview look should use **Save as PDF**.
+- Slides 5, 6, 8 remain non-editable images (rasterised). They will render correctly because `html2canvas` runs against the live, already-painted DOM (no cross-origin iframe).
+- Fonts: using Calibri so PowerPoint Windows / Mac both have it natively. Brand uses Poppins on screen; close enough for an exported deck.

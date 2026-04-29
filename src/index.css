@@ -323,15 +323,7 @@ html[data-printing="true"] [data-deck-print-root] > * {
   transform: none !important;
 }
 
-/* PPTX capture mode: hide UI chrome (print:hidden only fires in real print media) */
-html[data-pptx-capture="true"] [data-deck-ui="true"] {
-  display: none !important;
-}
-html[data-pptx-capture="true"] [data-deck-print-root] > * {
-  width: 1920px !important;
-  max-width: 1920px !important;
-  height: 1080px !important;
-}
+/* (legacy PPTX capture-mode CSS removed — native PPTX builder no longer needs it) */
 
 /* ============================================================
    Native Browser Print → "Save as PDF"

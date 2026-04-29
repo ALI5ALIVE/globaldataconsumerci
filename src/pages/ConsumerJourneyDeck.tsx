@@ -19,7 +19,7 @@ import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
 import DeckDownloadButton from "@/components/DeckDownloadButton";
-import DeckExportPptxButton from "@/components/DeckExportPptxButton";
+import DeckPPTXExportButton from "@/components/DeckPPTXExportButton";
 
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
@@ -190,54 +190,7 @@ const ConsumerJourneyDeck = () => {
 
   const narration = useConsumerJourneyNarration();
 
-  // ?capture=1&slide=N — PPTX export deep-link.
-  // Hide UI chrome, jump directly to the slide, suppress narration/animation,
-  // and emit data-pptx-ready="true" once the target slide is laid out.
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("capture") !== "1") return;
-    const slideParam = parseInt(params.get("slide") || "0", 10);
-    const targetSlide = Number.isFinite(slideParam)
-      ? Math.max(0, Math.min(slideParam, slides.length - 1))
-      : 0;
-
-    document.documentElement.setAttribute("data-pptx-capture", "true");
-    // NOTE: do NOT set data-printing — that unlocks the scroll container and
-    // breaks scrollTo. PPTX capture relies on the normal snap container with
-    // each slide sized to 1080px via the data-pptx-capture CSS.
-
-    let cancelled = false;
-    const start = Date.now();
-
-    const tryScroll = () => {
-      if (cancelled) return;
-      const el = containerRef.current;
-      if (el && el.clientHeight > 0) {
-        const slideHeight = el.clientHeight;
-        el.scrollTo({ top: targetSlide * slideHeight, behavior: "auto" });
-        setActiveSlide(targetSlide);
-
-        // Signal ready after fonts + a settle frame.
-        const signalReady = async () => {
-          try {
-            const fonts = (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts;
-            if (fonts?.ready) await fonts.ready;
-          } catch { /* ignore */ }
-          await new Promise((r) => setTimeout(r, 400));
-          if (!cancelled) {
-            document.documentElement.setAttribute("data-pptx-ready", "true");
-          }
-        };
-        signalReady();
-        return;
-      }
-      if (Date.now() - start > 5000) return;
-      requestAnimationFrame(tryScroll);
-    };
-    requestAnimationFrame(tryScroll);
-
-    return () => { cancelled = true; };
-  }, []);
+  // (Legacy ?capture=1 deep-link removed — native PPTX builder no longer needs it.)
 
   // When activeSlide changes: stop narration on manual nav, auto-play on auto-advance
   useEffect(() => {
@@ -368,8 +321,9 @@ const ConsumerJourneyDeck = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
           <div className="flex items-center gap-2">
-            <DeckExportPptxButton
-              onBeforeCapture={() => {
+            <DeckPPTXExportButton
+              deckId="consumer-journey"
+              onBeforeBuild={() => {
                 narration.stop();
                 userInitiatedRef.current = false;
                 autoAdvancingRef.current = false;
