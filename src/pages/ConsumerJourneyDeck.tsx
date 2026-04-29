@@ -323,6 +323,16 @@ const ConsumerJourneyDeck = () => {
           <div className="flex items-center gap-2">
             <DeckPPTXExportButton
               deckId="consumer-journey"
+              mode="pixel-perfect"
+              onBeforeBuild={() => {
+                narration.stop();
+                userInitiatedRef.current = false;
+                autoAdvancingRef.current = false;
+              }}
+            />
+            <DeckPPTXExportButton
+              deckId="consumer-journey"
+              mode="editable"
               onBeforeBuild={() => {
                 narration.stop();
                 userInitiatedRef.current = false;

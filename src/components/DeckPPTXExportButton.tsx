@@ -2,22 +2,32 @@ import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { DECK_BUILDERS, type DeckId } from "@/exporters/pptx";
+import { DECK_BUILDERS, type DeckId, type ExportMode } from "@/exporters/pptx";
 import { validatePptx, formatValidationReport } from "@/exporters/pptx/validatePptx";
 
 interface Props {
   deckId: DeckId;
+  mode?: ExportMode;
   filename?: string;
+  label?: string;
   onBeforeBuild?: () => void;
 }
 
 const DeckPPTXExportButton = ({
   deckId,
-  filename = "Connected-Consumer-Intelligence.pptx",
+  mode = "pixel-perfect",
+  filename,
+  label,
   onBeforeBuild,
 }: Props) => {
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState<{ current: number; total: number; label: string } | null>(null);
+
+  const defaultFilename =
+    mode === "editable"
+      ? "Connected-Consumer-Intelligence-Editable.pptx"
+      : "Connected-Consumer-Intelligence.pptx";
+  const defaultLabel = mode === "editable" ? "PPTX (Editable)" : "PPTX (Pixel Perfect)";
 
   const handleClick = async () => {
     if (busy) return;
@@ -25,32 +35,34 @@ const DeckPPTXExportButton = ({
     setBusy(true);
     setProgress({ current: 0, total: 12, label: "Starting" });
     try {
-      const builder = DECK_BUILDERS[deckId];
+      const builder = DECK_BUILDERS[`${deckId}:${mode}`];
       const blob = await builder({
         onProgress: (current, total, label) => setProgress({ current, total, label }),
       });
 
-      // Structural validation before download
-      setProgress({ current: 12, total: 12, label: "Validating PPTX" });
-      const report = await validatePptx(blob);
-      console.log("[pptx] validation report\n" + formatValidationReport(report));
-      if (!report.ok) {
-        const firstError = report.issues.find((i) => i.severity === "error");
-        toast.error(
-          `PPTX failed validation: ${firstError?.code} — ${firstError?.message}`,
-          { duration: 8000 },
-        );
-        return;
-      }
-      const warnings = report.issues.filter((i) => i.severity === "warning");
-      if (warnings.length > 0) {
-        toast.warning(`PPTX built with ${warnings.length} warning(s) — see console`);
+      // Structural validation only for the template-based pixel-perfect path.
+      if (mode === "pixel-perfect") {
+        setProgress({ current: 12, total: 12, label: "Validating PPTX" });
+        const report = await validatePptx(blob);
+        console.log("[pptx] validation report\n" + formatValidationReport(report));
+        if (!report.ok) {
+          const firstError = report.issues.find((i) => i.severity === "error");
+          toast.error(
+            `PPTX failed validation: ${firstError?.code} — ${firstError?.message}`,
+            { duration: 8000 },
+          );
+          return;
+        }
+        const warnings = report.issues.filter((i) => i.severity === "warning");
+        if (warnings.length > 0) {
+          toast.warning(`PPTX built with ${warnings.length} warning(s) — see console`);
+        }
       }
 
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = filename;
+      a.download = filename ?? defaultFilename;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -65,9 +77,9 @@ const DeckPPTXExportButton = ({
     }
   };
 
-  const label = busy && progress
+  const buttonLabel = busy && progress
     ? `${progress.label} (${progress.current}/${progress.total})`
-    : "Save as PPTX";
+    : (label ?? defaultLabel);
 
   return (
     <Button
@@ -78,7 +90,7 @@ const DeckPPTXExportButton = ({
       className="gap-2"
     >
       {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-      <span className="hidden sm:inline">{label}</span>
+      <span className="hidden sm:inline">{buttonLabel}</span>
     </Button>
   );
 };
