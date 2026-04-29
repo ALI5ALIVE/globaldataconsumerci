@@ -709,8 +709,9 @@ function buildSlide7(pptx: PptxGenJS) {
   const startX = (SLIDE_W - (colW * 2 + colGap)) / 2;
   const startY = 1.8;
 
+  type Bar = { label: string; pct: number; color: string };
   const renderBars = (
-    bars: typeof beforeBars,
+    bars: Bar[],
     x: number,
     label: string,
   ) => {
