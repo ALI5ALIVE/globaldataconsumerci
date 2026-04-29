@@ -321,8 +321,9 @@ const ConsumerJourneyDeck = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-2">
           <span className="text-xs text-muted-foreground">{activeSlide + 1} / {slides.length}</span>
           <div className="flex items-center gap-2">
-            <DeckExportPptxButton
-              onBeforeCapture={() => {
+            <DeckPPTXExportButton
+              deckId="consumer-journey"
+              onBeforeBuild={() => {
                 narration.stop();
                 userInitiatedRef.current = false;
                 autoAdvancingRef.current = false;
