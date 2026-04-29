@@ -1,61 +1,39 @@
-# Fix: PDF Download Not Working
+# Fix: PPTX build fails with "Template title/thankyou slides not found"
 
-## Problem
-The current "Save as PDF" button (`src/components/DeckDownloadButton.tsx`) relies on `window.print()` plus a large block of `@media print` CSS that forces the body to `1920px` and remaps each slide to one print page. In practice this is unreliable on the Consumer Journey deck because:
+## Root cause (verified by inspecting the template)
 
-- Slides use `h-screen` (100vh) and heavy SVG/framer-motion content. Chrome's print engine frequently produces blank pages, clipped layouts, or simply hangs the print preview.
-- The route does not expose the requested slides (some are progressively rendered / animated), and toggling `data-printing` does not always force them into a printable state in time before `window.print()` fires.
-- There is no fallback or progress indicator, so a stalled print dialog looks like a totally broken button.
+The validator I added last turn was working correctly — it surfaced a real, pre-existing bug in `templateMerge.ts`.
 
-We already have a proven, pixel-perfect capture pipeline used by the PPTX exporter (`captureSlide.ts` using `html-to-image` at 2× DPR, with deck UI filtered out). We will reuse it for PDF.
+`ppt/_rels/presentation.xml.rels` does contain both `slides/slide1.xml` and `slides/slide61.xml` (confirmed by unzipping `src/assets/pptx/gd_master.pptx`). But the `parseRels()` helper uses this regex:
 
-## Solution
-Rewrite `DeckDownloadButton` to build the PDF in-app using the same image-capture approach as the PPTX export, then assemble a 16:9 landscape PDF with `jspdf` (already installed). This removes all dependence on the browser print dialog and the print CSS, and guarantees the PDF matches what the user sees on screen.
+```ts
+const re = /<Relationship\s[^/>]*\/>/g;
+```
 
-### What changes
+`[^/>]` forbids `/` characters inside the match. Every `<Relationship>` element has `Type="http://schemas.openxmlformats.org/..."` whose value contains slashes, so **the regex matches zero elements**. `parseRels` returns `[]`, both `titleRId` and `thankYouRId` stay `null`, and we throw `"Template title/thankyou slides not found"`.
 
-1. **`src/components/DeckDownloadButton.tsx` — rewrite**
-   - Accept a `slideIds: string[]` prop (the same DOM ids the PPTX builder uses).
-   - On click:
-     1. Call `onBeforeCapture?.()` (stop narration, etc.).
-     2. Set `document.documentElement.dataset.capturing = "true"` (existing CSS already disables animations under this attribute).
-     3. For each id, scroll the slide into view, await fonts + a short settle delay, call `captureSlide(id)` (reuse the existing helper) to get a high-res PNG data URL, and update a progress toast.
-     4. Create a landscape `jsPDF` at 1920×1080 px (16:9), and `addImage` each PNG full-bleed, calling `addPage()` between slides.
-     5. `pdf.save("Connected-Consumer-Intelligence.pdf")`.
-     6. Cleanup: clear `data-capturing`, dismiss progress toast, show success/error toast (`sonner`).
-   - Show a spinner + "Capturing slide X / N" label on the button while running (mirrors `DeckPPTXExportButton`).
+## Fix
 
-2. **`src/pages/ConsumerJourneyDeck.tsx` — pass slide ids**
-   - Pass the same 12-slide id list already declared in `src/exporters/pptx/buildConsumerJourneyDeck.ts` to `<DeckDownloadButton slideIds={...} />`.
-   - To avoid duplicating the list, export `CONSUMER_JOURNEY_SLIDE_IDS` from `buildConsumerJourneyDeck.ts` and import it in both places.
+One-line regex correction in `src/exporters/pptx/templateMerge.ts` (`parseRels`):
 
-3. **`src/index.css` — trim dead print CSS (optional cleanup)**
-   - The `@media print` and `[data-printing="true"]` blocks are no longer needed. Leave them in place for now (harmless) to keep the diff small; only remove if they cause layout issues during normal use.
+```ts
+// Was (broken — forbids "/" so URL Types never match):
+const re = /<Relationship\s[^/>]*\/>/g;
 
-### Technical details
+// New (non-greedy up to the closing "/>"):
+const re = /<Relationship\b[^>]*?\/>/g;
+```
 
-- `captureSlide(id)` already:
-  - Filters out elements with `data-deck-ui="true"` (export buttons, nav arrows, dots).
-  - Renders at `pixelRatio: 2` on the `#0F1320` brand background.
-  - Awaits `document.fonts.ready` and a 600 ms settle.
-- `jspdf` config:
-  ```ts
-  const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
-  pdf.addImage(dataUrl, "PNG", 0, 0, 1920, 1080, undefined, "FAST");
-  ```
-- Each capture is sequential (matches PPTX builder) so the user sees deterministic progress and we do not hammer the main thread.
-- Memory: 12 slides × ~3840×2160 PNG ≈ a few MB each, comfortably under jsPDF limits. We will release intermediate data URLs (`pngs.length = 0` at end) so GC can reclaim.
+`[^>]*?` allows `/` inside attribute values and the non-greedy quantifier still stops at the first `/>`.
 
-### Acceptance criteria
-- Clicking "Save as PDF" downloads `Connected-Consumer-Intelligence.pdf` containing 12 landscape pages, one per slide, in the correct order.
-- Each page visually matches the on-screen slide (same as the PPTX export).
-- Deck UI chrome (export buttons, nav dots, arrows, progress bar) does not appear in the PDF.
-- Button shows progress (`Capturing 5 / 12`) and a success toast on completion; error toast on failure.
-- No reliance on `window.print()` or the browser print dialog.
+## Why I'm confident
 
-## Files touched
-- `src/components/DeckDownloadButton.tsx` — full rewrite (image-capture + jsPDF).
-- `src/exporters/pptx/buildConsumerJourneyDeck.ts` — export the slide-id list.
-- `src/pages/ConsumerJourneyDeck.tsx` — import the shared id list and pass to `DeckDownloadButton`.
+- Manual unzip of the template confirms `slide1.xml`, `slide61.xml`, and rels for both exist verbatim.
+- The same broken regex pattern is also used inside `validatePptx.ts` for the slide-rels target check (`/<Relationship\s+[^/>]*Target=...`). I'll apply the same fix there for consistency, otherwise validation of *generated* slide rels will under-report.
 
-No new dependencies (jspdf, html-to-image already installed).
+## Files changed
+
+1. `src/exporters/pptx/templateMerge.ts` — fix `parseRels` regex.
+2. `src/exporters/pptx/validatePptx.ts` — apply the same fix to the slide-rels Target scan and the presentation rels scan, so the validator stops missing relationships with URL-bearing Types.
+
+No new dependencies. No behavioural change to anything other than rels parsing.
