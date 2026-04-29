@@ -1,74 +1,57 @@
+# Fix PPTX export — same-origin iframe + reliable capture
 
+## Root cause
 
-# Fix PPTX Export — Render Each Slide Pixel-Perfect
+Console: `Iframe document unavailable`. The button creates a hidden iframe pointed at `https://globaldataconsumerci.lovable.app` (the published deck), but the user is on the **preview** origin `id-preview--…lovable.app`. Browsers block cross-origin `iframe.contentDocument` access, so `html2canvas` can't read the iframe at all → every slide fails.
 
-## Why the current PPTX is wrong
+Forcing a 1920×1080 layout in a hidden iframe was the right idea; pointing it at a different origin was the bug.
 
-Two distinct bugs in the current client-side `html2canvas` capture:
+## The fix
 
-1. **Slides export too small / leave white space.** `html2canvas` renders the slide at the **user's actual browser viewport** (currently 1139×696), not at 1920×1080. We then place that small image into a 13.333"×7.5" PPTX slide → it shows up undersized with white margins. Forcing `width: 1920px` via CSS doesn't fix it because the browser's layout engine still uses the real window size for media queries, `vw/vh`, and `sm:/md:/lg:` Tailwind breakpoints.
+### 1. Use a same-origin iframe
 
-2. **Circles and boxes overlay text.** `html2canvas` has known limitations with: `backdrop-blur`, `position: fixed`, CSS `transform`, SVG `<foreignObject>`, and absolutely-positioned overlays. The Slide Play Button (circular progress ring), nav dots, and motion-revealed cards are getting captured at the wrong coordinates because the layout shifted between when html2canvas walked the DOM and when it painted the canvas.
+In `DeckExportPptxButton.tsx`, default `deckUrl` to `window.location.origin` instead of the hard-coded published URL. That makes `iframe.contentDocument` accessible everywhere the button is used (preview, published, custom domain).
 
-These are **fundamental** limitations of the html2canvas approach. No amount of tweaking `scale`, delays, or CSS overrides will fix them reliably.
+Also: append a cache-busting param so each iframe load is fresh, and explicitly set `iframe.sandbox`-free (default) so scripts run.
 
-## The fix: server-side headless Chrome
+### 2. Make the capture deep-link more robust
 
-Move the PPTX export to a **Lovable Cloud edge function** that:
+`ConsumerJourneyDeck.tsx` currently jumps with `requestAnimationFrame` once. In a freshly mounted iframe the slide container's `clientHeight` may still be 0 on the first frame, so the scroll lands on slide 0 every time. Fix:
 
-1. Spins up headless Chrome at a true **1920×1080** viewport (`deviceScaleFactor: 2` → 4K capture).
-2. For each of the 12 slides, navigates to `https://globaldataconsumerci.lovable.app/?capture=1&slide=N`.
-3. Waits for fonts + 800ms layout settle.
-4. Takes a real Chromium screenshot — the **same renderer the user sees on screen**, so circles, blur, gradients, SVGs, and motion-final states all render correctly.
-5. Assembles the 12 PNGs into a `LAYOUT_WIDE` (13.333×7.5") PPTX with each image full-bleed.
-6. Returns the `.pptx` to the browser for download.
+- After detecting `?capture=1`, poll for `containerRef.current.clientHeight > 0` (max ~1s), then scroll.
+- Stop narration + auto-advance entirely while in capture mode.
+- Add a `data-pptx-ready="true"` attribute on `<html>` once the target slide is in place and fonts are loaded — the export button waits for this attribute instead of a blind 1500 ms timeout, so capture starts only when the slide is actually painted.
 
-This is the only reliable way to get pixel-perfect output. Headless Chrome **is** a real browser — there is no rendering gap.
+### 3. Replace html2canvas with a more reliable renderer
 
-## Implementation
+`html2canvas` is what caused the original overlapping circles / boxes. Swap it for **`modern-screenshot`** (`npm i modern-screenshot`) — a maintained fork of `html-to-image` that handles `backdrop-blur`, CSS `transform`, SVG `<foreignObject>`, and absolutely-positioned overlays correctly. API is similar:
 
-### 1. New edge function `supabase/functions/export-deck-pptx/index.ts`
-- Use Deno-compatible Puppeteer (`puppeteer-core` + `@sparticuz/chromium` style, or `astral` Deno-native browser library).
-- Accept `{ deckUrl: string, slideCount: number }`.
-- Open one page, set viewport `{ width: 1920, height: 1080, deviceScaleFactor: 2 }`.
-- Loop `slide=0..N-1`, screenshot as PNG buffer.
-- Use `pptxgenjs` (Deno ESM import) to build the deck; `pres.layout = 'LAYOUT_WIDE'`; one image per slide at `x:0, y:0, w:13.333, h:7.5`.
-- Return `application/vnd.openxmlformats-officedocument.presentationml.presentation` with `Content-Disposition: attachment`.
-- `verify_jwt = false` in `supabase/config.toml` so the button works without auth.
+```ts
+import { domToPng } from "modern-screenshot";
+const dataUrl = await domToPng(iframe.contentDocument.documentElement, {
+  width: 1920, height: 1080, scale: 2, backgroundColor: "#ffffff",
+});
+```
 
-### 2. Add `?capture=1&slide=N` deep-link to `ConsumerJourneyDeck.tsx`
-- On mount, read URL params. If `capture=1`:
-  - Add `data-pptx-capture="true"` to `<html>` (reuses existing CSS that hides UI chrome and sets 1920px layout).
-  - Stop narration + auto-advance.
-  - Scroll directly to slide N with `behavior: 'auto'`, no animation.
-  - Force any Framer Motion reveals into final state (set a flag the slide components can read, OR rely on existing `data-printing` overrides in `index.css`).
+If `modern-screenshot` still misrenders any specific slide, fall back to `html2canvas` for that slide only.
 
-### 3. Replace `DeckExportPptxButton.tsx` logic
-- Remove `html2canvas` capture loop.
-- Call edge function via `supabase.functions.invoke('export-deck-pptx', { body: { deckUrl: window.location.origin, slideCount: 12 } })`.
-- Stream the response blob, trigger download as `GlobalData-Connected-Intelligence.pptx`.
-- Show progress: "Rendering slides… (this takes ~25s)".
+### 4. Better progress + error reporting
 
-### 4. Cleanup
-- Drop the `html2canvas` dependency from `package.json` (no longer used after this swap; the PDF flow uses native print, not html2canvas).
-- Keep `pptxgenjs` only in the edge function, remove from client bundle.
+- Show "Slide N/12 — waiting for layout…" vs "…capturing…" so a stuck step is obvious.
+- On error, log which slide failed and surface the message in the toast.
+
+## Files to change
+
+- `src/components/DeckExportPptxButton.tsx` — same-origin URL, wait-for-ready handshake, swap to `modern-screenshot`, better progress/error.
+- `src/pages/ConsumerJourneyDeck.tsx` — poll for non-zero container height before scrolling; set `data-pptx-ready="true"` after fonts ready + 600 ms settle; ensure narration is fully stopped in capture mode.
+- `package.json` — add `modern-screenshot`; keep `html2canvas` only as a fallback (or remove if unused after testing).
+
+## Verification
+
+After implementing, I'll open the preview, click **Save as PPTX**, watch the network/console for errors, and confirm a 12-slide `.pptx` downloads with each slide showing the correct full-bleed 1920×1080 layout (no overlapping circles, no white margins). If any slide still looks wrong, I'll iterate on the renderer config for that slide before declaring done.
 
 ## Tradeoffs
 
-- **Editability**: slides are images inside the PPTX, not editable text. Same as before — this is the only way to keep visual fidelity. If editable text is later required, we'd rebuild each slide manually in PptxGenJS shapes (large separate effort, would not look identical).
-- **Time**: ~25–30 seconds for 12 slides (user sees progress).
-- **File size**: ~15–20 MB.
-- **Public URL required**: the edge function fetches `globaldataconsumerci.lovable.app`, which is already published.
-
-## Files
-
-- **New**: `supabase/functions/export-deck-pptx/index.ts` — Puppeteer + PptxGenJS pipeline.
-- **Modified**: `supabase/config.toml` — register the function with `verify_jwt = false`.
-- **Modified**: `src/pages/ConsumerJourneyDeck.tsx` — handle `?capture=1&slide=N` deep-link.
-- **Modified**: `src/components/DeckExportPptxButton.tsx` — invoke edge function instead of client-side capture.
-- **Modified**: `package.json` — remove `html2canvas` and `pptxgenjs` from client deps.
-
-## Expected result
-
-Clicking **Save as PPTX** produces a 12-slide deck where each slide is a crisp 3840×2160 image of the actual rendered slide — circles in the right place, no overlapping boxes, no undersized layout, no white margins.
-
+- Slides remain images in the PPTX (not editable text). Same as before — required for visual fidelity.
+- Export time ~20-30 s for 12 slides.
+- The button must be used on a route where the deck itself is mounted (it is — same origin, same app).
