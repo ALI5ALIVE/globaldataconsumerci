@@ -85,7 +85,7 @@ export async function validatePptx(blob: Blob): Promise<PptxValidationReport> {
 
   // 3. Presentation rels — targets must resolve under ppt/
   const presRelsXml = (await read("ppt/_rels/presentation.xml.rels")) || "";
-  const relRe = /<Relationship\s+([^/>]+)\/>/g;
+  const relRe = /<Relationship\b([^>]*?)\/>/g;
   const presRels: { id: string; type: string; target: string }[] = [];
   while ((m = relRe.exec(presRelsXml))) {
     const attrs = m[1];
