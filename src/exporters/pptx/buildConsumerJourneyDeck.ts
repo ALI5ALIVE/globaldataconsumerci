@@ -22,11 +22,11 @@ export const CONSUMER_JOURNEY_SLIDE_IDS: { id: string; label: string }[] = [
 ];
 
 export async function buildConsumerJourneyDeck(opts: BuildOpts): Promise<Blob> {
-  const total = SLIDE_IDS.length;
+  const total = CONSUMER_JOURNEY_SLIDE_IDS.length;
   const captured: { id: string; png: string }[] = [];
 
   for (let i = 0; i < total; i++) {
-    const { id, label } = SLIDE_IDS[i];
+    const { id, label } = CONSUMER_JOURNEY_SLIDE_IDS[i];
     opts.onProgress?.(i + 1, total, `Capturing ${label}`);
     const png = await captureSlide(id);
     captured.push({ id, png });
