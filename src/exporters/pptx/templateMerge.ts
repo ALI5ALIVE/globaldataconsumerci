@@ -49,7 +49,8 @@ interface RelEntry {
 }
 function parseRels(xml: string): RelEntry[] {
   const out: RelEntry[] = [];
-  const re = /<Relationship\s[^/>]*\/>/g;
+  // Attribute values contain "/" (URL Types), so we cannot use [^/>].
+  const re = /<Relationship\b[^>]*?\/>/g;
   const matches = xml.match(re) || [];
   for (const raw of matches) {
     const id = /\sId="([^"]+)"/.exec(raw)?.[1] || "";

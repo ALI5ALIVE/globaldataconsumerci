@@ -165,7 +165,7 @@ export async function validatePptx(blob: Blob): Promise<PptxValidationReport> {
     }
     // Every Target in slide rels (image / slideLayout) must resolve
     const slideRelTargets: string[] = [];
-    const sre = /<Relationship\s+[^/>]*Target="([^"]+)"[^/>]*\/>/g;
+    const sre = /<Relationship\b[^>]*?Target="([^"]+)"[^>]*?\/>/g;
     while ((m = sre.exec(slideRelsXml))) slideRelTargets.push(m[1]);
     for (const t of slideRelTargets) {
       // Resolve relative to ppt/slides/
