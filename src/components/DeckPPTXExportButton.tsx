@@ -47,7 +47,7 @@ const DeckPPTXExportButton = ({
   };
 
   const label = busy && progress
-    ? `Building ${progress.current}/${progress.total} · ${progress.label}`
+    ? `${progress.label} (${progress.current}/${progress.total})`
     : "Save as PPTX";
 
   return (
