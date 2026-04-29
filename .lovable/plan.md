@@ -1,39 +1,30 @@
-# Fix: PPTX build fails with "Template title/thankyou slides not found"
+# Fix: ORPHAN_OVERRIDE — same `[^/]` regex bug in Content Types cleanup
 
-## Root cause (verified by inspecting the template)
+## Root cause
 
-The validator I added last turn was working correctly — it surfaced a real, pre-existing bug in `templateMerge.ts`.
-
-`ppt/_rels/presentation.xml.rels` does contain both `slides/slide1.xml` and `slides/slide61.xml` (confirmed by unzipping `src/assets/pptx/gd_master.pptx`). But the `parseRels()` helper uses this regex:
+Same class of bug as the previous fix. In `templateMerge.ts` step 6, this regex strips `<Override>` entries for removed slides:
 
 ```ts
-const re = /<Relationship\s[^/>]*\/>/g;
+/<Override\s+PartName="\/ppt\/slides\/slide\d+\.xml"[^/]*\/>/g
 ```
 
-`[^/>]` forbids `/` characters inside the match. Every `<Relationship>` element has `Type="http://schemas.openxmlformats.org/..."` whose value contains slashes, so **the regex matches zero elements**. `parseRels` returns `[]`, both `titleRId` and `thankYouRId` stay `null`, and we throw `"Template title/thankyou slides not found"`.
+`[^/]*` forbids `/` — but every `<Override>` element contains `ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"`, which has slashes. So the regex matches **zero** elements, no overrides are removed, and the validator correctly reports `/ppt/slides/slide14.xml` (and 58 others) as orphans.
 
 ## Fix
 
-One-line regex correction in `src/exporters/pptx/templateMerge.ts` (`parseRels`):
+One-line change in `src/exporters/pptx/templateMerge.ts`:
 
 ```ts
-// Was (broken — forbids "/" so URL Types never match):
-const re = /<Relationship\s[^/>]*\/>/g;
-
-// New (non-greedy up to the closing "/>"):
-const re = /<Relationship\b[^>]*?\/>/g;
+// Was:
+/<Override\s+PartName="\/ppt\/slides\/slide\d+\.xml"[^/]*\/>/g
+// New:
+/<Override\s+PartName="\/ppt\/slides\/slide\d+\.xml"[^>]*?\/>/g
 ```
 
-`[^>]*?` allows `/` inside attribute values and the non-greedy quantifier still stops at the first `/>`.
+`[^>]*?` (non-greedy, stops at `>`) allows `/` inside attribute values but still terminates at the closing `/>`.
 
-## Why I'm confident
-
-- Manual unzip of the template confirms `slide1.xml`, `slide61.xml`, and rels for both exist verbatim.
-- The same broken regex pattern is also used inside `validatePptx.ts` for the slide-rels target check (`/<Relationship\s+[^/>]*Target=...`). I'll apply the same fix there for consistency, otherwise validation of *generated* slide rels will under-report.
+After this fix, the validator pass will be clean and PowerPoint should open the file without complaint.
 
 ## Files changed
 
-1. `src/exporters/pptx/templateMerge.ts` — fix `parseRels` regex.
-2. `src/exporters/pptx/validatePptx.ts` — apply the same fix to the slide-rels Target scan and the presentation rels scan, so the validator stops missing relationships with URL-bearing Types.
-
-No new dependencies. No behavioural change to anything other than rels parsing.
+- `src/exporters/pptx/templateMerge.ts` — single regex fix on line 187.
