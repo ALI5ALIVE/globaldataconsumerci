@@ -190,8 +190,9 @@ const ConsumerJourneyDeck = () => {
 
   const narration = useConsumerJourneyNarration();
 
-  // ?capture=1&slide=N — server-side PPTX export deep-link.
-  // Hide UI chrome, jump directly to the slide, suppress narration/animation.
+  // ?capture=1&slide=N — PPTX export deep-link.
+  // Hide UI chrome, jump directly to the slide, suppress narration/animation,
+  // and emit data-pptx-ready="true" once the target slide is laid out.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("capture") !== "1") return;
@@ -203,12 +204,37 @@ const ConsumerJourneyDeck = () => {
     document.documentElement.setAttribute("data-pptx-capture", "true");
     document.documentElement.setAttribute("data-printing", "true");
 
-    requestAnimationFrame(() => {
-      if (!containerRef.current) return;
-      const slideHeight = containerRef.current.clientHeight;
-      containerRef.current.scrollTo({ top: targetSlide * slideHeight, behavior: "auto" });
-      setActiveSlide(targetSlide);
-    });
+    let cancelled = false;
+    const start = Date.now();
+
+    const tryScroll = () => {
+      if (cancelled) return;
+      const el = containerRef.current;
+      if (el && el.clientHeight > 0) {
+        const slideHeight = el.clientHeight;
+        el.scrollTo({ top: targetSlide * slideHeight, behavior: "auto" });
+        setActiveSlide(targetSlide);
+
+        // Signal ready after fonts + a settle frame.
+        const signalReady = async () => {
+          try {
+            const fonts = (document as Document & { fonts?: { ready: Promise<unknown> } }).fonts;
+            if (fonts?.ready) await fonts.ready;
+          } catch { /* ignore */ }
+          await new Promise((r) => setTimeout(r, 400));
+          if (!cancelled) {
+            document.documentElement.setAttribute("data-pptx-ready", "true");
+          }
+        };
+        signalReady();
+        return;
+      }
+      if (Date.now() - start > 5000) return;
+      requestAnimationFrame(tryScroll);
+    };
+    requestAnimationFrame(tryScroll);
+
+    return () => { cancelled = true; };
   }, []);
 
   // When activeSlide changes: stop narration on manual nav, auto-play on auto-advance
