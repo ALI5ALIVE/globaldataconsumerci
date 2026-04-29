@@ -1,40 +1,61 @@
-import { useState, ReactNode } from "react";
-import { Download } from "lucide-react";
+import { useState } from "react";
+import { Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import jsPDF from "jspdf";
+import { captureSlide } from "@/exporters/pptx/captureSlide";
+import { CONSUMER_JOURNEY_SLIDE_IDS } from "@/exporters/pptx/buildConsumerJourneyDeck";
 
 interface DeckDownloadButtonProps {
-  /** Kept for backwards compatibility — no longer used by native print flow. */
-  slides?: ReactNode[];
+  /** Optional override; defaults to the Consumer Journey slide list. */
+  slideIds?: { id: string; label: string }[];
+  filename?: string;
   onBeforeCapture?: () => void;
 }
 
-const DeckDownloadButton = ({ onBeforeCapture }: DeckDownloadButtonProps) => {
-  const [isPreparing, setIsPreparing] = useState(false);
+const DeckDownloadButton = ({
+  slideIds = CONSUMER_JOURNEY_SLIDE_IDS,
+  filename = "Connected-Consumer-Intelligence.pdf",
+  onBeforeCapture,
+}: DeckDownloadButtonProps) => {
+  const [busy, setBusy] = useState(false);
+  const [progress, setProgress] = useState<{ current: number; total: number; label: string } | null>(null);
 
   const handleSavePdf = async () => {
-    setIsPreparing(true);
+    if (busy) return;
     onBeforeCapture?.();
-
-    document.documentElement.setAttribute("data-printing", "true");
+    setBusy(true);
+    document.documentElement.dataset.capturing = "true";
+    const total = slideIds.length;
+    setProgress({ current: 0, total, label: "Starting" });
 
     try {
-      if ((document as any).fonts?.ready) {
-        await (document as any).fonts.ready;
+      // 1920×1080 px landscape (16:9) — matches PPTX export
+      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1920, 1080] });
+
+      for (let i = 0; i < total; i++) {
+        const { id, label } = slideIds[i];
+        setProgress({ current: i + 1, total, label: `Capturing ${label}` });
+        const dataUrl = await captureSlide(id);
+        if (i > 0) pdf.addPage([1920, 1080], "landscape");
+        pdf.addImage(dataUrl, "PNG", 0, 0, 1920, 1080, undefined, "FAST");
       }
-      // Allow layout to reflow at 1920px width and slides to expand
-      await new Promise((r) => setTimeout(r, 700));
-      await new Promise((r) => requestAnimationFrame(() => r(null)));
-      window.print();
+
+      pdf.save(filename);
+      toast.success("PDF downloaded");
+    } catch (err) {
+      console.error("[pdf] export failed", err);
+      toast.error("Failed to build PDF");
     } finally {
-      const cleanup = () => {
-        document.documentElement.removeAttribute("data-printing");
-        setIsPreparing(false);
-        window.removeEventListener("afterprint", cleanup);
-      };
-      window.addEventListener("afterprint", cleanup);
-      setTimeout(cleanup, 60_000);
+      delete document.documentElement.dataset.capturing;
+      setBusy(false);
+      setProgress(null);
     }
   };
+
+  const label = busy && progress
+    ? `${progress.label} (${progress.current}/${progress.total})`
+    : "Save as PDF";
 
   return (
     <Button
@@ -42,12 +63,12 @@ const DeckDownloadButton = ({ onBeforeCapture }: DeckDownloadButtonProps) => {
       size="sm"
       className="gap-2 border-primary/30 text-primary hover:bg-primary/10 text-xs"
       onClick={handleSavePdf}
-      disabled={isPreparing}
+      disabled={busy}
       data-deck-ui="true"
-      title="Open the browser print dialog and choose 'Save as PDF' for a pixel-perfect export"
+      title="Capture every slide and download as a 16:9 PDF"
     >
-      <Download className="w-3.5 h-3.5" />
-      {isPreparing ? "Opening…" : "Save as PDF"}
+      {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+      <span className="hidden sm:inline">{label}</span>
     </Button>
   );
 };
