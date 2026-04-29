@@ -602,7 +602,8 @@ function buildSlide4(pptx: PptxGenJS) {
     charSpacing: 3,
   });
 
-  const renderCol = (items: typeof businessCosts, x: number) => {
+  type CostItem = { stat: string; detail: string; color: string };
+  const renderCol = (items: CostItem[], x: number) => {
     items.forEach((c, i) => {
       const y = startY + 0.4 + i * (cardH + cardGap);
       addCard(s, x, y, colW, cardH, { fill: c.color, transparency: 90, border: c.color });
