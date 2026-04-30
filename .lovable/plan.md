@@ -1,122 +1,150 @@
 
-## What the reference repo does (and why their output is better)
+## Goal
 
-Their **Editable PPTX** is not generated from narration text. Each slide is a **hand-coded `SlideSpec`** that draws the *visual layout* of the corresponding React slide using native PowerPoint primitives — rounded cards, icon badges, pills, stat tiles, before/after columns, time-allocation bars, DTOP step pills, and a branded chrome (logo, footer, slide counter, faint dotted grid).
+Replace the current Comply365-blue editable PPTX with a fully **GlobalData-branded**, native (editable) deck. Every slide is rebuilt from primitives using the GlobalData master visual system as the design source, while preserving the Consumer Journey content & layouts the React deck shows.
 
-Key architectural pieces:
+This continues with **Strategy B (per-element redraw)** — no captured images, all editable text/shapes/colors.
 
-1. **`src/lib/pptxBrand.ts`** — a ~600-line shared toolkit of brand primitives:
-   - `PPTX_BRAND` tokens (colors, fonts, slide size)
-   - `paintBackground`, `addBrandMaster` (chrome: bg + hairline + logo + footer + slide counter)
-   - Building blocks: `addCard`, `addLabeledCard`, `addPill`, `addPillRow`, `addIconBadge`, `addStatTile`, `addEyebrow`, `addSectionTitle`, `addBulletList`, `addCheckRow`, `addDivider`, `addStepArrow`, `addImageFallback`
-2. **`SlideSpec` pattern** — every slide is `{ label, build(slide, ctx) }`. The deck builder loops, calls `pptx.addSlide()` then `spec.build(...)`. Each spec composes brand primitives to mirror its React counterpart (e.g. `transformationSpec` rebuilds the before/after + time-allocation layout from `Slide4Transformation.tsx`).
-3. **Image fallback** — `addImageFallback` lets a spec embed a captured PNG only for genuinely uncomposable visuals (complex SVG hubs, framer-motion compositions). Rest of the slide stays editable.
-4. **Lazy-loaded builders** — `index.ts` lazy-imports each deck so `pptxgenjs` isn't pulled into the main bundle.
-5. **No template merge, no JSZip, no XML hacking** — `pptxgenjs` writes a clean, valid PPTX in one call.
+## What we're using from the GlobalData master
 
-The "better output" comes from per-slide visual design work, not from any clever framework.
+Pulled directly from the .potx you uploaded:
 
-## Plan: replicate this in our project
+**Primary palette**
+- White `#FFFFFF` (text & backgrounds)
+- GD Black `#242528` (text & strokes)
+- Navy Blue `#1F2432` (backgrounds, infographics, smart-art)
+- Cream `#FBF5E9` (backgrounds, infographics)
+- Mid Blue `#09216B` (additional infographic accent)
+- Light Grey `#F2F2F2` (neutral surfaces)
 
-### Step 1 — Create `src/lib/pptxBrand.ts`
+**Secondary palette (for differentiation in infographics)**
+- Mid Grey `#676B75`, Dark Grey `#505259`, Navy-1 `#444C62`
+- Cream+1 `#E7D7C1`, Hyper Blue-1 `#6789FB`, Hyper Blue-2 `#CAD6FF`
+- Mid Blue-1 `#0029AA`, Mid Blue-2 `#3D5BBA`
 
-Port the shared toolkit, adapted to Comply365 Consumer-Journey colors already in our memory (Comply365 blue `#0066FF`, sky blue accent, navy `#0A1628`). Same exported API as the reference: `PPTX_BRAND`, `paintBackground`, `addBrandMaster`, `addCard`, `addLabeledCard`, `addPill`, `addPillRow`, `addIconBadge`, `addStatTile`, `addEyebrow`, `addSectionTitle`, `addBulletList`, `addCheckRow`, `addDivider`, `addStepArrow`, `addImageFallback`, `loadImageAsBase64`, `addBrandLogo`.
+**Data-viz palette (charts in fixed order)**
+`#2541D8 · #E6DCC3 · #4A7C6B · #001F5C · #EBD369 · #E08E45 · #BBAEA0 · #DCE4FF · #8BC09B · #B84438` (then row 2 for series 11–20)
 
-### Step 2 — Define `SlideSpec` and rewrite the editable builder
+**Typography**
+- Headings: **Poppins Regular**, ≤ 32 pt, line-height 1.0
+- Body: **Poppins Light**, ≥ 8 pt, line-height 1.0–1.1
+- PowerPoint substitutes Calibri locally if Poppins isn't installed — we'll specify Poppins so installed users get the brand font.
 
-Replace the current naive `buildConsumerJourneyEditable.ts` with a spec-based builder.
+**Brand chrome**
+- Cover slide: navy background, large Poppins Regular title (≤ 32 pt), Q-mark in top-left
+- Content slides: cream or white background, GD Black headline, Q-mark watermark in bottom-right corner only (per your memory rule "no GD logo in headers"), footer reads `globaldata.com  ·  N` aligned right
+- 8×8 grid alignment (master uses Guides at 8×8) — we'll snap our spec coordinates to that grid
+
+## Architecture changes
+
+We keep the existing `SlideSpec` pattern. We swap out:
+
+1. `src/lib/pptxBrand.ts` → rebrand all tokens & primitives to GlobalData
+2. `src/exporters/pptx/buildConsumerJourneyEditable.ts` → use GlobalData chrome, embed the Q-mark, remove the Comply365 logo
+3. The 12 spec files under `src/exporters/pptx/specs/consumerJourney/` → repaint with GD palette + Poppins, redraw decorative elements with the GD vocabulary (cream/navy panels, hyper-blue accents, Q-mark watermark) — content & layout intent stays identical
+
+## Brand token redesign (`pptxBrand.ts`)
+
+Replace the existing `PPTX_BRAND` with:
 
 ```ts
-// src/exporters/pptx/slideSpec.ts
-export interface SlideContext {
-  logo: string; logoLight: string;
-  index: number; total: number;
-  deckLabel: string;
-}
-export interface SlideSpec {
-  label: string;
-  build: (slide: pptxgen.Slide, ctx: SlideContext) => Promise<void> | void;
-}
+export const PPTX_BRAND = {
+  size: { w: 13.333, h: 7.5 },
+  color: {
+    white: "FFFFFF",
+    black: "242528",      // GD Black
+    navy: "1F2432",       // primary dark surface
+    cream: "FBF5E9",      // primary light surface
+    midBlue: "09216B",    // primary accent
+    lightGrey: "F2F2F2",  // neutral
+    // Secondary
+    midGrey: "676B75",
+    darkGrey: "505259",
+    navy1: "444C62",
+    cream1: "E7D7C1",
+    hyperBlue1: "6789FB",
+    hyperBlue2: "CAD6FF",
+    midBlue1: "0029AA",
+    midBlue2: "3D5BBA",
+    // Data-viz (sequence in fixed order)
+    dv: ["2541D8","E6DCC3","4A7C6B","001F5C","EBD369",
+         "E08E45","BBAEA0","DCE4FF","8BC09B","B84438"],
+    // Status
+    success: "4A7C6B",   // borrows green from dv
+    danger: "B84438",    // dv red
+    warning: "E08E45",   // dv amber
+  },
+  font: { heading: "Poppins", body: "Poppins" },
+} as const;
 ```
 
-Then in `src/exporters/pptx/specs/consumerJourney/`, one file per slide:
+All existing primitives (`addCard`, `addLabeledCard`, `addPill`, `addStatTile`, `addBrandStatBlock`, `addEyebrow`, `addSectionTitle`, `addBulletList`, `addCheckRow`, `addImageFallback`) keep their signatures — only their default colors and fonts change.
 
-| File | Mirrors React component |
+## New chrome (`addBrandMaster`)
+
+Two variants:
+
+**`light` (content slides)** — cream background `#FBF5E9` with optional white inner panel; `#242528` ink; bottom-left footer = deck label in dark grey `#676B75`; bottom-right footer = `globaldata.com  ·  NN` in dark grey; small Q-mark watermark bottom-right corner at 0.45" tall.
+
+**`dark` (cover slide)** — navy `#1F2432` full-bleed; white text; large white Q-mark in top-left at 0.55" tall; eyebrow in cream `#FBF5E9`; footer slide counter in mid-grey.
+
+Per your memory the GD wordmark is **removed from in-slide headers** — we only use the Q-glyph mark and the `globaldata.com` text-mark in the footer. Title slide still gets the prominent Q-mark.
+
+## Asset additions
+
+Copy the Q-mark from the parsed `.potx` images into `src/assets/`:
+- `src/assets/gd-qmark-white.png` (white Q for navy backgrounds — page 13 of the master)
+- `src/assets/gd-qmark-dark.png` (dark Q for cream/white backgrounds — page 5 of the master)
+
+Both are loaded once via `loadImageAsBase64` in the editable builder.
+
+## Per-slide redraw notes
+
+Same content, repainted in GD vocabulary:
+
+| Slide | GD design moves |
 |---|---|
-| `00-title.ts` | `CJSlide0Title.tsx` — hero chrome + eyebrow + 44pt title + stats strip |
-| `01-pressure.ts` | `CJSlide1Pressure.tsx` — three pressure cards |
-| `02-monday-morning.ts` | `CPSlide1MondayMorning.tsx` — inbox: 7 rows of email cards w/ unread pill |
-| `03-seven-sources.ts` | `CPSlide2SevenSources.tsx` — 7 vendor logos in a grid (image-embedded vendor marks) |
-| `04-the-cost.ts` | `CPSlide3TheCost.tsx` — Business vs You split, £63M accumulator stat |
-| `05-one-lens.ts` | `CPSlide4ImagineOneLens.tsx` — central Ava hub + 5 personas (image fallback for the SVG hub) |
-| `06-connected-decision.ts` | `CJSlideConnectedDecision.tsx` — boardroom GO verdict + persona dashboards |
-| `07-teams-transformed.ts` | `CPSlide7TeamsTransformed.tsx` — three transformation metric tiles |
-| `08-maturity-journey.ts` | `CJSlideMaturityJourney.tsx` — 5-stage curve (image fallback) + 4 summary boxes |
-| `09-proof.ts` | `CJSlideProof.tsx` — proof points + ROI chart |
-| `10-why-not-diy.ts` | `CJSlideWhyNotDIY.tsx` — three-pillar comparison cards |
-| `11-cta.ts` | `CJSlide12CTA.tsx` — CTA + Top 5 FMCG VP testimonial |
+| 0 · Title | Navy bg `#1F2432`, large white Q in top-left, eyebrow `A NEW WAY OF WORKING` in cream, headline white Poppins Regular 32 pt, subhead Poppins Light cream-ish, stats strip becomes 4 white outline cards on navy with hyper-blue numbers `#6789FB`. Footer `globaldata.com` in mid-grey. |
+| 1 · Pressure | Cream bg, three white cards with thin navy stroke; left accent bars in mid-blue `#09216B`, hyper-blue `#6789FB`, cream-1 `#E7D7C1`. Section title GD black. |
+| 2 · Monday Morning | Cream bg, 7 white email rows with navy unread dot, "UNREAD" pill in hyper-blue-2 `#CAD6FF` background + mid-blue text. |
+| 3 · Seven Sources | Cream bg, 7 vendor cards in white with mid-blue left accent. Three stat tiles below using data-viz colors: red `#B84438` (60%), amber `#E08E45` (10%), mid-blue `#09216B` (12 wks). |
+| 4 · The Cost | Cream bg, two columns: left "BUSINESS COST" header band in dv red `#B84438` with `£63M` in red; right "PERSONAL COST" header band in mid-blue `#09216B` with `60%` in mid-blue. Bullets in GD black. |
+| 5 · One Lens (Ava hub) | Cream bg, central Ava disc in navy `#1F2432` with white "AVA" text; 5 solution cards orbit, each with a hyper-blue-2 background `#CAD6FF` and a left accent in one of the data-viz colors. Connector dots in mid-grey. |
+| 6 · Connected Decision | Cream bg, top GO band in mid-blue `#09216B` with white text; 5 persona cards below — top accent bar from data-viz palette, big stat in matching color. |
+| 7 · Teams Transformed | Cream bg, three large stat tiles (mid-blue, hyper-blue, dv-green); talent retention card below in white with mid-blue left bar. |
+| 8 · Maturity Journey | Cream bg, 5-stage curve repainted with **the data-viz sequence in order** (`#2541D8 #E6DCC3 #4A7C6B #001F5C #EBD369`) so it matches the master's prescribed series order. Connector trail in light grey `#F2F2F2`. 4 summary cards below in white. |
+| 9 · The Proof | Cream bg, 4 stat tiles in dv colors 1–4 (mid-blue, cream, green, navy). VP testimonial card in navy `#1F2432` with white italic quote and cream byline. |
+| 10 · Why Not DIY | Cream bg, two columns: DIY header band dv red `#B84438`; CI header band mid-blue `#09216B`. 5 comparison rows with red ✕ / dv-green ✓. |
+| 11 · CTA | Cream bg. Discovery Session card in navy `#1F2432` (white text, hyper-blue-2 eyebrow). Intelligence Audit card in white with mid-blue left bar. VP testimonial band in light grey `#F2F2F2`. |
 
-Each spec uses primitives only (no captures). Where a visual is genuinely uncomposable (Ava hub SVG, maturity curve SVG), use `addImageFallback` — the rest of that slide still stays editable.
+Speaker notes from `consumerJourneyNarrations[i].script` continue to populate every slide.
 
-### Step 3 — Wire the deck builder
+## Files changed
 
-```ts
-// src/exporters/pptx/buildConsumerJourneyEditable.ts
-const composed: SlideSpec[] = [
-  titleSpec, pressureSpec, mondayMorningSpec, sevenSourcesSpec,
-  theCostSpec, oneLensSpec, connectedDecisionSpec, teamsTransformedSpec,
-  maturityJourneySpec, proofSpec, whyNotDiySpec, ctaSpec,
-];
-const pptx = new PptxGenJS();
-pptx.layout = "LAYOUT_WIDE";
-const logo = await loadImageAsBase64(comply365LogoUrl);
-for (let i = 0; i < composed.length; i++) {
-  opts.onProgress?.(i, composed.length, composed[i].label);
-  const slide = pptx.addSlide();
-  await composed[i].build(slide, { logo, logoLight, index: i, total: composed.length, deckLabel: "Connected Consumer Intelligence" });
-}
-return await pptx.write({ outputType: "blob" }) as Blob;
-```
-
-Also populate **Speaker Notes** on every slide from `consumerJourneyNarrations[i].script` so presenters keep the script.
-
-### Step 4 — Keep the dual-button UX
-
-`DeckPPTXExportButton` already supports `mode="pixel-perfect" | "editable"`. No UI changes needed — the `editable` builder simply produces a much richer output.
-
-### Step 5 — Optional later: image fallback for hub & curve
-
-If we want Slide 5 (Ava hub) and Slide 8 (maturity curve) to be visually identical to the web, the spec for those two slides can call `captureSlide("cp-slide-4")` / `captureSlide("cj-slide-maturity")` and place the captured PNG inside an otherwise editable layout (eyebrow, title, side annotations all native text). This is the "Hybrid: image + editable chrome" pattern.
-
-## Files to create / change
-
-**New**
-- `src/lib/pptxBrand.ts` (~500 lines, ported & rebranded toolkit)
-- `src/exporters/pptx/slideSpec.ts` (the `SlideSpec` interface)
-- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` (12 spec files)
+**New assets**
+- `src/assets/gd-qmark-white.png` (copied from parsed master)
+- `src/assets/gd-qmark-dark.png` (copied from parsed master)
 
 **Rewritten**
-- `src/exporters/pptx/buildConsumerJourneyEditable.ts` (compose specs, no more bullet generator)
+- `src/lib/pptxBrand.ts` — palette, fonts, chrome
+- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — load Q-marks, GD chrome, label `"globaldata.com"`
+- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — repaint each per the table above
 
-**Unchanged**
-- `src/exporters/pptx/index.ts` (registry already correct)
-- `src/exporters/pptx/buildConsumerJourneyDeck.ts` (pixel-perfect path stays)
-- `src/components/DeckPPTXExportButton.tsx` (already supports `mode`)
-- `src/pages/ConsumerJourneyDeck.tsx` (already renders both buttons)
+**Untouched**
+- `src/components/DeckPPTXExportButton.tsx` — already mode-aware
+- `src/exporters/pptx/buildConsumerJourneyDeck.ts` — pixel-perfect path stays
+- `src/exporters/pptx/index.ts` — registry stays
 
-## Trade-offs & honest expectations
+## What "exactly replicate" looks like after this
 
-- **Effort**: porting `pptxBrand.ts` is mechanical (~30 min); each of the 12 specs is the real work — roughly 30-60 min per slide of careful layout coding to mirror the React design.
-- **Fidelity**: native shapes/text — NOT pixel-identical to the web (PowerPoint has no SVG, no framer-motion, no React-rendered components). Expect ~80% visual likeness for layout-driven slides (1, 2, 3, 4, 7, 10, 11), ~60% for the SVG-heavy slides (5, 8) unless we use the hybrid image fallback for those.
-- **Editability**: every text frame, color, position is editable in PowerPoint. Same as the reference repo's "Medium" output.
-- **Bundle size**: `pptxgenjs` is already installed and lazy-loaded; no new heavy deps.
+You'll get 12 slides that are unmistakably the GlobalData master deck — same palette, same Poppins typography, same Q-mark + `globaldata.com` footer pattern, same cream/navy surface choices, same data-viz color order — populated with your Consumer Journey narrative. Every text frame, color and shape stays editable in PowerPoint Desktop.
 
-## Suggested execution order (so progress is visible quickly)
+It is **not** byte-identical to the React rendering on screen (PPTX still has no SVG/framer-motion), but it **is** an exact match to the GlobalData brand system the .potx defines — which is the realistic upper bound for an editable deck.
 
-1. Port `pptxBrand.ts` and define `SlideSpec` (foundational).
-2. Build `00-title.ts` and `11-cta.ts` first (simplest, validates the pipeline end-to-end).
-3. Build the 4 layout-heavy slides next: `01-pressure`, `04-the-cost`, `07-teams-transformed`, `10-why-not-diy`.
-4. Build the data-rich slides: `02-monday-morning`, `03-seven-sources`, `06-connected-decision`, `09-proof`.
-5. Finish with the SVG-fallback slides: `05-one-lens`, `08-maturity-journey`.
+## Suggested order of execution
 
-We can ship after Step 2 with a working pipeline, then add specs incrementally.
+1. Copy the two Q-mark assets, rewrite `pptxBrand.ts` with GD tokens & chrome.
+2. Repaint the title spec (validates the navy hero).
+3. Repaint the layout-driven slides in batch (1, 4, 7, 10, 11).
+4. Repaint the data-rich slides (2, 3, 6, 9).
+5. Repaint the visually-rich slides (5, 8) — these benefit most from the data-viz palette.
