@@ -83,9 +83,13 @@ export const connectedDecisionSpec: SlideSpec = {
       });
     });
 
-    // GO verdict band
+    // GO verdict band (with green left rule)
     const vy = top + ch + 0.18;
     addCard(slide, 0.5, vy, W - 1, 0.55, { fill: "E8F3EE", border: C.success });
+    slide.addShape("rect", {
+      x: 0.5, y: vy, w: 0.1, h: 0.55,
+      fill: { color: C.success }, line: { type: "none" },
+    });
     slide.addText("✓  GO", {
       x: 0.7, y: vy, w: 2.5, h: 0.55,
       fontFace: PPTX_BRAND.font.display, fontSize: 18, bold: true, color: C.success,

@@ -73,20 +73,21 @@ export const maturityJourneySpec: SlideSpec = {
         fontFace: PPTX_BRAND.font.display, fontSize: 11, bold: true,
         color: "FFFFFF", align: "center", valign: "middle", margin: 0,
       });
+      // Label sits ABOVE the marker (live curve places labels above)
       slide.addText(st.label, {
-        x: p.x - 1.2, y: p.y + r + 0.06, w: 2.4, h: 0.28,
+        x: p.x - 1.2, y: p.y - r - 0.36, w: 2.4, h: 0.28,
         fontFace: PPTX_BRAND.font.display, fontSize: 11, bold: true, color: C.ink,
         align: "center", margin: 0,
       });
-      // Gateway pill
+      // Gateway pill (above the label)
       if (st.isGateway) {
         slide.addShape("roundRect", {
-          x: p.x - 0.5, y: p.y - r - 0.4, w: 1.0, h: 0.26,
+          x: p.x - 0.5, y: p.y - r - 0.7, w: 1.0, h: 0.26,
           fill: { color: C.primary }, line: { type: "none" },
           rectRadius: 0.13,
         });
         slide.addText("GATEWAY", {
-          x: p.x - 0.5, y: p.y - r - 0.4, w: 1.0, h: 0.26,
+          x: p.x - 0.5, y: p.y - r - 0.7, w: 1.0, h: 0.26,
           fontFace: PPTX_BRAND.font.body, fontSize: 8, bold: true, color: "FFFFFF",
           align: "center", valign: "middle", charSpacing: 3, margin: 0,
         });
@@ -143,7 +144,7 @@ export const maturityJourneySpec: SlideSpec = {
       });
       // Bullets
       slide.addText(
-        st.bullets.map((t) => ({ text: t, options: { bullet: { code: "25A0" }, color: C.muted } })),
+        st.bullets.map((t) => ({ text: t, options: { bullet: { code: "25CF" }, color: C.muted } })),
         {
           x: x + 0.15, y: cardTop + 1.22, w: cw - 0.3, h: cardH - 1.32,
           fontFace: PPTX_BRAND.font.body, fontSize: 8, color: C.muted,

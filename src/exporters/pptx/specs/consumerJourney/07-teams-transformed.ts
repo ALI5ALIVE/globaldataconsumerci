@@ -103,27 +103,27 @@ export const teamsTransformedSpec: SlideSpec = {
     });
 
     // 3 outcome cards
-    const cy = vy + 0.65;
+    const cy = vy + 0.6;
     const cgap = 0.2;
     const cw = (w - cgap * 2) / 3;
-    const ch = 1.4;
+    const ch = 1.15;
     T.cards.forEach((c, i) => {
       const cx = x0 + i * (cw + cgap);
       addCard(slide, cx, cy, cw, ch, { fill: "EAF0FF", border: C.primary });
-      addGlyphTile(slide, cx + cw / 2 - 0.18, cy + 0.12, 0.36, { glyph: c.glyph, color: C.primary, fill: C.primary });
+      addGlyphTile(slide, cx + cw / 2 - 0.16, cy + 0.08, 0.32, { glyph: c.glyph, color: C.primary, fill: C.primary });
       slide.addText(c.metric, {
-        x: cx, y: cy + 0.5, w: cw, h: 0.4,
-        fontFace: PPTX_BRAND.font.display, fontSize: 22, bold: true, color: C.primary,
+        x: cx, y: cy + 0.42, w: cw, h: 0.34,
+        fontFace: PPTX_BRAND.font.display, fontSize: 18, bold: true, color: C.primary,
         align: "center", valign: "middle", margin: 0,
       });
       slide.addText(c.title, {
-        x: cx, y: cy + 0.88, w: cw, h: 0.25,
-        fontFace: PPTX_BRAND.font.display, fontSize: 11, bold: true, color: C.ink,
+        x: cx, y: cy + 0.74, w: cw, h: 0.2,
+        fontFace: PPTX_BRAND.font.display, fontSize: 10, bold: true, color: C.ink,
         align: "center", margin: 0,
       });
       slide.addText(c.desc, {
-        x: cx + 0.15, y: cy + 1.13, w: cw - 0.3, h: 0.27,
-        fontFace: PPTX_BRAND.font.body, fontSize: 8.5, color: C.muted,
+        x: cx + 0.12, y: cy + 0.93, w: cw - 0.24, h: 0.2,
+        fontFace: PPTX_BRAND.font.body, fontSize: 7.5, color: C.muted,
         align: "center", valign: "top", margin: 0,
       });
     });

@@ -95,11 +95,11 @@ export const whyNotDiySpec: SlideSpec = {
       align: "center", valign: "middle", charSpacing: 1, margin: 0,
     });
 
-    // Closing italic
+    // Closing italic (in a slim caption card to clear the footer)
     slide.addText(D.closing, {
-      x: 0.5, y: cy + 0.5, w: W - 1, h: 0.4,
-      fontFace: PPTX_BRAND.font.display, fontSize: 12, italic: true, bold: true, color: C.inkSoft,
-      align: "center", margin: 0,
+      x: 0.5, y: cy + 0.5, w: W - 1, h: 0.36,
+      fontFace: PPTX_BRAND.font.display, fontSize: 10, italic: true, bold: true, color: C.inkSoft,
+      align: "center", valign: "middle", margin: 0,
     });
   },
 };

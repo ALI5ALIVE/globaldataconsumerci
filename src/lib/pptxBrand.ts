@@ -559,6 +559,50 @@ export function addInboxRow(
   });
 }
 
+/* ── Dashed ring (e.g. Ava AI ring on slide 5) ───────────────── */
+
+export function addDashedRing(
+  slide: pptxgen.Slide,
+  cx: number, cy: number, r: number,
+  color: string,
+  segs: number = 36,
+  dotSize: number = 0.06,
+) {
+  for (let i = 0; i < segs; i++) {
+    if (i % 2 !== 0) continue; // every other dot for "dashed" feel
+    const a = (i / segs) * Math.PI * 2;
+    const px = cx + Math.cos(a) * r;
+    const py = cy + Math.sin(a) * r;
+    slide.addShape("ellipse", {
+      x: px - dotSize / 2, y: py - dotSize / 2, w: dotSize, h: dotSize,
+      fill: { color }, line: { type: "none" },
+    });
+  }
+}
+
+/* ── Person silhouette (used at consumer-center hub) ─────────── */
+
+export function addPersonSilhouette(
+  slide: pptxgen.Slide,
+  cx: number, cy: number, size: number,
+  color: string = "FFFFFF",
+) {
+  // Head
+  const headR = size * 0.18;
+  slide.addShape("ellipse", {
+    x: cx - headR, y: cy - size * 0.45, w: headR * 2, h: headR * 2,
+    fill: { color }, line: { type: "none" },
+  });
+  // Shoulders (rounded rectangle)
+  const shW = size * 0.7;
+  const shH = size * 0.32;
+  slide.addShape("roundRect", {
+    x: cx - shW / 2, y: cy - size * 0.05, w: shW, h: shH,
+    fill: { color }, line: { type: "none" },
+    rectRadius: shH / 2,
+  });
+}
+
 /* ── Image fallback (for SVG-heavy compositions) ─────────────── */
 
 export function addImageFallback(

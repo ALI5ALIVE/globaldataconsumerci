@@ -1,95 +1,86 @@
-## Where we are vs. the ceiling
+## Goal
+Bring the editable PPTX (`Connected-Consumer-Intelligence-Editable_5.pptx`) materially closer to the live web deck. Ground-truth source = `src/components/consumer-journey/*` and `_copy.ts`. Biggest visible miss: the Ava hub slide is missing a persona and the multi-ring structure shown on screen. Every other slide also gets a focused fidelity pass.
 
-We've already done the high-leverage work in the **native redraw** approach:
-- Correct GD palette (Navy, Cream, Mid Blue, Hyper Blue, GD Black, full 10-color data-viz sequence)
-- Poppins typography, `globaldata.com` footer, Q-mark watermarks
-- Shared `_copy.ts` so PPTX text matches the React deck verbatim
-- Reusable primitives (cards, glyph tiles, segmented bars, inbox rows, pills)
-- All 12 slides redrawn against the live components
+## What's wrong today (confirmed by re-rendering the uploaded file)
 
-**What still doesn't match the real GD master:**
-1. Master slide chrome (header bar, footer wordmark style, page numbering, rule lines) is *re-implemented*, not *inherited* — so spacing, font weights and corner treatments are "close" but not identical.
-2. We're not using GD's actual section dividers, icon set, or photographic cover treatments — those live as layouts inside `gd_master.pptx`.
-3. Title slide uses a flat navy + Q-mark rather than the master's hero composition.
-4. No "section header" slides between narrative beats (the master has them).
-5. Charts/diagrams are drawn with `addShape` instead of using the master's chart placeholder styles.
+**Slide 6 — One Lens / Ava Hub (the one you flagged)**
+- Only **5 persona cards**; the live `CJOneLensHub` shows **6 stages** (adds **David — Head of Procurement / "One Vendor, Lower Cost"**).
+- The web hub has **two concentric rings** (5 *solution* cards inner ring, 5 *persona* avatars outer ring) plus a **consumer silhouette center** wrapped by a dashed **AVA AI ring**. Export currently has just a single ring of cards around an "AVA" disc. No consumer center, no AVA ring, no two-tier structure.
+- The card content collapses persona + solution into one tile; the live UI separates them and adds the solution sub-line (e.g. "110 countries · 1,000+ segments").
 
-We can close most of that gap by **building on top of the real master file** (which already exists at `src/assets/pptx/gd_master.pptx`) instead of synthesising chrome ourselves.
+**Slide 1 — Title**
+- Missing the "GlobalData" wordmark/glow header treatment shown on screen; we render only the Q-mark via the master.
+- `bg-gradient` in the headline ("for Consumer Brands") should render as a brighter accent blue, not the same navy ink.
 
-## The plan — three layers, biggest fidelity wins first
+**Slide 2 — Pressure**
+- Cards lack the title eyebrow ("THE PRESSURE") that the spec defines but the build skips.
+- No glyph color differentiation per card (live uses navy / blue / amber / red accents — currently all use the brand primary).
 
-### Layer 1 — Adopt the real master as the deck template (biggest single win)
+**Slide 4 — Seven Sources**
+- Vendor cards are missing the small **red "unread" dot** styling consistency with the inbox slide and the **column dividers** that the live grid uses for visual rhythm.
+- The 3-stat callout pill should sit on a **soft red wash**, not a plain card.
 
-Switch `buildConsumerJourneyEditable` from `new PptxGenJS()` to a template-merge flow that opens `gd_master.pptx`, reads its `slideMasters` and `slideLayouts`, and emits our slides referencing those layouts. We already have a `templateMerge.ts` scaffold in `src/exporters/pptx/` — extend it.
+**Slide 5 — The Cost**
+- Headers "YOUR BUSINESS" / "YOU, PERSONALLY" render but the live design uses the **brand red** for the business header and **brand navy** for the personal header — currently both render in the same accent.
+- Accumulator footer pill misses the **"£63M" red** treatment used on screen.
 
-Concretely:
-- Parse `gd_master.pptx` once at build time, extract `ppt/slideMasters/*.xml` and `ppt/slideLayouts/*.xml` and the related theme + media (logos, Q-marks, colours).
-- Inject those into the pptxgenjs output's `[Content_Types].xml` and `_rels`, and set each generated slide's `<p:sldLayoutId>` to point at the right master layout (Title, Section, Content, Two-Column, Quote, Closing).
-- Remove our hand-drawn footer/page counter/Q-mark — they come from the master automatically and will match GD's typography exactly.
+**Slide 7 — The Connected Decision**
+- Persona top borders are correct, but the **GO verdict bar** loses the green left-rule and the "WITHOUT / WITH" contrast cards collapse to identical pink/blue tints rather than the live red/green pairing.
 
-Outcome: every slide opens in PowerPoint with the real GD master attached. Edit → Slide Master shows GlobalData's master, not ours.
+**Slide 8 — Teams Transformed**
+- Bottom 3 metric cards (`7.5×`, `Same-day`, `2×`) **clip below the slide footer** (visible in the render — last line touches the page-number bar). Needs a vertical rebalance.
 
-### Layer 2 — Map each slide to the right master layout
+**Slide 9 — Maturity Journey**
+- Curve renders, but the **stage 1 marker label "Fragmented"** sits below the baseline and overlaps the cards row. The live curve places labels above each marker.
+- Bullet markers in each card are tiny black squares — should be the stage accent dot used on screen.
 
-Once layouts are available, change the slide specs from "draw everything" to "fill placeholders + add content shapes":
+**Slide 10 — Proof**
+- Pillar glyphs render as Unicode (⏱ ⚡ ◎) and **fail to display** in PowerPoint default font on some machines (visible as monochrome filled squares in our render). Needs the same SVG-style icon treatment used on cards in slide 2.
+- Logo grid uses 4×2 — live deck stacks the **8 logos as 4×2 with cream background** matching the rest of the page; current render is fine but should drop the inner border for a flatter look matching the React source.
 
-| Slide | GD master layout |
-|-------|------------------|
-| 00 Title | "Title slide — Navy hero" |
-| 01 Pressure | "Section divider" |
-| 02 Monday Morning | "Content — Single panel" |
-| 03 Seven Sources | "Content — Two column" |
-| 04 The Cost | "Content — Two column with stat strip" |
-| 05 One Lens (Ava hub) | "Content — Diagram" |
-| 06 Connected Decision | "Content — 5-up cards" |
-| 07 Teams Transformed | "Content — Comparison" |
-| 08 Maturity Journey | "Content — Diagram (wide)" |
-| 09 Proof | "Stat callout / Quote" |
-| 10 Why Not DIY | "Two column comparison" |
-| 11 CTA | "Closing slide — Navy" |
+**Slide 11 — DIY vs Connected**
+- Final closing italic line ("Integration connects pipes…") **clips against the footer**. Needs to move into a card or be reduced one font step.
 
-Each spec then reduces to ~30 lines: set the layout, fill the title/eyebrow/body placeholders, drop in the bespoke diagram. Title font/size/colour is inherited.
+**Slide 12 — CTA**
+- The geometric cream/navy "diagonal split" shape on screen is missing entirely — the export has a flat cream background. The shape is the slide's main visual signature.
+- Button rows ("Book a call →" etc.) render as solid pills; the diagonal arrow glyph is fine, but the **CTA buttons sit too close to the bottom edge**.
 
-### Layer 3 — Replace synthesised glyphs with master assets
+## Changes
 
-The master file ships with GD's icon set and photographic surfaces. Extract them from `gd_master.pptx/ppt/media/` and:
-- Swap our Unicode glyphs (✉ ⚡ ▲) for the master's PNG icons in slides 1, 4, 7, 10, 11.
-- Use the master's hero photography on the title and CTA slides instead of flat navy.
-- Use the master's section divider artwork on slide 1.
+### A. Rewrite `05-one-lens.ts` to match `CJOneLensHub.tsx`
+- Add a 6th spoke to `ONE_LENS_SLIDE.spokes` in `_copy.ts`: `David / Procurement / "One Vendor, Lower Cost" / "D"`.
+- Lay out **6 solution cards on an inner orbit** (radius ≈ 2.0", angles every 60°) and **6 persona discs on an outer orbit** (radius ≈ 3.2") connected to the matching solution card by a thin colored spoke.
+- Center stack: filled navy disc → consumer silhouette (two simple ellipses for head + shoulders) → "THE CONSUMER / One Lens · One Truth" labels.
+- Wrap the center with a dashed accent-blue **AVA ring** (ellipse outline only) and an "AVA — AI INTELLIGENCE LAYER" caption above it.
+- Keep dotted journey arcs between adjacent inner cards (already present, just regenerate for 6 nodes).
 
-This is the cosmetic last-mile that takes the export from "GD-coloured" to "indistinguishable from a GD-authored deck."
+### B. Per-slide polish passes
+For each spec file below, make the small targeted edits listed above:
+- `00-title.ts` — add a left-aligned "GlobalData" wordmark text block (since the navy hero hides the master Q-mark) and switch the lower headline line to `C.accent` blue.
+- `01-pressure.ts` — add eyebrow text and per-card glyph tint pulled from `card.accent`.
+- `03-seven-sources.ts` — promote stat strip to a soft red (`FFF1EE`) fill and add a 1px column divider between vendor cards.
+- `04-the-cost.ts` — color the two column headers with `C.danger` and `C.primary`; tint the `£63M` value in the accumulator with `C.danger`.
+- `06-connected-decision.ts` — restore the green left-rule on the GO bar; recolor WITHOUT/WITH cards to red/green pairing.
+- `07-teams-transformed.ts` — shift the metric-card row up by ~0.4" and reduce card height by 0.2" so it clears the footer.
+- `08-maturity-journey.ts` — move stage labels above the markers; switch bullet glyphs from "▪" to a colored disc using `addGlyphTile`.
+- `09-proof.ts` — replace Unicode glyphs with `addGlyphTile` (filled rounded square + first-letter or simple shape); flatten the logo cards to borderless cream tiles.
+- `10-why-not-diy.ts` — wrap the closing italic line in a slim caption card 0.3" above the footer to prevent clipping.
+- `11-cta.ts` — add a navy diagonal `triangle` shape behind the cream background to mirror the live diagonal-split visual; lift the CTA card row by ~0.25".
 
-## Realistic fidelity ceiling
+### C. Helper additions in `pptxBrand.ts`
+- `addDashedRing(slide, cx, cy, r, color, segs)` — used by the Ava ring on slide 5.
+- `addPersonSilhouette(slide, cx, cy, size, color)` — used by the consumer center on slide 5.
 
-| Approach | Visual fidelity to GD master | Editability |
-|----------|------------------------------|-------------|
-| Current (native redraw) | ~70% | Full |
-| + Layer 1 (real master attached) | ~85% | Full |
-| + Layer 2 (placeholder mapping) | ~92% | Full |
-| + Layer 3 (master assets) | ~97% | Full |
-| Pixel-perfect (image-per-slide) | 100% | None |
+## Files to edit
+- `src/exporters/pptx/specs/consumerJourney/_copy.ts` — add 6th persona spoke (David).
+- `src/exporters/pptx/specs/consumerJourney/05-one-lens.ts` — full rewrite per section A.
+- `src/exporters/pptx/specs/consumerJourney/00-title.ts`, `01-pressure.ts`, `03-seven-sources.ts`, `04-the-cost.ts`, `06-connected-decision.ts`, `07-teams-transformed.ts`, `08-maturity-journey.ts`, `09-proof.ts`, `10-why-not-diy.ts`, `11-cta.ts` — targeted edits per section B.
+- `src/lib/pptxBrand.ts` — add 2 small helpers per section C.
 
-Layers 1 + 2 are where the curve bends — Layer 3 is polish.
+## Out of scope
+- No further changes to the GD master merge pipeline (`gdMasterMerge.ts`).
+- No re-architecture of the spec system; this is a fidelity sweep, not a rewrite.
+- The web deck's framer-motion animations and hover tooltips remain web-only; PPTX captures the static end-state.
 
-## Technical notes
-
-- `pptxgenjs` does not natively support importing external `slideMasters`. We'll do the merge by post-processing the `.pptx` zip: pptxgenjs writes its file → we open with `JSZip`, splice in the master/layout/theme parts from `gd_master.pptx`, rewrite `[Content_Types].xml` and the slide `_rels` to reference the new layouts, then re-zip. The scaffold in `src/exporters/pptx/templateMerge.ts` already exists for this.
-- We'll add a small `gdMasterLayouts.ts` enum so each spec declares `layout: "TitleHero" | "SectionDivider" | "ContentTwoCol" | …` and the merger maps that to the actual `slideLayoutN.xml` inside the master.
-- `addBrandMaster` becomes a no-op for slides that inherit from the real master; kept only as a fallback if template merge fails.
-
-## Files to change
-
-- `src/exporters/pptx/templateMerge.ts` — implement master/layout splice (currently a stub)
-- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — run output through the merger; pass per-slide `layout` hint
-- `src/exporters/pptx/slideSpec.ts` — add optional `layout?: GdLayoutKey`
-- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — declare layout key, drop hand-drawn chrome
-- `src/lib/pptxBrand.ts` — slim down `addBrandMaster` to fallback only
-- `src/assets/pptx/gd_master.pptx` — source of truth (already present, no change)
-
-## Suggested execution order
-
-1. **Layer 1 first** (template merge + chrome inheritance) — ship and inspect. This alone is the single biggest jump and is worth verifying in PowerPoint before going further.
-2. **Layer 2** once Layer 1 is confirmed working — map slides to layouts one at a time, re-export and visually QA each.
-3. **Layer 3** as a final polish pass.
-
-Each layer is independently shippable, so we can stop at any point if the fidelity is "good enough."
+## QA
+After changes, regenerate the editable deck from the in-app export button, then compare every slide against the live route at `/`. Record a one-line note per slide confirming the listed fix landed (or list any remaining drift).

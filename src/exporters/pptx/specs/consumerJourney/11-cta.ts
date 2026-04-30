@@ -4,12 +4,24 @@ import { CTA_SLIDE as CTA } from "./_copy";
 
 const C = PPTX_BRAND.color;
 const W = PPTX_BRAND.size.w;
+const H = PPTX_BRAND.size.h;
 
 /** Slide 11 — CTA. Headline + social proof badge + 3 CTAs + reassurance. */
 export const ctaSpec: SlideSpec = {
   label: "Next Steps",
   gdLayout: "X2ColumnBackground",
   build: (slide) => {
+    // Diagonal navy accent (mirrors the live diagonal-split visual)
+    slide.addShape("rtTriangle", {
+      x: W - 4.5, y: 0, w: 4.5, h: 3.0,
+      fill: { color: C.navy, transparency: 92 }, line: { type: "none" },
+      flipH: true,
+    });
+    slide.addShape("rtTriangle", {
+      x: 0, y: H - 2.5, w: 4.0, h: 2.5,
+      fill: { color: C.primary, transparency: 94 }, line: { type: "none" },
+    });
+
     // Eyebrow
     slide.addText(CTA.eyebrow.toUpperCase(), {
       x: 0.5, y: 0.7, w: W - 1, h: 0.3,
