@@ -37,13 +37,15 @@ export const oneLensSpec: SlideSpec = {
       align: "center", valign: "middle", margin: 0,
     });
 
+    // Solutions colored from the GD data-viz palette (series 1–5 order)
+    const dv = C.dv;
     const solutions = [
-      { title: "Strategic", persona: "Sarah · Head of Strategy", desc: "Predictive foresight on macro & micro signals.", color: C.primary, angle: -110 },
-      { title: "Market", persona: "James · Insights Director", desc: "One definitive sizing across every market.", color: C.accent, angle: -55 },
-      { title: "Competitive", persona: "Priya · Competitive Lead", desc: "Real-time competitive radar.", color: C.warning, angle: 0 },
-      { title: "Innovation", persona: "Marcus · Innovation Lead", desc: "Test concepts against real evidence.", color: C.stage4, angle: 55 },
-      { title: "Sales", persona: "Elena · Commercial Lead", desc: "Walk into every buyer meeting armed.", color: C.success, angle: 110 },
-    ];
+      { title: "Strategic", persona: "Sarah · Head of Strategy", desc: "Predictive foresight on macro & micro signals.", color: "#" + dv[0], angle: -110 },
+      { title: "Market", persona: "James · Insights Director", desc: "One definitive sizing across every market.", color: "#" + dv[2], angle: -55 },
+      { title: "Competitive", persona: "Priya · Competitive Lead", desc: "Real-time competitive radar.", color: "#" + dv[5], angle: 0 },
+      { title: "Innovation", persona: "Marcus · Innovation Lead", desc: "Test concepts against real evidence.", color: "#" + dv[3], angle: 55 },
+      { title: "Sales", persona: "Elena · Commercial Lead", desc: "Walk into every buyer meeting armed.", color: "#" + dv[8], angle: 110 },
+    ].map((s) => ({ ...s, color: s.color.slice(1) })); // strip the # for pptxgen hex format
 
     const cardW = 2.4;
     const cardH = 1.35;
