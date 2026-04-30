@@ -1,233 +1,132 @@
 import PptxGenJS from "pptxgenjs";
 import type { BuildOpts } from "./types";
+import type { SlideSpec } from "./slideSpec";
+import {
+  PPTX_BRAND,
+  addBrandMaster,
+  loadImageAsBase64,
+} from "@/lib/pptxBrand";
+import comply365LogoUrl from "@/assets/comply365-logo.png";
+import comply365LogoWhiteUrl from "@/assets/comply365-logo-white.png";
 import { consumerJourneyNarrations } from "@/data/consumerJourneyNarration";
 
+import { titleSpec } from "./specs/consumerJourney/00-title";
+import { pressureSpec } from "./specs/consumerJourney/01-pressure";
+import { mondayMorningSpec } from "./specs/consumerJourney/02-monday-morning";
+import { sevenSourcesSpec } from "./specs/consumerJourney/03-seven-sources";
+import { theCostSpec } from "./specs/consumerJourney/04-the-cost";
+import { oneLensSpec } from "./specs/consumerJourney/05-one-lens";
+import { connectedDecisionSpec } from "./specs/consumerJourney/06-connected-decision";
+import { teamsTransformedSpec } from "./specs/consumerJourney/07-teams-transformed";
+import { maturityJourneySpec } from "./specs/consumerJourney/08-maturity-journey";
+import { proofSpec } from "./specs/consumerJourney/09-proof";
+import { whyNotDiySpec } from "./specs/consumerJourney/10-why-not-diy";
+import { ctaSpec } from "./specs/consumerJourney/11-cta";
+
+const DECK_LABEL = "Connected Consumer Intelligence";
+
+const C = PPTX_BRAND.color;
+
 /**
- * Fully native, editable PPTX of the Consumer Journey deck.
+ * Editable PPTX of the Consumer Journey deck.
  *
- * Trade-off: this is NOT pixel-perfect with the web view. Each slide is
- * rebuilt with native PowerPoint text frames so presenters can edit the
- * title, body copy, and speaker notes directly. Visual SVGs / framer-motion
- * compositions are replaced with simple themed text layouts.
+ * Built using the SlideSpec architecture (mirrors stratagem-pyramid). Each
+ * slide is a hand-coded composition of native PowerPoint primitives — fully
+ * editable shapes, text frames and colors. Speaker notes are populated from
+ * the canonical narration data so presenters keep the script in PowerPoint.
  *
- * Use the "Pixel Perfect" exporter when fidelity matters more than editing.
+ * Trade-off: NOT pixel-identical to the web view. PowerPoint has no SVG /
+ * framer-motion, so SVG-heavy compositions (Ava hub, maturity curve) are
+ * reconstructed with shapes — visually similar but not byte-identical.
+ *
+ * Use the Pixel Perfect exporter when fidelity matters more than editing.
  */
-
-// Comply365 brand
-const NAVY = "0A1628";
-const PRIMARY = "0066FF";
-const SKY = "38BDF8";
-const WHITE = "FFFFFF";
-const MUTED = "94A3B8";
-
-interface EditableSlide {
-  eyebrow: string;
-  title: string;
-  body: string[]; // bullet/paragraph lines
-  notes: string;
-}
-
-function splitScript(script: string): string[] {
-  // Break narration into ~2-sentence chunks for readable bullets.
-  const sentences = script
-    .replace(/\s+/g, " ")
-    .split(/(?<=[.!?])\s+/)
-    .filter(Boolean);
-  const chunks: string[] = [];
-  for (let i = 0; i < sentences.length; i += 2) {
-    chunks.push(sentences.slice(i, i + 2).join(" "));
-  }
-  return chunks.slice(0, 6);
-}
-
-function buildSlideContent(): EditableSlide[] {
-  const eyebrows = [
-    "Connected Consumer Intelligence",
-    "The Pressure",
-    "Monday Morning",
-    "Seven Sources",
-    "The Cost",
-    "One Lens",
-    "Connected Decision",
-    "Teams Transformed",
-    "Maturity Journey",
-    "The Proof",
-    "Why Not DIY",
-    "Next Steps",
-  ];
-
-  return consumerJourneyNarrations.map((n, i) => ({
-    eyebrow: eyebrows[i] ?? `Slide ${i + 1}`,
-    title: n.title,
-    body: splitScript(n.script),
-    notes: n.script,
-  }));
-}
-
 export async function buildConsumerJourneyEditable(
   opts: BuildOpts,
 ): Promise<Blob> {
-  const slides = buildSlideContent();
-  const total = slides.length;
+  const composed: SlideSpec[] = [
+    titleSpec,
+    pressureSpec,
+    mondayMorningSpec,
+    sevenSourcesSpec,
+    theCostSpec,
+    oneLensSpec,
+    connectedDecisionSpec,
+    teamsTransformedSpec,
+    maturityJourneySpec,
+    proofSpec,
+    whyNotDiySpec,
+    ctaSpec,
+  ];
 
   const pptx = new PptxGenJS();
-  pptx.layout = "LAYOUT_WIDE"; // 13.333" x 7.5"
-  pptx.title = "Connected Consumer Intelligence";
+  pptx.layout = "LAYOUT_WIDE"; // 13.333" × 7.5"
+  pptx.title = DECK_LABEL;
   pptx.company = "Comply365";
   pptx.author = "Comply365";
 
-  // ── Title slide master ────────────────────────────────────────────────
-  pptx.defineSlideMaster({
-    title: "TITLE_MASTER",
-    background: { color: NAVY },
-    objects: [
-      {
-        rect: {
-          x: 0,
-          y: 7.0,
-          w: 13.333,
-          h: 0.5,
-          fill: { color: PRIMARY },
-        },
-      },
-    ],
-  });
+  // Load logos once (light + dark variants)
+  let logoLight = "";
+  let logoDark = "";
+  try {
+    logoLight = await loadImageAsBase64(comply365LogoUrl);
+  } catch (err) {
+    console.warn("[pptx-editable] failed to load light logo", err);
+  }
+  try {
+    logoDark = await loadImageAsBase64(comply365LogoWhiteUrl);
+  } catch (err) {
+    console.warn("[pptx-editable] failed to load dark logo", err);
+  }
 
-  // ── Content slide master ──────────────────────────────────────────────
-  pptx.defineSlideMaster({
-    title: "CONTENT_MASTER",
-    background: { color: WHITE },
-    objects: [
-      {
-        rect: { x: 0, y: 0, w: 13.333, h: 0.35, fill: { color: PRIMARY } },
-      },
-      {
-        text: {
-          text: "Connected Consumer Intelligence",
-          options: {
-            x: 0.5,
-            y: 7.05,
-            w: 8,
-            h: 0.3,
-            fontSize: 9,
-            fontFace: "Calibri",
-            color: MUTED,
-            margin: 0,
-          },
-        },
-      },
-      {
-        text: {
-          text: "Comply365",
-          options: {
-            x: 11.5,
-            y: 7.05,
-            w: 1.5,
-            h: 0.3,
-            fontSize: 9,
-            fontFace: "Calibri",
-            color: MUTED,
-            align: "right",
-            margin: 0,
-          },
-        },
-      },
-    ],
-  });
-
+  const total = composed.length;
   for (let i = 0; i < total; i++) {
-    const s = slides[i];
-    opts.onProgress?.(i + 1, total, `Building slide ${i + 1}`);
+    const spec = composed[i];
+    opts.onProgress?.(i, total, spec.label);
 
-    if (i === 0) {
-      // TITLE SLIDE
-      const slide = pptx.addSlide({ masterName: "TITLE_MASTER" });
-      slide.addText("CONNECTED CONSUMER INTELLIGENCE", {
-        x: 0.75,
-        y: 2.4,
-        w: 11.8,
-        h: 0.6,
-        fontSize: 16,
-        fontFace: "Calibri",
-        color: SKY,
-        bold: true,
-        charSpacing: 6,
+    const slide = pptx.addSlide();
+    const variant = spec.variant ?? "light";
+    const logo = variant === "dark" ? logoDark : logoLight;
+
+    try {
+      // Apply standard brand chrome unless the spec opts out.
+      if (spec.chrome !== false) {
+        addBrandMaster(slide, {
+          logo,
+          index: i,
+          total,
+          deckLabel: DECK_LABEL,
+          variant,
+        });
+      }
+      await spec.build(slide, {
+        logo,
+        index: i,
+        total,
+        deckLabel: DECK_LABEL,
       });
-      slide.addText("A new way of working for consumer brands.", {
-        x: 0.75,
-        y: 3.0,
-        w: 11.8,
-        h: 1.6,
-        fontSize: 44,
-        fontFace: "Calibri Light",
-        color: WHITE,
-        bold: false,
-      });
+
+      // Speaker notes from canonical narration data.
+      const narration = consumerJourneyNarrations[i];
+      if (narration?.script) slide.addNotes(narration.script);
+    } catch (err) {
+      console.error(
+        `[pptx-editable] slide ${i} (${spec.label}) failed`,
+        err,
+      );
+      slide.background = { color: C.bg };
       slide.addText(
-        "Connected. Predictive. Decisive. Powered by analyst-validated intelligence.",
+        `Slide failed to render: ${spec.label}\n${(err as Error)?.message ?? ""}`,
         {
-          x: 0.75,
-          y: 4.8,
-          w: 11.8,
-          h: 0.6,
-          fontSize: 18,
-          fontFace: "Calibri",
-          color: MUTED,
+          x: 1, y: 3, w: PPTX_BRAND.size.w - 2, h: 1.5,
+          fontFace: PPTX_BRAND.font.body, fontSize: 18,
+          color: C.danger, align: "center",
         },
       );
-      slide.addNotes(s.notes);
-      continue;
     }
-
-    // CONTENT SLIDE
-    const slide = pptx.addSlide({ masterName: "CONTENT_MASTER" });
-
-    slide.addText(s.eyebrow.toUpperCase(), {
-      x: 0.75,
-      y: 0.7,
-      w: 11.8,
-      h: 0.4,
-      fontSize: 12,
-      fontFace: "Calibri",
-      color: PRIMARY,
-      bold: true,
-      charSpacing: 4,
-    });
-
-    slide.addText(s.title, {
-      x: 0.75,
-      y: 1.15,
-      w: 11.8,
-      h: 1.0,
-      fontSize: 36,
-      fontFace: "Calibri",
-      color: NAVY,
-      bold: true,
-    });
-
-    slide.addText(
-      s.body.map((line) => ({
-        text: line,
-        options: { bullet: { code: "25A0" }, color: NAVY },
-      })),
-      {
-        x: 0.75,
-        y: 2.4,
-        w: 11.8,
-        h: 4.3,
-        fontSize: 16,
-        fontFace: "Calibri",
-        color: NAVY,
-        valign: "top",
-        paraSpaceAfter: 8,
-      },
-    );
-
-    slide.addNotes(s.notes);
   }
 
   opts.onProgress?.(total, total, "Composing PPTX");
-
   const data = (await pptx.write({ outputType: "blob" })) as Blob;
   return data;
 }
