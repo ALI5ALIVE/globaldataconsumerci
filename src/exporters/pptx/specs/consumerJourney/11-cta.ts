@@ -21,23 +21,23 @@ export const ctaSpec: SlideSpec = {
     const colW = (w - gap) / 2;
     const colH = 2.3;
 
-    // Discovery Session
-    addCard(slide, x0, top, colW, colH, { fill: C.primary, border: C.primary });
+    // Discovery Session — navy card (GD primary dark surface)
+    addCard(slide, x0, top, colW, colH, { fill: C.navy, border: C.navy });
     slide.addText("DISCOVERY SESSION", {
       x: x0 + 0.3, y: top + 0.25, w: colW - 0.6, h: 0.32,
-      fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true, color: "DBEAFE",
+      fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true, color: C.hyperBlue2,
       charSpacing: 4, margin: 0,
     });
     slide.addText("60 minutes. Your team and ours.", {
       x: x0 + 0.3, y: top + 0.6, w: colW - 0.6, h: 0.6,
-      fontFace: PPTX_BRAND.font.display, fontSize: 22, bold: true, color: "FFFFFF",
+      fontFace: PPTX_BRAND.font.display, fontSize: 22, bold: true, color: C.inkInverse,
       margin: 0,
     });
     slide.addText(
       "Walk through your current intelligence landscape and identify the highest-value quick wins.",
       {
         x: x0 + 0.3, y: top + 1.25, w: colW - 0.6, h: colH - 1.4,
-        fontFace: PPTX_BRAND.font.body, fontSize: 12, color: "DBEAFE",
+        fontFace: PPTX_BRAND.font.body, fontSize: 12, color: C.hyperBlue2,
         valign: "top", margin: 0,
       },
     );

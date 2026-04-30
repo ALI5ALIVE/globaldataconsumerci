@@ -20,20 +20,20 @@ export const oneLensSpec: SlideSpec = {
     const cx = W / 2;
     const cy = 4.7;
 
-    // Central Ava badge
+    // Central Ava badge — navy disc with hyper-blue ring (GD primary dark)
     const hubR = 1.05;
     slide.addShape("ellipse", {
       x: cx - hubR, y: cy - hubR, w: hubR * 2, h: hubR * 2,
-      fill: { color: C.primary }, line: { color: C.accent, width: 3 },
+      fill: { color: C.navy }, line: { color: C.accent, width: 3 },
     });
     slide.addText("AVA", {
       x: cx - hubR, y: cy - 0.55, w: hubR * 2, h: 0.5,
-      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: "FFFFFF",
+      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: C.inkInverse,
       align: "center", valign: "middle", charSpacing: 4, margin: 0,
     });
     slide.addText("AI Intelligence Layer", {
       x: cx - hubR, y: cy - 0.05, w: hubR * 2, h: 0.4,
-      fontFace: PPTX_BRAND.font.body, fontSize: 10, color: "DBEAFE",
+      fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.hyperBlue2,
       align: "center", valign: "middle", margin: 0,
     });
 
