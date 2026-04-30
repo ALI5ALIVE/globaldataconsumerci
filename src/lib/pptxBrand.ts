@@ -471,6 +471,94 @@ export function addCheckRow(
   }
 }
 
+/* ── Glyph tile (rounded square with centered glyph) ─────────── */
+
+export function addGlyphTile(
+  slide: pptxgen.Slide,
+  x: number, y: number, size: number,
+  opts: { glyph: string; color: string; fill?: string; rounded?: boolean },
+) {
+  const fill = opts.fill ?? `${opts.color}`;
+  if (opts.rounded === false) {
+    slide.addShape("rect", {
+      x, y, w: size, h: size,
+      fill: { color: fill }, line: { type: "none" },
+    });
+  } else {
+    slide.addShape("roundRect", {
+      x, y, w: size, h: size,
+      fill: { color: fill }, line: { type: "none" },
+      rectRadius: size * 0.22,
+    });
+  }
+  slide.addText(opts.glyph, {
+    x, y, w: size, h: size,
+    fontFace: PPTX_BRAND.font.display,
+    fontSize: Math.max(10, size * 28),
+    bold: true, color: "FFFFFF",
+    align: "center", valign: "middle", margin: 0,
+  });
+}
+
+/* ── Segmented bar (for time-allocation visuals) ─────────────── */
+
+export function addSegmentedBar(
+  slide: pptxgen.Slide,
+  x: number, y: number, w: number, h: number,
+  segments: { pct: number; color: string; label?: string }[],
+) {
+  const total = segments.reduce((s, seg) => s + seg.pct, 0) || 1;
+  let cursor = x;
+  segments.forEach((seg) => {
+    const segW = (seg.pct / total) * w;
+    slide.addShape("rect", {
+      x: cursor, y, w: segW, h,
+      fill: { color: seg.color }, line: { type: "none" },
+    });
+    if (segW > 0.4 && seg.label) {
+      slide.addText(seg.label, {
+        x: cursor, y, w: segW, h,
+        fontFace: PPTX_BRAND.font.body, fontSize: 8, bold: true, color: "FFFFFF",
+        align: "center", valign: "middle", margin: 0,
+      });
+    }
+    cursor += segW;
+  });
+}
+
+/* ── Inbox row (Slide 2 helper) ──────────────────────────────── */
+
+export function addInboxRow(
+  slide: pptxgen.Slide,
+  x: number, y: number, w: number, h: number,
+  opts: { sender: string; subject: string; time: string },
+) {
+  slide.addShape("rect", {
+    x, y, w, h: 0.01,
+    fill: { color: C.hairline }, line: { type: "none" },
+  });
+  // Unread dot
+  slide.addShape("ellipse", {
+    x: x + 0.12, y: y + h / 2 - 0.06, w: 0.12, h: 0.12,
+    fill: { color: C.primary }, line: { type: "none" },
+  });
+  slide.addText(opts.sender, {
+    x: x + 0.32, y, w: 2.4, h,
+    fontFace: PPTX_BRAND.font.display, fontSize: 10, bold: true, color: C.ink,
+    valign: "middle", margin: 0,
+  });
+  slide.addText(opts.subject, {
+    x: x + 2.78, y, w: w - 4.0, h,
+    fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.muted,
+    valign: "middle", margin: 0,
+  });
+  slide.addText(opts.time, {
+    x: x + w - 1.0, y, w: 0.95, h,
+    fontFace: PPTX_BRAND.font.body, fontSize: 9, color: C.subtle,
+    align: "right", valign: "middle", margin: 0,
+  });
+}
+
 /* ── Image fallback (for SVG-heavy compositions) ─────────────── */
 
 export function addImageFallback(
