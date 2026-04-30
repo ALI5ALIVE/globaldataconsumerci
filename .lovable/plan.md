@@ -1,150 +1,111 @@
 
-## Goal
+# Goal
 
-Replace the current Comply365-blue editable PPTX with a fully **GlobalData-branded**, native (editable) deck. Every slide is rebuilt from primitives using the GlobalData master visual system as the design source, while preserving the Consumer Journey content & layouts the React deck shows.
+Make the **Editable PPTX** export match each on-screen slide as closely as the PPTX format allows — same copy, same structure, same visual hierarchy, same brand chrome. Continue with **Strategy B (native redraw)** on the GlobalData master.
 
-This continues with **Strategy B (per-element redraw)** — no captured images, all editable text/shapes/colors.
+Below is a slide-by-slide audit of what currently ships in the spec vs. what the live React slide actually renders, with the fix to apply.
 
-## What we're using from the GlobalData master
+---
 
-Pulled directly from the .potx you uploaded:
+# Audit & Fixes (per slide)
 
-**Primary palette**
-- White `#FFFFFF` (text & backgrounds)
-- GD Black `#242528` (text & strokes)
-- Navy Blue `#1F2432` (backgrounds, infographics, smart-art)
-- Cream `#FBF5E9` (backgrounds, infographics)
-- Mid Blue `#09216B` (additional infographic accent)
-- Light Grey `#F2F2F2` (neutral surfaces)
+### Slide 0 — Title
+- **Live:** Audience badge "For CMOs, CSOs & Category Leaders" → 2-line gradient headline "Connected Intelligence / for Consumer Brands" → sub "What you're about to see isn't just better data… a completely new way of working." → 3 stats (8 of 10 / 95% / 40+) → italic quote "The brands that win don't have more data. They have connected intelligence." → eyebrow "A new way of working".
+- **Spec gap:** Generic title; missing badge, two-tone headline, italic closing quote.
+- **Fix:** Rebuild on navy hero with white Q-mark; badge pill, large two-line headline (accent color on second line), 3-column stats strip, italic pull-quote band at bottom.
 
-**Secondary palette (for differentiation in infographics)**
-- Mid Grey `#676B75`, Dark Grey `#505259`, Navy-1 `#444C62`
-- Cream+1 `#E7D7C1`, Hyper Blue-1 `#6789FB`, Hyper Blue-2 `#CAD6FF`
-- Mid Blue-1 `#0029AA`, Mid Blue-2 `#3D5BBA`
+### Slide 1 — The Pressure
+- **Live:** Title "You're Under More Pressure Than Ever." (destructive accent on "Than Ever."), sub "Your consumers are changing faster than you can track them. And every missed signal is a missed opportunity." **4 cards** (Consumer Expectations, Market Velocity, Fragmented View, First-Mover Risk) in a 2×2, each with icon + title + 1-line desc. Bridge line: "Sound familiar? Picture your typical Monday."
+- **Spec gap:** Only 3 cards, wrong titles/copy, no bridge line, no 2-tone headline.
+- **Fix:** 2×2 card grid with icon tiles (TrendingUp, Zap, Layers, Target), exact copy, italic bridge line below.
 
-**Data-viz palette (charts in fixed order)**
-`#2541D8 · #E6DCC3 · #4A7C6B · #001F5C · #EBD369 · #E08E45 · #BBAEA0 · #DCE4FF · #8BC09B · #B84438` (then row 2 for series 11–20)
+### Slide 2 — Monday Morning
+- **Live:** Title "Your Monday Morning", sub "One opportunity. Seven opinions. Zero alignment." Inbox chrome (Inbox · 7 badge, search field, filter icon). 7 emails with **specific** sender/subject/time pairs (CEO, Head of Strategy, Finance/Market Intel, Competitive Intel, Innovation Lead, Commercial/Sales, Procurement). Footer italic: "One opportunity. Seven teams. Seven answers. Which one do you trust?"
+- **Spec gap:** Sender names and subjects are wrong; missing inbox toolbar chrome and footer italic.
+- **Fix:** Rebuild rows with exact sender/subject/time list; add toolbar bar with "Inbox 7" pill and a faux search field rectangle; italic footer caption.
 
-**Typography**
-- Headings: **Poppins Regular**, ≤ 32 pt, line-height 1.0
-- Body: **Poppins Light**, ≥ 8 pt, line-height 1.0–1.1
-- PowerPoint substitutes Calibri locally if Poppins isn't installed — we'll specify Poppins so installed users get the brand font.
+### Slide 3 — Seven Sources
+- **Live:** Title "Same Opportunity. Seven Conflicting Signals.", sub "Every source is telling you something different about plant-based protein." 7 vendor tiles, each with **icon + 2-line name + italic conflicting signal quote** (Mintel "Plant-based is peaking", Euromonitor "$1.4B TAM (or $2.1B?)", Innova "No significant moves", IDEO "Consumer fatigue detected", NielsenIQ "Retailer X is demanding it", Kantar "Trial is up, repeat is flat", Circana "Our test market grew 22%"). Stats pill (60% / 10% / 12 wks) inside a destructive-tinted band, plus italic caption "By the time you reconcile, someone else has launched."
+- **Spec gap:** Vendor list wrong (uses Brandwatch/Gartner/Statista/Internal BI); no conflicting-signal quotes; no destructive band styling around stats.
+- **Fix:** Replace vendors and add italic signal text per tile; render stats as a single pill-shaped card with vertical dividers; keep red-tinted fill.
 
-**Brand chrome**
-- Cover slide: navy background, large Poppins Regular title (≤ 32 pt), Q-mark in top-left
-- Content slides: cream or white background, GD Black headline, Q-mark watermark in bottom-right corner only (per your memory rule "no GD logo in headers"), footer reads `globaldata.com  ·  N` aligned right
-- 8×8 grid alignment (master uses Guides at 8×8) — we'll snap our spec coordinates to that grid
+### Slide 4 — The Cost
+- **Live:** Two columns (Business / Personal), but each column is a **stacked list of 3 mini-cards** with icon, bold stat headline, and detail paragraph — not a single big number. Business cards: "£40M Line — Lost", "12 Weeks to Align", "The Launch That Flopped". Personal cards: "Your Board Questioned the Numbers — Again", "3 Days Building a Deck, Not Strategy", "The Call You Didn't Make". An animated £63M accumulator runs across the bottom.
+- **Spec gap:** Currently shows two big single-stat panels (£63M / 60%) + bullet lists. Wrong structure.
+- **Fix:** Replace with two columns × 3 mini-cards each, exact copy and per-card accent color (red/amber/orange on left, violet/sky/emerald on right). Add a footer band showing the accumulated total "£63M" with caption "Revenue at risk this year".
 
-## Architecture changes
+### Slide 5 — One Lens (Ava Hub)
+- **Live:** Central Ava AI hub with 5 spokes to the 5 solutions, each spoke labelled with a persona name (Sarah/James/Priya/Marcus/Elena) and unlocked-actions chips between personas.
+- **Spec gap:** Color palette updated but layout still generic — needs the hub-and-spoke structure with persona labels.
+- **Fix:** Native shapes — center ellipse "Ava" in navy, 5 outer rounded-rect persona cards positioned on a circle (top, two upper-sides, two lower-sides), 5 connector lines from hub to each card (drawn as thin rotated rects). Each card: persona name + role + solution name. Add a small caption strip below describing cross-persona unlocks.
 
-We keep the existing `SlideSpec` pattern. We swap out:
+### Slide 6 — Connected Decision
+- **Live:** Boardroom "GO" verdict with 5 enriched persona dashboards in a row (each persona's mini metrics).
+- **Spec gap:** Generic stat tiles only.
+- **Fix:** Top band "GO" verdict card with green accent, then 5 persona mini-dashboards in a row (avatar circle with initial + name/role + 3 stacked KPI rows from the persona `metrics` array).
 
-1. `src/lib/pptxBrand.ts` → rebrand all tokens & primitives to GlobalData
-2. `src/exporters/pptx/buildConsumerJourneyEditable.ts` → use GlobalData chrome, embed the Q-mark, remove the Comply365 logo
-3. The 12 spec files under `src/exporters/pptx/specs/consumerJourney/` → repaint with GD palette + Poppins, redraw decorative elements with the GD vocabulary (cream/navy panels, hyper-blue accents, Q-mark watermark) — content & layout intent stays identical
+### Slide 7 — Teams Transformed
+- **Live:** Three large stat tiles (75% / Hours / 2×) + a navy retention card with charSpacing eyebrow.
+- **Spec status:** Already close. **Fix:** Verify exact eyebrow/copy "AND THE TALENT YOU FOUGHT TO HIRE — STAYS." and the longer paragraph below match the live component (re-pull copy from `CPSlide7TeamsTransformed`).
 
-## Brand token redesign (`pptxBrand.ts`)
+### Slide 8 — Maturity Journey
+- **Live:** **4-stage** SVG curve (Fragmented → Connected → Optimised → Predictive) with Connected marked as **"Gateway"** pill. Each stage has tagline, decision-speed badge, time-allocation bar (recon/analysis/strategy %), bullets, and an italic insight quote.
+- **Spec gap:** Renders 5 stages (Fragmented/Managed/Connected/Optimised/Predictive); summary boxes don't include time-allocation bars or insight quotes.
+- **Fix:** Switch to 4 stages matching live data. Draw curve as ascending dotted line with 4 colored circles, "GATEWAY" pill on Connected. Below, 4 cards each with: stage name + tagline, decision-speed pill, mini stacked bar (3 segments coloured for recon/analysis/strategy with %), 3 bullets, italic insight at the bottom.
 
-Replace the existing `PPTX_BRAND` with:
+### Slide 9 — Proof
+- **Live:** Stats grid using GD data-viz palette (already partly applied).
+- **Fix:** Re-verify stat values, labels and subcopy match `CJSlideProof` exactly.
 
-```ts
-export const PPTX_BRAND = {
-  size: { w: 13.333, h: 7.5 },
-  color: {
-    white: "FFFFFF",
-    black: "242528",      // GD Black
-    navy: "1F2432",       // primary dark surface
-    cream: "FBF5E9",      // primary light surface
-    midBlue: "09216B",    // primary accent
-    lightGrey: "F2F2F2",  // neutral
-    // Secondary
-    midGrey: "676B75",
-    darkGrey: "505259",
-    navy1: "444C62",
-    cream1: "E7D7C1",
-    hyperBlue1: "6789FB",
-    hyperBlue2: "CAD6FF",
-    midBlue1: "0029AA",
-    midBlue2: "3D5BBA",
-    // Data-viz (sequence in fixed order)
-    dv: ["2541D8","E6DCC3","4A7C6B","001F5C","EBD369",
-         "E08E45","BBAEA0","DCE4FF","8BC09B","B84438"],
-    // Status
-    success: "4A7C6B",   // borrows green from dv
-    danger: "B84438",    // dv red
-    warning: "E08E45",   // dv amber
-  },
-  font: { heading: "Poppins", body: "Poppins" },
-} as const;
-```
+### Slide 10 — Why Not DIY
+- **Live:** Eyebrow "The #1 Objection", headline `"Can't we just integrate what we have?"` with "integrate" in destructive. Two columns each with 4 icon rows: each row has icon + bold label + detail line. DIY: 18+ months / 14 contracts / No shared taxonomy / No cross-pollination. Connected: 90-day deployment / 1 platform 1 contract / One consumer taxonomy / Intelligence flows.
+- **Spec gap:** Has 5 generic check/x rows, wrong copy and no icons per row.
+- **Fix:** Title block with eyebrow + quoted headline, then 2 columns × 4 icon rows with exact copy. Use ✕ icon col + red tint on left, ✓ + primary tint on right.
 
-All existing primitives (`addCard`, `addLabeledCard`, `addPill`, `addStatTile`, `addBrandStatBlock`, `addEyebrow`, `addSectionTitle`, `addBulletList`, `addCheckRow`, `addImageFallback`) keep their signatures — only their default colors and fonts change.
+### Slide 11 — CTA
+- **Live:** Headline "Your competitors already see the full picture." + sub "Let's make sure you do too." **3** CTA cards (30-min Discovery Call / Intelligence Maturity Assessment / 90-Day Pilot) each with icon, title, description, button label.
+- **Spec gap:** Only 2 CTAs (Discovery Session + Intelligence Audit) and wrong headline; testimonial band content also from old script.
+- **Fix:** Headline + sub block, 3-column CTA cards (icon tile + bold title + description + pill button label). Drop the VP testimonial band (not on live slide) or replace with the social-proof badge actually shown.
 
-## New chrome (`addBrandMaster`)
+---
 
-Two variants:
+# Cross-Cutting Improvements
 
-**`light` (content slides)** — cream background `#FBF5E9` with optional white inner panel; `#242528` ink; bottom-left footer = deck label in dark grey `#676B75`; bottom-right footer = `globaldata.com  ·  NN` in dark grey; small Q-mark watermark bottom-right corner at 0.45" tall.
+1. **Single source of truth for copy.** Add `src/exporters/pptx/specs/consumerJourney/_copy.ts` that re-imports the same arrays already declared in the React components (where practical) or mirrors them as exported constants. Eliminates copy drift.
+2. **Reusable native primitives** in `pptxBrand.ts`:
+   - `addIconTile(slide, x, y, w, h, {iconCharOrLetter, color})` — colored rounded-rect with a centered glyph (use Unicode geometric shapes since real Lucide icons can't ship in PPTX without bitmaps).
+   - `addPillBadge(slide, …)` — for "GATEWAY", "UNREAD", eyebrow pills.
+   - `addSegmentedBar(slide, x, y, w, h, segments[])` — for time-allocation bars on Slide 8.
+   - `addPersonaMiniCard(slide, …)` — for Slides 5/6.
+3. **Icon strategy.** Lucide icons are SVG, not embeddable directly. Two options:
+   - **(a)** Use Unicode glyphs in colored circles (✉, ⚡, ▲, ◆, $, ⏱) — zero asset overhead, ~80% recognisable.
+   - **(b)** Pre-export the Lucide SVGs we use as small PNGs into `src/assets/pptx-icons/` and embed as base64. Higher fidelity, ~200KB to deck size.
+   - Recommendation: **(a)** for v1, leave a hook to swap to (b) per-icon later.
+4. **Brand chrome.** Keep the cream content master + navy title master we built. Add a small "Slide N / 12" footer left of `globaldata.com` so deck navigation matches the on-screen slide numbers shown by `CPSlideContainer`.
+5. **QA loop.** After implementation, generate the PPTX, render every slide to JPG via LibreOffice + pdftoppm, and inspect each side-by-side with a screenshot of the live React slide. Iterate until each slide passes.
 
-**`dark` (cover slide)** — navy `#1F2432` full-bleed; white text; large white Q-mark in top-left at 0.55" tall; eyebrow in cream `#FBF5E9`; footer slide counter in mid-grey.
+---
 
-Per your memory the GD wordmark is **removed from in-slide headers** — we only use the Q-glyph mark and the `globaldata.com` text-mark in the footer. Title slide still gets the prominent Q-mark.
+# Honest Limitations
 
-## Asset additions
+Even after this rewrite, the editable PPTX **will not** reproduce:
+- Animated counters and motion (frozen to final state).
+- Gradient text and CSS blur glows (approximated with solid fills + soft shadows).
+- Real Lucide SVG icons unless we pre-bake PNGs.
+- Browser-rendered SVG curve smoothness on Slide 8 (PPTX has no bezier line shape — we approximate with a dotted curve of small ellipses).
 
-Copy the Q-mark from the parsed `.potx` images into `src/assets/`:
-- `src/assets/gd-qmark-white.png` (white Q for navy backgrounds — page 13 of the master)
-- `src/assets/gd-qmark-dark.png` (dark Q for cream/white backgrounds — page 5 of the master)
+Visual match target after this work: **~90%** for text-heavy slides (1, 2, 3, 4, 7, 9, 10, 11), **~75–80%** for diagram slides (5, 6, 8). Editable everywhere.
 
-Both are loaded once via `loadImageAsBase64` in the editable builder.
+---
 
-## Per-slide redraw notes
+# Files to Edit
 
-Same content, repainted in GD vocabulary:
+- `src/lib/pptxBrand.ts` — add `addIconTile`, `addPillBadge`, `addSegmentedBar`, `addPersonaMiniCard`.
+- `src/exporters/pptx/specs/consumerJourney/_copy.ts` — **new**, shared copy arrays.
+- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — rewrite each per the audit above.
+- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — wire any new helpers; add slide-number footer.
+- `.lovable/plan.md` — record approach.
 
-| Slide | GD design moves |
-|---|---|
-| 0 · Title | Navy bg `#1F2432`, large white Q in top-left, eyebrow `A NEW WAY OF WORKING` in cream, headline white Poppins Regular 32 pt, subhead Poppins Light cream-ish, stats strip becomes 4 white outline cards on navy with hyper-blue numbers `#6789FB`. Footer `globaldata.com` in mid-grey. |
-| 1 · Pressure | Cream bg, three white cards with thin navy stroke; left accent bars in mid-blue `#09216B`, hyper-blue `#6789FB`, cream-1 `#E7D7C1`. Section title GD black. |
-| 2 · Monday Morning | Cream bg, 7 white email rows with navy unread dot, "UNREAD" pill in hyper-blue-2 `#CAD6FF` background + mid-blue text. |
-| 3 · Seven Sources | Cream bg, 7 vendor cards in white with mid-blue left accent. Three stat tiles below using data-viz colors: red `#B84438` (60%), amber `#E08E45` (10%), mid-blue `#09216B` (12 wks). |
-| 4 · The Cost | Cream bg, two columns: left "BUSINESS COST" header band in dv red `#B84438` with `£63M` in red; right "PERSONAL COST" header band in mid-blue `#09216B` with `60%` in mid-blue. Bullets in GD black. |
-| 5 · One Lens (Ava hub) | Cream bg, central Ava disc in navy `#1F2432` with white "AVA" text; 5 solution cards orbit, each with a hyper-blue-2 background `#CAD6FF` and a left accent in one of the data-viz colors. Connector dots in mid-grey. |
-| 6 · Connected Decision | Cream bg, top GO band in mid-blue `#09216B` with white text; 5 persona cards below — top accent bar from data-viz palette, big stat in matching color. |
-| 7 · Teams Transformed | Cream bg, three large stat tiles (mid-blue, hyper-blue, dv-green); talent retention card below in white with mid-blue left bar. |
-| 8 · Maturity Journey | Cream bg, 5-stage curve repainted with **the data-viz sequence in order** (`#2541D8 #E6DCC3 #4A7C6B #001F5C #EBD369`) so it matches the master's prescribed series order. Connector trail in light grey `#F2F2F2`. 4 summary cards below in white. |
-| 9 · The Proof | Cream bg, 4 stat tiles in dv colors 1–4 (mid-blue, cream, green, navy). VP testimonial card in navy `#1F2432` with white italic quote and cream byline. |
-| 10 · Why Not DIY | Cream bg, two columns: DIY header band dv red `#B84438`; CI header band mid-blue `#09216B`. 5 comparison rows with red ✕ / dv-green ✓. |
-| 11 · CTA | Cream bg. Discovery Session card in navy `#1F2432` (white text, hyper-blue-2 eyebrow). Intelligence Audit card in white with mid-blue left bar. VP testimonial band in light grey `#F2F2F2`. |
+# Optional follow-up (not in this pass)
 
-Speaker notes from `consumerJourneyNarrations[i].script` continue to populate every slide.
-
-## Files changed
-
-**New assets**
-- `src/assets/gd-qmark-white.png` (copied from parsed master)
-- `src/assets/gd-qmark-dark.png` (copied from parsed master)
-
-**Rewritten**
-- `src/lib/pptxBrand.ts` — palette, fonts, chrome
-- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — load Q-marks, GD chrome, label `"globaldata.com"`
-- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — repaint each per the table above
-
-**Untouched**
-- `src/components/DeckPPTXExportButton.tsx` — already mode-aware
-- `src/exporters/pptx/buildConsumerJourneyDeck.ts` — pixel-perfect path stays
-- `src/exporters/pptx/index.ts` — registry stays
-
-## What "exactly replicate" looks like after this
-
-You'll get 12 slides that are unmistakably the GlobalData master deck — same palette, same Poppins typography, same Q-mark + `globaldata.com` footer pattern, same cream/navy surface choices, same data-viz color order — populated with your Consumer Journey narrative. Every text frame, color and shape stays editable in PowerPoint Desktop.
-
-It is **not** byte-identical to the React rendering on screen (PPTX still has no SVG/framer-motion), but it **is** an exact match to the GlobalData brand system the .potx defines — which is the realistic upper bound for an editable deck.
-
-## Suggested order of execution
-
-1. Copy the two Q-mark assets, rewrite `pptxBrand.ts` with GD tokens & chrome.
-2. Repaint the title spec (validates the navy hero).
-3. Repaint the layout-driven slides in batch (1, 4, 7, 10, 11).
-4. Repaint the data-rich slides (2, 3, 6, 9).
-5. Repaint the visually-rich slides (5, 8) — these benefit most from the data-viz palette.
+- Pre-bake the 30-or-so Lucide icons we actually use into base64 PNGs and embed for true icon parity (Strategy A's main visual win, applied surgically).

@@ -1,9 +1,6 @@
 import type { SlideSpec } from "../../slideSpec";
-import {
-  PPTX_BRAND,
-  paintBackground,
-  addBrandLogo,
-} from "@/lib/pptxBrand";
+import { PPTX_BRAND, paintBackground, addBrandLogo } from "@/lib/pptxBrand";
+import { TITLE_SLIDE as T } from "./_copy";
 
 const C = PPTX_BRAND.color;
 const W = PPTX_BRAND.size.w;
@@ -17,73 +14,78 @@ export const titleSpec: SlideSpec = {
   build: (slide, ctx) => {
     paintBackground(slide, "dark");
 
-    // Subtle accent band on the right (Hyper Blue from GD secondary palette)
+    // Right edge accent
     slide.addShape("rect", {
       x: W - 0.12, y: 0, w: 0.12, h: H,
       fill: { color: C.accent }, line: { type: "none" },
     });
 
-    // Large GD Q-mark in top-left (white glyph on navy)
     if (ctx.logo) addBrandLogo(slide, ctx.logo, "dark");
 
-    // Eyebrow
-    slide.addText("A NEW WAY OF WORKING", {
-      x: 0.75, y: 2.4, w: W - 1.5, h: 0.5,
-      fontFace: PPTX_BRAND.font.body, fontSize: 14,
-      color: C.cream, bold: true, charSpacing: 6, margin: 0,
+    // Audience badge pill
+    const badgeW = 4.6;
+    const badgeX = (W - badgeW) / 2;
+    slide.addShape("roundRect", {
+      x: badgeX, y: 1.7, w: badgeW, h: 0.42,
+      fill: { color: C.navy }, line: { color: C.accent, width: 1 },
+      rectRadius: 0.21,
+    });
+    slide.addText(T.badge, {
+      x: badgeX, y: 1.7, w: badgeW, h: 0.42,
+      fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true,
+      color: C.accent, align: "center", valign: "middle",
+      charSpacing: 4, margin: 0,
     });
 
-    // Headline (Poppins Regular ≤ 32pt per GD master spec)
-    slide.addText("Connected Consumer Intelligence", {
-      x: 0.75, y: 2.95, w: W - 1.5, h: 1.4,
-      fontFace: PPTX_BRAND.font.display, fontSize: 32, bold: false,
-      color: C.inkInverse, margin: 0,
+    // Headline
+    slide.addText(T.headlineTop, {
+      x: 0.5, y: 2.4, w: W - 1, h: 0.85,
+      fontFace: PPTX_BRAND.font.display, fontSize: 44, bold: true,
+      color: C.inkInverse, align: "center", valign: "middle", margin: 0,
+    });
+    slide.addText(T.headlineBottom, {
+      x: 0.5, y: 3.25, w: W - 1, h: 0.85,
+      fontFace: PPTX_BRAND.font.display, fontSize: 44, bold: true,
+      color: C.accent, align: "center", valign: "middle", margin: 0,
     });
 
-    // Subhead
-    slide.addText(
-      "Connected. Predictive. Decisive. Powered by analyst-validated intelligence.",
-      {
-        x: 0.75, y: 4.35, w: W - 1.5, h: 0.6,
-        fontFace: PPTX_BRAND.font.body, fontSize: 18, color: C.subtle,
-        margin: 0,
-      },
-    );
+    // Sub
+    slide.addText(T.sub, {
+      x: 1.5, y: 4.25, w: W - 3, h: 0.65,
+      fontFace: PPTX_BRAND.font.body, fontSize: 16, color: C.subtle,
+      align: "center", valign: "top", margin: 0,
+    });
 
-    // Stats strip — outline cards on navy with GD Hyper Blue numbers
-    const stats = [
-      { value: "70%", label: "Faster decisions" },
-      { value: "2×", label: "Launch success" },
-      { value: "30%", label: "Lower TCO" },
-      { value: "95%", label: "Global GDP coverage" },
-    ];
-    const sy = 5.4;
-    const gap = 0.3;
-    const sw = (W - 1.5 - gap * (stats.length - 1)) / stats.length;
-    stats.forEach((s, i) => {
-      const sx = 0.75 + i * (sw + gap);
-      slide.addShape("roundRect", {
-        x: sx, y: sy, w: sw, h: 1.2,
-        fill: { color: C.navy }, line: { color: C.accent, width: 0.75 },
-        rectRadius: 0.08,
-      });
+    // Stats strip
+    const sy = 5.15;
+    const gap = 0.4;
+    const sw = (W - 2.5 - gap * (T.stats.length - 1)) / T.stats.length;
+    T.stats.forEach((s, i) => {
+      const sx = 1.25 + i * (sw + gap);
       slide.addText(s.value, {
-        x: sx, y: sy + 0.18, w: sw, h: 0.55,
-        fontFace: PPTX_BRAND.font.display, fontSize: 30, bold: true,
+        x: sx, y: sy, w: sw, h: 0.55,
+        fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true,
         color: C.accent, align: "center", valign: "middle", margin: 0,
       });
       slide.addText(s.label, {
-        x: sx, y: sy + 0.75, w: sw, h: 0.4,
-        fontFace: PPTX_BRAND.font.body, fontSize: 11, color: C.subtle,
+        x: sx, y: sy + 0.6, w: sw, h: 0.4,
+        fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.subtle,
         align: "center", valign: "middle", margin: 0,
       });
     });
 
-    // Footer wordmark — GD master uses "globaldata.com"
-    slide.addText("globaldata.com  ·  CONNECTED CONSUMER INTELLIGENCE", {
-      x: 0.75, y: H - 0.6, w: 8, h: 0.3,
-      fontFace: PPTX_BRAND.font.body, fontSize: 9, color: C.subtle,
-      charSpacing: 4, margin: 0,
+    // Italic quote band
+    slide.addText(T.quote, {
+      x: 1, y: 6.25, w: W - 2, h: 0.55,
+      fontFace: PPTX_BRAND.font.display, fontSize: 16, italic: true,
+      color: C.cream, align: "center", valign: "middle", margin: 0,
+    });
+
+    // Footer eyebrow
+    slide.addText(T.eyebrowFooter, {
+      x: 0.5, y: H - 0.5, w: W - 1, h: 0.3,
+      fontFace: PPTX_BRAND.font.body, fontSize: 10, bold: true,
+      color: C.accent, align: "center", charSpacing: 6, margin: 0,
     });
   },
 };
