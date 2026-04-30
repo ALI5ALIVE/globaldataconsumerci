@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 11 — CTA. Headline + social proof badge + 3 CTAs + reassurance. */
 export const ctaSpec: SlideSpec = {
   label: "Next Steps",
+  gdLayout: "X2ColumnBackground",
   build: (slide) => {
     // Eyebrow
     slide.addText(CTA.eyebrow.toUpperCase(), {

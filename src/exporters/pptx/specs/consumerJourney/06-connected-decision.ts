@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 6 — Connected Decision. Question → 5 persona dashboards → GO verdict → without/with. */
 export const connectedDecisionSpec: SlideSpec = {
   label: "Connected Decision",
+  gdLayout: "X4Column",
   build: (slide) => {
     // Eyebrow + title
     slide.addText(D.eyebrow.toUpperCase(), {

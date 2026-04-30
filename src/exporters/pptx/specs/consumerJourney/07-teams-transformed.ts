@@ -60,6 +60,7 @@ const drawBarSet = (
 /** Slide 7 — Teams Transformed. Before/after bars + 3 outcome cards. */
 export const teamsTransformedSpec: SlideSpec = {
   label: "Teams Transformed",
+  gdLayout: "X2Column",
   build: (slide) => {
     addTitleBlock(slide, {
       eyebrow: T.eyebrow,

@@ -11,6 +11,7 @@ export const titleSpec: SlideSpec = {
   label: "Title",
   variant: "dark",
   chrome: false,
+  gdLayout: "TitleSlide",
   build: (slide, ctx) => {
     paintBackground(slide, "dark");
 

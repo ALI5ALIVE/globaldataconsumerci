@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 9 — Proof. Trusted-by badge, headline, 3 pillars, logos, testimonial. */
 export const proofSpec: SlideSpec = {
   label: "The Proof",
+  gdLayout: "ProblemStatement",
   build: (slide) => {
     // Eyebrow
     slide.addText("\u2BC4  " + P.eyebrow.toUpperCase(), {

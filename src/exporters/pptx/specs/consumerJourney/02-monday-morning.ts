@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 2 — Monday Morning inbox. */
 export const mondayMorningSpec: SlideSpec = {
   label: "Monday Morning",
+  gdLayout: "Content",
   build: (slide) => {
     slide.addText(M.title, {
       x: 0.5, y: 0.65, w: W - 1, h: 0.6,
