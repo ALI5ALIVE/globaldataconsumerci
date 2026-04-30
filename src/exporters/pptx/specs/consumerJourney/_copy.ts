@@ -94,16 +94,18 @@ export const COST_SLIDE = {
 
 export const ONE_LENS_SLIDE = {
   eyebrow: "Now Imagine One Lens",
-  title: "One lens. Five solutions. One AI layer.",
-  sub: "Six people. Five solutions. One AI layer. One connected lens.",
-  hubLabel: "AVA",
-  hubSub: "AI Intelligence Layer",
+  title: "One lens. Six solutions. One AI layer.",
+  sub: "Six people. Six solutions. One AI layer. One connected lens — wrapped around the consumer.",
+  hubLabel: "THE CONSUMER",
+  hubSub: "One Lens · One Truth",
+  avaLabel: "AVA — AI INTELLIGENCE LAYER",
   spokes: [
-    { name: "Sarah", role: "Strategy", solution: "Strategic Intelligence", glyph: "S" },
-    { name: "James", role: "Market Sizing", solution: "Market Intelligence", glyph: "M" },
-    { name: "Priya", role: "Competitive Intel", solution: "Competitive Intelligence", glyph: "C" },
-    { name: "Marcus", role: "Innovation", solution: "Innovation Intelligence", glyph: "I" },
-    { name: "Elena", role: "Commercial", solution: "Sales Intelligence", glyph: "$" },
+    { name: "Sarah", role: "Head of Strategy", solution: "Strategic Intelligence", subline: "Disruption · Themes · Foresight", glyph: "S" },
+    { name: "James", role: "Market Intelligence Lead", solution: "Market Intelligence", subline: "110 countries · 1,000+ segments", glyph: "M" },
+    { name: "Priya", role: "CI Analyst", solution: "Competitive Intelligence", subline: "25,000 companies tracked", glyph: "C" },
+    { name: "Marcus", role: "Innovation Director", solution: "Innovation Intelligence", subline: "8-week validated sprints", glyph: "I" },
+    { name: "Elena", role: "National Account Mgr", solution: "Sales Intelligence", subline: "Evidence-backed listings", glyph: "$" },
+    { name: "David", role: "Head of Procurement", solution: "One Vendor, Lower Cost", subline: "1 contract · 30% lower TCO", glyph: "D" },
   ],
   footer: "Meet the team who'll show you how it works.",
 };
