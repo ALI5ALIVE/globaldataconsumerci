@@ -1,69 +1,78 @@
 import type { SlideSpec } from "../../slideSpec";
-import { PPTX_BRAND, addTitleBlock, addCard } from "@/lib/pptxBrand";
+import { PPTX_BRAND, addCard, addInboxRow } from "@/lib/pptxBrand";
+import { MONDAY_SLIDE as M } from "./_copy";
 
 const C = PPTX_BRAND.color;
 const W = PPTX_BRAND.size.w;
 
-/** Slide 2 — Monday Morning inbox (CPSlide1MondayMorning). 7 unread emails. */
+/** Slide 2 — Monday Morning inbox. */
 export const mondayMorningSpec: SlideSpec = {
   label: "Monday Morning",
   build: (slide) => {
-    addTitleBlock(slide, {
-      eyebrow: "Monday Morning",
-      title: "Your inbox is already on fire.",
-      subtitle: "One opportunity. Seven teams. Seven answers. Which one do you trust?",
+    slide.addText(M.title, {
+      x: 0.5, y: 0.65, w: W - 1, h: 0.6,
+      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: C.ink,
+      align: "center", valign: "middle", margin: 0,
+    });
+    slide.addText(M.sub, {
+      x: 0.5, y: 1.25, w: W - 1, h: 0.4,
+      fontFace: PPTX_BRAND.font.body, fontSize: 14, color: C.muted,
+      align: "center", valign: "top", margin: 0,
     });
 
-    const emails = [
-      { from: "Board · Strategy", subj: "Plant-based protein position by Friday", time: "08:02" },
-      { from: "Mintel", subj: "Category peaking in EU markets", time: "08:14" },
-      { from: "Brandwatch", subj: "Social signal accelerating, not declining", time: "08:21" },
-      { from: "Finance", subj: "TAM model v3 attached — supersedes v2", time: "08:33" },
-      { from: "IP Watch", subj: "Competitor filed 4 patents (last 14 days)", time: "08:41" },
-      { from: "Innovation", subj: "Concept scorecards ready for review", time: "08:55" },
-      { from: "Sales", subj: "Tesco buyer wants briefing Wednesday", time: "09:02" },
-    ];
+    // Inbox container
+    const x0 = 1.5;
+    const w = W - 3;
+    const top = 1.95;
+    const toolbarH = 0.45;
+    const rowH = 0.46;
+    const totalH = toolbarH + rowH * M.emails.length;
+    addCard(slide, x0, top, w, totalH, { fill: C.surface, border: C.hairline });
 
-    const x = 0.5;
-    const w = W - 1;
-    const top = 3.0;
-    const rowH = 0.5;
-    const gap = 0.08;
+    // Toolbar
+    slide.addShape("rect", {
+      x: x0, y: top, w, h: toolbarH,
+      fill: { color: C.bgAlt }, line: { type: "none" },
+    });
+    // Inbox + count pill
+    slide.addText("✉  Inbox", {
+      x: x0 + 0.15, y: top, w: 1.4, h: toolbarH,
+      fontFace: PPTX_BRAND.font.display, fontSize: 12, bold: true, color: C.ink,
+      valign: "middle", margin: 0,
+    });
+    slide.addShape("roundRect", {
+      x: x0 + 1.55, y: top + toolbarH / 2 - 0.13, w: 0.32, h: 0.26,
+      fill: { color: C.primary }, line: { type: "none" },
+      rectRadius: 0.13,
+    });
+    slide.addText("7", {
+      x: x0 + 1.55, y: top + toolbarH / 2 - 0.13, w: 0.32, h: 0.26,
+      fontFace: PPTX_BRAND.font.body, fontSize: 9, bold: true, color: "FFFFFF",
+      align: "center", valign: "middle", margin: 0,
+    });
+    // Faux search
+    slide.addShape("roundRect", {
+      x: x0 + w - 2.4, y: top + toolbarH / 2 - 0.15, w: 2.0, h: 0.3,
+      fill: { color: C.surface }, line: { color: C.hairline, width: 0.5 },
+      rectRadius: 0.06,
+    });
+    slide.addText("Search mail…", {
+      x: x0 + w - 2.3, y: top + toolbarH / 2 - 0.15, w: 1.85, h: 0.3,
+      fontFace: PPTX_BRAND.font.body, fontSize: 9, color: C.subtle,
+      valign: "middle", margin: 0,
+    });
 
-    emails.forEach((e, i) => {
-      const y = top + i * (rowH + gap);
-      addCard(slide, x, y, w, rowH, { fill: C.surface });
-      // Unread dot
-      slide.addShape("ellipse", {
-        x: x + 0.18, y: y + rowH / 2 - 0.08, w: 0.16, h: 0.16,
-        fill: { color: C.primary }, line: { type: "none" },
-      });
-      slide.addText(e.from, {
-        x: x + 0.45, y, w: 2.8, h: rowH,
-        fontFace: PPTX_BRAND.font.display, fontSize: 11, bold: true, color: C.ink,
-        valign: "middle", margin: 0,
-      });
-      slide.addText(e.subj, {
-        x: x + 3.3, y, w: w - 4.5, h: rowH,
-        fontFace: PPTX_BRAND.font.body, fontSize: 11, color: C.inkSoft,
-        valign: "middle", margin: 0,
-      });
-      slide.addText(e.time, {
-        x: x + w - 1.0, y, w: 0.85, h: rowH,
-        fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.muted,
-        align: "right", valign: "middle", margin: 0,
-      });
-      // Unread pill
-      slide.addShape("roundRect", {
-        x: x + w - 0.15 - 0.6, y: y + rowH / 2 - 0.13, w: 0.6, h: 0.26,
-        fill: { color: C.primarySoft }, line: { type: "none" },
-        rectRadius: 0.13,
-      });
-      slide.addText("UNREAD", {
-        x: x + w - 0.75, y: y + rowH / 2 - 0.13, w: 0.6, h: 0.26,
-        fontFace: PPTX_BRAND.font.body, fontSize: 7, bold: true, color: C.primary,
-        align: "center", valign: "middle", charSpacing: 2, margin: 0,
-      });
+    // Rows
+    M.emails.forEach((e, i) => {
+      const ry = top + toolbarH + i * rowH;
+      addInboxRow(slide, x0, ry, w, rowH, e);
+    });
+
+    // Footer italic
+    slide.addText(M.footer, {
+      x: 0.5, y: top + totalH + 0.2, w: W - 1, h: 0.4,
+      fontFace: PPTX_BRAND.font.display, fontSize: 12, italic: true, color: C.muted,
+      align: "center", margin: 0,
     });
   },
 };

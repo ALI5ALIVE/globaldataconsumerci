@@ -1,89 +1,94 @@
 import type { SlideSpec } from "../../slideSpec";
-import { PPTX_BRAND, addTitleBlock, addCard } from "@/lib/pptxBrand";
+import { PPTX_BRAND, addCard, addGlyphTile } from "@/lib/pptxBrand";
+import { CTA_SLIDE as CTA } from "./_copy";
 
 const C = PPTX_BRAND.color;
 const W = PPTX_BRAND.size.w;
 
-/** Slide 11 — CTA (CJSlide12CTA). Two CTAs + VP testimonial. */
+/** Slide 11 — CTA. Headline + social proof badge + 3 CTAs + reassurance. */
 export const ctaSpec: SlideSpec = {
   label: "Next Steps",
   build: (slide) => {
-    addTitleBlock(slide, {
-      eyebrow: "Next Steps",
-      title: "Map your intelligence landscape. No commitment. Just clarity.",
-      subtitle: "The companies who've made this shift aren't just faster — they're winning categories they used to chase.",
-    });
-
-    const top = 3.2;
-    const x0 = 0.5;
-    const w = W - 1;
-    const gap = 0.3;
-    const colW = (w - gap) / 2;
-    const colH = 2.3;
-
-    // Discovery Session — navy card (GD primary dark surface)
-    addCard(slide, x0, top, colW, colH, { fill: C.navy, border: C.navy });
-    slide.addText("DISCOVERY SESSION", {
-      x: x0 + 0.3, y: top + 0.25, w: colW - 0.6, h: 0.32,
-      fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true, color: C.hyperBlue2,
-      charSpacing: 4, margin: 0,
-    });
-    slide.addText("60 minutes. Your team and ours.", {
-      x: x0 + 0.3, y: top + 0.6, w: colW - 0.6, h: 0.6,
-      fontFace: PPTX_BRAND.font.display, fontSize: 22, bold: true, color: C.inkInverse,
-      margin: 0,
-    });
-    slide.addText(
-      "Walk through your current intelligence landscape and identify the highest-value quick wins.",
-      {
-        x: x0 + 0.3, y: top + 1.25, w: colW - 0.6, h: colH - 1.4,
-        fontFace: PPTX_BRAND.font.body, fontSize: 12, color: C.hyperBlue2,
-        valign: "top", margin: 0,
-      },
-    );
-
-    // Intelligence Audit
-    const px = x0 + colW + gap;
-    addCard(slide, px, top, colW, colH, { fill: C.surface, border: C.primary });
-    slide.addShape("rect", {
-      x: px, y: top + 0.12, w: 0.06, h: colH - 0.24,
-      fill: { color: C.primary }, line: { type: "none" },
-    });
-    slide.addText("INTELLIGENCE AUDIT", {
-      x: px + 0.3, y: top + 0.25, w: colW - 0.6, h: 0.32,
+    // Eyebrow
+    slide.addText(CTA.eyebrow.toUpperCase(), {
+      x: 0.5, y: 0.7, w: W - 1, h: 0.3,
       fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true, color: C.primary,
-      charSpacing: 4, margin: 0,
+      align: "center", charSpacing: 5, margin: 0,
     });
-    slide.addText("Where you are on the maturity curve.", {
-      x: px + 0.3, y: top + 0.6, w: colW - 0.6, h: 0.6,
-      fontFace: PPTX_BRAND.font.display, fontSize: 22, bold: true, color: C.ink,
-      margin: 0,
-    });
+
+    // Headline (split color)
     slide.addText(
-      "A structured assessment of your data, taxonomy and decision velocity vs. your category peers.",
+      [
+        { text: CTA.titleA + " ", options: { color: C.ink } },
+        { text: CTA.titleAccent, options: { color: C.primary } },
+      ],
       {
-        x: px + 0.3, y: top + 1.25, w: colW - 0.6, h: colH - 1.4,
-        fontFace: PPTX_BRAND.font.body, fontSize: 12, color: C.muted,
-        valign: "top", margin: 0,
+        x: 0.5, y: 1.1, w: W - 1, h: 0.9,
+        fontFace: PPTX_BRAND.font.display, fontSize: 36, bold: true,
+        align: "center", valign: "middle", margin: 0,
       },
     );
 
-    // VP Testimonial band
-    const ty = top + colH + 0.35;
-    addCard(slide, x0, ty, w, 1.2, { fill: C.bgAlt });
-    slide.addText(
-      "\u201CWe're now spotting category opportunities a full quarter before our competitors. " +
-      "The advantage compounds every cycle.\u201D",
-      {
-        x: x0 + 0.3, y: ty + 0.2, w: w - 0.6, h: 0.55,
-        fontFace: PPTX_BRAND.font.display, fontSize: 14, italic: true, color: C.ink,
-        margin: 0,
-      },
-    );
-    slide.addText("VP, Top 5 Global FMCG  ·  Connected Intelligence customer, year 2.", {
-      x: x0 + 0.3, y: ty + 0.78, w: w - 0.6, h: 0.35,
-      fontFace: PPTX_BRAND.font.body, fontSize: 11, color: C.primary, bold: true,
-      charSpacing: 3, margin: 0,
+    // Sub
+    slide.addText(CTA.sub, {
+      x: 0.5, y: 2.1, w: W - 1, h: 0.4,
+      fontFace: PPTX_BRAND.font.body, fontSize: 16, color: C.muted,
+      align: "center", margin: 0,
+    });
+
+    // Social-proof badge (centered pill)
+    const badgeW = 7.2;
+    const badgeX = (W - badgeW) / 2;
+    slide.addShape("roundRect", {
+      x: badgeX, y: 2.7, w: badgeW, h: 0.45,
+      fill: { color: C.surface }, line: { color: C.primary, width: 1 },
+      rectRadius: 0.22,
+    });
+    slide.addText(CTA.badge, {
+      x: badgeX, y: 2.7, w: badgeW, h: 0.45,
+      fontFace: PPTX_BRAND.font.body, fontSize: 12, color: C.ink,
+      align: "center", valign: "middle", margin: 0,
+    });
+
+    // 3 CTA cards
+    const top = 3.5;
+    const cAreaW = 10;
+    const x0 = (W - cAreaW) / 2;
+    const gap = 0.3;
+    const cw = (cAreaW - gap * (CTA.options.length - 1)) / CTA.options.length;
+    const ch = 2.6;
+    CTA.options.forEach((opt, i) => {
+      const x = x0 + i * (cw + gap);
+      addCard(slide, x, top, cw, ch, { fill: "EAF0FF", border: C.primary });
+      addGlyphTile(slide, x + 0.25, top + 0.25, 0.5, { glyph: opt.glyph, color: C.primary, fill: C.primary });
+      slide.addText(opt.title, {
+        x: x + 0.25, y: top + 0.85, w: cw - 0.5, h: 0.45,
+        fontFace: PPTX_BRAND.font.display, fontSize: 14, bold: true, color: C.ink,
+        valign: "top", margin: 0,
+      });
+      slide.addText(opt.desc, {
+        x: x + 0.25, y: top + 1.3, w: cw - 0.5, h: 0.85,
+        fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.muted,
+        valign: "top", margin: 0,
+      });
+      // Action pill
+      slide.addShape("roundRect", {
+        x: x + 0.25, y: top + ch - 0.55, w: cw - 0.5, h: 0.4,
+        fill: { color: C.primary }, line: { type: "none" },
+        rectRadius: 0.2,
+      });
+      slide.addText(opt.cta + "  →", {
+        x: x + 0.25, y: top + ch - 0.55, w: cw - 0.5, h: 0.4,
+        fontFace: PPTX_BRAND.font.body, fontSize: 11, bold: true, color: "FFFFFF",
+        align: "center", valign: "middle", margin: 0,
+      });
+    });
+
+    // Reassurance italic
+    slide.addText(CTA.reassurance, {
+      x: 0.5, y: top + ch + 0.25, w: W - 1, h: 0.3,
+      fontFace: PPTX_BRAND.font.body, fontSize: 12, italic: true, color: C.muted,
+      align: "center", margin: 0,
     });
   },
 };
