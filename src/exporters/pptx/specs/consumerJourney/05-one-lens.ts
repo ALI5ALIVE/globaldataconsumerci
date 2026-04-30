@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 5 — One Lens / Ava Hub. Center hub + 5 persona cards. */
 export const oneLensSpec: SlideSpec = {
   label: "One Lens (Ava Hub)",
+  gdLayout: "ClearSpace",
   build: (slide) => {
     addTitleBlock(slide, {
       eyebrow: O.eyebrow,

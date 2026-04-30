@@ -15,6 +15,7 @@ const ACCENT_MAP = {
 /** Slide 1 — The Pressure. 2x2 cards. */
 export const pressureSpec: SlideSpec = {
   label: "The Pressure",
+  gdLayout: "Divider",
   build: (slide) => {
     // Centered headline (split-color)
     slide.addText(P.titleA + " ", {

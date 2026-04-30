@@ -15,6 +15,7 @@ const STAGE_COLORS: Record<string, string> = {
 /** Slide 8 — Maturity Journey. 4 stages, ascending dotted curve, summary cards w/ time-allocation bars. */
 export const maturityJourneySpec: SlideSpec = {
   label: "Maturity Journey",
+  gdLayout: "ClearSpace",
   build: (slide) => {
     addTitleBlock(slide, {
       eyebrow: M.eyebrow,

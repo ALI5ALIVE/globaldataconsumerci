@@ -12,6 +12,8 @@ import {
 import gdQmarkDarkUrl from "@/assets/gd-qmark-dark.jpg";
 import gdQmarkWhiteUrl from "@/assets/gd-qmark-white.jpg";
 import { consumerJourneyNarrations } from "@/data/consumerJourneyNarration";
+import { mergeGdMaster } from "./gdMasterMerge";
+import type { GdLayoutKey } from "./gdMasterLayouts";
 
 import { titleSpec } from "./specs/consumerJourney/00-title";
 import { pressureSpec } from "./specs/consumerJourney/01-pressure";
@@ -133,6 +135,26 @@ export async function buildConsumerJourneyEditable(
   }
 
   opts.onProgress?.(total, total, "Composing PPTX");
-  const data = (await pptx.write({ outputType: "blob" })) as Blob;
-  return data;
+  const generated = (await pptx.write({ outputType: "blob" })) as Blob;
+
+  // Layer 1 — splice in the GlobalData master so the deck inherits real GD
+  // chrome (footer wordmark, page numbering, theme colours, fonts, Q-mark
+  // watermark) instead of our hand-imitated approximations.
+  opts.onProgress?.(total, total, "Applying GlobalData master");
+  const layoutBySlideIndex: Record<number, GdLayoutKey | undefined> = {};
+  composed.forEach((spec, idx) => {
+    if (spec.gdLayout) layoutBySlideIndex[idx] = spec.gdLayout;
+  });
+  try {
+    return await mergeGdMaster({
+      generated,
+      layoutBySlideIndex,
+      defaultLayout: "Content",
+    });
+  } catch (err) {
+    // If the merge fails for any reason, fall back to the un-merged deck so
+    // the user still gets a usable file.
+    console.error("[pptx-editable] GD master merge failed; emitting plain deck", err);
+    return generated;
+  }
 }

@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 10 — Why Not DIY. Quoted headline + 2 columns × 4 icon rows + closing italic. */
 export const whyNotDiySpec: SlideSpec = {
   label: "Why Not DIY",
+  gdLayout: "X2Column",
   build: (slide) => {
     // Eyebrow
     slide.addText(D.eyebrow.toUpperCase(), {

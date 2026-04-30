@@ -8,6 +8,7 @@ const W = PPTX_BRAND.size.w;
 /** Slide 3 — Seven Sources / vendor sprawl. */
 export const sevenSourcesSpec: SlideSpec = {
   label: "Seven Sources",
+  gdLayout: "X4Column",
   build: (slide) => {
     addTitleBlock(slide, {
       eyebrow: S.eyebrow,

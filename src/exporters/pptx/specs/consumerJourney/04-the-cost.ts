@@ -52,6 +52,7 @@ const renderColumn = (
 /** Slide 4 — The Cost. Two columns of 3 cost cards + accumulator. */
 export const theCostSpec: SlideSpec = {
   label: "The Cost",
+  gdLayout: "X2Column",
   build: (slide) => {
     addTitleBlock(slide, {
       eyebrow: CS.eyebrow,
