@@ -1,48 +1,76 @@
 import pptxgen from "pptxgenjs";
 
 /**
- * Comply365 Connected Consumer Intelligence — PPTX brand toolkit.
+ * GlobalData — PPTX brand toolkit (Consumer Journey deck).
  *
- * Ported from the stratagem-pyramid reference architecture and re-skinned to
- * the Consumer Journey deck palette (Comply365 blue + sky blue accents on
- * a light surface). Provides a small set of layout primitives so each slide
- * spec can compose a brand-consistent layout in a few lines.
+ * Re-skinned to match the GlobalData 2025 PPT Master Template:
+ *   • Primary palette: Navy #1F2432, Cream #FBF5E9, Mid Blue #09216B,
+ *     GD Black #242528, Light Grey #F2F2F2.
+ *   • Secondary palette: Hyper Blue, Mid Blue shades, Cream+1, Mid Grey.
+ *   • Data-viz palette in fixed order (used for series 1–10 in any chart).
+ *   • Typography: Poppins Regular for headings, Poppins Light for body
+ *     (PowerPoint substitutes Calibri locally if Poppins isn't installed).
+ *   • Chrome: cream-on-light surfaces, Q-glyph watermark in lower-right,
+ *     "globaldata.com" wordmark in the footer, GD wordmark removed from
+ *     content-slide headers per project memory.
+ *
+ * The token keys (primary, accent, danger, success, stage1..5, etc.) are
+ * preserved so all existing slide specs adopt the GD palette without edits.
  */
 
 export const PPTX_BRAND = {
   size: { w: 13.333, h: 7.5 },
   color: {
-    // Surfaces
-    bg: "FFFFFF",
-    bgAlt: "F8FAFC",
-    surface: "FFFFFF",
-    surfaceAlt: "F1F5F9",
-    hairline: "E2E8F0",
-    // Ink
-    ink: "0A1628",
-    inkSoft: "1E293B",
-    muted: "64748B",
-    subtle: "94A3B8",
-    // Brand
-    primary: "0066FF",
-    primarySoft: "DBEAFE",
-    accent: "38BDF8", // sky blue
-    accentSoft: "E0F2FE",
-    // Status
-    danger: "EF4444",
-    warning: "F59E0B",
-    success: "10B981",
-    // Maturity stages (Red, Sky, Teal, Purple, Gold)
-    stage1: "EF4444",
-    stage2: "38BDF8",
-    stage3: "0EA5A4",
-    stage4: "8B5CF6",
-    stage5: "D4A017",
-    // Inverse (for hero / dark slides)
+    // ── Surfaces ──────────────────────────────────────────────
+    bg: "FBF5E9",          // Cream — primary content background
+    bgAlt: "F2F2F2",       // Light Grey — neutral surface
+    surface: "FFFFFF",     // White inner panels
+    surfaceAlt: "F8F4E6",  // Slightly tinted cream for layering
+    hairline: "E0D8C5",    // Cream-derived hairline so it reads on cream
+    // ── Ink ───────────────────────────────────────────────────
+    ink: "242528",         // GD Black
+    inkSoft: "1F2432",     // Navy Blue (also a surface color)
+    muted: "676B75",       // Mid Grey
+    subtle: "B5AB9A",      // Cream +2 (muted on dark; visible on cream)
+    // ── Brand primary ────────────────────────────────────────
+    primary: "09216B",     // Mid Blue — primary accent
+    primarySoft: "CAD6FF", // Hyper Blue -2 — soft pill background
+    accent: "6789FB",      // Hyper Blue -1 — secondary accent
+    accentSoft: "DCE4FF",  // Hyper Blue light — soft accent surface
+    // ── Status (drawn from the data-viz palette) ─────────────
+    danger: "B84438",      // dv 10 — red
+    warning: "E08E45",     // dv 6 — amber
+    success: "4A7C6B",     // dv 3 — green
+    // ── Maturity stages — mapped to data-viz colors in the
+    //    master's prescribed series order so chart parity holds.
+    stage1: "B84438",      // Fragmented (red)
+    stage2: "6789FB",      // Managed (hyper blue)
+    stage3: "4A7C6B",      // Connected (green)
+    stage4: "523D85",      // Optimised (purple)
+    stage5: "EBD369",      // Predictive (gold)
+    // ── Inverse (hero / dark slides) ─────────────────────────
     inkInverse: "FFFFFF",
-    bgDark: "0A1628",
+    bgDark: "1F2432",      // Navy Blue
+    // ── Brand-specific extras (referenced by name) ──────────
+    cream: "FBF5E9",
+    cream1: "E7D7C1",
+    navy: "1F2432",
+    midBlue: "09216B",
+    midBlue2: "3D5BBA",
+    hyperBlue: "6789FB",
+    hyperBlue2: "CAD6FF",
+    lightGrey: "F2F2F2",
+    midGrey: "676B75",
+    darkGrey: "505259",
+    gdBlack: "242528",
+    // ── Data-viz sequence (master pages 10 + 17, series 1–10) ─
+    dv: [
+      "2541D8", "E6DCC3", "4A7C6B", "001F5C", "EBD369",
+      "E08E45", "BBAEA0", "DCE4FF", "8BC09B", "B84438",
+    ],
   },
-  font: { display: "Calibri", body: "Calibri" },
+  // GlobalData typography spec: Poppins for both headings and body.
+  font: { display: "Poppins", body: "Poppins" },
 } as const;
 
 const C = PPTX_BRAND.color;
@@ -54,14 +82,9 @@ export function paintBackground(
   variant: "light" | "dark" = "light",
 ) {
   slide.background = { color: variant === "dark" ? C.bgDark : C.bg };
-  // Top brand hairline
-  slide.addShape("rect", {
-    x: 0, y: 0, w: PPTX_BRAND.size.w, h: 0.06,
-    fill: { color: C.primary }, line: { type: "none" },
-  });
 }
 
-/* ── Chrome (logo + footer + slide counter) ─────────────────── */
+/* ── Chrome (Q-mark watermark + globaldata.com footer + counter) ─ */
 
 export async function loadImageAsBase64(url: string): Promise<string> {
   const res = await fetch(url);
@@ -74,19 +97,34 @@ export async function loadImageAsBase64(url: string): Promise<string> {
   });
 }
 
+/**
+ * Add the GlobalData Q-mark as a small watermark in the lower-right.
+ * On dark/hero slides we use a larger, prominent placement in the upper-left
+ * (callers handle that directly via slide.addImage).
+ */
 export function addBrandLogo(
   slide: pptxgen.Slide,
   logoBase64: string,
   variant: "light" | "dark" = "light",
 ) {
   if (!logoBase64) return;
-  // Comply365 wordmark aspect ratio ~9.65:1
-  const h = 0.32;
-  const w = h * 9.65; // ≈ 3.09"
-  slide.addImage({
-    data: logoBase64,
-    x: PPTX_BRAND.size.w - w - 0.4, y: 0.25, w, h,
-  });
+  if (variant === "dark") {
+    // Hero placement: top-left, prominent.
+    const h = 0.65;
+    slide.addImage({
+      data: logoBase64,
+      x: 0.5, y: 0.45, w: h, h,
+    });
+  } else {
+    // Footer watermark: small, lower-right, just above the footer line.
+    const h = 0.4;
+    slide.addImage({
+      data: logoBase64,
+      x: PPTX_BRAND.size.w - h - 0.4,
+      y: PPTX_BRAND.size.h - h - 0.55,
+      w: h, h,
+    });
+  }
 }
 
 export function addBrandMaster(
@@ -101,28 +139,37 @@ export function addBrandMaster(
 ) {
   const variant = ctx.variant ?? "light";
   paintBackground(slide, variant);
-  if (ctx.logo) addBrandLogo(slide, ctx.logo, variant);
 
   const ink = variant === "dark" ? C.subtle : C.muted;
 
-  // Footer hairline
+  if (ctx.logo) addBrandLogo(slide, ctx.logo, variant);
+
+  // Footer hairline (subtle on cream, slightly brighter on navy)
   slide.addShape("rect", {
-    x: 0, y: PPTX_BRAND.size.h - 0.42, w: PPTX_BRAND.size.w, h: 0.015,
-    fill: { color: C.hairline }, line: { type: "none" },
+    x: 0.5, y: PPTX_BRAND.size.h - 0.42, w: PPTX_BRAND.size.w - 1, h: 0.01,
+    fill: { color: variant === "dark" ? C.darkGrey : C.hairline },
+    line: { type: "none" },
   });
+
+  // Deck label (bottom-left)
   slide.addText(ctx.deckLabel, {
-    x: 0.42, y: PPTX_BRAND.size.h - 0.38, w: 5.8, h: 0.3,
+    x: 0.5, y: PPTX_BRAND.size.h - 0.36, w: 5.8, h: 0.28,
     fontFace: PPTX_BRAND.font.body, fontSize: 9, color: ink, margin: 0,
   });
-  slide.addText("Comply365 · Connected Consumer Intelligence", {
-    x: PPTX_BRAND.size.w / 2 - 3, y: PPTX_BRAND.size.h - 0.38, w: 6, h: 0.3,
+
+  // GlobalData wordmark (centre)
+  slide.addText("globaldata.com", {
+    x: PPTX_BRAND.size.w / 2 - 1.5, y: PPTX_BRAND.size.h - 0.36,
+    w: 3, h: 0.28,
     fontFace: PPTX_BRAND.font.body, fontSize: 9, color: ink,
     align: "center", margin: 0,
   });
+
+  // Slide counter (bottom-right)
   slide.addText(
     `${String(ctx.index + 1).padStart(2, "0")} / ${String(ctx.total).padStart(2, "0")}`,
     {
-      x: PPTX_BRAND.size.w - 1.4, y: PPTX_BRAND.size.h - 0.38, w: 1, h: 0.3,
+      x: PPTX_BRAND.size.w - 1.4, y: PPTX_BRAND.size.h - 0.36, w: 1, h: 0.28,
       fontFace: PPTX_BRAND.font.body, fontSize: 9, color: ink,
       align: "right", margin: 0,
     },
@@ -153,15 +200,16 @@ export function addTitleBlock(
     });
     y += 0.34;
   }
+  // GlobalData spec: headings ≤ 32pt Poppins Regular.
   slide.addText(opts.title, {
-    x: 0.5, y, w: 12.3, h: 0.9,
-    fontFace: PPTX_BRAND.font.display, fontSize: 32, bold: true, color: ink,
-    margin: 0,
+    x: 0.5, y, w: 12.3, h: 1.4,
+    fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: false, color: ink,
+    valign: "top", margin: 0,
   });
-  y += 0.9;
+  y += 1.2;
   if (opts.subtitle) {
     slide.addText(opts.subtitle, {
-      x: 0.5, y, w: 12.3, h: 0.45,
+      x: 0.5, y, w: 12.3, h: 0.6,
       fontFace: PPTX_BRAND.font.body, fontSize: 14, color: muted,
       margin: 0,
     });
@@ -177,9 +225,9 @@ export function addCard(
 ) {
   slide.addShape("roundRect", {
     x, y, w, h,
-    fill: { color: opts.fill ?? C.surfaceAlt },
+    fill: { color: opts.fill ?? C.surface },
     line: { color: opts.border ?? C.hairline, width: 0.75 },
-    rectRadius: opts.radius ?? 0.1,
+    rectRadius: opts.radius ?? 0.08,
   });
 }
 
@@ -201,9 +249,9 @@ export function addLabeledCard(
     x, y, w, h,
     fill: { color: opts.fill ?? C.surface },
     line: { color: C.hairline, width: 0.75 },
-    rectRadius: 0.1,
+    rectRadius: 0.08,
   });
-  // Left accent bar
+  // Left accent bar (GD master uses left-accent strips for category cards)
   slide.addShape("rect", {
     x, y: y + 0.08, w: 0.06, h: h - 0.16,
     fill: { color: accent }, line: { type: "none" },
@@ -218,11 +266,11 @@ export function addLabeledCard(
     cy += 0.28;
   }
   slide.addText(opts.title, {
-    x: x + 0.22, y: cy, w: w - 0.4, h: 0.4,
+    x: x + 0.22, y: cy, w: w - 0.4, h: 0.7,
     fontFace: PPTX_BRAND.font.display, fontSize: opts.titleSize ?? 14,
-    bold: true, color: C.ink, margin: 0,
+    bold: true, color: C.ink, valign: "top", margin: 0,
   });
-  cy += 0.42;
+  cy += 0.7;
   if (opts.body) {
     slide.addText(opts.body, {
       x: x + 0.22, y: cy, w: w - 0.4, h: y + h - cy - 0.18,
@@ -272,10 +320,9 @@ export function addIconBadge(
   color: string,
   glyph: string = "■",
 ) {
-  slide.addShape("roundRect", {
+  slide.addShape("ellipse", {
     x, y, w: size, h: size,
     fill: { color }, line: { type: "none" },
-    rectRadius: size * 0.25,
   });
   slide.addText(glyph, {
     x, y, w: size, h: size,
@@ -296,14 +343,14 @@ export function addStatTile(
   accent: string = C.primary,
 ) {
   addCard(slide, x, y, w, h, { fill: C.surface });
-  // Top accent bar
+  // Top accent bar — GD master uses thin colored caps on stat tiles
   slide.addShape("rect", {
     x, y, w, h: 0.08,
     fill: { color: accent }, line: { type: "none" },
   });
   slide.addText(value, {
     x: x + 0.1, y: y + 0.25, w: w - 0.2, h: h * 0.55,
-    fontFace: PPTX_BRAND.font.display, fontSize: 40, bold: true, color: accent,
+    fontFace: PPTX_BRAND.font.display, fontSize: 38, bold: true, color: accent,
     align: "center", valign: "middle", margin: 0,
   });
   slide.addText(label, {
