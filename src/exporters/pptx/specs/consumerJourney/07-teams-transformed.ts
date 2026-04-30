@@ -17,7 +17,7 @@ const ACCENT_MAP: Record<string, string> = {
 const drawBarSet = (
   slide: Parameters<NonNullable<import("../../slideSpec").SlideSpec["build"]>>[0],
   x: number, y: number, w: number, h: number,
-  label: string, bars: typeof T.before,
+  label: string, bars: ReadonlyArray<{ label: string; pct: number; accent: keyof typeof ACCENT_MAP }>,
 ) => {
   slide.addText(label, {
     x, y, w, h: 0.3,

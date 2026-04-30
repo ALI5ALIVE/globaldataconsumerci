@@ -17,7 +17,7 @@ const renderColumn = (
   slide: Parameters<NonNullable<import("../../slideSpec").SlideSpec["build"]>>[0],
   x: number, top: number, w: number, h: number,
   eyebrow: string, eyebrowColor: string,
-  items: typeof CS.business,
+  items: ReadonlyArray<{ glyph: string; stat: string; detail: string; accent: keyof typeof ACCENT_MAP }>,
 ) => {
   slide.addText(eyebrow.toUpperCase(), {
     x, y: top, w, h: 0.3,
