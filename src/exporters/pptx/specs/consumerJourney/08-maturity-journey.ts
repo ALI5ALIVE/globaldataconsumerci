@@ -144,7 +144,7 @@ export const maturityJourneySpec: SlideSpec = {
       });
       // Bullets
       slide.addText(
-        st.bullets.map((t) => ({ text: t, options: { bullet: { code: "25A0" }, color: C.muted } })),
+        st.bullets.map((t) => ({ text: t, options: { bullet: { code: "25CF" }, color: C.muted } })),
         {
           x: x + 0.15, y: cardTop + 1.22, w: cw - 0.3, h: cardH - 1.32,
           fontFace: PPTX_BRAND.font.body, fontSize: 8, color: C.muted,
