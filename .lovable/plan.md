@@ -1,111 +1,95 @@
+## Where we are vs. the ceiling
 
-# Goal
+We've already done the high-leverage work in the **native redraw** approach:
+- Correct GD palette (Navy, Cream, Mid Blue, Hyper Blue, GD Black, full 10-color data-viz sequence)
+- Poppins typography, `globaldata.com` footer, Q-mark watermarks
+- Shared `_copy.ts` so PPTX text matches the React deck verbatim
+- Reusable primitives (cards, glyph tiles, segmented bars, inbox rows, pills)
+- All 12 slides redrawn against the live components
 
-Make the **Editable PPTX** export match each on-screen slide as closely as the PPTX format allows — same copy, same structure, same visual hierarchy, same brand chrome. Continue with **Strategy B (native redraw)** on the GlobalData master.
+**What still doesn't match the real GD master:**
+1. Master slide chrome (header bar, footer wordmark style, page numbering, rule lines) is *re-implemented*, not *inherited* — so spacing, font weights and corner treatments are "close" but not identical.
+2. We're not using GD's actual section dividers, icon set, or photographic cover treatments — those live as layouts inside `gd_master.pptx`.
+3. Title slide uses a flat navy + Q-mark rather than the master's hero composition.
+4. No "section header" slides between narrative beats (the master has them).
+5. Charts/diagrams are drawn with `addShape` instead of using the master's chart placeholder styles.
 
-Below is a slide-by-slide audit of what currently ships in the spec vs. what the live React slide actually renders, with the fix to apply.
+We can close most of that gap by **building on top of the real master file** (which already exists at `src/assets/pptx/gd_master.pptx`) instead of synthesising chrome ourselves.
 
----
+## The plan — three layers, biggest fidelity wins first
 
-# Audit & Fixes (per slide)
+### Layer 1 — Adopt the real master as the deck template (biggest single win)
 
-### Slide 0 — Title
-- **Live:** Audience badge "For CMOs, CSOs & Category Leaders" → 2-line gradient headline "Connected Intelligence / for Consumer Brands" → sub "What you're about to see isn't just better data… a completely new way of working." → 3 stats (8 of 10 / 95% / 40+) → italic quote "The brands that win don't have more data. They have connected intelligence." → eyebrow "A new way of working".
-- **Spec gap:** Generic title; missing badge, two-tone headline, italic closing quote.
-- **Fix:** Rebuild on navy hero with white Q-mark; badge pill, large two-line headline (accent color on second line), 3-column stats strip, italic pull-quote band at bottom.
+Switch `buildConsumerJourneyEditable` from `new PptxGenJS()` to a template-merge flow that opens `gd_master.pptx`, reads its `slideMasters` and `slideLayouts`, and emits our slides referencing those layouts. We already have a `templateMerge.ts` scaffold in `src/exporters/pptx/` — extend it.
 
-### Slide 1 — The Pressure
-- **Live:** Title "You're Under More Pressure Than Ever." (destructive accent on "Than Ever."), sub "Your consumers are changing faster than you can track them. And every missed signal is a missed opportunity." **4 cards** (Consumer Expectations, Market Velocity, Fragmented View, First-Mover Risk) in a 2×2, each with icon + title + 1-line desc. Bridge line: "Sound familiar? Picture your typical Monday."
-- **Spec gap:** Only 3 cards, wrong titles/copy, no bridge line, no 2-tone headline.
-- **Fix:** 2×2 card grid with icon tiles (TrendingUp, Zap, Layers, Target), exact copy, italic bridge line below.
+Concretely:
+- Parse `gd_master.pptx` once at build time, extract `ppt/slideMasters/*.xml` and `ppt/slideLayouts/*.xml` and the related theme + media (logos, Q-marks, colours).
+- Inject those into the pptxgenjs output's `[Content_Types].xml` and `_rels`, and set each generated slide's `<p:sldLayoutId>` to point at the right master layout (Title, Section, Content, Two-Column, Quote, Closing).
+- Remove our hand-drawn footer/page counter/Q-mark — they come from the master automatically and will match GD's typography exactly.
 
-### Slide 2 — Monday Morning
-- **Live:** Title "Your Monday Morning", sub "One opportunity. Seven opinions. Zero alignment." Inbox chrome (Inbox · 7 badge, search field, filter icon). 7 emails with **specific** sender/subject/time pairs (CEO, Head of Strategy, Finance/Market Intel, Competitive Intel, Innovation Lead, Commercial/Sales, Procurement). Footer italic: "One opportunity. Seven teams. Seven answers. Which one do you trust?"
-- **Spec gap:** Sender names and subjects are wrong; missing inbox toolbar chrome and footer italic.
-- **Fix:** Rebuild rows with exact sender/subject/time list; add toolbar bar with "Inbox 7" pill and a faux search field rectangle; italic footer caption.
+Outcome: every slide opens in PowerPoint with the real GD master attached. Edit → Slide Master shows GlobalData's master, not ours.
 
-### Slide 3 — Seven Sources
-- **Live:** Title "Same Opportunity. Seven Conflicting Signals.", sub "Every source is telling you something different about plant-based protein." 7 vendor tiles, each with **icon + 2-line name + italic conflicting signal quote** (Mintel "Plant-based is peaking", Euromonitor "$1.4B TAM (or $2.1B?)", Innova "No significant moves", IDEO "Consumer fatigue detected", NielsenIQ "Retailer X is demanding it", Kantar "Trial is up, repeat is flat", Circana "Our test market grew 22%"). Stats pill (60% / 10% / 12 wks) inside a destructive-tinted band, plus italic caption "By the time you reconcile, someone else has launched."
-- **Spec gap:** Vendor list wrong (uses Brandwatch/Gartner/Statista/Internal BI); no conflicting-signal quotes; no destructive band styling around stats.
-- **Fix:** Replace vendors and add italic signal text per tile; render stats as a single pill-shaped card with vertical dividers; keep red-tinted fill.
+### Layer 2 — Map each slide to the right master layout
 
-### Slide 4 — The Cost
-- **Live:** Two columns (Business / Personal), but each column is a **stacked list of 3 mini-cards** with icon, bold stat headline, and detail paragraph — not a single big number. Business cards: "£40M Line — Lost", "12 Weeks to Align", "The Launch That Flopped". Personal cards: "Your Board Questioned the Numbers — Again", "3 Days Building a Deck, Not Strategy", "The Call You Didn't Make". An animated £63M accumulator runs across the bottom.
-- **Spec gap:** Currently shows two big single-stat panels (£63M / 60%) + bullet lists. Wrong structure.
-- **Fix:** Replace with two columns × 3 mini-cards each, exact copy and per-card accent color (red/amber/orange on left, violet/sky/emerald on right). Add a footer band showing the accumulated total "£63M" with caption "Revenue at risk this year".
+Once layouts are available, change the slide specs from "draw everything" to "fill placeholders + add content shapes":
 
-### Slide 5 — One Lens (Ava Hub)
-- **Live:** Central Ava AI hub with 5 spokes to the 5 solutions, each spoke labelled with a persona name (Sarah/James/Priya/Marcus/Elena) and unlocked-actions chips between personas.
-- **Spec gap:** Color palette updated but layout still generic — needs the hub-and-spoke structure with persona labels.
-- **Fix:** Native shapes — center ellipse "Ava" in navy, 5 outer rounded-rect persona cards positioned on a circle (top, two upper-sides, two lower-sides), 5 connector lines from hub to each card (drawn as thin rotated rects). Each card: persona name + role + solution name. Add a small caption strip below describing cross-persona unlocks.
+| Slide | GD master layout |
+|-------|------------------|
+| 00 Title | "Title slide — Navy hero" |
+| 01 Pressure | "Section divider" |
+| 02 Monday Morning | "Content — Single panel" |
+| 03 Seven Sources | "Content — Two column" |
+| 04 The Cost | "Content — Two column with stat strip" |
+| 05 One Lens (Ava hub) | "Content — Diagram" |
+| 06 Connected Decision | "Content — 5-up cards" |
+| 07 Teams Transformed | "Content — Comparison" |
+| 08 Maturity Journey | "Content — Diagram (wide)" |
+| 09 Proof | "Stat callout / Quote" |
+| 10 Why Not DIY | "Two column comparison" |
+| 11 CTA | "Closing slide — Navy" |
 
-### Slide 6 — Connected Decision
-- **Live:** Boardroom "GO" verdict with 5 enriched persona dashboards in a row (each persona's mini metrics).
-- **Spec gap:** Generic stat tiles only.
-- **Fix:** Top band "GO" verdict card with green accent, then 5 persona mini-dashboards in a row (avatar circle with initial + name/role + 3 stacked KPI rows from the persona `metrics` array).
+Each spec then reduces to ~30 lines: set the layout, fill the title/eyebrow/body placeholders, drop in the bespoke diagram. Title font/size/colour is inherited.
 
-### Slide 7 — Teams Transformed
-- **Live:** Three large stat tiles (75% / Hours / 2×) + a navy retention card with charSpacing eyebrow.
-- **Spec status:** Already close. **Fix:** Verify exact eyebrow/copy "AND THE TALENT YOU FOUGHT TO HIRE — STAYS." and the longer paragraph below match the live component (re-pull copy from `CPSlide7TeamsTransformed`).
+### Layer 3 — Replace synthesised glyphs with master assets
 
-### Slide 8 — Maturity Journey
-- **Live:** **4-stage** SVG curve (Fragmented → Connected → Optimised → Predictive) with Connected marked as **"Gateway"** pill. Each stage has tagline, decision-speed badge, time-allocation bar (recon/analysis/strategy %), bullets, and an italic insight quote.
-- **Spec gap:** Renders 5 stages (Fragmented/Managed/Connected/Optimised/Predictive); summary boxes don't include time-allocation bars or insight quotes.
-- **Fix:** Switch to 4 stages matching live data. Draw curve as ascending dotted line with 4 colored circles, "GATEWAY" pill on Connected. Below, 4 cards each with: stage name + tagline, decision-speed pill, mini stacked bar (3 segments coloured for recon/analysis/strategy with %), 3 bullets, italic insight at the bottom.
+The master file ships with GD's icon set and photographic surfaces. Extract them from `gd_master.pptx/ppt/media/` and:
+- Swap our Unicode glyphs (✉ ⚡ ▲) for the master's PNG icons in slides 1, 4, 7, 10, 11.
+- Use the master's hero photography on the title and CTA slides instead of flat navy.
+- Use the master's section divider artwork on slide 1.
 
-### Slide 9 — Proof
-- **Live:** Stats grid using GD data-viz palette (already partly applied).
-- **Fix:** Re-verify stat values, labels and subcopy match `CJSlideProof` exactly.
+This is the cosmetic last-mile that takes the export from "GD-coloured" to "indistinguishable from a GD-authored deck."
 
-### Slide 10 — Why Not DIY
-- **Live:** Eyebrow "The #1 Objection", headline `"Can't we just integrate what we have?"` with "integrate" in destructive. Two columns each with 4 icon rows: each row has icon + bold label + detail line. DIY: 18+ months / 14 contracts / No shared taxonomy / No cross-pollination. Connected: 90-day deployment / 1 platform 1 contract / One consumer taxonomy / Intelligence flows.
-- **Spec gap:** Has 5 generic check/x rows, wrong copy and no icons per row.
-- **Fix:** Title block with eyebrow + quoted headline, then 2 columns × 4 icon rows with exact copy. Use ✕ icon col + red tint on left, ✓ + primary tint on right.
+## Realistic fidelity ceiling
 
-### Slide 11 — CTA
-- **Live:** Headline "Your competitors already see the full picture." + sub "Let's make sure you do too." **3** CTA cards (30-min Discovery Call / Intelligence Maturity Assessment / 90-Day Pilot) each with icon, title, description, button label.
-- **Spec gap:** Only 2 CTAs (Discovery Session + Intelligence Audit) and wrong headline; testimonial band content also from old script.
-- **Fix:** Headline + sub block, 3-column CTA cards (icon tile + bold title + description + pill button label). Drop the VP testimonial band (not on live slide) or replace with the social-proof badge actually shown.
+| Approach | Visual fidelity to GD master | Editability |
+|----------|------------------------------|-------------|
+| Current (native redraw) | ~70% | Full |
+| + Layer 1 (real master attached) | ~85% | Full |
+| + Layer 2 (placeholder mapping) | ~92% | Full |
+| + Layer 3 (master assets) | ~97% | Full |
+| Pixel-perfect (image-per-slide) | 100% | None |
 
----
+Layers 1 + 2 are where the curve bends — Layer 3 is polish.
 
-# Cross-Cutting Improvements
+## Technical notes
 
-1. **Single source of truth for copy.** Add `src/exporters/pptx/specs/consumerJourney/_copy.ts` that re-imports the same arrays already declared in the React components (where practical) or mirrors them as exported constants. Eliminates copy drift.
-2. **Reusable native primitives** in `pptxBrand.ts`:
-   - `addIconTile(slide, x, y, w, h, {iconCharOrLetter, color})` — colored rounded-rect with a centered glyph (use Unicode geometric shapes since real Lucide icons can't ship in PPTX without bitmaps).
-   - `addPillBadge(slide, …)` — for "GATEWAY", "UNREAD", eyebrow pills.
-   - `addSegmentedBar(slide, x, y, w, h, segments[])` — for time-allocation bars on Slide 8.
-   - `addPersonaMiniCard(slide, …)` — for Slides 5/6.
-3. **Icon strategy.** Lucide icons are SVG, not embeddable directly. Two options:
-   - **(a)** Use Unicode glyphs in colored circles (✉, ⚡, ▲, ◆, $, ⏱) — zero asset overhead, ~80% recognisable.
-   - **(b)** Pre-export the Lucide SVGs we use as small PNGs into `src/assets/pptx-icons/` and embed as base64. Higher fidelity, ~200KB to deck size.
-   - Recommendation: **(a)** for v1, leave a hook to swap to (b) per-icon later.
-4. **Brand chrome.** Keep the cream content master + navy title master we built. Add a small "Slide N / 12" footer left of `globaldata.com` so deck navigation matches the on-screen slide numbers shown by `CPSlideContainer`.
-5. **QA loop.** After implementation, generate the PPTX, render every slide to JPG via LibreOffice + pdftoppm, and inspect each side-by-side with a screenshot of the live React slide. Iterate until each slide passes.
+- `pptxgenjs` does not natively support importing external `slideMasters`. We'll do the merge by post-processing the `.pptx` zip: pptxgenjs writes its file → we open with `JSZip`, splice in the master/layout/theme parts from `gd_master.pptx`, rewrite `[Content_Types].xml` and the slide `_rels` to reference the new layouts, then re-zip. The scaffold in `src/exporters/pptx/templateMerge.ts` already exists for this.
+- We'll add a small `gdMasterLayouts.ts` enum so each spec declares `layout: "TitleHero" | "SectionDivider" | "ContentTwoCol" | …` and the merger maps that to the actual `slideLayoutN.xml` inside the master.
+- `addBrandMaster` becomes a no-op for slides that inherit from the real master; kept only as a fallback if template merge fails.
 
----
+## Files to change
 
-# Honest Limitations
+- `src/exporters/pptx/templateMerge.ts` — implement master/layout splice (currently a stub)
+- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — run output through the merger; pass per-slide `layout` hint
+- `src/exporters/pptx/slideSpec.ts` — add optional `layout?: GdLayoutKey`
+- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — declare layout key, drop hand-drawn chrome
+- `src/lib/pptxBrand.ts` — slim down `addBrandMaster` to fallback only
+- `src/assets/pptx/gd_master.pptx` — source of truth (already present, no change)
 
-Even after this rewrite, the editable PPTX **will not** reproduce:
-- Animated counters and motion (frozen to final state).
-- Gradient text and CSS blur glows (approximated with solid fills + soft shadows).
-- Real Lucide SVG icons unless we pre-bake PNGs.
-- Browser-rendered SVG curve smoothness on Slide 8 (PPTX has no bezier line shape — we approximate with a dotted curve of small ellipses).
+## Suggested execution order
 
-Visual match target after this work: **~90%** for text-heavy slides (1, 2, 3, 4, 7, 9, 10, 11), **~75–80%** for diagram slides (5, 6, 8). Editable everywhere.
+1. **Layer 1 first** (template merge + chrome inheritance) — ship and inspect. This alone is the single biggest jump and is worth verifying in PowerPoint before going further.
+2. **Layer 2** once Layer 1 is confirmed working — map slides to layouts one at a time, re-export and visually QA each.
+3. **Layer 3** as a final polish pass.
 
----
-
-# Files to Edit
-
-- `src/lib/pptxBrand.ts` — add `addIconTile`, `addPillBadge`, `addSegmentedBar`, `addPersonaMiniCard`.
-- `src/exporters/pptx/specs/consumerJourney/_copy.ts` — **new**, shared copy arrays.
-- `src/exporters/pptx/specs/consumerJourney/00-title.ts` … `11-cta.ts` — rewrite each per the audit above.
-- `src/exporters/pptx/buildConsumerJourneyEditable.ts` — wire any new helpers; add slide-number footer.
-- `.lovable/plan.md` — record approach.
-
-# Optional follow-up (not in this pass)
-
-- Pre-bake the 30-or-so Lucide icons we actually use into base64 PNGs and embed for true icon parity (Strategy A's main visual win, applied surgically).
+Each layer is independently shippable, so we can stop at any point if the fidelity is "good enough."
