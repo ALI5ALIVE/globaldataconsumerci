@@ -6,8 +6,11 @@ import {
   addBrandMaster,
   loadImageAsBase64,
 } from "@/lib/pptxBrand";
-import comply365LogoUrl from "@/assets/comply365-logo.png";
-import comply365LogoWhiteUrl from "@/assets/comply365-logo-white.png";
+// GlobalData Q-mark assets extracted from the GD 2025 PPT Master Template.
+// `dark` Q is the dark glyph used on cream/light surfaces (content slides);
+// `white` Q is the white glyph used on the navy hero/cover.
+import gdQmarkDarkUrl from "@/assets/gd-qmark-dark.jpg";
+import gdQmarkWhiteUrl from "@/assets/gd-qmark-white.jpg";
 import { consumerJourneyNarrations } from "@/data/consumerJourneyNarration";
 
 import { titleSpec } from "./specs/consumerJourney/00-title";
@@ -62,21 +65,24 @@ export async function buildConsumerJourneyEditable(
   const pptx = new PptxGenJS();
   pptx.layout = "LAYOUT_WIDE"; // 13.333" × 7.5"
   pptx.title = DECK_LABEL;
-  pptx.company = "Comply365";
-  pptx.author = "Comply365";
+  pptx.company = "GlobalData";
+  pptx.author = "GlobalData";
 
-  // Load logos once (light + dark variants)
+  // Load Q-mark glyphs once. `logoLight` is used on light/cream content
+  // slides (dark glyph); `logoDark` is used on dark/navy hero slides
+  // (white glyph). Variable names follow the existing dark/light variant
+  // selector used by addBrandMaster below.
   let logoLight = "";
   let logoDark = "";
   try {
-    logoLight = await loadImageAsBase64(comply365LogoUrl);
+    logoLight = await loadImageAsBase64(gdQmarkDarkUrl);
   } catch (err) {
-    console.warn("[pptx-editable] failed to load light logo", err);
+    console.warn("[pptx-editable] failed to load GD light Q-mark", err);
   }
   try {
-    logoDark = await loadImageAsBase64(comply365LogoWhiteUrl);
+    logoDark = await loadImageAsBase64(gdQmarkWhiteUrl);
   } catch (err) {
-    console.warn("[pptx-editable] failed to load dark logo", err);
+    console.warn("[pptx-editable] failed to load GD dark Q-mark", err);
   }
 
   const total = composed.length;

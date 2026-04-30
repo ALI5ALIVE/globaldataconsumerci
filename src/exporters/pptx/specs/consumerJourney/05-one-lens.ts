@@ -20,30 +20,32 @@ export const oneLensSpec: SlideSpec = {
     const cx = W / 2;
     const cy = 4.7;
 
-    // Central Ava badge
+    // Central Ava badge — navy disc with hyper-blue ring (GD primary dark)
     const hubR = 1.05;
     slide.addShape("ellipse", {
       x: cx - hubR, y: cy - hubR, w: hubR * 2, h: hubR * 2,
-      fill: { color: C.primary }, line: { color: C.accent, width: 3 },
+      fill: { color: C.navy }, line: { color: C.accent, width: 3 },
     });
     slide.addText("AVA", {
       x: cx - hubR, y: cy - 0.55, w: hubR * 2, h: 0.5,
-      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: "FFFFFF",
+      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: C.inkInverse,
       align: "center", valign: "middle", charSpacing: 4, margin: 0,
     });
     slide.addText("AI Intelligence Layer", {
       x: cx - hubR, y: cy - 0.05, w: hubR * 2, h: 0.4,
-      fontFace: PPTX_BRAND.font.body, fontSize: 10, color: "DBEAFE",
+      fontFace: PPTX_BRAND.font.body, fontSize: 10, color: C.hyperBlue2,
       align: "center", valign: "middle", margin: 0,
     });
 
+    // Solutions colored from the GD data-viz palette (series 1–5 order)
+    const dv = C.dv;
     const solutions = [
-      { title: "Strategic", persona: "Sarah · Head of Strategy", desc: "Predictive foresight on macro & micro signals.", color: C.primary, angle: -110 },
-      { title: "Market", persona: "James · Insights Director", desc: "One definitive sizing across every market.", color: C.accent, angle: -55 },
-      { title: "Competitive", persona: "Priya · Competitive Lead", desc: "Real-time competitive radar.", color: C.warning, angle: 0 },
-      { title: "Innovation", persona: "Marcus · Innovation Lead", desc: "Test concepts against real evidence.", color: C.stage4, angle: 55 },
-      { title: "Sales", persona: "Elena · Commercial Lead", desc: "Walk into every buyer meeting armed.", color: C.success, angle: 110 },
-    ];
+      { title: "Strategic", persona: "Sarah · Head of Strategy", desc: "Predictive foresight on macro & micro signals.", color: "#" + dv[0], angle: -110 },
+      { title: "Market", persona: "James · Insights Director", desc: "One definitive sizing across every market.", color: "#" + dv[2], angle: -55 },
+      { title: "Competitive", persona: "Priya · Competitive Lead", desc: "Real-time competitive radar.", color: "#" + dv[5], angle: 0 },
+      { title: "Innovation", persona: "Marcus · Innovation Lead", desc: "Test concepts against real evidence.", color: "#" + dv[3], angle: 55 },
+      { title: "Sales", persona: "Elena · Commercial Lead", desc: "Walk into every buyer meeting armed.", color: "#" + dv[8], angle: 110 },
+    ].map((s) => ({ ...s, color: s.color.slice(1) })); // strip the # for pptxgen hex format
 
     const cardW = 2.4;
     const cardH = 1.35;

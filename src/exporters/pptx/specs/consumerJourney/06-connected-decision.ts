@@ -23,16 +23,18 @@ export const connectedDecisionSpec: SlideSpec = {
       align: "center", valign: "middle", charSpacing: 4, margin: 0,
     });
 
+    // Personas colored using the GD data-viz palette (series 1, 3, 6, 4, 9)
+    const dv = C.dv;
     const personas = [
-      { name: "Sarah · Strategic", stat: "92", label: "Convergence score", accent: C.primary,
+      { name: "Sarah · Strategic", stat: "92", label: "Convergence score", accent: dv[0],
         body: "2 macro themes · 4 micro signals accelerating in SEA." },
-      { name: "James · Market", stat: "$820M", label: "SEA opportunity", accent: C.accent,
+      { name: "James · Market", stat: "$820M", label: "SEA opportunity", accent: dv[2],
         body: "14% growth · 42% of snacking occasions unaddressed." },
-      { name: "Priya · Competitive", stat: "4", label: "Patents filed (14d)", accent: C.warning,
+      { name: "Priya · Competitive", stat: "4", label: "Patents filed (14d)", accent: dv[5],
         body: "Rival hiring regional supply chain lead. Threat: high." },
-      { name: "Marcus · Innovation", stat: "3 / 5", label: "Concepts pass evidence", accent: C.stage4,
+      { name: "Marcus · Innovation", stat: "3 / 5", label: "Concepts pass evidence", accent: dv[3],
         body: "Crispy Bites 87 · Protein Bar 72 · Gut Shot fails." },
-      { name: "Elena · Sales", stat: "2 / 3", label: "Retailers ready", accent: C.success,
+      { name: "Elena · Sales", stat: "2 / 3", label: "Retailers ready", accent: dv[8],
         body: "12% shelf space available. Buyer sentiment positive." },
     ];
 

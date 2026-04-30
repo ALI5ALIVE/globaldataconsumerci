@@ -14,11 +14,13 @@ export const proofSpec: SlideSpec = {
       subtitle: "Connected Intelligence — proven and delivering across the world's largest brands.",
     });
 
+    // Stats colored using the GD data-viz palette (series 1, 3, 9, 4)
+    const dv = C.dv;
     addBrandStatBlock(slide, 0.5, 3.2, W - 1, [
-      { value: "3×", label: "Faster decisions", accent: C.primary },
-      { value: "70%", label: "Less time to insight", accent: C.accent },
-      { value: "2×", label: "Launch success rate", accent: C.success },
-      { value: "30%", label: "Lower TCO", accent: C.stage4 },
+      { value: "3×", label: "Faster decisions", accent: dv[0] },
+      { value: "70%", label: "Less time to insight", accent: dv[2] },
+      { value: "2×", label: "Launch success rate", accent: dv[8] },
+      { value: "30%", label: "Lower TCO", accent: dv[3] },
     ]);
 
     // Quote card
