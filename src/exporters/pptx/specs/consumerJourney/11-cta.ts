@@ -4,6 +4,7 @@ import { CTA_SLIDE as CTA } from "./_copy";
 
 const C = PPTX_BRAND.color;
 const W = PPTX_BRAND.size.w;
+const H = PPTX_BRAND.size.h;
 
 /** Slide 11 — CTA. Headline + social proof badge + 3 CTAs + reassurance. */
 export const ctaSpec: SlideSpec = {
