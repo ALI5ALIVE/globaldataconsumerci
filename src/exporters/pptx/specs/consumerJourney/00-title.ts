@@ -22,6 +22,12 @@ export const titleSpec: SlideSpec = {
     });
 
     if (ctx.logo) addBrandLogo(slide, ctx.logo, "dark");
+    // GlobalData wordmark next to the Q-mark (inline, top-left hero)
+    slide.addText("GlobalData", {
+      x: 1.3, y: 0.45, w: 4, h: 0.65,
+      fontFace: PPTX_BRAND.font.display, fontSize: 28, bold: true, color: C.inkInverse,
+      valign: "middle", margin: 0,
+    });
 
     // Audience badge pill
     const badgeW = 4.6;
