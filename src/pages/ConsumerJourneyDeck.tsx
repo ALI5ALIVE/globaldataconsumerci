@@ -21,6 +21,7 @@ import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConne
 import CJSlideWhatYouGet from "@/components/consumer-journey/CJSlideWhatYouGet";
 import DeckDownloadButton from "@/components/DeckDownloadButton";
 import DeckPPTXExportButton from "@/components/DeckPPTXExportButton";
+import DeckGoogleSlidesExportButton from "@/components/DeckGoogleSlidesExportButton";
 
 import type { PersonaData } from "@/components/consumer-journey/PersonaSlide";
 
@@ -335,6 +336,13 @@ const ConsumerJourneyDeck = () => {
             <DeckPPTXExportButton
               deckId="consumer-journey"
               mode="editable"
+              onBeforeBuild={() => {
+                narration.stop();
+                userInitiatedRef.current = false;
+                autoAdvancingRef.current = false;
+              }}
+            />
+            <DeckGoogleSlidesExportButton
               onBeforeBuild={() => {
                 narration.stop();
                 userInitiatedRef.current = false;
