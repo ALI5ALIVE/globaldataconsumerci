@@ -70,9 +70,9 @@ function buildSlideRequests(slide: SlideInput, slideId: string) {
       objectId: stripeId,
       shapeProperties: {
         shapeBackgroundFill: { solidFill: { color: { rgbColor: PRIMARY } } },
-        outline: { outlineFill: { solidFill: { color: { rgbColor: PRIMARY } } }, weight: { magnitude: 0, unit: "PT" } },
+        outline: { propertyState: "NOT_RENDERED" },
       },
-      fields: "shapeBackgroundFill,outline.outlineFill,outline.weight",
+      fields: "shapeBackgroundFill,outline",
     },
   });
 
