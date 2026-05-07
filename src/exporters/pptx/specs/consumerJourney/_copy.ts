@@ -244,3 +244,24 @@ export const CTA_SLIDE = {
   ],
   reassurance: "No commitment. No procurement. Just clarity.",
 };
+
+export const WHAT_YOU_GET_SLIDE = {
+  eyebrow: "What You Actually Get",
+  titleA: "One platform. Six deliverables.",
+  titleAccent: "Live in 90 days.",
+  sub: "Beyond the vision \u2014 here's what lands in your business.",
+  tiles: [
+    { glyph: "\u25A6", title: "The Connected Platform", detail: "Single login \u00B7 6 solutions \u00B7 one taxonomy across 50+ markets" },
+    { glyph: "\u2728", title: "Ava AI Workspace", detail: "Agentic assistant \u00B7 natural-language queries \u00B7 proactive alerts" },
+    { glyph: "\u25A4", title: "Analyst-Validated Data", detail: "25,000 companies \u00B7 1,000+ segments \u00B7 95% global GDP \u00B7 continuously refreshed" },
+    { glyph: "\u263B", title: "Dedicated Domain Experts", detail: "Named analysts and industry advisors embedded in your workflows" },
+    { glyph: "\u27A4", title: "90-Day Onboarding & Taxonomy Mapping", detail: "White-glove deployment mapped to your categories" },
+    { glyph: "\u25A4", title: "Executive Briefings & Custom Research", detail: "Quarterly board-ready deep dives, on demand" },
+  ],
+  timeline: [
+    { day: "Day 1", text: "Platform access \u00B7 taxonomy workshop \u00B7 named analyst introduced" },
+    { day: "Day 30", text: "Your category mapped \u00B7 first cross-solution dashboards live" },
+    { day: "Day 90", text: "Ava trained on your portfolio \u00B7 first connected decision delivered" },
+  ],
+  closing: "Renewed annually \u00B7 Advisory included",
+} as const;

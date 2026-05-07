@@ -21,6 +21,7 @@ import { mondayMorningSpec } from "./specs/consumerJourney/02-monday-morning";
 import { sevenSourcesSpec } from "./specs/consumerJourney/03-seven-sources";
 import { theCostSpec } from "./specs/consumerJourney/04-the-cost";
 import { oneLensSpec } from "./specs/consumerJourney/05-one-lens";
+import { whatYouGetSpec } from "./specs/consumerJourney/05a-what-you-get";
 import { connectedDecisionSpec } from "./specs/consumerJourney/06-connected-decision";
 import { teamsTransformedSpec } from "./specs/consumerJourney/07-teams-transformed";
 import { maturityJourneySpec } from "./specs/consumerJourney/08-maturity-journey";
@@ -56,6 +57,7 @@ export async function buildConsumerJourneyEditable(
     sevenSourcesSpec,
     theCostSpec,
     oneLensSpec,
+    whatYouGetSpec,
     connectedDecisionSpec,
     teamsTransformedSpec,
     maturityJourneySpec,

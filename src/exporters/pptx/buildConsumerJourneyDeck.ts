@@ -13,6 +13,7 @@ export const CONSUMER_JOURNEY_SLIDE_IDS: { id: string; label: string }[] = [
   { id: "cp-slide-2", label: "Seven Sources" },
   { id: "cp-slide-3", label: "The Cost" },
   { id: "cp-slide-4", label: "One Lens" },
+  { id: "cj-slide-whatyouget", label: "What You Get" },
   { id: "cj-slide-decision", label: "Connected Decision" },
   { id: "cp-slide-7", label: "Teams Transformed" },
   { id: "cj-slide-maturity", label: "Maturity Journey" },
