@@ -18,6 +18,7 @@ import CJSlide1Pressure from "@/components/consumer-journey/CJSlide1Pressure";
 
 import CJSlideProof from "@/components/consumer-journey/CJSlideProof";
 import CJSlideConnectedDecision from "@/components/consumer-journey/CJSlideConnectedDecision";
+import CJSlideWhatYouGet from "@/components/consumer-journey/CJSlideWhatYouGet";
 import DeckDownloadButton from "@/components/DeckDownloadButton";
 import DeckPPTXExportButton from "@/components/DeckPPTXExportButton";
 
@@ -171,6 +172,7 @@ const slides = [
   { id: "cp-slide-3", label: "Seven Sources" },
   { id: "cp-slide-4", label: "The Cost" },
   { id: "cj-slide-5", label: "One Lens, One New Way" },
+  { id: "cj-slide-whatyouget", label: "What You Get" },
   { id: "cj-slide-6", label: "The Connected Decision" },
   { id: "cj-slide-7", label: "Teams Transformed" },
   { id: "cj-slide-8", label: "Maturity Journey" },
@@ -394,12 +396,13 @@ const ConsumerJourneyDeck = () => {
         <CPSlide2SevenSources {...getNarrationProps(3)} />
         <CPSlide3TheCost {...getNarrationProps(4)} />
         <CPSlide4ImagineOneLens {...getNarrationProps(5)} />
-        <CJSlideConnectedDecision {...getNarrationProps(6)} />
-        <CPSlide7TeamsTransformed {...getNarrationProps(7)} />
-        <CJSlideMaturityJourney {...getNarrationProps(8)} />
-        <CJSlideProof {...getNarrationProps(9)} />
-        <CJSlideWhyNotDIY {...getNarrationProps(10)} />
-        <CJSlide12CTA {...getNarrationProps(11)} />
+        <CJSlideWhatYouGet {...getNarrationProps(6)} />
+        <CJSlideConnectedDecision {...getNarrationProps(7)} />
+        <CPSlide7TeamsTransformed {...getNarrationProps(8)} />
+        <CJSlideMaturityJourney {...getNarrationProps(9)} />
+        <CJSlideProof {...getNarrationProps(10)} />
+        <CJSlideWhyNotDIY {...getNarrationProps(11)} />
+        <CJSlide12CTA {...getNarrationProps(12)} />
       </div>
     </div>
   );
