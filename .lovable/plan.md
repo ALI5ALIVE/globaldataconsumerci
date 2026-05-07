@@ -1,86 +1,74 @@
-## Goal
-Bring the editable PPTX (`Connected-Consumer-Intelligence-Editable_5.pptx`) materially closer to the live web deck. Ground-truth source = `src/components/consumer-journey/*` and `_copy.ts`. Biggest visible miss: the Ava hub slide is missing a persona and the multi-ring structure shown on screen. Every other slide also gets a focused fidelity pass.
+## New Slide: "What You Actually Get"
 
-## What's wrong today (confirmed by re-rendering the uploaded file)
+Insert a new slide immediately after Slide 5 (One Lens hub) that makes the purchase tangible. Combines a 6-tile deliverables grid with a thin 3-step time-to-value strip across the bottom.
 
-**Slide 6 — One Lens / Ava Hub (the one you flagged)**
-- Only **5 persona cards**; the live `CJOneLensHub` shows **6 stages** (adds **David — Head of Procurement / "One Vendor, Lower Cost"**).
-- The web hub has **two concentric rings** (5 *solution* cards inner ring, 5 *persona* avatars outer ring) plus a **consumer silhouette center** wrapped by a dashed **AVA AI ring**. Export currently has just a single ring of cards around an "AVA" disc. No consumer center, no AVA ring, no two-tier structure.
-- The card content collapses persona + solution into one tile; the live UI separates them and adds the solution sub-line (e.g. "110 countries · 1,000+ segments").
+### Position in deck
+Becomes Slide 6 of 13 (deck grows from 12 → 13 slides).
 
-**Slide 1 — Title**
-- Missing the "GlobalData" wordmark/glow header treatment shown on screen; we render only the Q-mark via the master.
-- `bg-gradient` in the headline ("for Consumer Brands") should render as a brighter accent blue, not the same navy ink.
+```
+... → 05 One Lens hub → 06 What You Get (NEW) → 07 Connected Decision → ...
+```
 
-**Slide 2 — Pressure**
-- Cards lack the title eyebrow ("THE PRESSURE") that the spec defines but the build skips.
-- No glyph color differentiation per card (live uses navy / blue / amber / red accents — currently all use the brand primary).
+### Content
 
-**Slide 4 — Seven Sources**
-- Vendor cards are missing the small **red "unread" dot** styling consistency with the inbox slide and the **column dividers** that the live grid uses for visual rhythm.
-- The 3-stat callout pill should sit on a **soft red wash**, not a plain card.
+**Eyebrow:** "What You Actually Get"
+**Title:** "One platform. Six deliverables. Live in 90 days."
+**Sub:** "Beyond the vision — here's what lands in your business."
 
-**Slide 5 — The Cost**
-- Headers "YOUR BUSINESS" / "YOU, PERSONALLY" render but the live design uses the **brand red** for the business header and **brand navy** for the personal header — currently both render in the same accent.
-- Accumulator footer pill misses the **"£63M" red** treatment used on screen.
+**6-tile grid (2 rows × 3 cols):**
 
-**Slide 7 — The Connected Decision**
-- Persona top borders are correct, but the **GO verdict bar** loses the green left-rule and the "WITHOUT / WITH" contrast cards collapse to identical pink/blue tints rather than the live red/green pairing.
+| Tile | Headline | Detail |
+|---|---|---|
+| Platform | The Connected Platform | Single login, 6 solutions, one taxonomy across 50+ markets |
+| Ava AI | Ava AI Workspace | Agentic assistant, natural-language queries, proactive alerts |
+| Data | Analyst-Validated Data | 25,000 companies · 1,000+ segments · 95% global GDP · continuously refreshed |
+| People | Dedicated Domain Experts | Named analysts and industry advisors embedded in your workflows |
+| Onboarding | 90-Day Onboarding & Taxonomy Mapping | White-glove deployment mapped to your categories |
+| Briefings | Executive Briefings & Custom Research | Quarterly board-ready deep dives on demand |
 
-**Slide 8 — Teams Transformed**
-- Bottom 3 metric cards (`7.5×`, `Same-day`, `2×`) **clip below the slide footer** (visible in the render — last line touches the page-number bar). Needs a vertical rebalance.
+**Bottom timeline strip (3 chips):**
+- **Day 1** — Platform access · taxonomy workshop · named analyst introduced
+- **Day 30** — Your category mapped · first cross-solution dashboards live
+- **Day 90** — Ava trained on your portfolio · first connected decision delivered
+- *Closing tagline (right-aligned):* "Renewed annually · Advisory included"
 
-**Slide 9 — Maturity Journey**
-- Curve renders, but the **stage 1 marker label "Fragmented"** sits below the baseline and overlaps the cards row. The live curve places labels above each marker.
-- Bullet markers in each card are tiny black squares — should be the stage accent dot used on screen.
+### Web implementation
 
-**Slide 10 — Proof**
-- Pillar glyphs render as Unicode (⏱ ⚡ ◎) and **fail to display** in PowerPoint default font on some machines (visible as monochrome filled squares in our render). Needs the same SVG-style icon treatment used on cards in slide 2.
-- Logo grid uses 4×2 — live deck stacks the **8 logos as 4×2 with cream background** matching the rest of the page; current render is fine but should drop the inner border for a flatter look matching the React source.
+1. Create `src/components/consumer-journey/CJSlideWhatYouGet.tsx`
+   - Reuse card pattern from `CJSlideWhyNotDIY.tsx` (icon-in-circle, headline, detail).
+   - Use existing semantic tokens (primary = #0066FF, sky accents). No custom hex.
+   - Lucide icons: `LayoutGrid`, `Sparkles`, `Database`, `Users`, `Rocket`, `FileText`.
+   - Bottom strip: 3 numbered chips with `border-primary/30 bg-primary/5` styling, plus muted closing tagline.
+   - Static-first per visibility memory — no progressive reveals.
+2. Wire into `src/pages/ConsumerJourneyDeck.tsx`:
+   - Insert after the One Lens hub slide.
+   - Assign DOM id `cj-slide-whatyouget`.
+   - Update slide-count props / index math so Connected Decision becomes 7/13 etc.
+3. Add narration entry in `src/data/consumerJourneyNarration.ts`:
+   - ~55 words, "Empathetic Advisor" tone, second-person.
+   - Sample: "So what actually arrives? One platform with six connected solutions. Ava, your AI analyst. Validated data refreshed continuously. Named experts on your team. A ninety-day onboarding that maps your categories. And quarterly briefings ready for your board. Live in ninety days. Renewed annually. Advisory included."
+4. Update `src/hooks/useConsumerJourneyNarration.ts` if it has a hard-coded slide count.
 
-**Slide 11 — DIY vs Connected**
-- Final closing italic line ("Integration connects pipes…") **clips against the footer**. Needs to move into a card or be reduced one font step.
+### PPTX export implementation
 
-**Slide 12 — CTA**
-- The geometric cream/navy "diagonal split" shape on screen is missing entirely — the export has a flat cream background. The shape is the slide's main visual signature.
-- Button rows ("Book a call →" etc.) render as solid pills; the diagonal arrow glyph is fine, but the **CTA buttons sit too close to the bottom edge**.
+1. Add copy block `WHAT_YOU_GET_SLIDE` to `src/exporters/pptx/specs/consumerJourney/_copy.ts` (mirrors web strings).
+2. Create `src/exporters/pptx/specs/consumerJourney/05a-what-you-get.ts`:
+   - `gdLayout: "Content"` (most flexible body layout from gd_master).
+   - Title row + 6-tile grid laid out as 2×3 using `addCard` patterns from existing specs.
+   - Bottom 3 timeline chips using `addShape` rounded rects.
+3. Update `src/exporters/pptx/buildConsumerJourneyDeck.ts`:
+   - Add `{ id: "cj-slide-whatyouget", label: "What You Get" }` after One Lens entry.
+4. Update `src/exporters/pptx/buildConsumerJourneyEditable.ts`:
+   - Import and register the new spec in correct order.
+   - Verify `gdMasterLayouts.ts` mapping array length matches new slide count.
 
-## Changes
+### Memory updates
 
-### A. Rewrite `05-one-lens.ts` to match `CJOneLensHub.tsx`
-- Add a 6th spoke to `ONE_LENS_SLIDE.spokes` in `_copy.ts`: `David / Procurement / "One Vendor, Lower Cost" / "D"`.
-- Lay out **6 solution cards on an inner orbit** (radius ≈ 2.0", angles every 60°) and **6 persona discs on an outer orbit** (radius ≈ 3.2") connected to the matching solution card by a thin colored spoke.
-- Center stack: filled navy disc → consumer silhouette (two simple ellipses for head + shoulders) → "THE CONSUMER / One Lens · One Truth" labels.
-- Wrap the center with a dashed accent-blue **AVA ring** (ellipse outline only) and an "AVA — AI INTELLIGENCE LAYER" caption above it.
-- Keep dotted journey arcs between adjacent inner cards (already present, just regenerate for 6 nodes).
+- Add `mem://features/consumer-journey/what-you-get-slide` describing the new slide's role and contents.
+- Update `mem://features/consumer-journey/deck-structure-v3` from 12 → 13 slides with new index 6.
 
-### B. Per-slide polish passes
-For each spec file below, make the small targeted edits listed above:
-- `00-title.ts` — add a left-aligned "GlobalData" wordmark text block (since the navy hero hides the master Q-mark) and switch the lower headline line to `C.accent` blue.
-- `01-pressure.ts` — add eyebrow text and per-card glyph tint pulled from `card.accent`.
-- `03-seven-sources.ts` — promote stat strip to a soft red (`FFF1EE`) fill and add a 1px column divider between vendor cards.
-- `04-the-cost.ts` — color the two column headers with `C.danger` and `C.primary`; tint the `£63M` value in the accumulator with `C.danger`.
-- `06-connected-decision.ts` — restore the green left-rule on the GO bar; recolor WITHOUT/WITH cards to red/green pairing.
-- `07-teams-transformed.ts` — shift the metric-card row up by ~0.4" and reduce card height by 0.2" so it clears the footer.
-- `08-maturity-journey.ts` — move stage labels above the markers; switch bullet glyphs from "▪" to a colored disc using `addGlyphTile`.
-- `09-proof.ts` — replace Unicode glyphs with `addGlyphTile` (filled rounded square + first-letter or simple shape); flatten the logo cards to borderless cream tiles.
-- `10-why-not-diy.ts` — wrap the closing italic line in a slim caption card 0.3" above the footer to prevent clipping.
-- `11-cta.ts` — add a navy diagonal `triangle` shape behind the cream background to mirror the live diagonal-split visual; lift the CTA card row by ~0.25".
+### QA
 
-### C. Helper additions in `pptxBrand.ts`
-- `addDashedRing(slide, cx, cy, r, color, segs)` — used by the Ava ring on slide 5.
-- `addPersonSilhouette(slide, cx, cy, size, color)` — used by the consumer center on slide 5.
-
-## Files to edit
-- `src/exporters/pptx/specs/consumerJourney/_copy.ts` — add 6th persona spoke (David).
-- `src/exporters/pptx/specs/consumerJourney/05-one-lens.ts` — full rewrite per section A.
-- `src/exporters/pptx/specs/consumerJourney/00-title.ts`, `01-pressure.ts`, `03-seven-sources.ts`, `04-the-cost.ts`, `06-connected-decision.ts`, `07-teams-transformed.ts`, `08-maturity-journey.ts`, `09-proof.ts`, `10-why-not-diy.ts`, `11-cta.ts` — targeted edits per section B.
-- `src/lib/pptxBrand.ts` — add 2 small helpers per section C.
-
-## Out of scope
-- No further changes to the GD master merge pipeline (`gdMasterMerge.ts`).
-- No re-architecture of the spec system; this is a fidelity sweep, not a rewrite.
-- The web deck's framer-motion animations and hover tooltips remain web-only; PPTX captures the static end-state.
-
-## QA
-After changes, regenerate the editable deck from the in-app export button, then compare every slide against the live route at `/`. Record a one-line note per slide confirming the listed fix landed (or list any remaining drift).
+- Visual: verify grid breathes at 1370×885 viewport; 6 tiles fit without clipping; timeline strip doesn't collide with footer.
+- Export: render PPTX, convert to images via libreoffice + pdftoppm, inspect new slide for overflow and ensure subsequent slides still pull correct gd_master layouts.
+- Narration: confirm timing under ~25 seconds so it doesn't break sub-5-minute deck target.
