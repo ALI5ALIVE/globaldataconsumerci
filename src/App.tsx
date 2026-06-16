@@ -17,6 +17,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ConsumerJourneyDeck />} />
+          <Route path="/presenter-script" element={<PresenterScript />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
