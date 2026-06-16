@@ -1,74 +1,61 @@
-## New Slide: "What You Actually Get"
+## Goal
 
-Insert a new slide immediately after Slide 5 (One Lens hub) that makes the purchase tangible. Combines a 6-tile deliverables grid with a thin 3-step time-to-value strip across the bottom.
+Add a new page to the app that contains a polished, under-5-minute presenter script for the uploaded *GlobalData — Connected Intelligence for Consumer Brands* deck (14 slides). The script is the deliverable — readable on screen, printable, and timed.
 
-### Position in deck
-Becomes Slide 6 of 13 (deck grows from 12 → 13 slides).
+## Page
 
-```
-... → 05 One Lens hub → 06 What You Get (NEW) → 07 Connected Decision → ...
-```
+- **Route:** `/presenter-script` (new) — added in `src/App.tsx`.
+- **File:** `src/pages/PresenterScript.tsx`.
+- **Optional:** small link/button on `/` (Index) so it's discoverable. Won't disturb the Consumer Journey deck routing.
 
-### Content
+## Layout
 
-**Eyebrow:** "What You Actually Get"
-**Title:** "One platform. Six deliverables. Live in 90 days."
-**Sub:** "Beyond the vision — here's what lands in your business."
+A single-column reading view, max-width ~880px, centered, generous line-height. Comply365 blue accents (existing semantic tokens — no hardcoded colors).
 
-**6-tile grid (2 rows × 3 cols):**
+Top header:
+- Eyebrow: "Presenter Script"
+- Title: "Connected Intelligence for Consumer Brands"
+- Meta strip: `~4 min 50 sec · ~700 words · 14 slides · British male voice` and a "Print" button (`window.print()`).
 
-| Tile | Headline | Detail |
-|---|---|---|
-| Platform | The Connected Platform | Single login, 6 solutions, one taxonomy across 50+ markets |
-| Ava AI | Ava AI Workspace | Agentic assistant, natural-language queries, proactive alerts |
-| Data | Analyst-Validated Data | 25,000 companies · 1,000+ segments · 95% global GDP · continuously refreshed |
-| People | Dedicated Domain Experts | Named analysts and industry advisors embedded in your workflows |
-| Onboarding | 90-Day Onboarding & Taxonomy Mapping | White-glove deployment mapped to your categories |
-| Briefings | Executive Briefings & Custom Research | Quarterly board-ready deep dives on demand |
+Body: 14 numbered sections, one per slide. Each section:
+- Slide number + slide title (e.g. `Slide 03 — You're under more pressure than ever`)
+- Approximate timing (e.g. `~0:35`)
+- The spoken script (2–4 short paragraphs, second person, "Empathetic Advisor" tone, UK spelling)
+- Subtle cue line in muted text (e.g. *Cue: advance after "Sound familiar?"*)
 
-**Bottom timeline strip (3 chips):**
-- **Day 1** — Platform access · taxonomy workshop · named analyst introduced
-- **Day 30** — Your category mapped · first cross-solution dashboards live
-- **Day 90** — Ava trained on your portfolio · first connected decision delivered
-- *Closing tagline (right-aligned):* "Renewed annually · Advisory included"
+Print styles: hide nav/buttons, force black-on-white, page-break between slides.
 
-### Web implementation
+## Script (target ~690 words, ~4:50 at 145 wpm)
 
-1. Create `src/components/consumer-journey/CJSlideWhatYouGet.tsx`
-   - Reuse card pattern from `CJSlideWhyNotDIY.tsx` (icon-in-circle, headline, detail).
-   - Use existing semantic tokens (primary = #0066FF, sky accents). No custom hex.
-   - Lucide icons: `LayoutGrid`, `Sparkles`, `Database`, `Users`, `Rocket`, `FileText`.
-   - Bottom strip: 3 numbered chips with `border-primary/30 bg-primary/5` styling, plus muted closing tagline.
-   - Static-first per visibility memory — no progressive reveals.
-2. Wire into `src/pages/ConsumerJourneyDeck.tsx`:
-   - Insert after the One Lens hub slide.
-   - Assign DOM id `cj-slide-whatyouget`.
-   - Update slide-count props / index math so Connected Decision becomes 7/13 etc.
-3. Add narration entry in `src/data/consumerJourneyNarration.ts`:
-   - ~55 words, "Empathetic Advisor" tone, second-person.
-   - Sample: "So what actually arrives? One platform with six connected solutions. Ava, your AI analyst. Validated data refreshed continuously. Named experts on your team. A ninety-day onboarding that maps your categories. And quarterly briefings ready for your board. Live in ninety days. Renewed annually. Advisory included."
-4. Update `src/hooks/useConsumerJourneyNarration.ts` if it has a hard-coded slide count.
+Word budget is allocated so the total stays under 5 min. Tone matches existing `consumerJourneyNarration.ts` — second person, British spelling, no jargon, no GlobalData logo references in the script body.
 
-### PPTX export implementation
+1. **Title (0:00)** ~25w — Hook: "a new way of working."
+2. **Trust strip (0:10)** ~25w — 8 of 10 FMCG, 95% GDP, 40 years.
+3. **Pressure (0:20)** ~50w — Four pressures, "picture your Monday."
+4. **Monday inbox (0:40)** ~55w — Seven emails, one opportunity, who do you trust.
+5. **Seven signals (1:05)** ~55w — Same question, seven conflicting answers; 60/10/12wk stat.
+6. **The cost (1:30)** ~70w — £40M line lost, £63M at risk, personal cost.
+7. **One Lens (2:00)** ~70w — Six people, six solutions, Ava connecting them.
+8. **Connected decision (2:30)** ~75w — SE Asia walkthrough: 92, $2.1B, 3/5, 2/3.
+9. **Teams transformed (3:00)** ~55w — 10% → 75% strategy, 7.5× time, 2× launch success.
+10. **Maturity journey (3:20)** ~55w — Fragmented → Connected → Optimised → Predictive.
+11. **Proof (3:45)** ~45w — 70% faster, 3× decisions, 2× launches, VP quote.
+12. **Why not DIY (4:05)** ~55w — 18 months vs 90 days, 14 contracts vs 1.
+13. **CTA (4:30)** ~45w — Three next steps: discovery, assessment, POC.
+14. **Thank you (4:50)** ~10w — Soft close, invite questions.
 
-1. Add copy block `WHAT_YOU_GET_SLIDE` to `src/exporters/pptx/specs/consumerJourney/_copy.ts` (mirrors web strings).
-2. Create `src/exporters/pptx/specs/consumerJourney/05a-what-you-get.ts`:
-   - `gdLayout: "Content"` (most flexible body layout from gd_master).
-   - Title row + 6-tile grid laid out as 2×3 using `addCard` patterns from existing specs.
-   - Bottom 3 timeline chips using `addShape` rounded rects.
-3. Update `src/exporters/pptx/buildConsumerJourneyDeck.ts`:
-   - Add `{ id: "cj-slide-whatyouget", label: "What You Get" }` after One Lens entry.
-4. Update `src/exporters/pptx/buildConsumerJourneyEditable.ts`:
-   - Import and register the new spec in correct order.
-   - Verify `gdMasterLayouts.ts` mapping array length matches new slide count.
+Total ≈ 690 words → ~4:45 spoken at a relaxed pace. Comfortable buffer under 5 minutes.
 
-### Memory updates
+I'll write the full prose in the page file — every section is final spoken copy, not bullets.
 
-- Add `mem://features/consumer-journey/what-you-get-slide` describing the new slide's role and contents.
-- Update `mem://features/consumer-journey/deck-structure-v3` from 12 → 13 slides with new index 6.
+## Out of scope
 
-### QA
+- No narration audio generation (existing `consumerJourneyNarration.ts` already covers a different deck; this is a static script page).
+- No edits to existing decks, PPTX exporters, or Google Slides exporter.
+- No new memory entries — this is a one-off reference page.
 
-- Visual: verify grid breathes at 1370×885 viewport; 6 tiles fit without clipping; timeline strip doesn't collide with footer.
-- Export: render PPTX, convert to images via libreoffice + pdftoppm, inspect new slide for overflow and ensure subsequent slides still pull correct gd_master layouts.
-- Narration: confirm timing under ~25 seconds so it doesn't break sub-5-minute deck target.
+## QA
+
+- Open `/presenter-script`, verify layout reads cleanly at 1002px and at desktop widths.
+- `Cmd+P` preview: confirm slide sections page-break correctly and chrome is hidden.
+- Word count check in-file comment so it can be re-tuned later.
