@@ -73,7 +73,7 @@ const slides: ScriptSlide[] = [
     timing: "2:13",
     paragraphs: [
       "Now picture the same Monday — but through one connected lens. Five intelligence solutions, one AI layer — Ava — sitting on forty years of analyst-validated data and one shared taxonomy. Here's what that means for the people on your team.",
-      "Sarah in Strategy stops chasing convergence across vendors — she sees it, scored, across twenty-two sectors. Chloe in Market Sizing stops rebuilding TAMs in spreadsheets — the market is already sized and forecast across a hundred and ten countries. Sebastian in Competitive Intelligence stops finding out late — twenty-five thousand companies, every move tracked the day it happens. Priya in Innovation stops guessing at concepts — four million products and patents tell her what's already been tried and what's about to land. Marcus in Commercial stops walking into retailers with caveats — he walks in with the evidence, account by account.",
+      "Sarah in Strategy stops chasing convergence across vendors — she sees it, scored, across twenty-two sectors. Chloe in Market Sizing stops rebuilding TAMs in spreadsheets — the market is already sized and forecast across a hundred and ten countries. Sebastian in Competitive Intelligence stops finding out late — twenty-five thousand companies, every move tracked the day it happens. Priya in Innovation stops guessing at concepts — four million products and patents tell her what's already been tried and what's about to land. Marcus in Commercial stops walking into retailers with caveats — he walks in with the evidence, account by account. And David in Procurement stops managing fourteen overlapping contracts — one platform, one contract, total cost of ownership down forty percent.",
       "One platform. One source of truth. Every number traceable back to a named analyst. Now watch what they do with it on a Friday.",
     ],
   },
@@ -83,7 +83,7 @@ const slides: ScriptSlide[] = [
     timing: "2:55",
     paragraphs: [
       "The CEO's Friday question: should you launch plant-based snacking in Southeast Asia?",
-      "Sarah — convergence ninety-two. Chloe — two-point-one billion dollar TAM, Southeast Asia is the white space. Sebastian — high threat, a rival is building capacity, four patents filed. Priya — three of five concepts pass, aligned to the converging trends. Marcus — two of three target retailers ready for a first-mover pitch.",
+      "Sarah — convergence ninety-two. Chloe — two-point-one billion dollar TAM, Southeast Asia is the white space. Sebastian — high threat, a rival is building capacity, four patents filed. Priya — three of five concepts pass, aligned to the converging trends. Marcus — two of three target retailers ready for a first-mover pitch. And David — one contract behind the whole answer, not fourteen; the decision costs less than last quarter's reconciliation.",
       "Same taxonomy, so the numbers reconcile automatically. Every figure carries a confidence score and a citation — you can click the GO verdict back to the source survey, the patent filing, the shipment record. Old way: seven vendors, fourteen weeks, three conflicting answers. New way: one platform, one meeting, GO validated in forty-seven minutes — and you can prove every line.",
     ],
   },
@@ -93,7 +93,7 @@ const slides: ScriptSlide[] = [
     title: "What changes when your best people stop being data janitors",
     timing: "3:30",
     paragraphs: [
-      "And this is what changes for the people on your team. Sarah stops defending numbers and starts shaping the category. Chloe stops rebuilding TAMs and starts calling the next market. Sebastian stops chasing rumours and starts pre-empting moves. Priya stops killing time on dead concepts. Marcus walks into retailers already trusted.",
+      "And this is what changes for the people on your team. Sarah stops defending numbers and starts shaping the category. Chloe stops rebuilding TAMs and starts calling the next market. Sebastian stops chasing rumours and starts pre-empting moves. Priya stops killing time on dead concepts. Marcus walks into retailers already trusted. David stops chasing renewals across fourteen vendors.",
       "Seventy-five percent of your team's time, back on strategy. One reconciled dataset — not seven conflicting ones. Double the launch success rate.",
       "This is what a new operating model looks like on a Tuesday.",
     ],
