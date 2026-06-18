@@ -250,7 +250,7 @@ const numberDiscipline = [
   "1 procurement outcome \u2014 not counted as a solution",
   "4 maturity stages (Fragmented \u2192 Connected \u2192 Optimised \u2192 Predictive)",
   "90 days to deploy \u00B7 8 of top 10 FMCG \u00B7 95% global GDP \u00B7 40 years of intelligence",
-  "Personas: Sarah, James, Priya, Marcus, Elena, David",
+  "Personas (from deck): Sarah (Strategy) \u00B7 Chloe (Market Sizing) \u00B7 Sebastian (Competitive) \u00B7 Priya (Innovation) \u00B7 Marcus (Commercial)",
 ];
 
 const totalWords = slides.reduce(
