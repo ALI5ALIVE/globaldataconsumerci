@@ -1,33 +1,59 @@
 ## Goal
-Ava is named once on Slide 07 ("one AI layer — Ava") and never reappears on Slide 08. Right now she sounds like a label, not an active participant. Reposition Ava as the connective tissue that does the work *between* the personas: she pre-empts questions on Slide 07, she synthesises the answer on Slide 08. Per memory, Ava is the proprietary AI assistant that surfaces patterns and pre-empts decisions — keep her in that role, don't promote her into a sixth persona.
+Make Slides 07 and 08 explicitly resolve the pains set up in Slide 04 ("Your Monday morning") so the script reads as one continuous story rather than two halves.
 
-## Fix — `src/pages/PresenterScript.tsx` Slide 07
+## The anchors to echo
+Slide 04 plants very specific hooks that 07/08 currently glide past:
 
-**Paragraph 1 — sharpen Ava's intro (replace current opener):**
-> "Now picture the same Monday — but through one connected lens. Five intelligence solutions, one shared taxonomy, forty years of analyst-validated data — and Ava, your AI layer, sitting across all of it. Ava doesn't replace your team. She does the work between them: spotting the pattern that crosses two solutions, flagging the signal before anyone asks, drafting the first answer so your people start at minute thirty, not minute zero. Here's what that means for the people on your team."
+| Slide 04 pain hook | Slide 07/08 payoff (currently) | Payoff to add |
+|---|---|---|
+| "It's 9:00. Forty-one minutes in." | — | Open 07 with the same clock: *"It's still Monday. Same nine a.m. Same forty-one minutes."* |
+| "Seven unread emails, all about the same opportunity" | — | *"Seven inboxes collapse into one view."* |
+| "The CEO wants your plant-based protein position by Friday" | Mentioned cold in 08 | Carry the CEO + Friday deadline forward as a continuous thread, not a new question |
+| "Strategy says peaking, social says accelerating" | — | Sarah's beat resolves the contradiction explicitly |
+| "Finance has two TAM numbers" | — | Chloe's beat replaces "two TAM numbers" with one reconciled $2.1B figure |
+| "A rival has filed four patents nobody saw coming" | Sebastian mentions "four patents" | Sebastian explicitly says *"the four patents nobody saw coming on Monday — Sebastian saw them in week one"* |
+| "Zero alignment. The clock starts now." | — | Close 08 by stopping that clock: *"Monday's clock stopped at forty-seven minutes."* |
 
-**Paragraph 3 — add an Ava beat before the Friday handoff (replace current close):**
-> "One platform. One source of truth. Every number traceable back to a named analyst — and Ava connecting the dots none of them would have time to spot alone. Now watch what they do with it on a Friday."
+## Slide-by-slide edits
 
-## Fix — `src/pages/PresenterScript.tsx` Slide 08
+**Slide 07 — opening paragraph (line 75)**
+- Replace the generic *"Now picture the same Monday"* opener with a direct callback:
+  - *"It's still Monday. Same nine a.m., same forty-one minutes, same CEO email about plant-based protein. But this time the seven inboxes collapse into one connected lens…"*
+- Keep the rest of the paragraph (Ava as connective tissue, five solutions, etc.) intact.
 
-**Add a new paragraph between the question and the persona-answer paragraph** so Ava is visibly *how* the answer assembles in forty-seven minutes:
+**Slide 07 — persona paragraph (line 76)**
+- Re-anchor each persona to the Monday pain they personally resolve. Minor adds, no length blowout:
+  - Sarah: *"…stops chasing convergence across vendors — no more 'strategy says peaking, social says accelerating'; she sees one score…"*
+  - Chloe: *"…stops rebuilding TAMs in spreadsheets — no more two finance numbers; one sized market…"*
+  - Sebastian: *"…the four-patent surprise from Monday's inbox doesn't happen anymore — he saw the first filing in week one."*
+  - Priya, Marcus, David: keep as-is.
 
-> "Ava reads the question, pulls the relevant signal from each of the five solutions, and posts a draft answer to the room before the meeting starts. Each person walks in to their own view, already populated, already cross-referenced. They're not gathering — they're pressure-testing."
+**Slide 07 — closing paragraph (line 77)**
+- Add a one-line bridge to Friday so 08 lands as a continuation, not a reset:
+  - *"…none of them would have time to spot alone. Now it's Friday — same week, same question, same CEO. Watch what they do with it."*
 
-**Sharpen the audit-trail paragraph (replace current paragraph 3) so Ava's role lands:**
-> "Same taxonomy, so the numbers reconcile automatically. Ava attaches a confidence score and a citation to every figure — you can click the GO verdict back to the source survey, the patent filing, the shipment record. Old way: seven vendors, fourteen weeks, three conflicting answers. New way: one platform, one meeting, Ava-assembled, human-decided, GO validated in forty-seven minutes — and you can prove every line."
+**Slide 08 — opening (lines 85–86)**
+- Tie the question explicitly back to Monday's inbox:
+  - *"It's Friday. Same CEO. Same question from Monday's nine-a.m. email: should you launch plant-based snacking in Southeast Asia? Four days, not fourteen weeks."*
+- Keep the Ava pre-meeting paragraph intact.
 
-## Why this works
-- **Defines Ava by behaviour, not by label** — "spots the pattern," "drafts the first answer," "attaches confidence + citation" — concrete verbs the listener can picture.
-- **Keeps humans in charge** — "Ava-assembled, human-decided" closes the obvious objection ("is the AI making the call?").
-- **Explains the forty-seven minutes** — currently a hanging stat; now there's a mechanism behind it (Ava drafts before the meeting; people pressure-test, not gather).
-- **No new numbers introduced** — uses only the figures already locked in the deck.
+**Slide 08 — persona paragraph (line 87)**
+- One small Sebastian tweak so Monday's specific shock pays off:
+  - *"…four patents filed in the last ninety days — the same four that ambushed the inbox on Monday, only this time Sebastian flagged them in week one…"*
 
-### Timing impact
-- Slide 07 grows ~40 words → +~12s. Slide 08 grows ~50 words → +~15s. Total deck: ~5:45 → ~6:15.
+**Slide 08 — closer (line 88)**
+- Replace the final line of the "Old way / New way" beat with the clock callback:
+  - *"…GO validated in forty-seven minutes. Monday's clock that 'started now' — it stopped on Friday at minute forty-seven, with every line traceable to source."*
+
+## What stays the same
+- Slides 01–06 narrative (the pain build) — untouched.
+- Slides 09–14 — untouched.
+- All numbers, personas, Ava framing, deck visuals — untouched.
+- Total runtime impact: ~+25 words across 07–08 (~+8 seconds).
+
+## File to touch
+- `src/pages/PresenterScript.tsx` — `paragraphs` arrays for the `num: "07"` and `num: "08"` slides only (lines 74–88).
 
 ## Out of scope
-- No edits to slide visual components (Ava already has hub treatment on Slide 5).
-- No changes to other slides' Ava references.
-- Memory unchanged — `mem://features/ava-ai-assistant` already covers her definition.
+- Visual/slide-component changes.
+- Memory updates (the deck-structure and narration memories already cover this story arc).
