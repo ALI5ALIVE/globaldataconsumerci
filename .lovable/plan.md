@@ -1,51 +1,44 @@
 ## Goal
-Expand presenter script slides 07–10 in `src/pages/PresenterScript.tsx` so they're more informative about **what the solution actually does**, the **quality of the data** behind it, and **how decisions get made** — without breaking the ~5-minute total runtime.
+Re-introduce the named personas in script slides 07–10 so each solution and decision is anchored to a person feeling the pain — while keeping the new descriptive depth on data quality and decision-making.
 
-## Why these four slides
-- **07 One Lens** — currently lists personas but doesn't explain *what each solution does* or *what data sits underneath*.
-- **08 Connected Decision** — jumps to a verdict without showing *how* the answer is assembled or *why it can be trusted*.
-- **09 Teams Transformed** — stats only; no link to the data/decision quality that makes the time-saving real.
-- **10 Maturity Journey** — names the stages but doesn't describe what changes in *decision quality* at each step.
+## Persona lock (already in the deck)
+Sarah (Strategy) · James (Market) · Priya (Competitive) · Marcus (Innovation) · Elena (Sales) · David (Procurement outcome).
 
-## Proposed rewrites (script only — copy-updates section untouched)
+## Rewrites — `src/pages/PresenterScript.tsx`, `slides` array only
 
-**Slide 07 — One Lens. Five solutions. One AI layer.** (~0:35)
-Add one descriptive line per solution + the data spine:
-- Strategic Intelligence — 40 years of analyst-validated foresight across 22 sectors.
-- Market Intelligence — sized and forecast across 110 countries, refreshed continuously.
-- Competitive Intelligence — 25,000 companies, every deal, filing and move tracked.
-- Innovation Intelligence — 4M+ products and patents, concept-to-launch signals.
-- Sales Intelligence — retailer-ready evidence, account by account.
-- Ava — the AI layer that reads across all five and answers in your language.
-Close: "One taxonomy. One source of truth. Every number traceable to a named analyst."
+**Slide 07 — One Lens. Five solutions. One AI layer.**
+Pair each solution with its person and the data spine behind them:
+- "Sarah in Strategy gets analyst-led foresight across twenty-two sectors — forty years of validated thinking, not a scraped feed."
+- "James in Market sees the category sized and forecast across a hundred and ten countries, refreshed continuously."
+- "Priya in Competitive tracks twenty-five thousand companies — every deal, filing and move, the day it happens."
+- "Marcus in Innovation reads four million products and patents, concept to launch."
+- "Elena in Sales walks into the retailer with the evidence, account by account."
+- "And David in Procurement consolidates fourteen contracts into one."
+- "Ava, the AI layer, reads across all five and answers them in plain language."
+Close kept: "One taxonomy. One source of truth. Every number traceable to a named analyst."
 
-**Slide 08 — One question. Five perspectives. One connected answer.** (~0:40)
-Keep the plant-based SE-Asia question, but make the *decision mechanics* explicit:
-- Each persona's number comes from the same underlying taxonomy, so the answers reconcile automatically.
-- Add a confidence line: "Every figure carries a confidence score and an analyst trail — you can click from the GO verdict back to the source survey, filing or shipment."
-- Old way / new way line stays.
+**Slide 08 — One question. Five perspectives. One connected answer.**
+Restore named attribution on every number, keep the audit-trail language:
+- "Sarah: convergence score ninety-two. James: two-point-one billion dollar TAM, Southeast Asia is the white space. Priya: high threat, a rival is building capacity. Marcus: three of five concepts pass. Elena: two of three target retailers ready for a first-mover pitch."
+- Keep: "Every figure carries a confidence score and a citation — you can click from the GO verdict back to the source survey, the patent filing, the shipment record."
+- Keep old way / new way close.
 
-**Slide 09 — What changes when your best people stop being data janitors.** (~0:30)
-Reframe the stats around *decision quality*, not just speed:
-- 75% of your team's time back on strategy.
-- Decisions made on one reconciled dataset — not seven conflicting ones.
-- 2× launch success rate, because the GO/NO-GO is built on evidence the whole exec team already trusts.
-Closer kept.
+**Slide 09 — What changes when your best people stop being data janitors**
+Anchor the stats in the people:
+- "Sarah stops defending numbers and starts shaping the category. James stops rebuilding TAMs and starts calling the next market. Priya stops chasing rumours and starts pre-empting moves. Marcus stops killing time on dead concepts. Elena walks into retailers already trusted."
+- Keep the three hero stats (75% time back · one reconciled dataset · 2× launch success) and the Tuesday closer.
 
-**Slide 10 — The Intelligence Maturity Journey.** (~0:35)
-Describe what decision quality looks like at each stage:
-- Fragmented — decisions defended, not made; 6–8 weeks per call.
-- Connected — one taxonomy, one source of truth; decisions made in days.
-- Optimised — Ava surfaces patterns humans miss; decisions get pre-empted.
-- Predictive — you act on signals before the market reads them.
-Close kept: "You can't skip to Predictive. Connected is the foundation."
+**Slide 10 — The Intelligence Maturity Journey**
+Personal framing on each stage:
+- "Fragmented — Sarah's team defends every number; six to eight weeks per decision."
+- "Connected — one taxonomy, one source of truth; Sarah, James, Priya, Marcus and Elena finally see the same picture. Decisions made in days."
+- "Optimised — Ava surfaces patterns the team would have missed; decisions get pre-empted."
+- "Predictive — your team acts on signals before the market reads them."
+Close kept.
 
-## Runtime impact
-Adds ~90 words across 4 slides (≈35 sec). To hold ~5 min total: trim Slide 04 (Monday) by ~15 words and Slide 11 (Proof) by ~15 words — both already have the same numbers landing elsewhere. Updated timing markers on slides 08–14.
+## Runtime
+Adds ~25 words across the four slides. Timings on 08–14 stay; no further trims needed.
 
 ## Out of scope
-- No changes to slide components, narration audio data, or the "Slide copy updates" reference section.
-- No new personas, stats or claims — only sharper articulation of what's already in the deck.
-
-## File touched
-- `src/pages/PresenterScript.tsx` — update the `slides` array entries 07–10 (and adjust timings on 08–14, light trims on 04 and 11).
+- No edits to the "Slide copy updates" reference section, components, or narration data.
+- No new personas or numbers — only re-attribution of what's already in the deck.
