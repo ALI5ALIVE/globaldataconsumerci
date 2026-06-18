@@ -15,17 +15,20 @@ const slides: ScriptSlide[] = [
     title: "Title — Connected Intelligence for Consumer Brands",
     timing: "0:00",
     paragraphs: [
-      "Connected Intelligence for Consumer Brands. For CMOs, CSOs and Category leaders — stop reconciling data. Start running the category.",
+      "Connected Intelligence for Consumer Brands. Stop reconciling data. Start running the category.",
+      "Because in your category, the next launch decision is already being made — the question is who has the better picture. Seven vendors. Seven answers. One window closing.",
     ],
     cue: "Pause two beats, then advance.",
   },
   {
     num: "02",
-    title: "A new way of working",
-    timing: "0:12",
+    title: "You're under more pressure than ever",
+    timing: "0:15",
     paragraphs: [
-      "The brands that win don't have more data. They've changed how they work. That's what we're here to show you — a new operating model for consumer intelligence.",
+      "And you're under more pressure than ever. Competitors ship in weeks; you plan in quarters. A forty-million-pound line was lost this year to a signal someone else saw six months earlier. Consumer tastes shift in eight weeks; your research takes fourteen. Seven vendors. Seven taxonomies. Zero shared truth.",
+      "This isn't a data problem. It's an operating-model problem. Look at your Monday.",
     ],
+    cue: "Beat — transition into the story.",
   },
   {
     num: "03",
