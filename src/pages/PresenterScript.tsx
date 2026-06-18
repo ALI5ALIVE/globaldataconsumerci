@@ -156,14 +156,22 @@ const copyChanges: { section: string; items: CopyChange[] }[] = [
   {
     section: "Slide 00 — Title",
     items: [
-      { field: "Subtitle", before: "What you're about to see isn't just better data. It's a completely new way of working.", after: "Stop reconciling data. Start running the category." },
-      { field: "Quote attribution", after: "Add a source line (e.g. \u201CInternal benchmark, 2025\u201D) so the pull-quote doesn't read as invented." },
+      { field: "Audience badge", before: "For CMOs, CSOs & Category Leaders", after: "For the leaders deciding what to launch next." },
+      { field: "Subtitle (display)", before: "What you're about to see isn't just better data. It's a completely new way of working.", after: "Stop reconciling data. Start running the category." },
+      { field: "Tension line (replaces stats strip)", after: "In your category, the next launch decision is already being made. The question is who has the better picture." },
+      { field: "Pull-quote", before: "The brands that win don't have more data. They have connected intelligence.", after: "Seven vendors. Seven answers. One window closing." },
+      { field: "Quote attribution", after: "Internal benchmark \u00B7 Top-10 FMCG \u00B7 2025" },
     ],
   },
   {
     section: "Slide 01 — The Pressure",
     items: [
-      { field: "Card order", after: "Reorder cards: Market Velocity \u2192 First-Mover Risk \u2192 Consumer Expectations \u2192 Fragmented View. Feel the squeeze before the cause." },
+      { field: "Subtitle (replaces \u201Cconsumers changing faster\u201D)", after: "60% of your week reconciling data. \u00A363M of category revenue at risk. And the cycle is accelerating." },
+      { field: "Card order", after: "Market Velocity (featured, full-width) \u2192 First-Mover Risk \u2192 Consumer Expectations \u2192 Fragmented View. Feel the squeeze before the cause." },
+      { field: "Card copy \u2014 Market Velocity", before: "Competitors move in weeks, you move in quarters", after: "Competitors ship in weeks. Your planning cycle is quarters." },
+      { field: "Card copy \u2014 First-Mover Risk", before: "Every missed signal is a missed category", after: "A \u00A340M line lost this year to a signal someone else saw 6 months earlier." },
+      { field: "Card copy \u2014 Consumer Expectations", before: "Changing faster than your planning cycles", after: "Tastes shift in 8 weeks. Your research takes 14." },
+      { field: "Card copy \u2014 Fragmented View", before: "Your data lives in 7 different places", after: "7 vendors. 7 taxonomies. 0 shared truth." },
       { field: "Bridge", before: "Sound familiar? Picture your typical Monday.", after: "This isn't a data problem. It's an operating-model problem. Look at your Monday." },
     ],
   },
