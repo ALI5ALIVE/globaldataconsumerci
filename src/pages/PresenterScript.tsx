@@ -69,9 +69,9 @@ const slides: ScriptSlide[] = [
     title: "One Lens. Five solutions. One AI layer.",
     timing: "2:13",
     paragraphs: [
-      "Now imagine the same opportunity through one connected lens. Five intelligence solutions, each built on forty years of analyst-validated data, wrapped in one AI layer — Ava — and each one owned by a real person on your team.",
-      "Sarah in Strategy gets analyst-led foresight across twenty-two sectors — forty years of validated thinking, not a scraped feed. James in Market sees the category sized and forecast across a hundred and ten countries, refreshed continuously. Priya in Competitive tracks twenty-five thousand companies — every deal, filing and move, the day it happens. Marcus in Innovation reads four million products and patents, concept to launch. Elena in Sales walks into the retailer with the evidence, account by account. And David in Procurement consolidates fourteen contracts into one. Ava reads across all five and answers them in plain language.",
-      "One taxonomy. One source of truth. Every number traceable back to a named analyst.",
+      "Now picture the same Monday — but through one connected lens. Five intelligence solutions, one AI layer — Ava — sitting on forty years of analyst-validated data and one shared taxonomy. Here's what that means for the people on your team.",
+      "Sarah in Strategy stops chasing convergence across vendors — she sees it, scored, across twenty-two sectors. James in Market stops rebuilding TAMs in spreadsheets — they're already sized and forecast across a hundred and ten countries. Priya in Competitive stops finding out late — twenty-five thousand companies, every move tracked the day it happens. Marcus in Innovation stops guessing at concepts — four million products and patents tell him what's already been tried and what's about to land. Elena in Sales stops walking into retailers with caveats — she walks in with the evidence, account by account. And David in Procurement consolidates fourteen contracts into one.",
+      "One platform. One source of truth. Every number traceable back to a named analyst. Now watch what they do with it on a Friday.",
     ],
   },
   {
@@ -79,11 +79,12 @@ const slides: ScriptSlide[] = [
     title: "One question. Five perspectives. One connected answer.",
     timing: "2:55",
     paragraphs: [
-      "Here's what that looks like in practice. One question: should you launch plant-based snacking in Southeast Asia?",
-      "Because Sarah, James, Priya, Marcus and Elena are all reading from the same taxonomy, the numbers reconcile automatically. Sarah: convergence score ninety-two. James: two-point-one billion dollar TAM, Southeast Asia is the white space. Priya: high threat, a rival is building capacity. Marcus: three of five concepts pass. Elena: two of three target retailers ready for a first-mover pitch.",
-      "Every figure carries a confidence score and a citation. You can click from the GO verdict back to the source survey, the patent filing, the shipment record. Old way: fourteen weeks, three answers, no audit trail. New way: GO, validated in forty-seven minutes — and you can prove every line.",
+      "The CEO's Friday question: should you launch plant-based snacking in Southeast Asia?",
+      "Sarah — convergence ninety-two. James — two-point-one billion dollar TAM, Southeast Asia is the white space. Priya — high threat, a rival is building capacity. Marcus — three of five concepts pass. Elena — two of three target retailers ready for a first-mover pitch.",
+      "Same taxonomy, so the numbers reconcile automatically. Every figure carries a confidence score and a citation — you can click the GO verdict back to the source survey, the patent filing, the shipment record. Old way: fourteen weeks, three answers, no audit trail. New way: GO, validated in forty-seven minutes — and you can prove every line.",
     ],
   },
+
   {
     num: "09",
     title: "What changes when your best people stop being data janitors",
