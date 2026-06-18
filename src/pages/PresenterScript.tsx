@@ -190,7 +190,7 @@ const copyChanges: { section: string; items: CopyChange[] }[] = [
     items: [
       { field: "Title", before: "One lens. Six solutions. One AI layer.", after: "One Lens. Five solutions. One AI layer." },
       { field: "Subtitle", after: "Five intelligence solutions. One AI layer. One consumer truth \u2014 wrapped around your category." },
-      { field: "Persona lock", after: "Sarah (Strategy) \u00B7 James (Market) \u00B7 Priya (Competitive) \u00B7 Marcus (Innovation) \u00B7 Elena (Sales) \u00B7 David (Procurement outcome). Drop the \u201C6 solutions\u201D framing \u2014 procurement is an outcome, not a solution." },
+      { field: "Persona lock", after: "Sarah (Strategy) \u00B7 Chloe (Market Sizing) \u00B7 Sebastian (Competitive Intelligence) \u00B7 Priya (Innovation) \u00B7 Marcus (Commercial). Five personas \u2014 not six. Match the deck exactly: no James, no Elena, no David." },
     ],
   },
   {
