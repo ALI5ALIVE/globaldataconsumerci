@@ -69,8 +69,8 @@ const slides: ScriptSlide[] = [
     title: "One Lens. Five solutions. One AI layer.",
     timing: "2:13",
     paragraphs: [
-      "Now imagine the same opportunity through one connected lens. Five intelligence solutions, each built on forty years of analyst-validated data, wrapped in one AI layer — Ava.",
-      "Strategic Intelligence — analyst-led foresight across twenty-two sectors. Market Intelligence — sized and forecast across a hundred and ten countries, refreshed continuously. Competitive Intelligence — twenty-five thousand companies, every deal, filing and move tracked. Innovation Intelligence — four million products and patents, concept-to-launch signals. Sales Intelligence — retailer-ready evidence, account by account. And Ava reads across all five and answers in plain language.",
+      "Now imagine the same opportunity through one connected lens. Five intelligence solutions, each built on forty years of analyst-validated data, wrapped in one AI layer — Ava — and each one owned by a real person on your team.",
+      "Sarah in Strategy gets analyst-led foresight across twenty-two sectors — forty years of validated thinking, not a scraped feed. James in Market sees the category sized and forecast across a hundred and ten countries, refreshed continuously. Priya in Competitive tracks twenty-five thousand companies — every deal, filing and move, the day it happens. Marcus in Innovation reads four million products and patents, concept to launch. Elena in Sales walks into the retailer with the evidence, account by account. And David in Procurement consolidates fourteen contracts into one. Ava reads across all five and answers them in plain language.",
       "One taxonomy. One source of truth. Every number traceable back to a named analyst.",
     ],
   },
@@ -80,7 +80,7 @@ const slides: ScriptSlide[] = [
     timing: "2:55",
     paragraphs: [
       "Here's what that looks like in practice. One question: should you launch plant-based snacking in Southeast Asia?",
-      "Because every team is reading from the same taxonomy, the numbers reconcile automatically. Sarah: convergence score ninety-two. James: two-point-one billion dollar TAM, Southeast Asia is the white space. Priya: high threat, a rival is building capacity. Marcus: three of five concepts pass. Elena: two of three target retailers ready for a first-mover pitch.",
+      "Because Sarah, James, Priya, Marcus and Elena are all reading from the same taxonomy, the numbers reconcile automatically. Sarah: convergence score ninety-two. James: two-point-one billion dollar TAM, Southeast Asia is the white space. Priya: high threat, a rival is building capacity. Marcus: three of five concepts pass. Elena: two of three target retailers ready for a first-mover pitch.",
       "Every figure carries a confidence score and a citation. You can click from the GO verdict back to the source survey, the patent filing, the shipment record. Old way: fourteen weeks, three answers, no audit trail. New way: GO, validated in forty-seven minutes — and you can prove every line.",
     ],
   },
@@ -89,7 +89,8 @@ const slides: ScriptSlide[] = [
     title: "What changes when your best people stop being data janitors",
     timing: "3:30",
     paragraphs: [
-      "And this is what changes. Seventy-five percent of your team's time, back on strategy. Decisions made on one reconciled dataset — not seven conflicting ones. Decision velocity from weeks to hours. And double the launch success rate, because the GO or NO-GO is built on evidence the whole exec team already trusts.",
+      "And this is what changes for the people on your team. Sarah stops defending numbers and starts shaping the category. James stops rebuilding TAMs and starts calling the next market. Priya stops chasing rumours and starts pre-empting moves. Marcus stops killing time on dead concepts. Elena walks into retailers already trusted.",
+      "Seventy-five percent of your team's time, back on strategy. One reconciled dataset — not seven conflicting ones. Double the launch success rate.",
       "This is what a new operating model looks like on a Tuesday.",
     ],
   },
@@ -98,10 +99,11 @@ const slides: ScriptSlide[] = [
     title: "The Intelligence Maturity Journey",
     timing: "4:00",
     paragraphs: [
-      "There's a clear path to get there. Fragmented — decisions defended, not made; six to eight weeks per call. Connected — one taxonomy, one source of truth, decisions made in days. This is the gateway; everything compounds from here. Optimised — Ava surfaces patterns humans miss, and decisions get pre-empted. Predictive — you act on signals before the market reads them.",
+      "There's a clear path to get there. Fragmented — Sarah's team defends every number; six to eight weeks per decision. Connected — one taxonomy, one source of truth; Sarah, James, Priya, Marcus and Elena finally see the same picture. Decisions made in days. This is the gateway; everything compounds from here. Optimised — Ava surfaces patterns the team would have missed, and decisions get pre-empted. Predictive — your team acts on signals before the market reads them.",
       "You can't skip to Predictive. Connected is the foundation.",
     ],
   },
+
   {
     num: "11",
     title: "The proof",
