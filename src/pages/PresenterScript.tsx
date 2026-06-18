@@ -70,7 +70,7 @@ const slides: ScriptSlide[] = [
     timing: "2:13",
     paragraphs: [
       "Now picture the same Monday — but through one connected lens. Five intelligence solutions, one AI layer — Ava — sitting on forty years of analyst-validated data and one shared taxonomy. Here's what that means for the people on your team.",
-      "Sarah in Strategy stops chasing convergence across vendors — she sees it, scored, across twenty-two sectors. James in Market stops rebuilding TAMs in spreadsheets — they're already sized and forecast across a hundred and ten countries. Priya in Competitive stops finding out late — twenty-five thousand companies, every move tracked the day it happens. Marcus in Innovation stops guessing at concepts — four million products and patents tell him what's already been tried and what's about to land. Elena in Sales stops walking into retailers with caveats — she walks in with the evidence, account by account. And David in Procurement consolidates fourteen contracts into one.",
+      "Sarah in Strategy stops chasing convergence across vendors — she sees it, scored, across twenty-two sectors. Chloe in Market Sizing stops rebuilding TAMs in spreadsheets — the market is already sized and forecast across a hundred and ten countries. Sebastian in Competitive Intelligence stops finding out late — twenty-five thousand companies, every move tracked the day it happens. Priya in Innovation stops guessing at concepts — four million products and patents tell her what's already been tried and what's about to land. Marcus in Commercial stops walking into retailers with caveats — he walks in with the evidence, account by account.",
       "One platform. One source of truth. Every number traceable back to a named analyst. Now watch what they do with it on a Friday.",
     ],
   },
@@ -80,8 +80,8 @@ const slides: ScriptSlide[] = [
     timing: "2:55",
     paragraphs: [
       "The CEO's Friday question: should you launch plant-based snacking in Southeast Asia?",
-      "Sarah — convergence ninety-two. James — two-point-one billion dollar TAM, Southeast Asia is the white space. Priya — high threat, a rival is building capacity. Marcus — three of five concepts pass. Elena — two of three target retailers ready for a first-mover pitch.",
-      "Same taxonomy, so the numbers reconcile automatically. Every figure carries a confidence score and a citation — you can click the GO verdict back to the source survey, the patent filing, the shipment record. Old way: fourteen weeks, three answers, no audit trail. New way: GO, validated in forty-seven minutes — and you can prove every line.",
+      "Sarah — convergence ninety-two. Chloe — two-point-one billion dollar TAM, Southeast Asia is the white space. Sebastian — high threat, a rival is building capacity, four patents filed. Priya — three of five concepts pass, aligned to the converging trends. Marcus — two of three target retailers ready for a first-mover pitch.",
+      "Same taxonomy, so the numbers reconcile automatically. Every figure carries a confidence score and a citation — you can click the GO verdict back to the source survey, the patent filing, the shipment record. Old way: seven vendors, fourteen weeks, three conflicting answers. New way: one platform, one meeting, GO validated in forty-seven minutes — and you can prove every line.",
     ],
   },
 
@@ -90,7 +90,7 @@ const slides: ScriptSlide[] = [
     title: "What changes when your best people stop being data janitors",
     timing: "3:30",
     paragraphs: [
-      "And this is what changes for the people on your team. Sarah stops defending numbers and starts shaping the category. James stops rebuilding TAMs and starts calling the next market. Priya stops chasing rumours and starts pre-empting moves. Marcus stops killing time on dead concepts. Elena walks into retailers already trusted.",
+      "And this is what changes for the people on your team. Sarah stops defending numbers and starts shaping the category. Chloe stops rebuilding TAMs and starts calling the next market. Sebastian stops chasing rumours and starts pre-empting moves. Priya stops killing time on dead concepts. Marcus walks into retailers already trusted.",
       "Seventy-five percent of your team's time, back on strategy. One reconciled dataset — not seven conflicting ones. Double the launch success rate.",
       "This is what a new operating model looks like on a Tuesday.",
     ],
@@ -100,9 +100,10 @@ const slides: ScriptSlide[] = [
     title: "The Intelligence Maturity Journey",
     timing: "4:00",
     paragraphs: [
-      "There's a clear path to get there. Fragmented — Sarah's team defends every number; six to eight weeks per decision. Connected — one taxonomy, one source of truth; Sarah, James, Priya, Marcus and Elena finally see the same picture. Decisions made in days. This is the gateway; everything compounds from here. Optimised — Ava surfaces patterns the team would have missed, and decisions get pre-empted. Predictive — your team acts on signals before the market reads them.",
+      "There's a clear path to get there. Fragmented — Sarah's team defends every number; six to eight weeks per decision. Connected — one taxonomy, one source of truth; Sarah, Chloe, Sebastian, Priya and Marcus finally see the same picture. Decisions made in days. This is the gateway; everything compounds from here. Optimised — Ava surfaces patterns the team would have missed, and decisions get pre-empted. Predictive — your team acts on signals before the market reads them.",
       "You can't skip to Predictive. Connected is the foundation.",
     ],
+
   },
 
   {
