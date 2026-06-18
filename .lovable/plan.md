@@ -1,59 +1,33 @@
 ## Goal
-Make Slides 07 and 08 explicitly resolve the pains set up in Slide 04 ("Your Monday morning") so the script reads as one continuous story rather than two halves.
+Reset the roles of Slides 07 and 08:
+- **Slide 07** = solution overview. Links the pain to the five solutions + Ava. No Monday-morning callback, no Friday meeting setup.
+- **Slide 08** = the new way of working. Carries the full Monday → Friday narrative thread and the decision payoff.
 
-## The anchors to echo
-Slide 04 plants very specific hooks that 07/08 currently glide past:
+## What changes
 
-| Slide 04 pain hook | Slide 07/08 payoff (currently) | Payoff to add |
-|---|---|---|
-| "It's 9:00. Forty-one minutes in." | — | Open 07 with the same clock: *"It's still Monday. Same nine a.m. Same forty-one minutes."* |
-| "Seven unread emails, all about the same opportunity" | — | *"Seven inboxes collapse into one view."* |
-| "The CEO wants your plant-based protein position by Friday" | Mentioned cold in 08 | Carry the CEO + Friday deadline forward as a continuous thread, not a new question |
-| "Strategy says peaking, social says accelerating" | — | Sarah's beat resolves the contradiction explicitly |
-| "Finance has two TAM numbers" | — | Chloe's beat replaces "two TAM numbers" with one reconciled $2.1B figure |
-| "A rival has filed four patents nobody saw coming" | Sebastian mentions "four patents" | Sebastian explicitly says *"the four patents nobody saw coming on Monday — Sebastian saw them in week one"* |
-| "Zero alignment. The clock starts now." | — | Close 08 by stopping that clock: *"Monday's clock stopped at forty-seven minutes."* |
+**Slide 07 — strip the Monday/Friday framing**
+- Opening paragraph: remove *"It's still Monday. Same nine a.m., same forty-one minutes in, same CEO email about plant-based protein…"* Replace with a pain-to-solution bridge that doesn't reference the inbox scene:
+  - *"That operating-model problem has a fix. One connected lens across five intelligence solutions, one shared taxonomy, forty years of analyst-validated data — and Ava, your AI layer, sitting across all of it. Ava doesn't replace your team. She does the work between them: spotting the pattern that crosses two solutions, flagging the signal before anyone asks, drafting the first answer so your people start at minute thirty, not minute zero."*
+- Persona paragraph: keep the "stops X, starts Y" structure that links each pain to its solution, but strip Monday-specific call-outs:
+  - Remove *"no more 'strategy says peaking, social says accelerating'"* from Sarah.
+  - Remove *"no more two finance numbers"* from Chloe.
+  - Remove *"the four-patent surprise from Monday's inbox doesn't happen anymore"* from Sebastian — replace with a generic *"stops finding out late"*.
+  - Priya, Marcus, David already generic — leave as-is.
+- Closing paragraph: remove *"Now it's Friday — same week, same question, same CEO. Watch what they do with it."* Replace with a cleaner solution-overview close:
+  - *"One platform. One source of truth. Every number traceable back to a named analyst — and Ava connecting the dots none of them would have time to spot alone."*
 
-## Slide-by-slide edits
+Net result: Slide 07 reads as a clean solution overview that resolves the pain *thematically* (operating-model fix, five solutions, Ava) without re-entering the Monday scene.
 
-**Slide 07 — opening paragraph (line 75)**
-- Replace the generic *"Now picture the same Monday"* opener with a direct callback:
-  - *"It's still Monday. Same nine a.m., same forty-one minutes, same CEO email about plant-based protein. But this time the seven inboxes collapse into one connected lens…"*
-- Keep the rest of the paragraph (Ava as connective tissue, five solutions, etc.) intact.
-
-**Slide 07 — persona paragraph (line 76)**
-- Re-anchor each persona to the Monday pain they personally resolve. Minor adds, no length blowout:
-  - Sarah: *"…stops chasing convergence across vendors — no more 'strategy says peaking, social says accelerating'; she sees one score…"*
-  - Chloe: *"…stops rebuilding TAMs in spreadsheets — no more two finance numbers; one sized market…"*
-  - Sebastian: *"…the four-patent surprise from Monday's inbox doesn't happen anymore — he saw the first filing in week one."*
-  - Priya, Marcus, David: keep as-is.
-
-**Slide 07 — closing paragraph (line 77)**
-- Add a one-line bridge to Friday so 08 lands as a continuation, not a reset:
-  - *"…none of them would have time to spot alone. Now it's Friday — same week, same question, same CEO. Watch what they do with it."*
-
-**Slide 08 — opening (lines 85–86)**
-- Tie the question explicitly back to Monday's inbox:
-  - *"It's Friday. Same CEO. Same question from Monday's nine-a.m. email: should you launch plant-based snacking in Southeast Asia? Four days, not fourteen weeks."*
-- Keep the Ava pre-meeting paragraph intact.
-
-**Slide 08 — persona paragraph (line 87)**
-- One small Sebastian tweak so Monday's specific shock pays off:
-  - *"…four patents filed in the last ninety days — the same four that ambushed the inbox on Monday, only this time Sebastian flagged them in week one…"*
-
-**Slide 08 — closer (line 88)**
-- Replace the final line of the "Old way / New way" beat with the clock callback:
-  - *"…GO validated in forty-seven minutes. Monday's clock that 'started now' — it stopped on Friday at minute forty-seven, with every line traceable to source."*
-
-## What stays the same
-- Slides 01–06 narrative (the pain build) — untouched.
-- Slides 09–14 — untouched.
-- All numbers, personas, Ava framing, deck visuals — untouched.
-- Total runtime impact: ~+25 words across 07–08 (~+8 seconds).
+**Slide 08 — own the Monday → Friday narrative**
+- Opening: strengthen the explicit Monday callback so the whole inbox-to-decision arc lives here:
+  - *"Remember Monday's nine-a.m. inbox? Seven unread, one CEO question, clock started. It's now Friday — same week, same question: should you launch plant-based snacking in Southeast Asia? Four days, not fourteen weeks."*
+- Ava pre-meeting paragraph: unchanged.
+- Persona paragraph: keep the Monday-callout in Sebastian's beat (*"the same four that ambushed the inbox on Monday, only this time Sebastian flagged the first filing in week one"*) — this is where Monday pays off.
+- Closer: keep the *"Monday's clock that 'started now' — it stopped on Friday at minute forty-seven"* line. This is the narrative payoff and belongs only on 08.
 
 ## File to touch
-- `src/pages/PresenterScript.tsx` — `paragraphs` arrays for the `num: "07"` and `num: "08"` slides only (lines 74–88).
+- `src/pages/PresenterScript.tsx` — `paragraphs` array for the `num: "07"` slide only (lines 74–78). Slide 08 stays as it is in the current build.
 
 ## Out of scope
-- Visual/slide-component changes.
-- Memory updates (the deck-structure and narration memories already cover this story arc).
+- Slide 08 content (already correctly carrying the Monday→Friday arc after the previous turn).
+- All other slides, visuals, memory.
